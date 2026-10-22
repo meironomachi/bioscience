@@ -19,6 +19,14 @@ body{margin:0;background:var(--bg);color:var(--ink);
   font-family:"Pretendard","Gothic A1",-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
   font-size:16px;line-height:1.72;word-break:keep-all;}
 .wrap{max-width:920px;margin:0 auto;padding:0 20px 80px}
+.sitebar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line);font-size:14px}
+.sitebar .in{max-width:920px;margin:0 auto;padding:8px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.sitebar .home{color:var(--g800);text-decoration:none;font-weight:800;white-space:nowrap}
+.sitebar nav{display:flex;gap:4px;overflow-x:auto}
+.sitebar nav a{color:var(--g700);text-decoration:none;font-weight:600;padding:2px 9px;border-radius:999px;white-space:nowrap}
+.sitebar nav a:hover{background:var(--g50)}
+@media (max-width:680px){.sitebar nav a{padding:2px 6px}.sitebar nav a span{display:none}}
 header.hero{background:linear-gradient(135deg,var(--g800),var(--g600));color:#fff;padding:56px 20px 44px}
 header.hero .wrap{padding-bottom:0}
 .hero .kicker{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);
@@ -71,6 +79,16 @@ footer{margin-top:60px;border-top:1px solid var(--line);padding-top:16px;font-si
 </style>
 </head>
 <body>
+<div class="sitebar"><div class="in">
+  <a class="home" href="index.html">생명과학의 세계</a>
+  <nav aria-label="주차 바로가기">
+    <a href="weeks/week02_cell_communication.html">2<span>주차</span></a>
+    <a href="weeks/week03_genetic_variation.html">3<span>주차</span></a>
+    <a href="weeks/week04_cancer.html">4<span>주차</span></a>
+    <a href="weeks/week05_immunity_allergy.html">5<span>주차</span></a>
+    <a href="weeks/week06_homeostasis_memory_self.html">6<span>주차</span></a>
+  </nav>
+</div></div>
 
 <header class="hero">
   <div class="wrap">
@@ -87,7 +105,7 @@ footer{margin-top:60px;border-top:1px solid var(--line);padding-top:16px;font-si
 
 <section class="part">
   <div class="part-head"><span class="no">목록</span><h2>주차별 교안</h2></div>
-  <p class="part-sub">카드를 누르면 해당 주차 요약본이 열립니다. 각 요약본 위쪽 막대에서 목록으로 돌아올 수 있습니다.</p>
+  <p class="part-sub">카드를 누르면 해당 주차 요약본이 열립니다. 맨 위 막대에서 주차를 바로 고를 수도 있고, 각 요약본 위쪽 막대에서 목록으로 돌아올 수 있습니다.</p>
 
   <ul class="weeks">
     <li><a class="week" href="weeks/week02_cell_communication.html">
