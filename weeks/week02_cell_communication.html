@@ -1,0 +1,1082 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2주차 세포는 어떻게 소통할까</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --g900:#123d26; --g800:#14532d; --g700:#166534; --g600:#15803d; --g500:#22a05a;
+  --g200:#bbe5c8; --g100:#dcf3e3; --g50:#f2faf4;
+  --ink:#1c2420; --muted:#56635b; --line:#d6e2da; --bg:#fbfdfb; --card:#ffffff;
+  --sup-bg:#f6f9ec; --sup-line:#9bb35a; --sup-tag:#5b7a1e;
+  --warn:#9a3412; --na:#1d5fbf; --k:#b4232a;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Pretendard","Gothic A1",-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  font-size:16px;line-height:1.72;word-break:keep-all;}
+.wrap{max-width:920px;margin:0 auto;padding:0 20px 80px}
+header.hero{background:linear-gradient(135deg,var(--g800),var(--g600));color:#fff;padding:56px 20px 44px}
+header.hero .wrap{padding-bottom:0}
+.hero .kicker{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);
+  padding:3px 12px;border-radius:999px;font-size:13px;letter-spacing:.04em}
+.hero h1{font-size:34px;line-height:1.3;margin:14px 0 8px;font-weight:800}
+.hero p{margin:0;opacity:.9}
+.hero .meta{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px;font-size:13px}
+.hero .meta span{background:rgba(0,0,0,.18);padding:4px 10px;border-radius:6px}
+
+nav.toc{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--g600);
+  border-radius:10px;padding:18px 22px;margin:28px 0}
+nav.toc h2{margin:0 0 8px;font-size:17px;color:var(--g800)}
+nav.toc ol{margin:0;padding-left:20px}
+nav.toc li{margin:2px 0}
+nav.toc a{color:var(--ink);text-decoration:none}
+nav.toc a:hover{color:var(--g600);text-decoration:underline}
+nav.toc ol ol{list-style:none;padding-left:14px;font-size:14.5px;color:var(--muted)}
+nav.toc ol ol a{color:var(--muted)}
+
+.part{margin-top:56px}
+.part-head{display:flex;align-items:center;gap:12px;border-bottom:3px solid var(--g600);padding-bottom:8px}
+.part-head .no{background:var(--g700);color:#fff;font-weight:800;border-radius:8px;padding:4px 12px;font-size:14px}
+.part-head h2{margin:0;font-size:25px;color:var(--g900)}
+.part-sub{color:var(--muted);font-size:14px;margin:6px 0 0}
+
+section.topic{margin-top:38px}
+section.topic h3{font-size:20px;margin:0 0 10px;color:var(--g800);display:flex;align-items:baseline;gap:8px}
+section.topic h3 .num{color:var(--g500);font-weight:800;font-size:16px}
+section.topic h3 .en{font-size:13px;color:var(--muted);font-weight:500}
+h4{font-size:16.5px;margin:20px 0 6px;color:var(--g700)}
+ul.pt{margin:6px 0 10px;padding-left:20px}
+ul.pt li{margin:3px 0}
+ul.pt li::marker{color:var(--g600)}
+.eval{display:block;margin:10px 0;padding:8px 12px;background:var(--g50);border-left:3px solid var(--g500);
+  font-size:14.5px;color:#2d3d33}
+.eval::before{content:"정리 ▸ ";font-weight:700;color:var(--g700)}
+b.g, .hl{color:var(--g700);font-weight:700}
+.na{color:var(--na);font-weight:700}.k{color:var(--k);font-weight:700}
+.src{font-size:12.5px;color:var(--muted);margin-top:4px}
+
+.key{background:var(--card);border:1px solid var(--g200);border-radius:10px;padding:14px 18px;margin:14px 0;
+  box-shadow:0 1px 0 var(--g100)}
+.key .label{display:inline-block;font-size:12px;font-weight:800;color:#fff;background:var(--g600);
+  padding:2px 9px;border-radius:5px;margin-bottom:6px}
+
+.sup{background:var(--sup-bg);border:1.5px dashed var(--sup-line);border-radius:10px;padding:14px 18px 12px;margin:18px 0;position:relative}
+.sup .tag{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:800;color:#fff;
+  background:var(--sup-tag);padding:2px 10px;border-radius:5px}
+.sup .tag::before{content:"+";font-size:14px}
+.sup h5{margin:8px 0 4px;font-size:15.5px;color:#3b4f14}
+.sup p,.sup li{font-size:14.5px}
+.sup ul{padding-left:18px;margin:6px 0}
+.sup .why{font-size:13px;color:#5e6b45;margin-top:6px}
+
+.tbl{width:100%;overflow-x:auto;margin:12px 0}
+table{border-collapse:collapse;width:100%;font-size:14.5px;background:var(--card)}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+thead th{background:var(--g700);color:#fff;font-weight:700;white-space:nowrap}
+tbody tr:nth-child(even) td{background:var(--g50)}
+td.c,th.c{text-align:center}
+tr.sep td{border-top:3px solid var(--g600)}
+
+figure{margin:16px 0;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px}
+figure svg{width:100%;height:auto;display:block}
+figcaption{font-size:13px;color:var(--muted);margin-top:8px;text-align:center}
+
+.flow{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:12px 0}
+.flow span{background:var(--g50);border:1px solid var(--g200);border-radius:999px;padding:4px 12px;font-size:14px}
+.flow span.on{background:var(--g600);color:#fff;border-color:var(--g600);font-weight:700}
+.flow i{color:var(--g500);font-style:normal;font-weight:700}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:680px){.grid2{grid-template-columns:1fr}.hero h1{font-size:27px}}
+.mini{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px}
+.mini h4{margin-top:0}
+
+footer{margin-top:60px;border-top:1px solid var(--line);padding-top:16px;font-size:13px;color:var(--muted)}
+@media print{
+  header.hero{background:var(--g800)!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .sup,.key,figure,table{break-inside:avoid}
+  nav.toc{display:none}
+}
+</style>
+<style>
+.sitebar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line);font-size:14px}
+.sitebar .in{max-width:920px;margin:0 auto;padding:8px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.sitebar a{color:var(--g700);text-decoration:none;font-weight:700}
+.sitebar a:hover{text-decoration:underline}
+.sitebar .wk{color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pager{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:48px}
+.pager a{display:block;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px;
+  color:var(--ink);text-decoration:none}
+.pager a:hover{border-color:var(--g500)}
+.pager small{display:block;color:var(--muted);font-size:12.5px}
+.pager .next{text-align:right;grid-column:2}
+@media (max-width:680px){.pager{grid-template-columns:1fr}.pager .next{grid-column:1}}
+@media print{.sitebar,.pager{display:none}}
+</style>
+</head>
+<body>
+<div class="sitebar"><div class="in"><a href="../index.html">← 전체 교안 목록</a><span class="wk">2주차 · 세포 소통</span></div></div>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="kicker">생명과학의 세계 · 2주차</span>
+    <h1>생명체의 기본단위 세포는 어떻게 소통할까?</h1>
+    <p>세포의 기본 개념 (1)(2) · 세포 소통 (1)(2) 통합 정리</p>
+    <div class="meta">
+      <span>01차시 세포의 기본 개념</span><span>02차시 세포 소통</span><span>용어사전 반영</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+<nav class="toc">
+  <h2>목차</h2>
+  <ol>
+    <li><a href="#p1">세포의 기본 개념</a>
+      <ol>
+        <li><a href="#t1-1">1-1 생명체의 구성 단계</a></li>
+        <li><a href="#t1-2">1-2 세포의 다양성과 구조</a></li>
+        <li><a href="#t1-3">1-3 세포막의 기능 – 방과 문의 비유</a></li>
+        <li><a href="#t1-4">1-4 생리학과 세포생리학</a></li>
+        <li><a href="#t1-5">1-5 체액의 양과 수분 균형</a></li>
+        <li><a href="#t1-6">1-6 체액 구획과 조성</a></li>
+        <li><a href="#t1-7">1-7 전기적 중성·항상성·농도차의 형성</a></li>
+      </ol>
+    </li>
+    <li><a href="#p2">세포 소통</a>
+      <ol>
+        <li><a href="#t2-1">2-1 세포막의 구성 – 인지질과 단백질</a></li>
+        <li><a href="#t2-2">2-2 상피와 세포연접</a></li>
+        <li><a href="#t2-3">2-3 막수송의 분류</a></li>
+        <li><a href="#t2-4">2-4 수동수송 – 단순확산·촉진확산</a></li>
+        <li><a href="#t2-5">2-5 능동수송 – 1차·2차</a></li>
+        <li><a href="#t2-6">2-6 막수송 종합 비교</a></li>
+        <li><a href="#t2-7">2-7 상피 수송</a></li>
+        <li><a href="#t2-8">2-8 세포내 섭취·세포외 배출·엑소좀</a></li>
+        <li><a href="#t2-9">2-9 특수한 세포 소통 – 신경전달물질·호르몬·약물</a></li>
+      </ol>
+    </li>
+    <li><a href="#p3">용어 정리와 용어사전 정정</a></li>
+  </ol>
+</nav>
+
+<!-- ===================== PART 1 ===================== -->
+<div class="part" id="p1">
+  <div class="part-head"><span class="no">01차시</span><h2>세포의 기본 개념</h2></div>
+  <p class="part-sub">학습목표: 세포의 특징 이해 · 체액의 조성 설명 · 체액 항상성 설명</p>
+</div>
+
+<section class="topic" id="t1-1">
+  <h3><span class="num">1-1</span>생명체의 구성 단계 <span class="en">Cell is the smallest basic unit of organism</span></h3>
+  <div class="flow">
+    <span>원자</span><i>→</i><span>분자</span><i>→</i><span>거대분자</span><i>→</i><span>세포소기관</span><i>→</i>
+    <span class="on">세포</span><i>→</i><span>조직</span><i>→</i><span>기관</span><i>→</i><span>기관계</span><i>→</i><span>개체(유기체)</span>
+  </div>
+  <ul class="pt">
+    <li>세포 = 생명체를 이루는 <b class="g">가장 작은 기본 단위</b>. 세포 아래 단계(분자·세포소기관)는 혼자서 생명 활동을 하지 못함</li>
+    <li><b>건물–방 비유</b>: 인체(건물)는 수조 개의 세포(방)로 이루어짐. 롯데월드타워가 층마다 용도가 다른 방으로 채워지듯, 인체도 모양·기능이 다른 세포들이 모여 하나의 몸을 이룸</li>
+    <li><b>기관계</b>: 신경계·내분비계·근골격계·순환계·호흡계·소화계·비뇨계·생식계. 인체는 이 기관계들이 <b class="g">통합된 단위로 작동</b>함 (Human is operated as integrated units)</li>
+    <li>순환계가 가운데에서 다른 기관계를 잇고, 신경계·내분비계가 전체를 조절하는 구조</li>
+  </ul>
+  <span class="eval">인체를 기관계 수준(해부학)에서도 볼 수 있지만, 실험실 수준의 기초 연구는 결국 세포·분자 단위로 내려가 기능을 확인함. 이번 주 강의가 세포에서 출발하는 이유임</span>
+
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>인체 세포는 몇 개인가</h5>
+    <ul>
+      <li>교안은 "수조 개(trillions)"로만 표기함</li>
+      <li>널리 인용되는 추정치는 성인 기준 약 <b>37조 개</b>(3.7×10<sup>13</sup>, Bianconi 외, 2013). 그중 수로는 적혈구가 가장 많은 비중을 차지함</li>
+      <li>몸 안의 세균 수도 이와 비슷한 규모(약 38조 개, Sender 외, 2016)로 추정됨</li>
+    </ul>
+    <p class="why">교안의 "trillions"가 어느 정도인지 감을 잡기 위한 참고 수치임. 연구마다 추정 방법이 달라 수치는 근사값임.</p>
+  </div>
+</section>
+
+<section class="topic" id="t1-2">
+  <h3><span class="num">1-2</span>세포의 다양성과 구조 <span class="en">Cell diversity / Cell structure</span></h3>
+  <h4>세포의 다양성</h4>
+  <div class="tbl"><table>
+    <thead><tr><th>세포</th><th>모양의 특징</th><th>모양과 연결되는 기능</th></tr></thead>
+    <tbody>
+      <tr><td>혈구 (적혈구·백혈구)</td><td>둥글고 작음</td><td>혈관 안을 흐르며 산소 운반·면역</td></tr>
+      <tr><td>피부 표면 세포</td><td>납작하고 촘촘히 겹침</td><td>외부로부터 몸을 막음</td></tr>
+      <tr><td>뼈세포</td><td>가지가 사방으로 뻗음</td><td>뼈 기질 유지, 이웃 세포와 연결</td></tr>
+      <tr><td>원주상피세포·배상세포</td><td>기둥 모양 / 술잔 모양</td><td>흡수(원주상피) · 점액 분비(배상세포)</td></tr>
+      <tr><td>심장근세포</td><td>가지 친 원통, 서로 이어짐</td><td>함께 수축해 혈액을 내보냄</td></tr>
+      <tr><td>골격근세포</td><td>길고 핵이 여러 개</td><td>뼈를 움직이는 수의적 수축</td></tr>
+      <tr><td>평활근세포</td><td>양 끝이 가는 방추형</td><td>내장·혈관 벽의 불수의적 수축</td></tr>
+      <tr><td>신경세포(뉴런)</td><td>긴 축삭과 많은 가지돌기</td><td>먼 거리로 신호 전달</td></tr>
+    </tbody>
+  </table></div>
+
+  <h4>세포란 무엇인가 (What is a cell?)</h4>
+  <ul class="pt">
+    <li>모든 생물의 <b class="g">기본 구성 단위(building blocks)</b>임</li>
+    <li>몸의 <b class="g">구조</b>를 이루고, 음식에서 영양분을 받아 에너지로 바꾸며, 세포마다 특화된 <b class="g">기능</b>을 수행함</li>
+    <li>유전물질을 지니고 있으며 스스로를 복제할 수 있음</li>
+    <li>여러 부분으로 이루어지며, 그중 특정 일을 맡는 구조를 <b>세포소기관(organelle)</b>이라 함</li>
+  </ul>
+
+  <h4>세포의 구조 – 주요 세포소기관</h4>
+  <div class="tbl"><table>
+    <thead><tr><th>구조 (영문)</th><th>하는 일</th></tr></thead>
+    <tbody>
+      <tr><td>핵 (nucleus) · 핵막 · 핵공 · 인(nucleolus)</td><td>DNA를 담고 세포 활동을 조절. 핵공으로 물질 출입, 인에서 리보솜 재료 생성</td></tr>
+      <tr><td>염색질 (chromatin)</td><td>DNA가 히스톤 단백질을 감은 형태(뉴클레오솜)로 이루어진 복합체. 분열 때 응축해 염색체가 됨</td></tr>
+      <tr><td>리보솜 (ribosome)</td><td>mRNA를 읽어 단백질을 합성</td></tr>
+      <tr><td>거친면 소포체 (rough ER)</td><td>리보솜이 붙어 있음. 단백질 합성·접힘·운반</td></tr>
+      <tr><td>매끈면 소포체 (smooth ER)</td><td>리보솜이 없음. 지질·스테로이드 합성, 당 대사</td></tr>
+      <tr><td>골지체 (Golgi apparatus)</td><td>소포체에서 받은 단백질·지질을 가공·분류해 목적지로 보냄</td></tr>
+      <tr><td>분비소포 (secretory vesicle)</td><td>골지체에서 만든 물질을 세포 밖으로 내보낼 때 담는 주머니</td></tr>
+      <tr><td>리소좀 (lysosome)</td><td>산성(pH 3~5) 내부의 가수분해효소로 이물질·노폐물 분해</td></tr>
+      <tr><td>미토콘드리아 (mitochondrion)</td><td>세포호흡으로 ATP 생산</td></tr>
+      <tr><td>중심립 (centriole)</td><td>미세소관 3개 묶음 × 9개의 원통 구조. 세포분열 시 방추사 형성</td></tr>
+      <tr><td>미세소관 (microtubule)</td><td>튜불린으로 된 속 빈 관. 세포 골격·물질 이동</td></tr>
+      <tr><td>액포 (vacuole)</td><td>물·물질을 저장하는 막 주머니 (식물세포에서 크게 발달)</td></tr>
+      <tr><td>세포질 (cytoplasm)</td><td>핵을 뺀 세포 안의 나머지 전부 (세포기질 + 세포소기관)</td></tr>
+      <tr><td>원형질막 (plasma membrane)</td><td>세포 안팎의 경계. 물질 출입을 선택적으로 조절</td></tr>
+    </tbody>
+  </table></div>
+  <p class="src">교안 그림(Getty Images Bank)의 표지 항목을 기준으로 기능을 정리함. 기능 설명은 용어사전과 일반 교과 내용 기준.</p>
+
+  <h4>세포막의 구조</h4>
+  <ul class="pt">
+    <li><b>인지질 이중층</b>이 기본 골격. 바깥쪽은 친수성 머리, 안쪽은 소수성 지방산 꼬리</li>
+    <li>이중층 사이사이에 <b>콜레스테롤</b>, 막을 관통하는 <b>내재 단백질(integral)</b>, 막 표면에 붙은 <b>표재 단백질(peripheral)</b>이 있음</li>
+    <li>바깥면(outer face)에는 단백질·지질에 붙은 <b>당 사슬(sugar side chain)</b>이 있음</li>
+  </ul>
+
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>유동 모자이크 모델 (fluid mosaic model)</h5>
+    <ul>
+      <li>1972년 싱어(Singer)와 니콜슨(Nicolson)이 제안한 세포막 모델</li>
+      <li>"유동": 인지질과 막단백질이 막 안에서 옆으로 움직일 수 있음 / "모자이크": 지질 바다 위에 여러 단백질이 박혀 있는 모습</li>
+      <li>콜레스테롤은 온도 변화에도 막이 너무 굳거나 너무 묽어지지 않게 유동성을 조절함</li>
+    </ul>
+    <p class="why">교안 그림(Britannica)이 보여주는 막 구조의 공식 명칭. 시험·교재에서 자주 쓰이는 용어임.</p>
+  </div>
+</section>
+
+<section class="topic" id="t1-3">
+  <h3><span class="num">1-3</span>세포막의 기능 – 방과 문의 비유 <span class="en">Functions of cell membrane</span></h3>
+  <p>강의는 세포를 "방", 세포막의 수송 단백질을 "문", 이동하는 물질을 "사람"으로 놓고 규칙을 하나씩 추가함.</p>
+  <div class="tbl"><table>
+    <thead><tr><th class="c">규칙</th><th>교안 내용</th><th>세포막에서 뜻하는 것 (해석)</th></tr></thead>
+    <tbody>
+      <tr><td class="c">1</td><td>문이 없음 (No door) → 아무도 못 들어감</td><td>인지질 이중층만으로는 대부분의 물질(이온·극성 분자)이 통과하지 못함</td></tr>
+      <tr><td class="c">2</td><td>빨간 사람은 같은 색(빨간) 문으로만 들어감</td><td>수송 단백질은 특정 물질만 통과시킴 → <b class="g">선택성·특이성</b></td></tr>
+      <tr><td class="c">3</td><td>파란 사람은 파란 문으로만 들어감</td><td>물질마다 전용 통로가 따로 있음 (Na⁺ 통로, K⁺ 통로 등)</td></tr>
+      <tr><td class="c">4</td><td>덩치 큰 파란 사람은 파란 문이 완전히 열려야 통과</td><td>같은 통로라도 열림 정도·조건에 따라 통과 여부가 달라짐 (크기 제한, 개폐 조절)</td></tr>
+      <tr><td class="c">5</td><td>문 밖에 사람이 몰려 있으면, 문이 열릴 때 안으로 흩어짐 (Freely moved persons)</td><td>물질은 많은 쪽에서 적은 쪽으로 퍼짐 → <b class="g">농도 기울기에 따른 확산</b></td></tr>
+      <tr><td class="c">6</td><td>한 방에 서로 다른 문이 아주 많음, 문마다 통과 규칙이 다름</td><td>한 세포막에 다양한 수송 단백질이 있고 각각 작동 방식이 다름</td></tr>
+    </tbody>
+  </table></div>
+  <span class="eval">규칙 4의 "덩치 큰 사람"은 교안에 해석이 따로 적혀 있지 않음. 위 해석은 막수송 내용과 이어지도록 붙인 것으로, 강의 설명과 차이가 있으면 강의 쪽을 따를 것</span>
+</section>
+
+<section class="topic" id="t1-4">
+  <h3><span class="num">1-4</span>생리학과 세포생리학 <span class="en">Physiology</span></h3>
+  <ul class="pt">
+    <li><b>생리학</b>: 분자·세포·조직·기관이 통합된 체계로서 생물이 어떻게 <b class="g">기능</b>하는지를, 건강할 때와 병들었을 때 모두 연구하는 학문</li>
+    <li>의학의 주춧돌 가운데 하나</li>
+    <li>몸이 어떻게 일하는지, 그리고 <b class="g">바뀌는 환경 속에서 그 기능이 어떻게 유지되는지</b>를 다룸</li>
+    <li><b>세포생리학</b>: 기관의 기능을 결정하는 세포 구성 요소를 연구</li>
+    <li><b>계통생리학(systems physiology)</b>: 여러 기관이 서로 맞물려 몸 전체의 기능과 변화에 대한 적응을 만드는 방식을 연구</li>
+  </ul>
+  <h4>세포생리학의 기본 원리 (이번 주와 이후 강의의 흐름)</h4>
+  <ol>
+    <li><b>체액</b> – 특히 세포내액과 세포외액의 조성 차이</li>
+    <li>세포막 수송 과정에 의한 <b>농도 차이의 형성</b></li>
+    <li>세포막을 사이에 둔 <b>전위차의 기원</b> (신경·근육 같은 흥분성 세포)</li>
+    <li><b>활동전위</b>의 발생과 전파</li>
+    <li>시냅스를 통한 세포 간 정보 <b>전달</b>과 신경전달물질의 역할</li>
+    <li>활동전위를 근육 <b>수축</b>으로 잇는 기전</li>
+  </ol>
+  <div class="key"><span class="label">이번 강의 범위</span><br>체액 구획(Body fluid compartment) → 막수송(Membrane transport) → 특수한 세포 소통(Special cell communications)</div>
+</section>
+
+<section class="topic" id="t1-5">
+  <h3><span class="num">1-5</span>체액의 양과 수분 균형 <span class="en">Volume and composition of body fluids</span></h3>
+  <h4>몸은 열린계(open system)</h4>
+  <ul class="pt">
+    <li>몸은 주변과 물질·에너지를 끊임없이 주고받음</li>
+    <li>소화계(영양분·염분·물 흡수), 호흡계(O₂ 흡수, CO₂ 배출), 비뇨계(유기 노폐물·염분·물 배출)가 바깥 환경과 맞닿음</li>
+    <li>순환계(혈액 = 세포 + 혈장)가 이들을 잇고, 혈액과 세포 사이는 <b>간질액(interstitial fluid)</b>이 매개함</li>
+    <li>몸 안쪽 환경(internal environment)과 바깥 환경(external environment)이 구분됨</li>
+  </ul>
+
+  <h4>체수분 총량 (Total Body Water, TBW)</h4>
+  <div class="tbl"><table>
+    <thead><tr><th>대상</th><th class="c">체중 대비 수분 비율</th></tr></thead>
+    <tbody>
+      <tr><td>신생아</td><td class="c"><b class="g">80%</b></td></tr>
+      <tr><td>성인 남성</td><td class="c"><b class="g">60%</b></td></tr>
+      <tr><td>성인 여성</td><td class="c"><b class="g">50%</b></td></tr>
+      <tr><td>노인 (교안: "Aging ?")</td><td class="c">→ 보충 참고</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>나이가 들면 체수분은 어떻게 되나 — 교안 질문 "Aging ?"에 대한 답</h5>
+    <ul>
+      <li>나이가 들수록 체수분 비율은 <b>줄어듦</b>. 노인은 대략 체중의 45~50% 수준으로 봄</li>
+      <li>이유: 물을 많이 품은 <b>근육량이 줄고</b>, 물이 적은 <b>지방 비율이 늘기</b> 때문. 성인 여성이 남성보다 낮은 것도 같은 이유(체지방 비율 차이)임</li>
+      <li>노인은 갈증을 덜 느끼고 콩팥의 소변 농축 능력도 떨어져 탈수에 더 취약함</li>
+    </ul>
+    <p class="why">교안 그림이 화살표와 물음표로만 끝나 있어, 강의에서 말로 다룬 부분을 정리함.</p>
+  </div>
+
+  <h4>물탱크 비유 (Water Tank Analogy)</h4>
+  <ul class="pt">
+    <li>수분 항상성 유지 = <b class="g">균형 맞추기</b>. 들어오는 물의 양과 나가는 물의 양이 같아야 함</li>
+    <li>성인 하루 기준 약 <b>2.5 L</b>가 들어오고 2.5 L가 나감</li>
+  </ul>
+  <div class="grid2">
+    <div class="tbl"><table>
+      <thead><tr><th>섭취 (하루 평균)</th><th class="c">양</th><th class="c">비율</th></tr></thead>
+      <tbody>
+        <tr><td>음료</td><td class="c">1,500 mL</td><td class="c">60%</td></tr>
+        <tr><td>음식</td><td class="c">750 mL</td><td class="c">30%</td></tr>
+        <tr><td>대사로 생기는 물</td><td class="c">250 mL</td><td class="c">10%</td></tr>
+        <tr><td><b>합계</b></td><td class="c"><b>2,500 mL</b></td><td class="c"></td></tr>
+      </tbody>
+    </table></div>
+    <div class="tbl"><table>
+      <thead><tr><th>배출 (하루 평균)</th><th class="c">양</th><th class="c">비율</th></tr></thead>
+      <tbody>
+        <tr><td>소변</td><td class="c">1,500 mL</td><td class="c">60%</td></tr>
+        <tr><td>피부·폐 불감손실</td><td class="c">700 mL</td><td class="c">28%</td></tr>
+        <tr><td>땀</td><td class="c">200 mL</td><td class="c">8%</td></tr>
+        <tr><td>대변</td><td class="c">100 mL</td><td class="c">4%</td></tr>
+        <tr><td><b>합계</b></td><td class="c"><b>2,500 mL</b></td><td class="c"></td></tr>
+      </tbody>
+    </table></div>
+  </div>
+  <ul class="pt">
+    <li>평상시: 공급 2.5 L / 저장량 <b>42 L</b> / 배출 2.5 L</li>
+    <li>심한 운동 시: 공급 <b>6.6 L</b> / 저장량 42 L 유지 / 배출 6.6 L → 들고 나는 양이 커져도 <b class="g">저장량(체수분)은 일정하게 유지</b>되어야 함</li>
+    <li>들어오는 양이 같아도 나가는 쪽이 막히면 탱크에 물이 차오름 (교안 오른쪽 그림)</li>
+  </ul>
+
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>42 L는 어디서 나온 숫자인가 · 운동하면 무엇이 바뀌나</h5>
+    <ul>
+      <li>체중 70 kg 성인 남성 × 체수분 60% = <b>42 L</b>. 생리학 교재에서 표준으로 쓰는 계산임</li>
+      <li>오래 심하게 운동하면 <b>땀과 호흡으로 나가는 물</b>이 크게 늘어남. 이를 메우려면 마시는 양이 늘어야 하며, 콩팥은 소변을 줄여 물을 아낌</li>
+      <li>교안 오른쪽 물탱크 그림(Skeptical Science)은 원래 기후 분야(CO₂ 축적)를 설명하는 그림을 가져온 것임. "유입이 같아도 유출이 줄면 쌓인다"는 원리만 빌려 온 것으로 보면 됨</li>
+    </ul>
+  </div>
+</section>
+
+<section class="topic" id="t1-6">
+  <h3><span class="num">1-6</span>체액 구획과 조성 <span class="en">Body Fluid Compartments</span></h3>
+
+  <figure>
+    <svg viewBox="0 0 720 230" role="img" aria-label="체중 대비 체액 구획 비율">
+      <style>.t{font:600 14px Pretendard,sans-serif}.s{font:500 12px Pretendard,sans-serif;fill:#56635b}</style>
+      <text x="10" y="22" class="t" fill="#123d26">체중 100% (성인 남성 기준)</text>
+      <rect x="10" y="36" width="280" height="56" fill="#e3e8e5"/>
+      <text x="150" y="69" text-anchor="middle" class="t" fill="#56635b">고형분 40%</text>
+      <rect x="290" y="36" width="420" height="56" fill="#22a05a"/>
+      <text x="500" y="69" text-anchor="middle" class="t" fill="#fff">체액(TBW) 60%</text>
+
+      <text x="290" y="122" class="t" fill="#123d26">체액 60%의 구성</text>
+      <rect x="290" y="134" width="280" height="56" fill="#166534"/>
+      <text x="430" y="160" text-anchor="middle" class="t" fill="#fff">세포내액 ICF 40%</text>
+      <text x="430" y="178" text-anchor="middle" class="s" fill="#dcf3e3" style="fill:#dcf3e3">TBW의 2/3</text>
+      <rect x="570" y="134" width="105" height="56" fill="#7cc795"/>
+      <text x="622" y="160" text-anchor="middle" class="t" fill="#123d26">간질액 15%</text>
+      <text x="622" y="178" text-anchor="middle" class="s">ECF의 3/4</text>
+      <rect x="675" y="134" width="35" height="56" fill="#bbe5c8"/>
+      <text x="692" y="166" text-anchor="middle" class="t" fill="#123d26">5%</text>
+      <text x="692" y="210" text-anchor="middle" class="s">혈장</text>
+      <line x1="570" y1="200" x2="710" y2="200" stroke="#15803d" stroke-width="2"/>
+      <text x="640" y="222" text-anchor="middle" class="s">세포외액 ECF 20% (TBW의 1/3)</text>
+    </svg>
+    <figcaption>체중 대비 체액 구획. 숫자는 교안(Body Fluid Compartments) 기준</figcaption>
+  </figure>
+
+  <div class="tbl"><table>
+    <thead><tr><th>구획</th><th class="c">체중 대비</th><th class="c">체액 대비</th><th>설명</th></tr></thead>
+    <tbody>
+      <tr><td><b>세포내액 (ICF)</b></td><td class="c">40%</td><td class="c">2/3</td><td>세포 안의 물. <b class="g">단백질 농도가 높음</b></td></tr>
+      <tr><td><b>세포외액 (ECF)</b></td><td class="c">20%</td><td class="c">1/3</td><td>세포 밖의 물. 아래 두 가지로 나뉨</td></tr>
+      <tr><td>&nbsp;└ 간질액 (IF)</td><td class="c">15%</td><td class="c">ECF의 3/4</td><td>세포를 적시는 액체. 혈장이 모세혈관 벽에서 걸러진(ultrafiltration) 것</td></tr>
+      <tr><td>&nbsp;└ 혈장 (plasma)</td><td class="c">5%</td><td class="c">ECF의 1/4</td><td>혈관 안을 순환하는 액체</td></tr>
+    </tbody>
+  </table></div>
+  <ul class="pt">
+    <li>혈장과 간질액은 조성이 거의 같음. 다만 <b class="g">혈장은 단백질 농도가 높음</b> (단백질은 모세혈관 벽을 잘 빠져나가지 못함)</li>
+    <li>혈장 ↔ 간질액 사이에는 <b>모세혈관 벽</b>, 간질액 ↔ 세포내액 사이에는 <b>세포막</b>이 있음</li>
+    <li>세포와 ECF 사이를 오가는 물질은 반드시 <b class="g">세포막을 건너야</b> 함</li>
+  </ul>
+
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>교안 그림·표기에서 헷갈릴 수 있는 부분</h5>
+    <ul>
+      <li><b>"25% Plasma"</b>(Distribution of water in the body 그림): 간질액 80% + 혈장 25%는 합이 100%가 넘음. 다른 슬라이드 수치(ECF의 1/4)와 맞추면 <b>혈장 = ECF의 20~25%</b> 정도로 보면 되고, 체중 기준으로는 5%로 기억하면 됨. 교재마다 80/20 또는 75/25로 다르게 씀</li>
+      <li><b>"1/3 TBF", "2/3 TBF"</b>: Total Body Fluid의 약자로, TBW(체수분 총량)와 같은 뜻으로 쓰임</li>
+      <li>같은 그림 왼쪽의 여성 수치(고형분 45%, 체액 55%)는 앞 슬라이드의 50%와 조금 다름. 출처가 다른 그림이라 생긴 차이로, 둘 다 "여성은 남성보다 낮다"는 점이 핵심임</li>
+    </ul>
+  </div>
+
+  <h4>체액의 조성 (Composition of Body Fluids)</h4>
+  <ul class="pt">
+    <li><b>물</b>이 보편적 용매</li>
+    <li><b>전해질</b>: 무기염류, 모든 산·염기, 일부 단백질 — 물에 녹으면 이온으로 나뉘어 전기를 통함</li>
+    <li><b>비전해질</b>: 포도당, 지질, 크레아티닌, 요소 — 물에 녹아도 이온으로 나뉘지 않음</li>
+    <li>양은 <b>몰(mol)</b>, <b>오스몰(osmol)</b> 단위로 나타냄</li>
+  </ul>
+
+  <h4>세포외액과 세포내액의 대략적 조성</h4>
+  <div class="tbl"><table>
+    <thead><tr><th>성분</th><th class="c">세포외액 (혈장)</th><th class="c">세포내액</th><th>비교</th></tr></thead>
+    <tbody>
+      <tr><td class="na">Na⁺</td><td class="c"><b>142</b> mmol/L</td><td class="c">10 mmol/L</td><td>밖이 약 14배</td></tr>
+      <tr><td class="k">K⁺</td><td class="c">4 mmol/L</td><td class="c"><b>160</b> mmol/L</td><td>안이 약 40배</td></tr>
+      <tr><td>Ca²⁺</td><td class="c">2 mmol/L</td><td class="c">&lt;0.01 mmol/L</td><td>안이 극히 낮음</td></tr>
+      <tr><td>Mg²⁺</td><td class="c">1 mmol/L</td><td class="c">13 mmol/L</td><td>안이 높음</td></tr>
+      <tr><td>Cl⁻</td><td class="c"><b>105</b> mmol/L</td><td class="c">3 mmol/L</td><td>밖이 높음</td></tr>
+      <tr><td>HCO₃⁻</td><td class="c">27 mmol/L</td><td class="c">10 mmol/L</td><td>밖이 높음</td></tr>
+      <tr><td>인산</td><td class="c">1 mmol/L</td><td class="c"><b>100</b> mmol/L</td><td>안이 높음</td></tr>
+      <tr><td>단백질</td><td class="c">70 g/L</td><td class="c"><b>200</b> g/L</td><td>안이 높음</td></tr>
+      <tr><td><b>삼투농도</b></td><td class="c"><b>290</b> mOsm/L</td><td class="c"><b>290</b> mOsm/L</td><td><b class="g">안팎이 같음</b></td></tr>
+    </tbody>
+  </table></div>
+  <span class="eval">성분 하나하나는 안팎이 크게 다르지만, 녹아 있는 입자 수의 총합(삼투농도)은 같음. 이 때문에 평소에는 물이 한쪽으로 쏠리지 않음</span>
+
+  <div class="key"><span class="label">외우는 법</span><br>
+    교안의 "K + 고려대 로고" 슬라이드: 세포 안의 대표 이온은 <span class="k">K⁺(칼륨)</span>, 세포 밖은 <span class="na">Na⁺</span>·Cl⁻·Ca²⁺. "세포 안에는 K가 산다"로 기억함
+  </div>
+
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>삼투(osmosis)와 오스몰</h5>
+    <ul>
+      <li><b>삼투</b>: 물이 반투과성 막을 지나 용질이 적은(묽은) 쪽에서 많은(진한) 쪽으로 이동하는 현상. 수동수송의 한 종류임</li>
+      <li><b>오스몰(osmol)</b>: 물에 녹아 실제로 떨어져 있는 입자 수 기준의 단위. 예) NaCl 1 mol → Na⁺ + Cl⁻ 로 나뉘어 약 2 osmol</li>
+      <li>세포 밖이 더 진해지면(고장액) 세포는 물을 잃고 쪼그라들고, 더 묽어지면(저장액) 물이 들어와 부풂. 안팎을 290 mOsm/L로 맞추는 일이 중요한 이유임</li>
+    </ul>
+    <p class="why">교안이 "moles, osmoles"와 "Osmolarity 290"만 제시하고 개념 설명은 없어서 덧붙임. 막수송 분류의 "Osmosis"와도 이어짐.</p>
+  </div>
+</section>
+
+<section class="topic" id="t1-7">
+  <h3><span class="num">1-7</span>전기적 중성·항상성·농도차의 형성</h3>
+  <h4>체액 구획의 전기적 중성 (Electroneutrality)</h4>
+  <ul class="pt">
+    <li>각 구획은 양전하(양이온) 농도와 음전하(음이온) 농도가 거의 같아야 함</li>
+    <li><b>세포외액</b>: 양이온 ≈ 음이온. 주된 양이온 <span class="na">Na⁺</span>, 주된 음이온 <b>Cl⁻</b></li>
+    <li><b>세포내액</b>: 양이온 ≈ 음이온 + <b class="g">α</b>. Na⁺·Cl⁻은 적고, 주된 양이온 <span class="k">K⁺</span>, 주된 음이온 <b>인산</b></li>
+    <li>여기서 <b>α = 단백질</b>. 세포 안 단백질은 농도가 높고 <b class="g">음이온처럼 작용</b>함</li>
+  </ul>
+
+  <h4>체액의 끊임없는 변화 (항상성)</h4>
+  <ul class="pt">
+    <li>폐: 혈액이 지날 때 CO₂ 제거, O₂ 추가</li>
+    <li>위장관: 영양분이 혈장으로 들어옴</li>
+    <li>조직: 영양분·O₂가 간질액을 거쳐 세포 안으로, CO₂·대사 노폐물은 세포 밖으로</li>
+    <li>콩팥: 혈장을 걸러 질소 노폐물·남는 이온 등을 제거</li>
+    <li>→ 혈장–간질액–세포내액은 계속 물질을 주고받으면서도 조성을 일정 범위로 유지함 = <b class="g">항상성(homeostasis)</b></li>
+  </ul>
+  <p class="src">항상성: homeo(같은) + stasis(머무름). 자율신경계와 내분비계(호르몬)의 협조로 이루어짐 (용어사전, 두산백과)</p>
+
+  <h4>세포막을 사이에 둔 농도차는 어떻게 만들어지나</h4>
+  <ul class="pt">
+    <li>세포 안: K⁺ 많고 Na⁺ 적음 / 세포 밖: Na⁺ 많고 K⁺ 적음 → 그냥 두면 확산으로 차이가 사라져야 함</li>
+    <li>차이가 유지되는 이유: <b class="g">에너지를 쓰는 수송 기전</b>이 계속 Na⁺를 밖으로, K⁺를 안으로 퍼 올림</li>
+    <li>대표 예: <b>Na⁺-K⁺-ATPase</b> (나트륨-칼륨 펌프) → 2-5에서 자세히 다룸</li>
+  </ul>
+
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>이 농도차가 왜 중요한가 — 휴지막전위 맛보기</h5>
+    <ul>
+      <li>K⁺·Na⁺의 안팎 농도차 때문에 세포막 안쪽은 바깥보다 음(-)전위를 띰. 신경세포에서 약 <b>-70 mV</b>(용어사전 기준 -60~-90 mV)이며 이를 <b>휴지(정지)막전위</b>라 함</li>
+      <li>신경·근육세포가 흥분하면 극성이 순간적으로 뒤집혀 안쪽이 +30~40 mV가 됨 → <b>활동전위</b></li>
+      <li>"세포생리학의 기본 원리" 3·4번(전위차의 기원, 활동전위)이 이 농도차에서 출발함</li>
+    </ul>
+    <p class="why">용어사전의 action potential·electrical potential 항목과 이번 주 내용을 이어 둔 것. 다음 주차 내용의 예고에 해당함.</p>
+  </div>
+
+  <div class="key"><span class="label">01차시 학습정리</span>
+    <ul class="pt" style="margin-bottom:0">
+      <li>세포는 인체의 기본 구성 단위임</li>
+      <li>세포내액과 세포외액은 조성이 다름</li>
+      <li>세포내액과 세포외액(의 차이)은 유지되어야 함</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===================== PART 2 ===================== -->
+<div class="part" id="p2">
+  <div class="part-head"><span class="no">02차시</span><h2>세포 소통</h2></div>
+  <p class="part-sub">학습목표: 세포막의 특성 이해 · 세포막을 통한 물질 이동 원리 이해 · 특수한 세포 간 소통 방식 설명</p>
+</div>
+
+<section class="topic" id="t2-1">
+  <h3><span class="num">2-1</span>세포막의 구성 – 인지질과 단백질 <span class="en">Characteristics of Cell Membranes</span></h3>
+  <h4>인지질 (phospholipid)</h4>
+  <ul class="pt">
+    <li>구조: 글리세롤에 <b>지방산 2개 + 인산기 1개</b>가 결합 (지방은 지방산 3개)</li>
+    <li><b>친수성 머리</b>(인산기 쪽) + <b>소수성 꼬리</b>(지방산 2개). 꼬리 중 불포화 지방산은 이중결합 때문에 꺾여 있음</li>
+    <li>한 분자 안에 물을 좋아하는 부분과 싫어하는 부분을 함께 가짐 → 물속에서 저절로 모여 구조를 만듦</li>
+  </ul>
+  <div class="tbl"><table>
+    <thead><tr><th>구조</th><th>모양</th><th>특징</th></tr></thead>
+    <tbody>
+      <tr><td><b>마이셀 (micelle)</b></td><td>한 겹의 공</td><td>머리는 바깥(물 쪽), 꼬리는 안쪽으로 모임. 주로 꼬리가 하나인 분자(계면활성제)가 만듦</td></tr>
+      <tr><td><b>리포솜 (liposome)</b></td><td>두 겹의 속 빈 공</td><td>지질 이중층으로 둘러싸인 주머니. 안쪽 공간에 약물을 넣어 전달하는 데 쓰임</td></tr>
+      <tr><td><b>인지질 이중층</b></td><td>두 겹의 판</td><td>세포막의 기본 골격. 꼬리끼리 마주 보고 머리는 양쪽 물을 향함</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>리포솜은 실제로 어디에 쓰이나</h5>
+    <ul>
+      <li>용어사전은 "항암제 등 약물 전달"을 예로 듦</li>
+      <li>2020~2021년 코로나19 mRNA 백신도 mRNA를 <b>지질 나노입자(LNP)</b>에 싸서 세포 안으로 넣음. 리포솜과 같은 원리(지질 막으로 감싸 막과 융합)를 응용한 것임</li>
+      <li>※ LNP는 엄밀히는 리포솜과 내부 구조가 다른 별도 범주로 분류됨</li>
+    </ul>
+  </div>
+
+  <h4>막단백질 (Protein component of cell membranes)</h4>
+  <div class="tbl"><table>
+    <thead><tr><th>구성 요소</th><th>역할</th></tr></thead>
+    <tbody>
+      <tr><td>수송 단백질 (transport protein)</td><td>특정 물질이 막을 건너도록 통로·운반체 역할 → "문"</td></tr>
+      <tr><td>수용체 단백질 (receptor protein)</td><td>호르몬 등 신호 분자가 결합하는 자리(binding site)를 가짐</td></tr>
+      <tr><td>인식 단백질 (recognition protein)</td><td>세포의 "이름표". 면역계가 자기·비자기를 구분하는 데 쓰임</td></tr>
+      <tr><td>당단백질·탄수화물 사슬</td><td>막 바깥면에 붙어 세포 인식·부착에 관여</td></tr>
+      <tr><td>콜레스테롤</td><td>막의 유동성 조절</td></tr>
+      <tr><td>단백질 섬유 (protein filaments)</td><td>막 안쪽(세포질 쪽)에서 막을 받치는 세포골격</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section class="topic" id="t2-2">
+  <h3><span class="num">2-2</span>상피와 세포연접 <span class="en">Epithelia – Cell Junctions</span></h3>
+  <ul class="pt">
+    <li><b>상피(epithelium)</b>: 몸의 안팎 표면을 덮는 세포층. 아래쪽은 기저막을 사이에 두고 결합조직·모세혈관·신경말단과 닿음</li>
+    <li>위쪽(apical, 꼭대기 면)에는 <b>섬모</b>(움직이며 점액을 밀어냄)나 <b>미세융모</b>(표면적을 넓혀 흡수 증가)가 있음</li>
+    <li>아래쪽은 기저면(basal region). 꼭대기 면과 기저·측면은 서로 다른 수송 단백질을 가짐 → 2-7 상피 수송의 바탕</li>
+  </ul>
+  <div class="tbl"><table>
+    <thead><tr><th>세포연접</th><th>위치 (위→아래)</th><th>기능</th></tr></thead>
+    <tbody>
+      <tr><td><b>밀착연접 (tight junction)</b></td><td>가장 위쪽</td><td>이웃 세포막을 단백질로 꿰매듯 붙여 <b class="g">세포 사이 틈으로 물질이 새는 것을 막음</b></td></tr>
+      <tr><td>부착대 (adhesive belt)</td><td>밀착연접 아래</td><td>세포 둘레를 띠처럼 감아 세포끼리 붙임</td></tr>
+      <tr><td>데스모솜 (desmosome)</td><td>중간</td><td>점처럼 강하게 붙여 잡아당기는 힘에 버팀 (부착연접의 일종)</td></tr>
+      <tr><td>간극연접 (gap junction)</td><td>아래쪽</td><td>이웃 세포 사이에 작은 통로를 열어 이온·작은 분자·전기 신호를 직접 전달</td></tr>
+    </tbody>
+  </table></div>
+  <ul class="pt">
+    <li>밀착연접 그림: 세포 A·B의 원형질막을 밀착연접 단백질 무리가 그물처럼 엮어 세포외 공간을 봉함</li>
+    <li>예: 장에서 영양소는 장세포를 거쳐 선택적으로 흡수되고, 세포 사이 틈으로 바로 새어 들어가지 않음 (용어사전)</li>
+  </ul>
+
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>세포를 지나는 길과 세포 사이를 지나는 길</h5>
+    <ul>
+      <li><b>세포 경유 경로(transcellular)</b>: 물질이 세포 하나를 통째로 통과 (꼭대기 막 → 세포 안 → 기저측막). 교안 "Epithelial Transport"가 다루는 경로</li>
+      <li><b>세포 사이 경로(paracellular)</b>: 밀착연접을 지나 세포 틈으로 이동. 밀착연접이 얼마나 촘촘한지에 따라 조직마다 새는 정도가 다름 (콩팥 근위세뇨관은 비교적 새는 편, 방광은 매우 촘촘함)</li>
+      <li>뇌혈관의 밀착연접은 특히 촘촘해 <b>혈액뇌장벽</b>을 이룸 → 많은 약물이 뇌에 들어가기 어려운 이유</li>
+    </ul>
+  </div>
+</section>
+
+<section class="topic" id="t2-3">
+  <h3><span class="num">2-3</span>막수송의 분류 <span class="en">Transport across cell membranes</span></h3>
+  <div class="grid2">
+    <div class="mini">
+      <h4>수동수송 (Passive)</h4>
+      <ul class="pt">
+        <li>단순확산</li>
+        <li>촉진확산</li>
+        <li>삼투 (물의 이동)</li>
+      </ul>
+      <p style="margin:0;font-size:14px">농도가 높은 쪽 → 낮은 쪽 ("내리막"). 에너지 필요 없음</p>
+    </div>
+    <div class="mini">
+      <h4>능동수송 (Active)</h4>
+      <ul class="pt">
+        <li>1차 능동수송 (ATP 직접 사용)</li>
+        <li>2차 능동수송 (Na⁺ 기울기 이용)</li>
+      </ul>
+      <p style="margin:0;font-size:14px">농도가 낮은 쪽 → 높은 쪽 ("오르막"). 에너지 필요</p>
+    </div>
+  </div>
+  <ul class="pt">
+    <li>특수: <b>세포외 배출(exocytosis) / 세포내 섭취(endocytosis)</b> — 막 자체가 주머니를 만들어 큰 물질을 옮김</li>
+  </ul>
+
+  <h4>댐과 펌프 비유</h4>
+  <div class="grid2">
+    <div class="mini"><h4>댐 = 수동수송</h4><p style="margin:0">높은 곳에 고인 물이 열린 수문으로 저절로 흘러내림. 따로 힘을 들이지 않음</p></div>
+    <div class="mini"><h4>펌프 = 능동수송</h4><p style="margin:0">땅속 낮은 곳의 물을 태양광 전기를 써서 위로 끌어올림. 에너지가 있어야 함</p></div>
+  </div>
+  <span class="eval">교안 슬라이드 제목은 둘 다 "Passive transports"로 되어 있으나, 오른쪽 펌프 그림은 능동수송과 대비하려는 그림으로 보는 것이 자연스러움</span>
+
+  <h4>막수송 요약표 (교안)</h4>
+  <div class="tbl"><table>
+    <thead><tr><th>종류</th><th>전기화학적 기울기</th><th>운반체 매개</th><th>대사 에너지</th><th>Na⁺ 기울기</th><th>Na⁺-K⁺ 펌프 억제 시</th></tr></thead>
+    <tbody>
+      <tr><td>단순확산</td><td>내리막</td><td>아니오</td><td>아니오</td><td>아니오</td><td>–</td></tr>
+      <tr><td>촉진확산</td><td>내리막</td><td>예</td><td>아니오</td><td>아니오</td><td>–</td></tr>
+      <tr class="sep"><td>1차 능동수송</td><td>오르막</td><td>예</td><td>예</td><td>–</td><td>억제됨 (Na⁺-K⁺ 펌프인 경우)</td></tr>
+      <tr><td>공동수송</td><td>오르막*</td><td>예</td><td>간접</td><td>예, 같은 방향</td><td>억제됨</td></tr>
+      <tr><td>역수송</td><td>오르막*</td><td>예</td><td>간접</td><td>예, 반대 방향</td><td>억제됨</td></tr>
+    </tbody>
+  </table></div>
+  <p class="src">* 하나 이상의 용질은 오르막으로 이동하고, Na⁺는 내리막으로 이동함</p>
+</section>
+
+<section class="topic" id="t2-4">
+  <h3><span class="num">2-4</span>수동수송 – 단순확산·촉진확산 <span class="en">Passive transports</span></h3>
+  <ul class="pt">
+    <li><b>단백질 없이</b>(without carriers): 단순확산 — 인지질 이중층을 직접 통과</li>
+    <li><b>단백질을 거쳐</b>(with carriers): 통로 단백질을 통한 확산, 물 통로(아쿠아포린)를 통한 물의 이동, 운반체 단백질의 모양 변화를 통한 촉진확산</li>
+  </ul>
+
+  <h4>A. 단순확산 (Simple diffusion)</h4>
+  <ul class="pt">
+    <li>분자의 <b class="g">무작위 열운동</b>의 결과로 일어남</li>
+    <li>한쪽에 몰려 있던 분자는 시간이 지나면 고르게 퍼짐 → 높은 농도에서 낮은 농도로 <b>순(net) 이동</b></li>
+    <li>예(교안 Figure 4.2): 구획 1 포도당 20 mmol/L, 구획 2는 0 → 시간이 지나 둘 다 <b>10 mmol/L</b>에서 <b>확산 평형</b>. 평형에서도 분자는 양쪽으로 계속 움직이지만 순이동은 0</li>
+    <li>막 단백질이 필요 없음. O₂, CO₂, 지방산 같은 비극성 분자가 해당</li>
+  </ul>
+
+  <h4>폐의 가스 교환 – 단순확산의 대표 예</h4>
+  <div class="tbl"><table>
+    <thead><tr><th></th><th class="c">P<sub>O₂</sub></th><th class="c">P<sub>CO₂</sub></th></tr></thead>
+    <tbody>
+      <tr><td>몸 조직에서 돌아온 혈액 (모세혈관 입구)</td><td class="c">40 mmHg</td><td class="c">45 mmHg</td></tr>
+      <tr><td>폐포 공기</td><td class="c">104 mmHg</td><td class="c">40 mmHg</td></tr>
+      <tr><td>폐를 떠나는 혈액 (모세혈관 출구)</td><td class="c">104 mmHg</td><td class="c">40 mmHg</td></tr>
+    </tbody>
+  </table></div>
+  <ul class="pt">
+    <li>O₂: 폐포(104) → 혈액(40)으로 확산 / CO₂: 혈액(45) → 폐포(40)로 확산</li>
+    <li>모세혈관을 다 지나면 혈액과 폐포의 분압이 같아짐 = 평형 도달</li>
+  </ul>
+
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>확산 속도를 정하는 것 — 픽의 법칙(Fick's law)</h5>
+    <ul>
+      <li>확산 속도는 <b>농도(분압) 차이</b>와 <b>막의 넓이</b>에 비례하고, <b>막의 두께</b>에 반비례함</li>
+      <li>폐는 폐포 수억 개로 표면적을 넓히고(약 70 m²), 폐포 벽을 아주 얇게 해서 확산 속도를 높임</li>
+      <li>폐 섬유화처럼 벽이 두꺼워지면 같은 농도차에서도 산소가 덜 들어가게 됨</li>
+    </ul>
+    <p class="why">교안은 "농도차에 따라 퍼진다"까지만 다룸. 미세융모(표면적 증가)·폐포 구조가 왜 그런 모양인지 이해하는 데 필요한 원리라 덧붙임.</p>
+  </div>
+
+  <h4>B. 촉진확산 (Facilitated diffusion)</h4>
+  <ul class="pt">
+    <li>단순확산처럼 전기화학적 기울기를 따라 <b class="g">"내리막"</b>으로 일어남</li>
+    <li>대사 에너지가 필요 없으므로 <b class="g">수동</b>수송임</li>
+    <li>단순확산보다 <b>빠름</b></li>
+    <li><b>운반체 매개</b> → 그래서 <b>입체 특이성, 포화, 경쟁</b>이라는 성질을 보임</li>
+  </ul>
+
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>입체 특이성 · 포화 · 경쟁이란</h5>
+    <ul>
+      <li><b>입체 특이성</b>: 운반체는 열쇠–자물쇠처럼 모양이 맞는 분자만 옮김. 예) 포도당 운반체는 자연형 D-포도당은 옮기지만 거울상인 L-포도당은 거의 옮기지 못함</li>
+      <li><b>포화</b>: 운반체 수가 정해져 있어 농도를 계속 높여도 수송 속도가 어느 값(최대 수송 속도)에서 더 오르지 않음. 단순확산은 농도에 비례해 계속 증가함</li>
+      <li><b>경쟁</b>: 모양이 비슷한 다른 분자가 같은 운반체 자리를 차지하면 원래 물질의 수송이 줄어듦. 교안 예의 <b>갈락토스가 포도당 수송을 억제</b>하는 것이 이 경우임</li>
+    </ul>
+    <p class="why">용어사전의 saturation·stereospecificity 항목은 화학 일반의 정의(설탕 용해, 반응 생성물)라 막수송 문맥과 바로 이어지지 않음. 강의 문맥의 뜻으로 다시 풀어 둠.</p>
+  </div>
+
+  <h4>촉진확산의 예 – 근육·지방세포의 포도당 흡수</h4>
+  <ul class="pt">
+    <li>근육·지방세포의 포도당 수송은 내리막이고, 운반체 매개이며, 갈락토스 같은 당에 억제됨 → <b>촉진확산</b>으로 분류</li>
+    <li>이 운반체는 <b class="g">인슐린이 있어야</b> 작동함 → 당뇨병에서는 근육·지방세포의 포도당 흡수가 떨어짐</li>
+  </ul>
+
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>GLUT4 — 인슐린이 "문을 내다 놓는" 방식</h5>
+    <ul>
+      <li>근육·지방세포의 포도당 운반체 이름은 <b>GLUT4</b>임</li>
+      <li>평소에는 세포 안쪽의 작은 소포에 보관되어 있다가, 인슐린이 수용체에 붙으면 세포막으로 옮겨 와 박힘 → 문이 늘어나 포도당이 들어옴</li>
+      <li>"방과 문" 비유로 보면, 인슐린은 문을 여는 열쇠라기보다 <b>창고에 있던 문을 벽에 설치하게 하는 신호</b>에 가까움</li>
+    </ul>
+  </div>
+
+  <div class="key"><span class="label">02차시 (1) 학습정리</span>
+    <ul class="pt" style="margin-bottom:0">
+      <li>세포는 세포막을 통해 여러 물질을 수송함</li>
+      <li>일부 세포는 특수한 물질 전달 방식으로 다른 세포와 소통함</li>
+    </ul>
+  </div>
+</section>
+
+<section class="topic" id="t2-5">
+  <h3><span class="num">2-5</span>능동수송 – 1차·2차 <span class="en">Primary / Secondary active transport</span></h3>
+
+  <h4>C. 1차 능동수송 (Primary active transport)</h4>
+  <ul class="pt">
+    <li>전기화학적 기울기를 <b>거슬러("오르막")</b> 일어남</li>
+    <li><b>ATP 형태의 대사 에너지를 직접</b> 사용 → 능동</li>
+    <li>운반체 매개 → 입체 특이성·포화·경쟁을 보임</li>
+  </ul>
+
+  <figure>
+    <svg viewBox="0 0 720 260" role="img" aria-label="나트륨 칼륨 펌프 모식도">
+      <style>.lb{font:600 14px Pretendard,sans-serif}.sm{font:500 12.5px Pretendard,sans-serif}</style>
+      <rect x="0" y="0" width="720" height="95" fill="#eaf4ee"/>
+      <rect x="0" y="155" width="720" height="105" fill="#fbf4e6"/>
+      <text x="14" y="24" class="lb" fill="#123d26">세포 밖 (세포외액)  Na⁺ 142 · K⁺ 4 mmol/L</text>
+      <text x="14" y="248" class="lb" fill="#7a5a12">세포 안 (세포질)  Na⁺ 10 · K⁺ 160 mmol/L</text>
+      <rect x="0" y="95" width="720" height="60" fill="#d9e6dd"/>
+      <g fill="#b9cfc0">
+        <circle cx="30" cy="104" r="7"/><circle cx="50" cy="104" r="7"/><circle cx="70" cy="104" r="7"/><circle cx="90" cy="104" r="7"/><circle cx="110" cy="104" r="7"/><circle cx="130" cy="104" r="7"/><circle cx="150" cy="104" r="7"/><circle cx="170" cy="104" r="7"/><circle cx="190" cy="104" r="7"/><circle cx="210" cy="104" r="7"/><circle cx="230" cy="104" r="7"/>
+        <circle cx="30" cy="146" r="7"/><circle cx="50" cy="146" r="7"/><circle cx="70" cy="146" r="7"/><circle cx="90" cy="146" r="7"/><circle cx="110" cy="146" r="7"/><circle cx="130" cy="146" r="7"/><circle cx="150" cy="146" r="7"/><circle cx="170" cy="146" r="7"/><circle cx="190" cy="146" r="7"/><circle cx="210" cy="146" r="7"/><circle cx="230" cy="146" r="7"/>
+        <circle cx="490" cy="104" r="7"/><circle cx="510" cy="104" r="7"/><circle cx="530" cy="104" r="7"/><circle cx="550" cy="104" r="7"/><circle cx="570" cy="104" r="7"/><circle cx="590" cy="104" r="7"/><circle cx="610" cy="104" r="7"/><circle cx="630" cy="104" r="7"/><circle cx="650" cy="104" r="7"/><circle cx="670" cy="104" r="7"/><circle cx="690" cy="104" r="7"/>
+        <circle cx="490" cy="146" r="7"/><circle cx="510" cy="146" r="7"/><circle cx="530" cy="146" r="7"/><circle cx="550" cy="146" r="7"/><circle cx="570" cy="146" r="7"/><circle cx="590" cy="146" r="7"/><circle cx="610" cy="146" r="7"/><circle cx="630" cy="146" r="7"/><circle cx="650" cy="146" r="7"/><circle cx="670" cy="146" r="7"/><circle cx="690" cy="146" r="7"/>
+      </g>
+      <rect x="290" y="78" width="140" height="94" rx="22" fill="#166534"/>
+      <text x="360" y="122" text-anchor="middle" class="lb" fill="#fff">Na⁺-K⁺</text>
+      <text x="360" y="140" text-anchor="middle" class="lb" fill="#fff">ATPase</text>
+      <!-- Na out -->
+      <path d="M318 200 L318 60" stroke="#1d5fbf" stroke-width="3" fill="none" marker-end="url(#ab)"/>
+      <text x="250" y="55" class="lb" fill="#1d5fbf">3 Na⁺ 밖으로</text>
+      <!-- K in -->
+      <path d="M402 55 L402 200" stroke="#b4232a" stroke-width="3" fill="none" marker-end="url(#ar)"/>
+      <text x="410" y="55" class="lb" fill="#b4232a">2 K⁺ 안으로</text>
+      <!-- ATP -->
+      <circle cx="250" cy="212" r="22" fill="#f2c94c"/>
+      <text x="250" y="217" text-anchor="middle" class="lb" fill="#5a4300">ATP</text>
+      <path d="M272 206 Q300 196 312 182" stroke="#8a6d00" stroke-width="2" fill="none" marker-end="url(#ay)"/>
+      <text x="470" y="215" class="sm" fill="#7a5a12">ATP → ADP + Pi (끝 인산 결합의 에너지 사용)</text>
+      <defs>
+        <marker id="ab" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#1d5fbf"/></marker>
+        <marker id="ar" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#b4232a"/></marker>
+        <marker id="ay" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#8a6d00"/></marker>
+      </defs>
+    </svg>
+    <figcaption>Na⁺-K⁺-ATPase: 두 이온 모두 농도 기울기를 거슬러 이동 (교안 Pearson 그림을 단순화해 다시 그림)</figcaption>
+  </figure>
+
+  <h4>1차 능동수송의 예 – Na⁺,K⁺-ATPase (Na⁺-K⁺ 펌프)</h4>
+  <ul class="pt">
+    <li>Na⁺를 세포 안 → 밖으로, K⁺를 밖 → 안으로 옮김 → 세포 안 <b>[Na⁺]는 낮게, [K⁺]는 높게</b> 유지</li>
+    <li>Na⁺, K⁺ <b>둘 다 전기화학적 기울기를 거슬러</b> 이동</li>
+    <li>에너지는 ATP의 <b>끝 인산 결합</b>에서 나옴</li>
+    <li>보통의 화학량론(이동 비율): <b class="g">3 Na⁺ / 2 K⁺</b> (ATP 1개당)</li>
+    <li>특이적 억제제: 강심배당체 약물 <b>우아바인(ouabain)</b>, <b>디기탈리스(digitalis)</b></li>
+    <li>펌프가 쌓아 둔 Na⁺ 기울기는 "저장된 에너지"가 되어 2차 능동수송에 쓰임</li>
+  </ul>
+
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>3:2의 의미, 그리고 펌프의 에너지 사용량</h5>
+    <ul>
+      <li>한 번 돌 때 양전하 3개를 내보내고 2개를 들이므로 세포 안이 조금 더 음(-)이 됨 → 펌프 자체가 휴지막전위에 약간 기여함(전기발생성 펌프)</li>
+      <li>쉬고 있는 사람이 쓰는 ATP의 상당 부분(흔히 20~40%로 추정, 신경세포는 더 높음)이 이 펌프에 쓰임. 세포가 농도차 유지에 그만큼 큰 비용을 치른다는 뜻임</li>
+    </ul>
+  </div>
+
+  <h4>D. 2차 능동수송 (Secondary active transport)</h4>
+  <ul class="pt">
+    <li>두 가지 이상의 용질 수송이 <b>짝지어(coupled)</b> 일어남</li>
+    <li>한 용질(보통 <span class="na">Na⁺</span>)은 <b>"내리막"</b>으로 이동하며, 그 에너지로 다른 용질을 <b>"오르막"</b>으로 옮김</li>
+    <li>대사 에너지를 직접 쓰지 않고, 세포막에 유지되는 <b class="g">Na⁺ 기울기에서 간접적으로</b> 얻음</li>
+    <li>그래서 Na⁺,K⁺-ATPase를 억제하면 → Na⁺ 배출 감소 → 막을 사이에 둔 Na⁺ 기울기 감소 → <b>결국 2차 능동수송도 억제</b>됨</li>
+  </ul>
+  <div class="tbl"><table>
+    <thead><tr><th>구분</th><th>이동 방향</th><th>예</th></tr></thead>
+    <tbody>
+      <tr><td><b>공동수송</b> (cotransport, symport)</td><td>Na⁺와 다른 용질이 <b>같은 방향</b></td><td>소장의 <b>Na⁺–포도당 공동수송</b>, 콩팥 굵은 오름가지의 Na⁺–K⁺–2Cl⁻ 공동수송</td></tr>
+      <tr><td><b>역수송</b> (countertransport, exchange, antiport)</td><td>Na⁺와 다른 용질이 <b>반대 방향</b></td><td><b>Na⁺–Ca²⁺ 교환</b>, Na⁺–H⁺ 교환</td></tr>
+    </tbody>
+  </table></div>
+  <p class="src">Na⁺는 늘 자기 농도 기울기를 따라 세포 안으로 들어가고(내리막), 함께 옮겨지는 용질 X는 늘 오르막으로 이동함 (교안 Figure 4.14)</p>
+
+  <h4>Na⁺–포도당 공동수송의 예</h4>
+  <ul class="pt">
+    <li>운반체 위치: <b>장 점막세포</b>와 <b>콩팥 근위세뇨관 세포</b>의 내강 쪽(luminal) 막</li>
+    <li>포도당은 <b>오르막</b>, Na⁺는 <b>내리막</b>으로 이동</li>
+    <li>에너지는 Na⁺의 내리막 이동에서 나옴. 안쪽으로 향하는 Na⁺ 기울기는 <b>기저측막(혈액 쪽)</b>의 Na⁺-K⁺ 펌프가 유지</li>
+    <li>펌프에 독을 쓰면(억제하면) Na⁺ 기울기가 줄어 Na⁺–포도당 공동수송도 억제됨</li>
+  </ul>
+
+  <h4>Na⁺–Ca²⁺ 역수송</h4>
+  <ul class="pt">
+    <li>Na⁺가 밖 → 안으로 들어오는 힘(2차 능동)을 이용해 Ca²⁺를 안 → 밖으로 내보냄</li>
+    <li>그 Na⁺ 기울기는 옆의 Na⁺-K⁺ 펌프(1차 능동)가 만들어 둠 → 세포 안 Ca²⁺가 극히 낮게(&lt;0.01 mmol/L) 유지되는 이유 중 하나</li>
+  </ul>
+
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>디기탈리스가 심장을 세게 뛰게 하는 원리 — 펌프·교환체 연결</h5>
+    <ul>
+      <li>디기탈리스가 Na⁺-K⁺ 펌프를 억제 → 심장근세포 안 Na⁺가 늘어남 → Na⁺ 기울기가 줄어 Na⁺–Ca²⁺ 교환체가 Ca²⁺를 덜 내보냄 → 세포 안 Ca²⁺ 증가 → <b>수축력 증가</b></li>
+      <li>교안에 따로 나온 두 내용(1차 능동수송의 억제제, Na⁺–Ca²⁺ 역수송)이 한 줄로 이어지는 실제 사례임. 심부전 치료에 쓰였고, 치료 범위가 좁아 독성에 주의가 필요한 약임</li>
+    </ul>
+  </div>
+
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>SGLT — Na⁺–포도당 공동수송체의 이름과 당뇨병 약</h5>
+    <ul>
+      <li>Na⁺–포도당 공동수송체의 공식 이름은 <b>SGLT</b>(sodium-glucose linked transporter). 소장에는 주로 SGLT1, 콩팥 근위세뇨관에는 주로 SGLT2가 있음</li>
+      <li>콩팥은 걸러진 포도당을 SGLT로 거의 전부 다시 흡수함. <b>SGLT2 억제제</b>(다파글리플로진 등)는 이 재흡수를 막아 포도당을 소변으로 내보내 혈당을 낮추는 당뇨병 약임</li>
+      <li>설사로 탈수된 환자에게 물에 소금과 포도당을 함께 녹여 먹이는 <b>경구 수분보충액(ORS)</b>도 같은 원리: 포도당이 Na⁺와 함께 흡수되며 물도 따라 들어감</li>
+    </ul>
+    <p class="why">교안 마지막 "Pharmaceutical Drugs"와 2차 능동수송을 이어 주는 사례임.</p>
+  </div>
+
+  <h4>한 세포의 다양한 문 (Diverse doors in a single cell)</h4>
+  <div class="tbl"><table>
+    <thead><tr><th>비유</th><th>뜻</th><th>방향</th></tr></thead>
+    <tbody>
+      <tr><td><b>문 없음 (공기)</b></td><td>단순확산. 농도에 따른 수동 이동</td><td>↘ 내리막</td></tr>
+      <tr><td><b>한쪽으로 열리는 문</b></td><td>통로·운반체를 통한 확산. 농도에 따른 수동 이동</td><td>↘ 내리막</td></tr>
+      <tr><td><b>회전문</b></td><td>능동수송. ATP 사용 또는 Na⁺ 기울기 의존. 두 물질이 맞물려 움직이는 모습</td><td>↗ 오르막</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section class="topic" id="t2-6">
+  <h3><span class="num">2-6</span>막수송 종합 비교 <span class="en">Movement of molecules across cell membranes</span></h3>
+  <div class="tbl"><table>
+    <thead><tr><th></th><th>지질 이중층 통과</th><th>통로 단백질 통과</th><th>촉진확산</th><th>1차 능동수송</th><th>2차 능동수송</th></tr></thead>
+    <tbody>
+      <tr><td><b>순이동 방향</b></td><td>고농도→저농도</td><td>고농도→저농도</td><td>고농도→저농도</td><td>저농도→고농도</td><td>저농도→고농도</td></tr>
+      <tr><td><b>막 내재 단백질 사용</b></td><td>아니오</td><td>예</td><td>예</td><td>예</td><td>예</td></tr>
+      <tr><td><b>고농도에서 최대 속도(포화)</b></td><td>아니오</td><td>아니오</td><td>예</td><td>예</td><td>예</td></tr>
+      <tr><td><b>화학적 특이성</b></td><td>아니오</td><td>예</td><td>예</td><td>예</td><td>예</td></tr>
+      <tr><td><b>에너지 사용·출처</b></td><td>아니오</td><td>아니오</td><td>아니오</td><td>예: ATP</td><td>예: 이온 기울기 (주로 Na⁺)</td></tr>
+      <tr><td><b>대표 물질</b></td><td>비극성: O₂, CO₂, 지방산</td><td>이온: Na⁺, K⁺, Ca²⁺</td><td>극성: 포도당</td><td>이온: Na⁺, K⁺, Ca²⁺, H⁺</td><td>극성: 아미노산, 포도당, 일부 이온</td></tr>
+    </tbody>
+  </table></div>
+  <span class="eval">교안 표의 "Naˡ, Kᴸ, Ca²ˡ, Hˡ"는 원본 파일의 글꼴이 깨진 것으로, Na⁺, K⁺, Ca²⁺, H⁺로 읽으면 됨</span>
+
+  <h4>전형적인 세포막의 물질 이동 (교안 Figure 4.15)</h4>
+  <ul class="pt">
+    <li><b>1차 능동수송</b>: Na⁺/K⁺ 펌프, H⁺ 펌프, Ca²⁺ 펌프 (모두 ATP → ADP)</li>
+    <li><b>2차 능동수송</b>: Na⁺–아미노산, Na⁺/H⁺, Na⁺/Ca²⁺, HCO₃⁻/Cl⁻</li>
+    <li><b>촉진확산</b>: 포도당</li>
+    <li><b>이온 통로</b>: Na⁺, K⁺, Cl⁻, Ca²⁺</li>
+    <li>특화된 세포는 그림에 없는 운반체·통로를 더 가질 수 있고, 많은 막단백질이 신호에 따라 활성이 조절됨</li>
+  </ul>
+</section>
+
+<section class="topic" id="t2-7">
+  <h3><span class="num">2-7</span>상피 수송 <span class="en">Epithelial Transport – Transcellular pathway</span></h3>
+  <div class="grid2">
+    <div class="mini">
+      <h4>① Na⁺의 흡수</h4>
+      <ul class="pt">
+        <li>내강 쪽: Na⁺가 <b>나트륨 통로</b>로 세포 안에 들어옴 (확산, 내리막)</li>
+        <li>세포 안 Na⁺ 농도는 낮게 유지됨</li>
+        <li>혈액 쪽: <b>Na⁺/K⁺-ATPase</b>가 3 Na⁺를 혈액 쪽으로 퍼냄 (능동수송, 오르막)</li>
+      </ul>
+    </div>
+    <div class="mini">
+      <h4>② 용질 X의 흡수 (예: 포도당)</h4>
+      <ul class="pt">
+        <li>내강 쪽: Na⁺와 함께 <b>2차 능동수송</b>으로 들어옴 → 세포 안 X 농도가 가장 높아짐</li>
+        <li>혈액 쪽: <b>촉진확산</b>으로 혈액으로 나감 (내리막)</li>
+        <li>Na⁺/K⁺-ATPase가 Na⁺ 기울기를 유지</li>
+      </ul>
+    </div>
+  </div>
+  <span class="eval">상피세포는 꼭대기 막과 혈액 쪽 막에 서로 다른 수송 단백질을 배치하고, 밀착연접이 두 막을 구분해 줌. 그 결과 물질을 한 방향(내강 → 혈액)으로 옮길 수 있음</span>
+</section>
+
+<section class="topic" id="t2-8">
+  <h3><span class="num">2-8</span>세포내 섭취·세포외 배출·엑소좀 <span class="en">Endocytosis / Exocytosis / Exosomes</span></h3>
+  <ul class="pt">
+    <li><b>세포내 섭취(endocytosis)</b>: 세포막이 안쪽으로 오목하게 들어가 바깥 물질을 감싸 소포로 들임</li>
+    <li><b>세포외 배출(exocytosis)</b>: 세포 안 소포가 세포막과 합쳐지며 내용물을 밖으로 내보냄</li>
+    <li>수송 단백질로는 옮기기 어려운 큰 분자·입자를 막째로 옮기는 방식</li>
+  </ul>
+  <div class="tbl"><table>
+    <thead><tr><th>세포내 섭취의 종류</th><th>방식</th></tr></thead>
+    <tbody>
+      <tr><td>(a) 액체 섭취 (fluid endocytosis, 음세포작용)</td><td>주변 용질과 물을 가리지 않고 함께 떠 들임</td></tr>
+      <tr><td>(b) 식세포작용 (phagocytosis)</td><td>위족을 뻗어 세균 같은 큰 입자를 감쌈 → 식포(phagosome) → 리소좀과 합쳐져 분해</td></tr>
+      <tr><td>(c) 수용체 매개 세포내 섭취</td><td>리간드가 수용체에 붙으면 클라트린 단백질이 오목한 구덩이(clathrin-coated pit)를 만들어 소포 형성 → 엔도솜 → 리간드는 분리되어 골지체·리소좀으로, 수용체는 막으로 재활용</td></tr>
+    </tbody>
+  </table></div>
+
+  <h4>엑소좀 (Exosomes)</h4>
+  <ul class="pt">
+    <li>세포내 섭취로 생긴 <b>엔도솜</b> → 안에 작은 소포들이 생긴 <b>다낭체(MVB)</b>가 됨. RNA와 세포질 단백질이 이 작은 소포 안에 담김</li>
+    <li>MVB의 두 갈래: <b>세포외 배출</b>되어 작은 소포들이 밖으로 나가면 = <b class="g">엑소좀</b> / 리소좀과 합쳐지면 = 분해</li>
+    <li>엑소좀 표지 물질: 막의 <b>CD9, CD63, CD81</b>(테트라스패닌), 안쪽의 TSG101, ALIX, HSP70·HSP90, Flotillin-1, 핵산(DNA·RNA), 아미노산, 대사물질, 콜레스테롤</li>
+    <li>하는 일: 유전자 발현 조절, 세포 생존·증식, 생식·발달, 혈관 생성·상처 치유, 노폐물 처리, 면역 균형, 수용체–리간드 신호, 세포사멸, 분화와 종양, 암 전이, 대사 조절 등</li>
+  </ul>
+  <span class="eval">엑소좀은 세포가 단백질·RNA를 "소포에 담아 택배로 보내는" 세포 간 소통 수단임. 이번 주 제목인 '세포 소통'과 직접 이어지는 내용</span>
+
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>엑소좀의 크기와 연구 현황</h5>
+    <ul>
+      <li>지름 약 <b>30~150 nm</b>로, 세포(수~수십 µm)보다 수백 배 작음</li>
+      <li>혈액·소변·침 등 체액에서 찾을 수 있어, 엑소좀에 담긴 물질로 암 등을 진단하는 <b>액체생검</b> 연구가 진행 중임</li>
+      <li>한국 화장품·피부 시술 광고에서 "엑소좀"을 내세우는 경우가 많으나, 치료 효과가 확인된 것과 마케팅 문구는 구분해서 볼 필요가 있음</li>
+    </ul>
+  </div>
+</section>
+
+<section class="topic" id="t2-9">
+  <h3><span class="num">2-9</span>특수한 세포 소통 <span class="en">Special cell communications</span></h3>
+  <h4>① 신경전달물질 (Neurotransmitters)</h4>
+  <ul class="pt">
+    <li>신경세포의 <b>축삭 말단</b>에서 소포에 담긴 신경전달물질이 <b>세포외 배출</b>로 시냅스 틈에 방출됨</li>
+    <li>다음 세포 가지돌기의 <b>수용체</b>에 결합해 신호 전달</li>
+    <li>신호를 끝내는 세 가지 방법: <b>a. 재흡수</b>(재흡수 수송체로 되돌려 받음) · <b>b. 확산</b>(틈 밖으로 흩어짐) · <b>c. 분해</b>(효소가 분해)</li>
+  </ul>
+
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>재흡수를 막는 약 — 항우울제 SSRI</h5>
+    <ul>
+      <li>재흡수 수송체도 막수송 단백질임(대부분 Na⁺ 기울기를 쓰는 2차 능동수송체)</li>
+      <li><b>SSRI</b>(선택적 세로토닌 재흡수 억제제)는 세로토닌 재흡수 수송체를 막아 시냅스 틈에 세로토닌이 더 오래 머물게 함</li>
+      <li>신경전달물질을 분해하는 효소(예: 아세틸콜린 분해효소)를 막는 약도 같은 논리로 신호를 늘림</li>
+    </ul>
+    <p class="why">그림의 a·b·c 세 경로가 실제로 약물 표적이 된다는 점을 보여 주는 예.</p>
+  </div>
+
+  <h4>② 호르몬 – 인슐린과 당뇨병</h4>
+  <div class="tbl"><table>
+    <thead><tr><th>상태</th><th>무슨 일이 일어나나</th></tr></thead>
+    <tbody>
+      <tr><td><b>정상</b></td><td>이자(췌장)가 인슐린 분비 → 세포의 인슐린 수용체에 결합 → 포도당이 세포 안으로 들어감</td></tr>
+      <tr><td><b>1형 당뇨병</b></td><td>이자가 인슐린을 <b>만들지 못함</b> → 수용체는 있으나 신호가 없어 포도당이 못 들어감</td></tr>
+      <tr><td><b>2형 당뇨병</b></td><td>인슐린은 있으나 <b>세포가 반응하지 못함</b>(인슐린 저항성) → 포도당이 못 들어감</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>1형과 2형의 차이 조금 더</h5>
+    <ul>
+      <li><b>1형</b>: 주로 자가면역으로 이자의 β세포가 파괴되어 생김. 인슐린 주사가 반드시 필요함</li>
+      <li><b>2형</b>: 전체 당뇨병의 대부분(약 90% 이상)을 차지. 유전·비만·운동 부족 등이 함께 작용하며, 초기에는 먹는 약으로 조절하는 경우가 많음</li>
+      <li>교안 2-4의 내용과 연결: 인슐린 신호가 없거나 듣지 않으면 GLUT4가 막에 올라오지 못해, 근육·지방세포의 포도당 촉진확산이 줄어듦</li>
+    </ul>
+  </div>
+
+  <h4>③ 약물 (Pharmaceutical Drugs)</h4>
+  <ul class="pt">
+    <li>당뇨병 치료: <b>인슐린 주사</b>, <b>먹는 약</b></li>
+    <li>당뇨병 합병증: 뇌졸중, 눈 질환(망막병증), 심장 손상, 콩팥병(신병증), 지방간, 말초신경병증, 당뇨병성 뼈 질환, 당뇨발</li>
+    <li>→ 세포 소통(호르몬 신호)이 망가지면 한 기관이 아니라 <b class="g">온몸의 기관계에 문제</b>가 퍼짐. 1-1의 "통합된 단위로서의 인체"와 이어지는 결론</li>
+  </ul>
+
+  <div class="key"><span class="label">02차시 (2) 학습정리</span>
+    <ul class="pt" style="margin-bottom:0">
+      <li>세포는 세포막을 통해 여러 물질을 수송함</li>
+      <li>일부 세포는 특수한 물질 전달 방식(신경전달물질, 호르몬, 엑소좀)으로 다른 세포와 소통함</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===================== PART 3 ===================== -->
+<div class="part" id="p3">
+  <div class="part-head"><span class="no">용어</span><h2>용어 정리와 용어사전 정정</h2></div>
+  <p class="part-sub">「생명과학의 세계」 2주차 용어사전 수록 용어를 이번 주 내용 기준으로 짧게 정리</p>
+</div>
+
+<section class="topic">
+  <div class="tbl"><table>
+    <thead><tr><th>영문</th><th>국문</th><th>한 줄 정리</th></tr></thead>
+    <tbody>
+      <tr><td>action potential</td><td>활동전위</td><td>흥분성 세포가 활동할 때 막 안이 음전위에서 양전위로 잠깐 뒤집히는 전위 변화</td></tr>
+      <tr><td>active transport</td><td>능동수송</td><td>에너지를 써서 농도 기울기를 거슬러 옮김. 1차(ATP), 2차(이온 기울기)</td></tr>
+      <tr><td>body fluid</td><td>체액</td><td>체중의 약 60%. 세포내액 40%, 간질액 15%, 혈장 5%</td></tr>
+      <tr><td>capillary</td><td>모세혈관</td><td>지름 5~10 µm의 가장 가는 혈관. 조직과 물질 교환이 일어나는 곳</td></tr>
+      <tr><td>cell junction</td><td>세포연접</td><td>세포끼리, 세포와 세포외 기질을 잇는 구조. 폐쇄·부착·간극연접</td></tr>
+      <tr><td>cell / plasma membrane</td><td>세포막 / 원형질막</td><td>세포질을 둘러싼 선택적 투과막. 인지질 이중층 + 단백질</td></tr>
+      <tr><td>centriole</td><td>중심립</td><td>미세소관 3개 × 9묶음의 원통. 세포분열, 섬모·편모의 기원</td></tr>
+      <tr><td>chromatin</td><td>염색질</td><td>DNA + 히스톤 단백질 복합체. 기본 단위는 뉴클레오솜</td></tr>
+      <tr><td>cilia</td><td>섬모</td><td>세포 표면의 움직이는 털 모양 돌기. 미세소관 9+2 구조</td></tr>
+      <tr><td>columnar epithelium</td><td>원주상피</td><td>폭보다 키가 큰 기둥 모양 상피. 위·장에서 흡수 담당</td></tr>
+      <tr><td>concentration</td><td>농도</td><td>용액 속 성분의 양과 비율. 몰농도(mol/L) 등으로 표시</td></tr>
+      <tr><td>cotransport</td><td>공동수송</td><td>두 물질을 함께 옮김. 넓게는 symport·antiport를 모두 포함</td></tr>
+      <tr><td>cytoplasm</td><td>세포질</td><td>핵을 뺀 세포의 내용물 전체</td></tr>
+      <tr><td>electrical potential</td><td>전위</td><td>전기장 안에서 단위 전하가 갖는 위치에너지. 두 점의 차이가 전압</td></tr>
+      <tr><td>electrolyte</td><td>전해질</td><td>물에 녹아 이온으로 나뉘며 전기를 통하는 물질</td></tr>
+      <tr><td>electroneutrality</td><td>전기적 중성</td><td>양전하와 음전하의 양이 같아 전체가 중성인 상태</td></tr>
+      <tr><td>endoplasmic reticulum</td><td>소포체</td><td>거친면(리보솜 부착, 단백질) / 매끈면(지질·스테로이드 합성)</td></tr>
+      <tr><td>epithelium</td><td>상피</td><td>몸의 안팎 표면을 덮는 세포층</td></tr>
+      <tr><td>extracellular fluid</td><td>세포외액</td><td>세포 밖 체액. 간질액 + 혈장. 세포의 "내부 환경"</td></tr>
+      <tr><td>facilitated diffusion</td><td>촉진확산</td><td>운반체를 거치는 내리막 이동. 에너지 불필요, 포화·경쟁 있음</td></tr>
+      <tr><td>goblet cell</td><td>배상세포</td><td>술잔 모양의 점액 분비 세포. 호흡기·장 상피에 있음</td></tr>
+      <tr><td>golgi apparatus</td><td>골지체</td><td>단백질·지질을 가공·분류해 보냄</td></tr>
+      <tr><td>homeostasis</td><td>항상성</td><td>바깥이 변해도 몸 안 환경을 일정하게 유지하는 성질</td></tr>
+      <tr><td>intracellular fluid</td><td>세포내액</td><td>세포 안 체액. K⁺와 단백질이 많음</td></tr>
+      <tr><td>liposome</td><td>리포솜</td><td>인지질 이중층으로 된 속 빈 주머니. 약물 전달에 쓰임</td></tr>
+      <tr><td>lysosome</td><td>리소좀</td><td>산성 가수분해효소로 이물질·노폐물을 분해</td></tr>
+      <tr><td>micelle</td><td>마이셀</td><td>친수성 머리가 바깥, 소수성 꼬리가 안쪽인 한 겹 공</td></tr>
+      <tr><td>microtubule</td><td>미세소관</td><td>튜불린으로 된 속 빈 관. 세포골격의 일부</td></tr>
+      <tr><td>microvilli</td><td>미세융모</td><td>표면적을 넓히는 미세한 돌기. 장·근위세뇨관 상피</td></tr>
+      <tr><td>nucleus</td><td>핵</td><td>유전자(DNA)를 담은 구조. 핵막·염색질·인·핵형질로 구성</td></tr>
+      <tr><td>organ system</td><td>기관계</td><td>특정 생리 기능을 함께 하는 기관의 집단 (소화계, 신경계 등)</td></tr>
+      <tr><td>organism</td><td>유기체</td><td>생물체. 부분들이 기능적으로 연결되어 하나의 개체를 이룬 것</td></tr>
+      <tr><td>passive transport</td><td>수동수송</td><td>에너지 없이 농도 기울기를 따라 이동. 단순확산·촉진확산·삼투</td></tr>
+      <tr><td>phospholipid</td><td>인지질</td><td>글리세롤 + 지방산 2개 + 인산기. 세포막의 주성분</td></tr>
+      <tr><td>physiology</td><td>생리학</td><td>생체와 그 각 부분의 기능, 거기에 관여하는 물리·화학 과정을 다루는 학문</td></tr>
+      <tr><td>proximal tubule</td><td>근위세뇨관</td><td>보먼주머니에 이어지는 세뇨관. 포도당·아미노산·전해질 재흡수, 미세융모 있음</td></tr>
+      <tr><td>ribosome</td><td>리보솜</td><td>mRNA를 번역해 단백질을 만드는 알갱이</td></tr>
+      <tr><td>saturation</td><td>포화</td><td>(수송 문맥) 운반체가 모두 차서 수송 속도가 더 오르지 않는 상태</td></tr>
+      <tr><td>simple diffusion</td><td>단순확산</td><td>단백질 없이 막을 직접 통과하는 내리막 이동</td></tr>
+      <tr><td>stereospecificity</td><td>입체 특이성</td><td>(수송 문맥) 운반체가 특정 입체 구조의 분자만 알아보는 성질</td></tr>
+      <tr><td>stoichiometry</td><td>화학량론</td><td>반응·수송에 참여하는 물질의 수량 비율. 예) Na⁺-K⁺ 펌프 3:2</td></tr>
+      <tr><td>tight junction</td><td>밀착연접</td><td>상피세포 사이 틈을 봉해 물질이 새는 것을 막는 연접</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>용어사전 영문 정의 중 잘못 들어간 항목</h5>
+    <p>배포된 용어사전에서 아래 네 항목은 영문 정의가 다른 용어의 것으로 바뀌어 들어가 있음. 국문 정의는 맞으므로 영문은 아래처럼 읽으면 됨.</p>
+    <div class="tbl"><table>
+      <thead><tr><th>항목</th><th>용어사전에 실린 영문 정의</th><th>실제로 해당하는 용어</th></tr></thead>
+      <tbody>
+        <tr><td>nucleus (핵)</td><td>"An organism is any biological living system…"</td><td>organism (유기체)</td></tr>
+        <tr><td>organ system (기관계)</td><td>"A branch of biology that deals with the functions…"</td><td>physiology (생리학)</td></tr>
+        <tr><td>organism (유기체)</td><td>"In biology, tissue is…"</td><td>tissue (조직)</td></tr>
+        <tr><td>physiology (생리학)</td><td>"A vacuole is a membrane-bound organelle…"</td><td>vacuole (액포)</td></tr>
+      </tbody>
+    </table></div>
+    <ul>
+      <li>그 밖에 표제어 "endoplasmatic reticulum"은 "endoplasmic reticulum"이 표준 철자임 (교안 세포 구조 그림도 같은 오기)</li>
+      <li>saturation, stereospecificity의 국문 정의는 화학 일반의 뜻이라, 막수송 문맥에서는 위 표의 "수송 문맥" 설명으로 이해하는 편이 맞음</li>
+    </ul>
+  </div>
+</section>
+
+<nav class="pager"><a class="next" href="week03_genetic_variation.html"><small>다음 주차 →</small>3주차 · 유전 변이와 유전질환</a></nav>
+
+<footer>
+  <p>자료 기준: 「생명과학의 세계」(고려대학교) 2주차 01차시 세포의 기본 개념 (1)(2), 02차시 세포 소통 (1)(2) 교안 및 2주차 용어사전.<br>
+  교안 그림 출처(Pearson, McGraw-Hill, Researchgate, Getty Images Bank 등)는 각 차시 교안의 "출처 및 참고문헌"을 따름. 이 문서의 그림은 교안 그림을 단순화해 새로 그린 것임.<br>
+  '보충' 상자의 내용은 교안에 없는 참고 내용으로, 시험 범위 여부는 강의 기준을 따를 것.</p>
+</footer>
+
+</div>
+</body>
+</html>

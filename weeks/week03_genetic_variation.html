@@ -1,0 +1,1102 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3주차 유전 변이와 유전체</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --g900:#123d26; --g800:#14532d; --g700:#166534; --g600:#15803d; --g500:#22a05a;
+  --g200:#bbe5c8; --g100:#dcf3e3; --g50:#f2faf4;
+  --ink:#1c2420; --muted:#56635b; --line:#d6e2da; --bg:#fbfdfb; --card:#ffffff;
+  --sup-bg:#f6f9ec; --sup-line:#9bb35a; --sup-tag:#5b7a1e;
+  --warn:#9a3412; --na:#1d5fbf; --k:#b4232a;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Pretendard","Gothic A1",-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  font-size:16px;line-height:1.72;word-break:keep-all;}
+.wrap{max-width:920px;margin:0 auto;padding:0 20px 80px}
+header.hero{background:linear-gradient(135deg,var(--g800),var(--g600));color:#fff;padding:56px 20px 44px}
+header.hero .wrap{padding-bottom:0}
+.hero .kicker{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);
+  padding:3px 12px;border-radius:999px;font-size:13px;letter-spacing:.04em}
+.hero h1{font-size:34px;line-height:1.3;margin:14px 0 8px;font-weight:800}
+.hero p{margin:0;opacity:.9}
+.hero .meta{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px;font-size:13px}
+.hero .meta span{background:rgba(0,0,0,.18);padding:4px 10px;border-radius:6px}
+
+nav.toc{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--g600);
+  border-radius:10px;padding:18px 22px;margin:28px 0}
+nav.toc h2{margin:0 0 8px;font-size:17px;color:var(--g800)}
+nav.toc ol{margin:0;padding-left:20px}
+nav.toc li{margin:2px 0}
+nav.toc a{color:var(--ink);text-decoration:none}
+nav.toc a:hover{color:var(--g600);text-decoration:underline}
+nav.toc ol ol{list-style:none;padding-left:14px;font-size:14.5px;color:var(--muted)}
+nav.toc ol ol a{color:var(--muted)}
+
+.part{margin-top:56px}
+.part-head{display:flex;align-items:center;gap:12px;border-bottom:3px solid var(--g600);padding-bottom:8px}
+.part-head .no{background:var(--g700);color:#fff;font-weight:800;border-radius:8px;padding:4px 12px;font-size:14px}
+.part-head h2{margin:0;font-size:25px;color:var(--g900)}
+.part-sub{color:var(--muted);font-size:14px;margin:6px 0 0}
+
+section.topic{margin-top:38px}
+section.topic h3{font-size:20px;margin:0 0 10px;color:var(--g800);display:flex;align-items:baseline;gap:8px}
+section.topic h3 .num{color:var(--g500);font-weight:800;font-size:16px}
+section.topic h3 .en{font-size:13px;color:var(--muted);font-weight:500}
+h4{font-size:16.5px;margin:20px 0 6px;color:var(--g700)}
+ul.pt{margin:6px 0 10px;padding-left:20px}
+ul.pt li{margin:3px 0}
+ul.pt li::marker{color:var(--g600)}
+.eval{display:block;margin:10px 0;padding:8px 12px;background:var(--g50);border-left:3px solid var(--g500);
+  font-size:14.5px;color:#2d3d33}
+.eval::before{content:"정리 ▸ ";font-weight:700;color:var(--g700)}
+b.g, .hl{color:var(--g700);font-weight:700}
+.na{color:var(--na);font-weight:700}.k{color:var(--k);font-weight:700}
+.src{font-size:12.5px;color:var(--muted);margin-top:4px}
+
+.key{background:var(--card);border:1px solid var(--g200);border-radius:10px;padding:14px 18px;margin:14px 0;
+  box-shadow:0 1px 0 var(--g100)}
+.key .label{display:inline-block;font-size:12px;font-weight:800;color:#fff;background:var(--g600);
+  padding:2px 9px;border-radius:5px;margin-bottom:6px}
+
+.sup{background:var(--sup-bg);border:1.5px dashed var(--sup-line);border-radius:10px;padding:14px 18px 12px;margin:18px 0;position:relative}
+.sup .tag{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:800;color:#fff;
+  background:var(--sup-tag);padding:2px 10px;border-radius:5px}
+.sup .tag::before{content:"+";font-size:14px}
+.sup h5{margin:8px 0 4px;font-size:15.5px;color:#3b4f14}
+.sup p,.sup li{font-size:14.5px}
+.sup ul{padding-left:18px;margin:6px 0}
+.sup .why{font-size:13px;color:#5e6b45;margin-top:6px}
+
+.tbl{width:100%;overflow-x:auto;margin:12px 0}
+table{border-collapse:collapse;width:100%;font-size:14.5px;background:var(--card)}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+thead th{background:var(--g700);color:#fff;font-weight:700;white-space:nowrap}
+tbody tr:nth-child(even) td{background:var(--g50)}
+td.c,th.c{text-align:center}
+tr.sep td{border-top:3px solid var(--g600)}
+
+figure{margin:16px 0;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px}
+figure svg{width:100%;height:auto;display:block}
+figcaption{font-size:13px;color:var(--muted);margin-top:8px;text-align:center}
+
+.flow{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:12px 0}
+.flow span{background:var(--g50);border:1px solid var(--g200);border-radius:999px;padding:4px 12px;font-size:14px}
+.flow span.on{background:var(--g600);color:#fff;border-color:var(--g600);font-weight:700}
+.flow i{color:var(--g500);font-style:normal;font-weight:700}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:680px){.grid2{grid-template-columns:1fr}.hero h1{font-size:27px}}
+.mini{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px}
+.mini h4{margin-top:0}
+
+footer{margin-top:60px;border-top:1px solid var(--line);padding-top:16px;font-size:13px;color:var(--muted)}
+@media print{
+  header.hero{background:var(--g800)!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .sup,.key,figure,table{break-inside:avoid}
+  nav.toc{display:none}
+}
+
+.tl{position:relative;margin:14px 0 6px;padding-left:22px;border-left:3px solid var(--g200)}
+.tl .ev{position:relative;margin:0 0 12px}
+.tl .ev::before{content:"";position:absolute;left:-30px;top:6px;width:13px;height:13px;border-radius:50%;background:var(--g600);border:3px solid var(--g100)}
+.tl .yr{font-weight:800;color:var(--g700);margin-right:6px}
+.err{background:#fff6f2;border:1.5px solid #f0b9a5;border-radius:10px;padding:12px 18px;margin:16px 0}
+.err .tag{display:inline-block;font-size:12.5px;font-weight:800;color:#fff;background:var(--warn);padding:2px 10px;border-radius:5px}
+.err ul{padding-left:18px;margin:8px 0 2px}.err li{font-size:14.5px}
+code.seq{font-family:ui-monospace,Menlo,Consolas,monospace;background:var(--g50);padding:1px 5px;border-radius:4px;font-size:14px}
+</style>
+<style>
+.sitebar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line);font-size:14px}
+.sitebar .in{max-width:920px;margin:0 auto;padding:8px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.sitebar a{color:var(--g700);text-decoration:none;font-weight:700}
+.sitebar a:hover{text-decoration:underline}
+.sitebar .wk{color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pager{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:48px}
+.pager a{display:block;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px;
+  color:var(--ink);text-decoration:none}
+.pager a:hover{border-color:var(--g500)}
+.pager small{display:block;color:var(--muted);font-size:12.5px}
+.pager .next{text-align:right;grid-column:2}
+@media (max-width:680px){.pager{grid-template-columns:1fr}.pager .next{grid-column:1}}
+@media print{.sitebar,.pager{display:none}}
+</style>
+</head>
+<body>
+<div class="sitebar"><div class="in"><a href="../index.html">← 전체 교안 목록</a><span class="wk">3주차 · 유전 변이와 유전질환</span></div></div>
+<header class="hero">
+  <div class="wrap">
+    <span class="kicker">생명과학의 세계 · 3주차</span>
+    <h1>아들의 지능은 엄마가 결정한다? · 유전질환: 관찰에서 디지털로</h1>
+    <p>드노보 변이와 대립유전자 · 다유전자 모델 · 멘델에서 차세대 염기서열 분석까지</p>
+    <div class="meta">
+      <span>01차시 아들의 지능은 엄마가 결정한다? (1)(2)</span><span>02차시 유전질환: 관찰에서 디지털로 전환 (1)(2)</span><span>용어사전 반영</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+<nav class="toc">
+  <h2>목차</h2>
+  <ol>
+    <li><a href="#p1">아들의 지능은 엄마가 결정한다?</a>
+      <ol>
+        <li><a href="#t1-1">1-1 새로 생기는 변이 – 정자와 난자</a></li>
+        <li><a href="#t1-2">1-2 드노보 변이란</a></li>
+        <li><a href="#t1-3">1-3 연골무형성증 – 변이 하나가 만드는 질환</a></li>
+        <li><a href="#t1-4">1-4 변이 = 대립유전자 · 점 돌연변이의 종류</a></li>
+        <li><a href="#t1-5">1-5 변이는 해로운가 – 대부분은 중립</a></li>
+        <li><a href="#t1-6">1-6 쌓여 온 변이와 다유전자 모델</a></li>
+        <li><a href="#t1-7">1-7 '지능은 엄마에게서' 주장 검토</a></li>
+        <li><a href="#t1-8">1-8 멘델·다윈·골턴, 그리고 피셔(1918)</a></li>
+        <li><a href="#t1-9">1-9 키의 다유전자 모델과 적합도</a></li>
+      </ol>
+    </li>
+    <li><a href="#p2">유전질환: 관찰에서 디지털로 전환</a>
+      <ol>
+        <li><a href="#t2-1">2-1 다윈의 자연선택과 혼합 유전</a></li>
+        <li><a href="#t2-2">2-2 멘델의 관찰과 유전 법칙</a></li>
+        <li><a href="#t2-3">2-3 멘델의 재발견과 염색체설</a></li>
+        <li><a href="#t2-4">2-4 유전 용어가 만들어진 과정</a></li>
+        <li><a href="#t2-5">2-5 중심원리와 인간 유전체 사업</a></li>
+        <li><a href="#t2-6">2-6 유전체 기술의 발전 (FISH → NGS)</a></li>
+        <li><a href="#t2-7">2-7 사례: 자폐와 SCN2A</a></li>
+        <li><a href="#t2-8">2-8 대부분의 형질은 '가산적'</a></li>
+        <li><a href="#t2-9">2-9 유전체 연구에 필요한 것</a></li>
+      </ol>
+    </li>
+    <li><a href="#p3">용어 정리와 용어사전 정정</a></li>
+  </ol>
+</nav>
+
+<!-- ===================== PART 1 ===================== -->
+<div class="part" id="p1">
+  <div class="part-head"><span class="no">01차시</span><h2>아들의 지능은 엄마가 결정한다?</h2></div>
+  <p class="part-sub">학습목표: 드노보 변이 개념 이해 · 유전 변이 개념 이해 · 다유전자 모델 이해 · 적합도와 대립유전자 빈도의 관계 이해</p>
+</div>
+
+<section class="topic" id="t1-1">
+  <h3><span class="num">1-1</span>새로 생기는 변이 – 정자와 난자 <span class="en">New mutation from sperm / egg</span></h3>
+  <p>DNA는 세포가 분열할 때마다 복제되고, 복제 때마다 드물게 오류가 생김. 그래서 <b class="g">분열 횟수가 많을수록 새 변이가 생길 기회도 많아짐</b>. 정자와 난자는 만들어지기까지 거치는 분열 횟수가 크게 다름.</p>
+
+  <div class="tbl"><table>
+    <thead><tr><th></th><th>정자 (남성 생식세포)</th><th>난자 (여성 생식세포)</th></tr></thead>
+    <tbody>
+      <tr><td><b>출발</b></td><td>원시 생식세포 (primordial male germ cell)</td><td>원시 생식세포 (primordial female germ cell)</td></tr>
+      <tr><td><b>초기 체세포분열</b></td><td>사춘기까지 약 15년간 <b>30회</b></td><td>태아기 약 5개월 동안 <b>22회</b> → 출생 때 이미 끝남</td></tr>
+      <tr><td><b>사춘기 이후</b></td><td>정원줄기세포가 <b>16일마다 1회</b> 분열을 평생 계속 + 4회 체세포분열</td><td>더 이상 분열하지 않고 대기</td></tr>
+      <tr><td><b>감수분열</b></td><td>2회 → 정세포(spermatid) → 정자</td><td>2회 (성숙 후 배란·수정 시점에 완료) → 제1·제2 극체 방출 → 접합자</td></tr>
+      <tr><td><b>특징</b></td><td>아버지 나이가 많을수록 분열 횟수가 계속 늘어남</td><td>어머니 나이와 상관없이 분열 횟수가 거의 일정</td></tr>
+    </tbody>
+  </table></div>
+
+  <figure>
+    <svg viewBox="0 0 720 210" role="img" aria-label="나이에 따른 생식세포 분열 횟수 비교">
+      <style>.a{font:600 13px Pretendard,sans-serif}.b{font:500 12px Pretendard,sans-serif;fill:#56635b}</style>
+      <text x="10" y="20" class="a" fill="#123d26">수정에 쓰이는 생식세포가 거친 분열 횟수 (Crow, 2000 계산 기준)</text>
+      <line x1="150" y1="40" x2="150" y2="190" stroke="#d6e2da"/>
+      <text x="10" y="64" class="a" fill="#56635b">난자 (나이 무관)</text>
+      <rect x="150" y="50" width="13" height="22" fill="#7cc795"/><text x="170" y="66" class="b">약 24회</text>
+      <text x="10" y="104" class="a" fill="#56635b">정자 · 20세</text>
+      <rect x="150" y="90" width="80" height="22" fill="#22a05a"/><text x="238" y="106" class="b">약 150회</text>
+      <text x="10" y="144" class="a" fill="#56635b">정자 · 30세</text>
+      <rect x="150" y="130" width="205" height="22" fill="#15803d"/><text x="363" y="146" class="b">약 380회</text>
+      <text x="10" y="184" class="a" fill="#56635b">정자 · 40세</text>
+      <rect x="150" y="170" width="325" height="22" fill="#14532d"/><text x="483" y="186" class="b">약 610회</text>
+    </svg>
+    <figcaption>사춘기(약 15세) 이후 정원줄기세포가 1년에 약 23회 분열한다고 보고 계산한 대략값</figcaption>
+  </figure>
+  <span class="eval">교안 두 그림의 핵심은 "새로 생기는 변이는 대부분 아버지 쪽 생식세포에서 온다"는 점임. 난자는 출생 전에 분열을 거의 마치기 때문</span>
+
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>아버지 나이 효과 (paternal age effect)</h5>
+    <ul>
+      <li>아이슬란드 가족 78쌍의 유전체를 분석한 연구(Kong 외, 2012, <i>Nature</i>)에서 아버지 나이가 1살 많을수록 자녀의 드노보 변이가 <b>약 2개씩</b> 늘어남</li>
+      <li>드노보 변이 중 아버지 쪽에서 온 것이 약 <b>80%</b>(약 4:1)로 추정됨</li>
+      <li>뒤에 나오는 연골무형성증도 드노보 사례 대부분이 아버지 쪽에서 생기며, 아버지 나이가 많을수록 빈도가 높아짐</li>
+    </ul>
+  </div>
+</section>
+
+<section class="topic" id="t1-2">
+  <h3><span class="num">1-2</span>드노보 변이란 <span class="en">De novo variants</span></h3>
+  <ul class="pt">
+    <li><b>De novo</b> = "새로 생긴"이라는 뜻의 라틴어 표현</li>
+    <li><b>Mutation(돌연변이)</b>과 <b>variant(변이)</b>는 같은 뜻이나, variant가 더 넓게 쓰이는 일반적인 말임</li>
+    <li>드노보 변이 = 부모 몸에는 없고, 아버지의 정자나 어머니의 난자에서 <b class="g">새로 생겨 자녀에게 처음 나타나는</b> 변이</li>
+    <li>사람은 누구나 드노보 변이를 가지며, 평균 <b class="g">약 70개</b> 정도임</li>
+  </ul>
+
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>왜 요즘은 mutation 대신 variant라고 쓰나</h5>
+    <ul>
+      <li>"돌연변이"라는 말이 일상에서 '병을 일으키는 나쁜 것'이라는 느낌을 주기 때문에, 임상유전학에서는 중립적인 <b>variant</b>를 권장함 (미국 의학유전학회 ACMG 2015 지침)</li>
+      <li>그래서 해석도 "병원성(pathogenic) 변이 / 의미 불명 변이 / 양성(benign) 변이"처럼 따로 나눠 붙임</li>
+      <li>평균 70개라는 수는 연구마다 차이가 있음 (대체로 1세대당 50~100개 범위로 보고됨)</li>
+    </ul>
+  </div>
+</section>
+
+<section class="topic" id="t1-3">
+  <h3><span class="num">1-3</span>연골무형성증 – 변이 하나가 만드는 질환 <span class="en">Achondroplasia</span></h3>
+  <ul class="pt">
+    <li>사람에게서 가장 흔한 <b>골격 형성 이상(skeletal dysplasia)</b>. 팔다리가 몸통보다 짧은 형태의 저신장의 약 <b>90%</b>를 차지함</li>
+    <li>원인: <b>섬유아세포 성장인자 수용체 3(FGFR3)</b> 유전자의 변이. <b>상염색체 우성</b>으로 유전됨</li>
+    <li>특징적 표현형: 팔다리의 <b>근위부(위팔·넓적다리) 짧아짐</b>(rhizomelic shortening), 큰 머리, 세 갈래 손(trident hand), 휜 다리, 짧은 손발</li>
+    <li>어린 시기 사망 위험이 높고, 성인이 되어서도 척추 질환을 겪는 경우가 많음</li>
+  </ul>
+
+  <h4>FGFR3 G380R – 아미노산 하나의 변화</h4>
+  <ul class="pt">
+    <li>FGFR3는 발달 중 <b>뼈 성장을 조절(억제)</b>하는 수용체임</li>
+    <li><b>G380R</b> = 380번째 아미노산이 글리신(<b>G</b>)에서 아르기닌(<b>R</b>)으로 바뀐 <b>점 돌연변이</b></li>
+    <li>이 변이로 수용체가 신호 없이도 <b class="g">항상 켜진 상태(constitutively active)</b>가 됨 → 뼈 성장 억제가 지나치게 강해짐 → 뼈가 덜 자람</li>
+  </ul>
+  <div class="flow">
+    <span>원인: FGFR3 G380R</span><i>→</i><span>DNA</span><i>→</i><span>RNA</span><i>→</i><span>단백질 (항상 켜진 FGFR3)</span><i>→</i><span class="on">연골무형성증</span>
+  </div>
+  <p class="src">DNA → RNA → 단백질로 이어지는 과정을 <b>중심원리(central dogma)</b>라 함. 변이가 표현형으로 이어지는 경로를 보여 주는 대표 예</p>
+  <span class="eval">"변이 하나 → 질환 하나"가 분명하게 이어지는 드문 경우임. 뒤에 나오는 키·지능 같은 형질은 이와 반대로 수많은 변이가 조금씩 작용함</span>
+
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>연골무형성증의 대부분은 드노보 변이</h5>
+    <ul>
+      <li>환자의 약 <b>80%</b>는 부모 모두 평균 키인 가정에서 태어남 → 부모에게 없던 <b>드노보 변이</b>로 생김. 1-1의 아버지 나이 효과와 연결됨</li>
+      <li>G380R 변이의 대부분은 DNA의 같은 자리(1138번 염기)에서 G가 A로 바뀐 것임. 이 자리는 사람 유전체에서 변이가 가장 자주 생기는 자리 중 하나로 꼽힘</li>
+      <li>FGFR3 유전자는 4번 염색체(4p16.3)에 있음</li>
+      <li>2021년부터 뼈 성장을 돕는 약(보소리타이드, vosoritide)이 미국·유럽에서 어린이 치료용으로 허가됨</li>
+    </ul>
+  </div>
+</section>
+
+<section class="topic" id="t1-4">
+  <h3><span class="num">1-4</span>변이 = 대립유전자 · 점 돌연변이의 종류 <span class="en">So, variant is "allele"</span></h3>
+  <h4>멘델 시대의 대립유전자</h4>
+  <ul class="pt">
+    <li>대립유전자(allele)는 형질이나 질환의 <b>차이를 만드는 원천</b>임</li>
+    <li>멘델 시대에는 실체를 모르는 <b>가상의 단위</b>였기에, 멘델은 이를 <b>알파벳 기호</b>로 나타냄</li>
+    <li>예: 멘델 논문(1865)의 <b>A</b> 둥근 모양 / <b>a</b> 주름진 모양, <b>B</b> 노란 떡잎 / <b>b</b> 초록 떡잎</li>
+  </ul>
+
+  <h4>오늘날의 대립유전자</h4>
+  <ul class="pt">
+    <li>대립유전자 = <b class="g">DNA 염기서열 안의 변화(변이)</b></li>
+    <li>DNA는 A, T, G, C 네 가지 뉴클레오티드로 이루어짐. 어떤 자리의 A가 T로, G가 A로 바뀌면 그것이 변이임</li>
+  </ul>
+  <div class="tbl"><table>
+    <thead><tr><th>구분</th><th>유전자 (gene)</th><th>대립유전자 (allele)</th></tr></thead>
+    <tbody>
+      <tr><td>뜻</td><td>단백질을 만드는 정보가 담긴 DNA 구간</td><td>DNA 염기서열의 변화(변이)</td></tr>
+      <tr><td>예</td><td>FGFR3 유전자</td><td>FGFR3의 G380R 변이</td></tr>
+    </tbody>
+  </table></div>
+
+  <h4>점 돌연변이의 세 종류</h4>
+  <div class="tbl"><table>
+    <thead><tr><th>종류</th><th>무슨 일이 생기나</th><th>교안 예시 (코돈 → 아미노산)</th></tr></thead>
+    <tbody>
+      <tr><td><b>침묵 (synonymous / silent)</b></td><td>유전 암호는 여러 코돈이 같은 아미노산을 가리키므로, 염기가 바뀌어도 아미노산이 그대로임</td><td><code class="seq">GCT → GCC</code> : 알라닌 → 알라닌</td></tr>
+      <tr><td><b>과오 (missense)</b></td><td>아미노산 하나가 다른 것으로 바뀜</td><td><code class="seq">ACC → AAC</code> : 트레오닌 → 아스파라긴</td></tr>
+      <tr><td><b>넌센스 (nonsense)</b></td><td>아미노산 코돈이 <b>종결 코돈</b>으로 바뀜 → 단백질이 중간에 끊김. 위치에 따라 mRNA가 분해(넌센스 매개 분해, NMD)되기도 함</td><td><code class="seq">GGA → TGA</code> : 글리신 → 종결</td></tr>
+    </tbody>
+  </table></div>
+  <ul class="pt">
+    <li>과오 돌연변이는 다시 <b>보존적</b>(성질이 비슷한 아미노산으로 바뀜, 예: 리신 → 아르기닌)과 <b>비보존적</b>(성질이 다른 아미노산으로 바뀜, 예: 리신 → 트레오닌)으로 나뉨</li>
+    <li>FGFR3 G380R은 과오 돌연변이, 뒤의 SCN2A G1013X는 넌센스 돌연변이에 해당함</li>
+  </ul>
+
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>교안 표(Different Types of Mutations)를 읽을 때 주의할 점</h5>
+    <ul>
+      <li>표의 "DNA level" 줄(<code class="seq">TTC</code> 등)은 mRNA와 짝을 이루는 <b>주형 가닥</b>임. 그래서 DNA <code class="seq">TTC</code> → mRNA <code class="seq">AAG</code>(리신)처럼 서로 상보적으로 바뀜</li>
+      <li>반면 본문 예시(<code class="seq">GCT</code>, <code class="seq">ACC</code>, <code class="seq">GGA</code>)는 mRNA와 같은 서열인 <b>코딩 가닥</b> 기준임 (T만 U로 바꾸면 mRNA)</li>
+      <li>같은 교안 안에서 두 기준이 섞여 있으므로, 코돈표를 볼 때 어느 가닥인지 먼저 확인할 것</li>
+    </ul>
+  </div>
+</section>
+
+<section class="topic" id="t1-5">
+  <h3><span class="num">1-5</span>변이는 해로운가 – 대부분은 중립 <span class="en">Variants/mutations are harmful?</span></h3>
+  <ul class="pt">
+    <li>MacArthur 외(2012, <i>Science</i>): 185명의 유전체에서 기능 상실(LoF) 후보 변이 2,951개를 엄격히 걸러 분석함</li>
+    <li>결과: 보통 사람 한 명의 유전체에 진짜 기능 상실 변이가 <b class="g">약 100개</b> 있고, 그중 <b class="g">약 20개 유전자</b>는 양쪽 사본이 모두 작동하지 않음 → 그래도 대부분 건강하게 삶</li>
+  </ul>
+  <h4>드노보 변이 70개는 모두 무슨 일을 할까?</h4>
+  <ul class="pt">
+    <li>드노보 변이가 모두 FGFR3 G380R처럼 강하게 작용한다면 사람은 엑스맨의 울버린처럼 될 것임. 실제로는 그렇지 않음</li>
+    <li><b>대부분의 변이는 중립</b>이라 형질에 거의 영향을 주지 않음 → 그래서 사람 사이의 형질 차이가 아주 크지는 않음</li>
+    <li>중립이기 때문에 자연선택에 걸러지지 않고 <b>다음 세대로 그대로 전달</b>됨</li>
+    <li>자연선택의 대상이 되는(해로운) 드노보 변이도, 선택에 유리한 드노보 변이도 <b>극히 일부</b>임</li>
+    <li>그 결과 중립 변이들이 오늘날 사람들 사이에 <b>나뉘어(segregated)</b> 퍼져 있음</li>
+  </ul>
+  <div class="flow">
+    <span>나</span><i>→</i><span>자녀 (+70)</span><i>→</i><span>손주 (+70+70)</span><i>→</i><span>…</span><i>→</i><span class="on">먼 후손: 아주 많은 변이</span>
+  </div>
+  <span class="eval">세대마다 새 변이가 더해지고, 대부분이 중립이라 사라지지 않고 쌓임. 이것이 사람마다 유전체가 조금씩 다른 이유임</span>
+</section>
+
+<section class="topic" id="t1-6">
+  <h3><span class="num">1-6</span>쌓여 온 변이와 다유전자 모델 <span class="en">Out of Africa · Polygenic model</span></h3>
+  <h4>인류 진화의 긴 역사 = 변이가 쌓인 유전체</h4>
+  <ul class="pt">
+    <li><b>Out of Africa</b>(Templeton, 2002): 인류는 아프리카에서 여러 차례 퍼져 나감 — 약 170만 년 전(호모 에렉투스), 42만~84만 년 전, 8만~15만 년 전. 그 사이 지역 간 유전자 교류도 계속됨</li>
+    <li>수백만 년 동안 여러 요인으로 변이가 유전체에 쌓여 옴. 세대가 지날수록 변이는 더 쌓임</li>
+    <li>대부분은 해가 없지만, 일부는 <b>유전적 다양성</b>과 <b>적응</b>으로 이어짐</li>
+    <li>Albers & McVean(2020) 그림: 과거 한 시점에 생긴 변이(파생 대립유전자)를 물려받은 집단(carrier)과 원래 형태(조상형)를 가진 집단이 갈라지는 계보를 보여 줌</li>
+  </ul>
+
+  <h4>다유전자 모델 (Polygenic model)</h4>
+  <ul class="pt">
+    <li>poly(많은) + genic(대립유전자·변이와 관련된) → <b class="g">여러 대립유전자(변이)의 영향을 함께 받는 형질</b></li>
+    <li>많은 변이가 함께 작용하면 사람마다 값이 조금씩 달라져, 어떤 표현형을 보면 <b>연속적인 범위(스펙트럼)</b>로 나타남</li>
+    <li>예: 키 순서대로 줄 세운 학생들 사진(Tobin & Dusheck, 2001) → 종 모양(정규분포) 곡선이 됨</li>
+  </ul>
+  <h4>멘델의 법칙과 맞지 않는가?</h4>
+  <ul class="pt">
+    <li>변이는 형질 차이에 기여하고, 표현형은 스펙트럼으로 나타남</li>
+    <li>그런데 이런 표현형은 멘델식 비율로 나뉘지 않음 → 사람의 키는 <b>3:1</b>로 나뉘지 않음</li>
+    <li>→ 이 모순을 푼 것이 02강의 <b>피셔(1918)</b>임 (1-8)</li>
+  </ul>
+
+  <div class="key"><span class="label">01차시 (1) 학습정리</span>
+    <ul class="pt" style="margin-bottom:0">
+      <li>표현형의 차이는 세대마다 새로 생기는 드노보 변이에서 비롯됨</li>
+      <li>일부 변이는 형질·질환에 크게 작용하지만, 대부분은 중립이며 다음 세대로 나뉘어 전달됨</li>
+      <li>DNA 안의 유전 변이를 "대립유전자"라 부름</li>
+    </ul>
+  </div>
+</section>
+
+<section class="topic" id="t1-7">
+  <h3><span class="num">1-7</span>'지능은 엄마에게서' 주장 검토 <span class="en">Scientific misconception of genetics</span></h3>
+  <h4>퍼져 있는 주장</h4>
+  <ul class="pt">
+    <li>구글·다음·네이버에 "아들 지능"을 치면 '모계유전', '엄마'가 자동완성으로 뜸</li>
+    <li>2016년 KBS 뉴스: "'지능 유전자' 엄마로부터 물려받는다" — 엄마는 XX, 아빠는 XY이고 X염색체가 지능 유전자를 지니고 옮긴다는 설명 (화면 출처: 영국 매체 인디펜던트, 영국 의학연구위원회)</li>
+    <li>영어권 검색 결과도 "증명됐다"는 기사와 "근거 없다"는 기사(Forbes 2016, KQED 2016)가 섞여 있음</li>
+  </ul>
+
+  <h4>이 주장은 어디서 왔나 (Debunk a myth)</h4>
+  <ul class="pt">
+    <li>지적장애는 20세기 중반부터 연구됨. 당시에도 <b>남성에게서 더 많이 나타난다</b>는 점이 알려져 있었음</li>
+    <li>그때 이 성별 차이를 설명할 수 있는 정보는 <b>성염색체</b>뿐이었음</li>
+    <li>남성은 X염색체를 어머니에게서만 받음 → 그래서 과학자들은 "지능 유전자는 X염색체에 있다"고 생각함</li>
+    <li>대표 문헌: Lehrke(1972), "A theory of X-linkage of major intellectual traits" — 지능 관련 주요 유전자가 X염색체에 있다는 <b>가설</b>을 세움. 남성의 변동 폭이 더 크다는 점, 지적장애·학습장애 남성이 더 많다는 점을 근거로 들었고, 지적장애의 25~50%가 X연관 유전자 때문이라고 추정함</li>
+  </ul>
+
+  <h4>최신 과학의 설명</h4>
+  <ul class="pt">
+    <li>지능은 <b class="g">다유전자 모델</b>을 따름</li>
+    <li>가산적(additive) 대립유전자, 우성(dominant) 대립유전자, 상위(epistatic) 대립유전자가 모두 기여할 수 있음</li>
+    <li><b>환경 요인</b>도 기여함</li>
+  </ul>
+  <span class="eval">X염색체는 사람 염색체 23쌍 중 하나일 뿐이고, 지능과 관련된 변이는 모든 염색체에 흩어져 있음. "엄마가 결정한다"는 말은 50년 전 가설이 근거 확인 없이 기사로 퍼진 경우로 볼 수 있음</span>
+
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>남성에게 지적장애가 더 많은 이유는 따로 있음</h5>
+    <ul>
+      <li>남성은 X염색체가 하나뿐이라, X염색체 위 유전자에 해로운 변이가 있으면 다른 쪽 사본으로 메울 수 없음. 그래서 <b>X연관 지적장애</b>는 남성에게 더 잘 드러남 (여성은 X가 둘이라 가려지는 경우가 많음)</li>
+      <li>대표 예: <b>취약 X 증후군(Fragile X)</b> — X염색체의 FMR1 유전자 이상으로 생기며, 유전되는 지적장애 중 가장 흔함. 1-9의 적합도 그래프에도 나옴</li>
+      <li>즉 "X염색체 이상이 <b>지적장애</b>의 일부를 설명한다"는 것과 "보통 사람의 <b>지능 차이</b>를 엄마의 X염색체가 결정한다"는 것은 다른 이야기임</li>
+      <li>대규모 연구(예: Savage 외, 2018, 약 27만 명)에서 지능과 관련된 유전자 자리는 수백 곳이며, 상염색체 전반에 퍼져 있음</li>
+      <li>딸은 X염색체를 아버지·어머니에게서 하나씩 받으므로, "엄마 X 이론"을 그대로 따라도 딸에게는 아버지 영향이 반임</li>
+    </ul>
+  </div>
+</section>
+
+<section class="topic" id="t1-8">
+  <h3><span class="num">1-8</span>멘델·다윈·골턴, 그리고 피셔(1918) <span class="en">Modern Genetics in 20th century</span></h3>
+  <div class="tbl"><table>
+    <thead><tr><th>인물</th><th>핵심 주장</th><th>상징하는 그림</th></tr></thead>
+    <tbody>
+      <tr><td><b>그레고어 멘델</b> (1822–1884)</td><td>"유전 인자는 둘 중 하나로 나뉘는(이분법적) 형태로 존재함"</td><td>초록 완두 / 노란 완두</td></tr>
+      <tr><td><b>프랜시스 골턴</b> (1822–1911)</td><td>"생물의 형질은 연속적임"</td><td>종 모양 분포 곡선</td></tr>
+      <tr><td><b>찰스 다윈</b> (1809–1882)</td><td>"자연 집단 안에는 변이가 있음"</td><td>갈라파고스 핀치 부리</td></tr>
+    </tbody>
+  </table></div>
+
+  <h4>멘델 학파 vs 생물측정학파 – 키와 완두 논쟁 (1900년대 초)</h4>
+  <div class="grid2">
+    <div class="mini"><h4>멘델 학파 (Mendelian)</h4><p style="margin:0">멘델(1866), 베이트슨(1902)<br>형질은 뚜렷이 나뉘는 인자로 유전됨 (완두)</p></div>
+    <div class="mini"><h4>생물측정학파 (Biometrician)</h4><p style="margin:0">다윈(1868), 피어슨(1902)<br>형질은 연속적이고 부모·자녀 값이 비례함 (키)</p></div>
+  </div>
+  <div class="flow"><span>두 학파의 논쟁</span><i>→</i><span class="on">피셔 (1918) 통합</span><i>→</i><span>모건 (1915)</span><span>팰코너 (1965)</span></div>
+
+  <h4>피셔의 1918년 논문</h4>
+  <ul class="pt">
+    <li>제목: "The correlation between relatives on the supposition of Mendelian inheritance" (멘델 유전을 가정했을 때 친족 간의 상관관계)</li>
+    <li>로널드 피셔가 <b>무한소 모델(infinitesimal model)</b>을 제안해 멘델 학파와 생물측정학파의 주장을 하나로 묶음</li>
+    <li>양적 형질 = <b class="g">유전 요인 + 비유전 요인</b>의 합</li>
+    <li>최초의 다유전자 모델임</li>
+  </ul>
+
+  <h4>유전자 자리가 늘어날수록 분포가 종 모양이 됨</h4>
+  <figure>
+    <svg viewBox="0 0 720 250" role="img" aria-label="유전자 자리 수에 따른 유전형 빈도 분포">
+      <style>.c{font:600 13px Pretendard,sans-serif;fill:#123d26}.d{font:500 11px Pretendard,sans-serif;fill:#56635b}</style>
+      <!-- one locus 1:2:1 -->
+      <text x="20" y="20" class="c">유전자 자리 1개</text>
+      <g fill="#7cc795"><rect x="30" y="160" width="36" height="40"/><rect x="72" y="120" width="36" height="80"/><rect x="114" y="160" width="36" height="40"/></g>
+      <g class="d" text-anchor="middle"><text x="48" y="216">0</text><text x="90" y="216">1</text><text x="132" y="216">2</text><text x="90" y="236">1 : 2 : 1</text></g>
+      <!-- two loci 1:4:6:4:1 -->
+      <text x="200" y="20" class="c">유전자 자리 2개</text>
+      <g fill="#22a05a"><rect x="205" y="186" width="28" height="14"/><rect x="237" y="146" width="28" height="54"/><rect x="269" y="120" width="28" height="80"/><rect x="301" y="146" width="28" height="54"/><rect x="333" y="186" width="28" height="14"/></g>
+      <g class="d" text-anchor="middle"><text x="219" y="216">0</text><text x="251" y="216">1</text><text x="283" y="216">2</text><text x="315" y="216">3</text><text x="347" y="216">4</text><text x="283" y="236">1 : 4 : 6 : 4 : 1</text></g>
+      <!-- three loci 1:6:15:20:15:6:1 -->
+      <text x="400" y="20" class="c">유전자 자리 3개</text>
+      <g fill="#15803d"><rect x="405" y="196" width="22" height="4"/><rect x="430" y="176" width="22" height="24"/><rect x="455" y="140" width="22" height="60"/><rect x="480" y="120" width="22" height="80"/><rect x="505" y="140" width="22" height="60"/><rect x="530" y="176" width="22" height="24"/><rect x="555" y="196" width="22" height="4"/></g>
+      <g class="d" text-anchor="middle"><text x="416" y="216">0</text><text x="441" y="216">1</text><text x="466" y="216">2</text><text x="491" y="216">3</text><text x="516" y="216">4</text><text x="541" y="216">5</text><text x="566" y="216">6</text><text x="491" y="236">1:6:15:20:15:6:1</text></g>
+      <!-- many loci curve -->
+      <text x="600" y="20" class="c">많은 자리 + 환경</text>
+      <path d="M600 200 C630 198,640 120,660 120 C680 120,690 198,715 200 Z" fill="#14532d" opacity=".85"/>
+      <text x="657" y="236" class="d" text-anchor="middle">정규분포</text>
+      <text x="20" y="54" class="d">가로축: 형질을 키우는 대립유전자의 개수 · 세로축: 그 유전형의 빈도</text>
+    </svg>
+    <figcaption>교안 Plomin 외(2009) 그림을 다시 그림. 각 자리에 '키우는' 대립유전자가 반반 있다고 가정</figcaption>
+  </figure>
+  <ul class="pt">
+    <li>자리 1개(A₁A₁, A₁A₂, A₂A₂) → 3칸, 자리 2개 → 5칸, 자리 3개 → 7칸으로 늘어나며 가운데가 가장 많아짐</li>
+    <li>자리가 아주 많고 환경 영향까지 더해지면 칸이 구분되지 않는 <b class="g">매끈한 종 모양 곡선</b>이 됨 → 키처럼 연속적인 형질이 멘델 유전으로도 설명됨</li>
+  </ul>
+
+  <h4>표현형 분산을 설명하는 요인 (피셔 1918)</h4>
+  <div class="tbl"><table>
+    <thead><tr><th>구분</th><th>요인</th><th>뜻</th></tr></thead>
+    <tbody>
+      <tr><td rowspan="3"><b>유전 요인</b></td><td>가산적 대립유전자 (additive)</td><td>많은 변이가 각각 아주 조금씩 표현형에 더해짐</td></tr>
+      <tr><td>우성 대립유전자 (dominance)</td><td>변이 하나가 표현형에 크게 작용함</td></tr>
+      <tr><td>상위 작용 (epistasis)</td><td>가산적 대립유전자끼리, 또는 가산적·우성 대립유전자 사이의 상호작용</td></tr>
+      <tr><td><b>비유전 요인</b></td><td>환경</td><td>영양, 생활 등</td></tr>
+      <tr><td><b>상호작용</b></td><td>유전 × 환경</td><td>같은 변이라도 환경에 따라 효과가 달라짐</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>이 학자들과 우생학의 관계</h5>
+    <ul>
+      <li>골턴은 1883년 <b>우생학(eugenics)</b>이라는 말을 만들고 '뛰어난 형질'을 가진 사람끼리 결혼시켜 인류를 개량하자고 주장함</li>
+      <li>피어슨은 런던대(UCL)의 첫 '골턴 우생학 교수'였고, 피셔도 1933년 그 자리를 이어받음. 다유전자 모델·통계 유전학의 기초가 우생학 연구 환경에서 만들어졌다는 사실은 과학사에서 널리 지적되는 부분임</li>
+      <li>20세기 초 미국·독일 등에서는 우생학을 근거로 장애인·빈곤층 등에 대한 <b>강제 불임 수술</b>이 법으로 시행됨</li>
+    </ul>
+    <p class="why">평가 ▸ 1-7처럼 "지능 유전"을 다룰 때 이 역사를 함께 알아 둘 필요가 있음. 유전이 형질에 영향을 준다는 과학적 사실과, 그것으로 사람의 가치를 나누는 주장은 별개임.</p>
+  </div>
+</section>
+
+<section class="topic" id="t1-9">
+  <h3><span class="num">1-9</span>키의 다유전자 모델과 적합도 <span class="en">Polygenic model for height · Fitness</span></h3>
+  <div class="tbl"><table>
+    <thead><tr><th>분포 위치</th><th>원인 (유전형)</th><th>표현형</th><th>특징</th></tr></thead>
+    <tbody>
+      <tr><td>가장 작은 쪽 끝</td><td>FGFR3 변이</td><td>연골무형성증</td><td>환자의 98%가 FGFR3 G380R 변이 때문 (Shiang 외, 1994)</td></tr>
+      <tr><td>가운데 (작음 · 평균 · 큼)</td><td>흔한 유전 변이(가산적 대립유전자) 여러 개 + 환경</td><td>보통 사람의 키</td><td>대부분의 사람이 여기에 속함</td></tr>
+      <tr><td>가장 큰 쪽 끝</td><td>FBN1(피브릴린 1) 변이</td><td>마르판 증후군</td><td>약 75%는 부모에게서 물려받고, 약 25%는 드노보 변이</td></tr>
+    </tbody>
+  </table></div>
+  <ul class="pt">
+    <li>분포의 양 끝에는 <b>선택압(selective pressure)</b>이 작용함 → 극단적인 값은 질환 위험(risk)과 연결됨</li>
+  </ul>
+
+  <h4>적합도가 대립유전자 빈도를 정함 (Fitness determines allele frequency)</h4>
+  <ul class="pt">
+    <li>가로축: 그 유전형이 집단에서 얼마나 흔한가 (집단 빈도) / 세로축: 그 유전형을 가지면 실제로 증상이 나타나는 비율 (<b>침투도, penetrance</b>)</li>
+    <li>곡선 3개 = <b>생식 적합도</b>(자손을 남기는 정도)가 높음(~90%), 중간(~50%), 낮음(~10%)</li>
+  </ul>
+  <div class="tbl"><table>
+    <thead><tr><th>예</th><th>침투도</th><th>집단 빈도</th><th>생식 적합도</th></tr></thead>
+    <tbody>
+      <tr><td>취약 X 증후군</td><td>매우 높음 (~100%)</td><td>매우 드묾</td><td>낮음</td></tr>
+      <tr><td>마르판 증후군</td><td>매우 높음 (~100%)</td><td>드묾</td><td>중간</td></tr>
+      <tr><td>ACHOO 증후군</td><td>높음 (~80%)</td><td>흔함</td><td>높음</td></tr>
+      <tr><td>알츠하이머병</td><td>중간 (~40%)</td><td>흔함</td><td>높음</td></tr>
+      <tr><td>MHC – 조현병</td><td>낮음</td><td>비교적 흔함 (~1%대)</td><td>중간</td></tr>
+    </tbody>
+  </table></div>
+  <span class="eval">자손을 남기기 어렵게 만드는 강한 변이는 세대를 거치며 걸러져 드물게 남고(새로 생기는 드노보 변이가 빈자리를 채움), 영향이 약하거나 생식에 지장이 없는 변이는 흔하게 남음</span>
+
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>그래프에 나온 낯선 이름들</h5>
+    <ul>
+      <li><b>ACHOO 증후군</b>: 밝은 빛을 보면 재채기가 나는 반응(광재채기 반사). 우성으로 유전되며 사람의 약 18~35%에서 나타난다고 보고됨. 생존·생식에 지장이 없어 흔하게 남아 있는 예</li>
+      <li><b>MHC</b>: 면역에 관여하는 주조직적합성 복합체 유전자 구역(6번 염색체). 이 구역의 흔한 변이(특히 보체 C4 유전자)가 조현병 위험을 조금 높인다는 연구가 있음 (Sekar 외, 2016)</li>
+      <li><b>침투도</b>: 같은 변이를 가져도 증상이 나타나는 사람의 비율. 100%면 변이가 있으면 반드시 증상이 나타남</li>
+    </ul>
+  </div>
+
+  <div class="key"><span class="label">01차시 (2) 학습정리</span>
+    <ul class="pt" style="margin-bottom:0">
+      <li>다유전자 모델은 사람의 형질과 질환을 이해하는 기본 틀임</li>
+      <li>여러 변이가 함께 다유전자 모델에 기여함</li>
+      <li>표현형 분산은 여러 요인으로 설명할 수 있음</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===================== PART 2 ===================== -->
+<div class="part" id="p2">
+  <div class="part-head"><span class="no">02차시</span><h2>유전질환: 관찰에서 디지털로 전환</h2></div>
+  <p class="part-sub">학습목표: 다윈·멘델의 유전 모델 설명 · 멘델 유전학 이해 · 초기 유전 관찰 이해 · 유전체 기술 종류 이해 · 유전 요인으로서의 대립유전자 이해 · 유전체 연구의 핵심 역량 이해</p>
+</div>
+
+<section class="topic" id="t2-1">
+  <h3><span class="num">2-1</span>다윈의 자연선택과 혼합 유전 <span class="en">Darwin: natural selection · blending inheritance</span></h3>
+  <div class="grid2">
+    <div class="mini"><h4>다윈 – 혼합 유전 (1868)</h4><p style="margin:0">Blending inheritance. 자손은 부모 형질이 섞인 중간값을 가짐</p></div>
+    <div class="mini"><h4>멘델 – 입자 유전 (1866)</h4><p style="margin:0">Particulate inheritance. 유전 인자는 섞이지 않고 덩어리째 전달됨</p></div>
+  </div>
+
+  <h4>비글호 항해와 자연선택</h4>
+  <ul class="pt">
+    <li>대항해 시대, 다윈은 비글호를 타고 세계를 돌며 새로운 동식물을 관찰함 (영국 플리머스 → 남미 → 갈라파고스 → 호주 → 희망봉 → 귀환)</li>
+    <li>관찰한 것: ① 자연 집단 안에는 한 형질에도 <b>여러 변이</b>가 있음 ② 이 변이는 <b>여러 세대에 걸쳐 유지</b>됨</li>
+    <li>『종의 기원(On the Origin of Species)』 1859년 출간</li>
+    <li>4장의 요약: 쓸모 있는 변이를 가진 개체가 생존 경쟁에서 살아남을 가능성이 가장 크고, 강한 유전의 원리에 따라 비슷한 특징을 가진 자손을 남김 → 이 보존의 원리를 <b class="g">자연선택(Natural Selection)</b>이라 부름</li>
+    <li>다윈은 <b>관상용 비둘기</b> 품종 개량(1851년 비둘기 애호가 모임 그림)에 특히 관심이 많았고, 이것이 진화 이론을 세우는 데 도움이 됨</li>
+  </ul>
+
+  <h4>혼합 유전 (Blending inheritance)</h4>
+  <ul class="pt">
+    <li>다윈은 진화가 종 안의 <b>유전되는 변이</b>에 달려 있다는 점을 처음 분명히 이해한 사람임</li>
+    <li>혼합 유전: 자손은 부모 형질값의 <b>평균</b>을 물려받음 → <b>Z<sub>자손</sub> = (Z<sub>어머니</sub> + Z<sub>아버지</sub>) / 2</b></li>
+    <li>부모 몸의 모든 부분이 자손의 발생에 기여할 수 있다고 봄</li>
+    <li>멘델 유전학이 재발견되기 전까지 가장 널리 받아들여진 유전 이론임</li>
+  </ul>
+  <h4>제뮬 (gemmules, 범생설)</h4>
+  <div class="flow"><span>몸 전체</span><i>→</i><span>제뮬이 모여듦</span><i>→</i><span>알 (생식세포)</span><i>→</i><span class="on">배아의 발생</span></div>
+  <ul class="pt">
+    <li>작고 가산적인 효과를 가짐 (섞이기 때문)</li>
+    <li>몸 전체를 돌아다님</li>
+    <li>환경이 몸에 영향을 주면 함께 바뀜</li>
+    <li>생식기관에 모이고 늘어남</li>
+    <li>살면서 <b>얻은 형질(획득 형질)</b>을 자손에게 전달함</li>
+  </ul>
+
+  <h4>혼합 유전에 대한 비판</h4>
+  <div class="tbl"><table>
+    <thead><tr><th>비판</th><th>내용</th></tr></thead>
+    <tbody>
+      <tr><td><b>플리밍 젠킨</b> (1867)</td><td>혼합 유전이 맞다면 세대마다 변이가 절반씩 사라져 금방 없어짐 → 자연선택이 작용할 변이가 남지 않음</td></tr>
+      <tr><td><b>골턴의 토끼 실험</b> (1871)</td><td>검은 토끼와 흰 토끼 사이에 피를 주고받게 함 → 회색 털 자손을 예상했으나 털색 변화 없음<br>→ 다윈은 『네이처』에 "제뮬이 피로 돈다고 주장한 적은 없다"고 답함</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section class="topic" id="t2-2">
+  <h3><span class="num">2-2</span>멘델의 관찰과 유전 법칙 <span class="en">Mendel's observation</span></h3>
+  <ul class="pt">
+    <li>멘델은 유전 연구에 <b>환원주의적 방법</b>(복잡한 현상을 단순한 단위로 쪼개서 보는 방법)을 도입함</li>
+    <li>1856~1863년, 약 <b>30,000그루</b>의 완두를 통제된 교배로 키우며 형질 유전을 연구함</li>
+    <li>1865년 2월·3월 브뤼(브르노) 자연과학회 모임에서 발표하고, 1866년 『식물 잡종에 관한 실험(Versuche über Pflanzen-Hybriden)』으로 출판함</li>
+  </ul>
+
+  <h4>왜 19세기에 유전에 관심이 커졌나</h4>
+  <ul class="pt">
+    <li>식물 교배 같은 <b>품종 개량</b>이 19세기 경제에 매우 중요했음 (멘델이 살던 곳: 오스트리아-헝가리 제국 모라비아 지방 브르노)</li>
+    <li>항해 기술의 발달로 새로운 동식물이 계속 들어옴</li>
+  </ul>
+
+  <h4>멘델의 방법 – 둘로 뚜렷이 나뉘는 형질 비교</h4>
+  <ul class="pt">
+    <li>대대로 변하지 않는(<b>순종, true-breeding</b>) 형질만 골라 일곱 쌍을 비교함</li>
+  </ul>
+  <div class="tbl"><table>
+    <thead><tr><th>형질</th><th>우성</th><th>열성</th><th class="c">F2 관찰 수</th><th class="c">비율</th></tr></thead>
+    <tbody>
+      <tr><td>씨 모양</td><td>둥긂</td><td>주름짐</td><td class="c">5474 : 1850</td><td class="c">2.96 : 1</td></tr>
+      <tr><td>씨(떡잎) 색</td><td>노랑</td><td>초록</td><td class="c">6002 : 2001</td><td class="c">2.99 : 1</td></tr>
+      <tr><td>꽃 색</td><td>보라</td><td>흰색</td><td class="c">705 : 224</td><td class="c">3.15 : 1</td></tr>
+      <tr><td>꽃 위치</td><td>줄기 옆 (axial)</td><td>줄기 끝 (terminal)</td><td class="c">651 : 207</td><td class="c">3.14 : 1</td></tr>
+      <tr><td>키</td><td>큼</td><td>작음</td><td class="c">787 : 277</td><td class="c">2.84 : 1</td></tr>
+      <tr><td>꼬투리 모양</td><td>부풂</td><td>잘록함</td><td class="c">882 : 299</td><td class="c">2.95 : 1</td></tr>
+      <tr><td>꼬투리 색</td><td>초록</td><td>노랑</td><td class="c">428 : 152</td><td class="c">2.82 : 1</td></tr>
+    </tbody>
+  </table></div>
+  <p class="src">교안 왼쪽 목록은 꼬투리 모양을 "smooth vs constricted", 키를 "standard vs dwarf"로 적음. 표(sciencelearn.org.nz)와 표현만 다르고 같은 형질임</p>
+
+  <h4>혼합 유전이 맞다면 예상되는 결과 vs 실제 결과</h4>
+  <div class="grid2">
+    <div class="mini"><h4>혼합 유전의 예상</h4><p style="margin:0">보라 × 흰색 → F1은 두 부모 사이의 <b>연한 중간색</b>. 세대가 갈수록 모두 비슷한 중간색으로 수렴</p></div>
+    <div class="mini"><h4>멘델의 실제 관찰</h4><p style="margin:0">F1은 <b>모두 보라색</b>(흰색은 가려짐). F1끼리 자가수분하자 F2에서 흰색이 <b>다시 나타남</b>: 보라 705 : 흰색 224 ≈ <b>3 : 1</b></p></div>
+  </div>
+  <figure>
+    <svg viewBox="0 0 720 250" role="img" aria-label="F1 자가수분 퍼넷 사각형">
+      <style>.e{font:700 18px Pretendard,sans-serif}.f{font:600 13px Pretendard,sans-serif;fill:#123d26}.g2{font:500 12px Pretendard,sans-serif;fill:#56635b}</style>
+      <text x="20" y="28" class="f">F1 (Pp) × F1 (Pp) 자가수분</text>
+      <text x="20" y="50" class="g2">P = 보라 인자(우성), p = 흰색 인자(열성)</text>
+      <g transform="translate(60,70)">
+        <text x="95" y="-6" class="f" text-anchor="middle">P</text><text x="175" y="-6" class="f" text-anchor="middle">p</text>
+        <text x="40" y="45" class="f" text-anchor="middle">P</text><text x="40" y="125" class="f" text-anchor="middle">p</text>
+        <rect x="55" y="5" width="80" height="80" fill="#e7dcf3" stroke="#fff" stroke-width="3"/><text x="95" y="52" class="e" text-anchor="middle" fill="#5b3a86">PP</text>
+        <rect x="135" y="5" width="80" height="80" fill="#e7dcf3" stroke="#fff" stroke-width="3"/><text x="175" y="52" class="e" text-anchor="middle" fill="#5b3a86">Pp</text>
+        <rect x="55" y="85" width="80" height="80" fill="#e7dcf3" stroke="#fff" stroke-width="3"/><text x="95" y="132" class="e" text-anchor="middle" fill="#5b3a86">Pp</text>
+        <rect x="135" y="85" width="80" height="80" fill="#f4f4f1" stroke="#d6e2da" stroke-width="1"/><text x="175" y="132" class="e" text-anchor="middle" fill="#56635b">pp</text>
+      </g>
+      <g transform="translate(330,90)">
+        <text x="0" y="0" class="f">유전형  PP : Pp : pp = 1 : 2 : 1</text>
+        <text x="0" y="30" class="f">표현형  보라 : 흰색 = 3 : 1</text>
+        <text x="0" y="66" class="g2">흰색 인자(p)는 F1에서 사라진 것이 아니라 가려져 있었음</text>
+        <text x="0" y="88" class="g2">→ 유전 인자는 섞이지 않고 그대로 전달됨 (입자 유전)</text>
+        <text x="0" y="118" class="g2">※ 1:2:1은 1-8 피셔 그림의 '자리 1개' 분포와 같은 비율</text>
+      </g>
+    </svg>
+    <figcaption>교안의 3:1 결과를 퍼넷 사각형으로 정리함 (교안에 없는 그림)</figcaption>
+  </figure>
+
+  <h4>멘델의 유전 법칙 (1865)</h4>
+  <div class="tbl"><table>
+    <thead><tr><th>법칙</th><th>내용</th></tr></thead>
+    <tbody>
+      <tr><td><b>분리의 법칙</b></td><td>생식세포를 만들 때 자손은 부모 각각에게서 <b>유전 인자</b>(뒤에 '대립유전자'로 불림)를 하나씩 받음</td></tr>
+      <tr><td><b>독립의 법칙</b></td><td>한 쌍의 대립유전자가 나뉘는 방식은 다른 쌍이 나뉘는 방식과 상관없음</td></tr>
+      <tr><td><b>우열의 법칙</b></td><td>한 대립유전자가 어떤 대립유전자에는 우성이면서 다른 대립유전자에는 열성일 수 있음</td></tr>
+    </tbody>
+  </table></div>
+  <ul class="pt">
+    <li>멘델 논문의 두 쌍 교배: 씨 부모 <b>AB</b>(둥긂·노랑) × 꽃가루 부모 <b>ab</b>(주름짐·초록). 잡종의 알과 꽃가루가 AB, Ab, aB, ab 네 종류로 만들어진다는 가정 아래 결과를 예측함 → 독립의 법칙의 근거</li>
+  </ul>
+
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>멘델의 결과는 "너무 잘 맞았다"? — 피셔의 문제 제기</h5>
+    <ul>
+      <li>1936년 피셔는 멘델의 수치가 통계적으로 기대값에 <b>너무 가깝다</b>고 지적함. 우연이라면 이보다 더 흩어지는 것이 자연스럽다는 주장</li>
+      <li>멘델이 결과를 손봤다는 뜻으로 읽히기도 했으나, 이후 연구들은 의도적 조작이라기보다 실험 설계·분류 방식에서 생긴 문제일 가능성을 많이 제시함. 지금도 결론이 나지 않은 과학사 논쟁임</li>
+      <li>멘델 논문은 발표 후 30여 년간 거의 주목받지 못하다가, 1900년 드브리스·코렌스·체르마크가 각각 비슷한 결과를 얻으며 <b>재발견</b>됨</li>
+    </ul>
+  </div>
+</section>
+
+<section class="topic" id="t2-3">
+  <h3><span class="num">2-3</span>멘델의 재발견과 염색체설 <span class="en">Rediscovery of Mendel's Work</span></h3>
+  <ul class="pt">
+    <li>19세기 세포학자들이 염색체를 찾아내고 감수분열 때 염색체의 움직임을 기록함 — <b>오스카 헤르트비히(1876)</b>, <b>에두아르 판베네던(1883)</b></li>
+    <li>밝혀진 사실: ① 감수분열과 수정 때 <b>부모가 생식세포를 하나씩</b> 냄 ② 감수분열은 한 번이 아니라 <b>연속 두 번</b>의 분열임 ③ 감수분열 결과 <b>염색체 수가 줄어듦</b></li>
+  </ul>
+  <h4>월터 서턴(1902) – 유전의 염색체설을 처음 분명히 주장</h4>
+  <ul class="pt">
+    <li>큰 메뚜기(<i>Brachystola magna</i>)의 정원세포를 현미경으로 관찰함</li>
+    <li>염색체가 <b class="g">멘델의 규칙을 따른다</b>는 사실을 처음 발견함</li>
+    <li>논문 39쪽: 아버지·어머니 쪽 염색체가 쌍을 이뤘다가 감수분열 때 갈라지는 것이 "멘델 유전 법칙의 물리적 바탕일 수 있다"고 씀</li>
+  </ul>
+  <span class="eval">멘델의 '유전 인자'는 머릿속 개념이었는데, 서턴 이후 실제로 눈에 보이는 구조(염색체)와 연결되기 시작함</span>
+  <p class="src">같은 시기 독일의 테오도어 보베리도 비슷한 결론을 내서, 흔히 '서턴-보베리 염색체설'이라 부름</p>
+</section>
+
+<section class="topic" id="t2-4">
+  <h3><span class="num">2-4</span>유전 용어가 만들어진 과정 <span class="en">Constructing term for heredity</span></h3>
+  <div class="tl">
+    <div class="ev"><span class="yr">1865</span>멘델 — "유전 인자(heritable factor)"</div>
+    <div class="ev"><span class="yr">1901</span>휘호 드브리스 — "돌연변이(mutation)"</div>
+    <div class="ev"><span class="yr">1902</span>베이트슨 — "대립유전자(allele)": 그리스어 ἄλλος(다른 것). 처음엔 allelomorph(다른 형태)였다가 allele로 줄어듦 · "유전학(genetics)"</div>
+    <div class="ev"><span class="yr">1902</span>서턴 — 염색체가 유전 인자임</div>
+    <div class="ev"><span class="yr">1909</span>빌헬름 요한센 — "유전자(gene)": 그리스어 γόνος(자손)</div>
+    <div class="ev"><span class="yr">1910</span>토머스 헌트 모건 — 초파리 실험으로 염색체가 유전에 관여함을 보임 → 유전자는 염색체 위의 유전 인자</div>
+    <div class="ev"><span class="yr">1944</span>오즈월드 에이버리 — 세균에서 유전 정보를 전달하는 물질이 <b>DNA</b>임을 보임</div>
+    <div class="ev"><span class="yr">1958</span>중심원리 (DNA → RNA → 단백질)</div>
+    <div class="ev"><span class="yr">2001</span>인간 유전체 사업 초안 발표</div>
+  </div>
+  <ul class="pt">
+    <li><b>모건</b>(1866–1945): 베이트슨의 리뷰(1916, <i>Science</i>)에 관심을 가짐. 초파리 연구(「초파리의 성 제한 유전」, 1910)로 염색체의 역할을 보였고, <b>연관 유전자</b>와 <b>유전자 지도</b> 연구의 바탕을 만듦</li>
+    <li><b>에이버리</b>(1877–1955): 미국의 세균학자. 1944년 동료들과 함께 DNA가 유전 물질임을 보인 것은 유전학의 결정적 전환점임</li>
+  </ul>
+
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>교안 순서에서 헷갈릴 수 있는 부분</h5>
+    <ul>
+      <li>모건의 초파리 연구는 1910년에 시작됐으므로, 1916년 베이트슨 리뷰보다 앞섬. 베이트슨은 오히려 오랫동안 염색체설에 <b>회의적</b>이었던 인물로 알려져 있음</li>
+      <li>에이버리 실험(폐렴구균 형질전환)은 처음엔 의심을 받았고, 1952년 허시-체이스 실험으로 DNA가 유전 물질이라는 데 널리 동의하게 됨</li>
+      <li>DNA 이중나선 구조는 1953년 왓슨과 크릭이 발표함</li>
+    </ul>
+  </div>
+</section>
+
+<section class="topic" id="t2-5">
+  <h3><span class="num">2-5</span>중심원리와 인간 유전체 사업 <span class="en">Central dogma · Human Genome Project</span></h3>
+  <div class="flow"><span>DNA</span><i>— 전사 →</i><span>RNA</span><i>— 번역 →</i><span class="on">단백질</span></div>
+  <ul class="pt">
+    <li>교안 제목: "Central dogma by Watson and Crick (1958)"</li>
+  </ul>
+  <div class="err"><span class="tag">교안 확인</span>
+    <ul><li>중심원리는 <b>크릭이 단독으로</b> 1958년에 제안한 개념임 (1957년 강연, 1958년 논문 "On Protein Synthesis"). 왓슨과 크릭이 함께 발표한 것은 1953년 DNA 이중나선 구조임</li></ul>
+  </div>
+
+  <h4>인간 유전체 사업 (Human Genome Project, HGP)</h4>
+  <ul class="pt">
+    <li>2001년 2월, 『네이처』에 국제 컨소시엄의 「인간 유전체의 첫 염기서열 분석」, 『사이언스』에 민간기업 셀레라 지노믹스의 유전체 초안이 실림</li>
+    <li>그전에는 유전체의 "조각"만 알 수 있었음</li>
+    <li>모든 단백질 암호 유전자의 <b>서열과 위치</b>를 확인함</li>
+    <li>사람 유전체의 변이가 어디에, 얼마나 자주 있는지 찾는 <b class="g">"지도"</b>로 쓰임</li>
+  </ul>
+  <h4>UCSC 유전체 브라우저</h4>
+  <ul class="pt">
+    <li>유전자가 유전체의 어디에 있는지 직접 볼 수 있음</li>
+    <li>교안 예: 혈액형을 정하는 <b>ABO 유전자</b> — 9번 염색체 136,130,563~136,150,630번 염기(약 2만 염기쌍, hg19 기준). 아래로 유전자 구조, 알려진 변이(SNP), 관련 질환(OMIM), 54개 조직에서의 발현량(GTEx) 등이 겹쳐 표시됨</li>
+  </ul>
+
+  <h4>유전자와 대립유전자를 헷갈리지 말 것</h4>
+  <ul class="pt">
+    <li>예전에는 멘델의 유전 인자를 "유전자"라고 설명했음. 그러나 중심원리에서 유전자는 <b>단백질을 만드는 단위</b>임</li>
+    <li>멘델의 유전 인자는 <b class="g">"대립유전자"</b>임. 현대 유전학에서 대립유전자는 <b>DNA 서열 속 유전 변이</b>임</li>
+    <li>유전 인자를 '유전자'가 아니라 '대립유전자'로 보게 된 변화는 <b>유전체 염기서열 분석 기술</b>이 이끌었음</li>
+  </ul>
+
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>"완성"된 인간 유전체는 언제 나왔나</h5>
+    <ul>
+      <li>2001년 발표는 <b>초안</b>이었고, 2003년 "완성"을 선언했지만 실제로는 약 8%가 빈칸이었음</li>
+      <li>빈칸 없는 완전한 서열은 2022년 T2T(Telomere-to-Telomere) 컨소시엄이 처음 발표함</li>
+      <li>사람의 단백질 암호 유전자는 약 <b>2만 개</b>로 추정됨 (예상보다 훨씬 적은 수)</li>
+    </ul>
+  </div>
+
+  <div class="key"><span class="label">02차시 (1) 학습정리</span>
+    <ul class="pt" style="margin-bottom:0">
+      <li>멘델은 자연 집단에서의 생물학적 유전 법칙을 제안함</li>
+      <li>초기에 "유전자"라 불린 유전 인자는 이제 "대립유전자"로 불림</li>
+    </ul>
+  </div>
+</section>
+
+<section class="topic" id="t2-6">
+  <h3><span class="num">2-6</span>유전체 기술의 발전 <span class="en">Development of genomic technologies</span></h3>
+  <div class="tl">
+    <div class="ev"><span class="yr">1969</span><b>FISH의 바탕</b> — 표지한 핵산을 염색체에 붙여 위치를 보는 방법</div>
+    <div class="ev"><span class="yr">~2000</span><b>후보 유전자 연구 · 연관 분석</b> — 가족 단위로 질환 유전자를 찾음</div>
+    <div class="ev"><span class="yr">2001</span><b>인간 유전체 사업</b> · 고해상도 일배체형 구조 (Daly 외)</div>
+    <div class="ev"><span class="yr">2002–2009</span><b>국제 HapMap 프로젝트</b> · 마이크로어레이 · 전장 유전체 연관 분석(GWAS)</div>
+    <div class="ev"><span class="yr">2010~</span><b>차세대 염기서열 분석(NGS)</b> 확산 · 1000 유전체 프로젝트(2015 발표)</div>
+  </div>
+
+  <h4>① 형광 제자리 부합법 (FISH)</h4>
+  <ul class="pt">
+    <li>염색체 이상을 찾는 <b>표준 기법</b>임</li>
+    <li>DNA를 풀었다가 다시 붙이는 원리, RNA와 DNA가 서로 짝을 맞춰 붙는 원리가 1960년대에 처음 알려짐</li>
+    <li>1969년 파듀와 갈은 rRNA 탐침에 방사성 수소(³H)를 붙여, 아프리카발톱개구리 난모세포 표본에서 rRNA 유전자의 위치를 사진으로 확인함 → 이후 방사성 대신 <b>형광</b> 표지를 쓰는 FISH로 발전함</li>
+  </ul>
+  <p class="src">용어: fluorescence(형광) + in situ(제자리에서, 세포·조직 안 원래 위치 그대로) + hybridization(부합, 상보적인 두 가닥이 붙는 것)</p>
+
+  <h4>② 전통적 후보 유전자 연구 (~2000)</h4>
+  <ul class="pt">
+    <li>질환이나 형질이 대물림되는 <b>가족</b>을 연구함. 관심 유전자가 이 가족 안에서 나뉘어 전달된다고 가정함</li>
+    <li><b>연관 분석</b>: 후보 유전자가 같은 염색체 위의 <b>유전 표지</b> 가까이에 있는지 확인함</li>
+    <li>유전 표지 = 위치가 알려져 있고 후보 유전자와 함께 유전되는 DNA 서열</li>
+    <li>예: APOE4(알츠하이머병), TP53(암)</li>
+    <li>교안 가계도(Sajjad, 2008): 근친혼 가계에서 선천성 백내장이 나타난 사람(검은 기호)과 16번 염색체 표지(D16S397 등)가 함께 전달되는 모습을 색 막대로 보여 줌</li>
+  </ul>
+
+  <h4>③ 마이크로어레이와 전장 유전체 연관 분석 (GWAS)</h4>
+  <ul class="pt">
+    <li>후보 유전자 연구는 특정 유전자 위의 대립유전자만 봄</li>
+    <li>인간 유전체 사업 이후 약 <b>2만 개</b> 유전자가 확인되자, 모든 유전자(대립유전자)를 한꺼번에 검사할 필요가 생김 → <b class="g">"전장 유전체(genome-wide)"</b> 연구</li>
+    <li><b>마이크로어레이</b>: 유리판 같은 고체 표면에 서열을 아는 DNA 조각을 빽빽하게 붙여, 한 번에 수많은 대립유전자를 확인하는 칩. 펜으로 찍는 방식, 잉크젯으로 염기를 하나씩 쌓는 방식 등이 있음</li>
+  </ul>
+
+  <h4>④ 일배체형 (Haplotype)</h4>
+  <ul class="pt">
+    <li>사람 유전체에는 수백만 개의 변이가 있음. <b>일배체형</b>은 이 변이들이 개인과 집단 안에서 어떻게 묶여 있는지 이해하게 해 줌</li>
+    <li>일배체형 = <b class="g">함께 유전되는 경향이 있는 유전 변이의 묶음</b>. 한 염색체의 한 구간에 놓인 대립유전자들의 특정 조합임</li>
+    <li>Daly 외(2001): 5번 염색체 500kb 구간에서 일배체형 블록 11개를 찾음. 블록마다 <b>소수의 대립유전자만 봐도 일배체형 전체를 알 수 있음</b></li>
+    <li>→ 모든 변이를 다 읽지 않고 대표 변이(<b>태그 SNP</b>)만 칩에 올려도 됨. 마이크로어레이가 효율적으로 쓰일 수 있었던 이유임</li>
+  </ul>
+
+  <figure>
+    <svg viewBox="0 0 720 200" role="img" aria-label="SNP 일배체형 태그 SNP 개념">
+      <style>.h{font:600 13px ui-monospace,Menlo,Consolas,monospace}.lb{font:600 12.5px Pretendard,sans-serif;fill:#123d26}.sm{font:500 11.5px Pretendard,sans-serif;fill:#56635b}</style>
+      <text x="10" y="20" class="lb">같은 구간을 가진 염색체 4개</text>
+      <g class="h" fill="#3b4a40">
+        <text x="20" y="48">일배체형 1 : A A C A <tspan fill="#b4232a">C</tspan> G C C A … T T C G <tspan fill="#b4232a">G</tspan> G T C … A G T C <tspan fill="#b4232a">G</tspan> A C G</text>
+        <text x="20" y="72">일배체형 2 : A A C A <tspan fill="#1d5fbf">T</tspan> G C C A … T T C G <tspan fill="#1d5fbf">A</tspan> G T C … A G T C <tspan fill="#1d5fbf">A</tspan> A C G</text>
+        <text x="20" y="96">일배체형 3 : A A C A <tspan fill="#b4232a">C</tspan> G C C A … T T C G <tspan fill="#1d5fbf">A</tspan> G T C … A G T C <tspan fill="#b4232a">G</tspan> A C G</text>
+        <text x="20" y="120">일배체형 4 : A A C A <tspan fill="#1d5fbf">T</tspan> G C C A … T T C G <tspan fill="#b4232a">G</tspan> G T C … A G T C <tspan fill="#1d5fbf">A</tspan> A C G</text>
+      </g>
+      <text x="20" y="152" class="sm">색칠한 자리 = 사람마다 다른 한 글자 변이(SNP). 나머지 대부분의 글자는 모두 같음</text>
+      <text x="20" y="174" class="sm">함께 다니는 SNP 묶음이 정해져 있으면 → 그중 하나(태그 SNP)만 읽어도 나머지를 짐작할 수 있음</text>
+    </svg>
+    <figcaption>교안 HapMap 그림(SNP → 일배체형 → 태그 SNP)의 원리를 단순하게 다시 그림</figcaption>
+  </figure>
+
+  <h4>⑤ 국제 HapMap 프로젝트 (2002–2009) · 1000 유전체 프로젝트</h4>
+  <ul class="pt">
+    <li><b>HapMap</b>: 2002년 시작된 여러 나라 연구자들의 공동 연구. 사람 집단의 유전 변이 패턴을 목록으로 만들고 이해하는 것이 목표</li>
+    <li><b>1000 유전체 프로젝트</b>: 아프리카(AFR), 동아시아(EAS), 유럽(EUR), 남아시아(SAS), 아메리카(AMR)의 26개 집단, <b>2,504명</b>의 유전체를 해독함 (2015)</li>
+    <li>교안 그래프: 아프리카 집단(LWK, MSL 등)에서 한 사람이 가진 변이 수가 가장 많음</li>
+  </ul>
+  <span class="eval">아프리카 집단의 변이가 가장 많은 것은 1-6의 Out of Africa와 맞물림. 인류가 가장 오래 살아온 곳이라 변이가 쌓인 시간이 길고, 다른 대륙 집단은 아프리카를 떠난 일부 집단에서 갈라져 나왔기 때문임</span>
+
+  <h4>⑥ 차세대 염기서열 분석 (NGS, 2010~)</h4>
+  <ul class="pt">
+    <li>NGS = DNA를 대량으로 한꺼번에 읽는 <b>고처리량</b> 염기서열 분석 기술. 많은 양의 DNA를 빠르고 싸게 읽을 수 있음</li>
+    <li>과정: 혈액에서 뽑은 DNA → 고처리량 분석 장비 → 읽은 조각들을 표준 인간 유전체에 맞춰 정렬 → 변이 검출</li>
+    <li>장비 원리(교안 그림): DNA 준비 → 유리판(flow cell) 위에서 같은 조각을 여러 개로 불려 덩어리(cluster)를 만듦 → 형광 표지 염기를 하나씩 붙이며 사진을 찍음 → 색으로 염기를 읽음(base calling)</li>
+  </ul>
+  <div class="tbl"><table>
+    <thead><tr><th>NGS 기술</th><th>무엇을 보나</th></tr></thead>
+    <tbody>
+      <tr><td><b>엑솜 분석</b> (exome sequencing)</td><td>단백질 암호 구역(엑손 전체)의 유전 변이</td></tr>
+      <tr><td><b>전장 유전체 분석</b> (WGS)</td><td>유전체 전체의 유전 변이</td></tr>
+      <tr><td><b>RNA 분석</b> (RNA-seq)</td><td>조직·세포에서 유전자가 얼마나 발현되는지</td></tr>
+      <tr><td><b>후성유전체 분석</b></td><td>조직·세포에서 후성유전적 조절(DNA 메틸화 등)이 있는지</td></tr>
+    </tbody>
+  </table></div>
+  <ul class="pt">
+    <li>유전체 하나 해독 비용 (NIH 그래프): 2001년 약 1억 달러 → NGS가 시장에 들어온 2006년 이후 급락 → 2015년 무렵 약 <b>1,000달러</b>. 반도체 성능 향상 속도(무어의 법칙)보다 훨씬 빠르게 떨어짐</li>
+  </ul>
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>엑솜은 유전체의 몇 %인가</h5>
+    <ul>
+      <li>엑솜(단백질 암호 구역)은 전체 유전체 약 30억 염기쌍 중 <b>약 1~2%</b>에 불과함. 그런데 지금까지 알려진 질환 원인 변이의 대부분이 이 구역에 있어서, 비용이 싼 엑솜 분석이 희귀질환 진단에 먼저 널리 쓰임</li>
+      <li>교안 그래프는 2019년까지임. 이후로도 비용은 계속 내려가 2020년대에는 장비에 따라 수백 달러 수준까지 낮아짐</li>
+    </ul>
+  </div>
+</section>
+
+<section class="topic" id="t2-7">
+  <h3><span class="num">2-7</span>사례: 자폐와 SCN2A <span class="en">Exome sequencing study of SCN2A for autism</span></h3>
+  <ul class="pt">
+    <li><b>SCN2A</b> 유전자는 뇌세포에 있는 나트륨 통로 <b>Na<sub>v</sub>1.2</b>를 만듦 (전압에 따라 열리는 Na⁺ 통로 — 2주차 막수송의 '통로 단백질'과 연결)</li>
+  </ul>
+  <h4>핵형에서 염기 하나까지 확대해 보기</h4>
+  <div class="flow">
+    <span>사람 염색체 23쌍 (핵형)</span><i>→</i><span>2번 염색체</span><i>→</i><span>2q24.3 구역</span><i>→</i><span>나트륨 통로 유전자 묶음</span><i>→</i><span>SCN2A의 엑손</span><i>→</i><span class="on">1013번 코돈의 염기 하나</span>
+  </div>
+  <ul class="pt">
+    <li>2번 염색체 2q24.3 구역(약 100만 염기쌍)을 확대하면 <b>나트륨 통로 유전자들이 모여 있음</b>: SCN3A, SCN2A, SCN1A, SCN9A, SCN7A</li>
+    <li>SCN2A를 더 확대하면(약 5만 염기쌍 범위) 굵은 막대로 표시된 <b>엑손</b>들이 보임 → 이 엑손들이 Na<sub>v</sub>1.2 통로를 만듦</li>
+    <li>염기 하나 수준까지 확대하면, 1013번 아미노산(글리신)을 만드는 코돈의 G 자리가 보임</li>
+  </ul>
+  <div class="tbl"><table>
+    <thead><tr><th>유전형</th><th>아미노산</th><th>표현형</th></tr></thead>
+    <tbody>
+      <tr><td><b>G/G</b></td><td>G1013G (G: 글리신) — 정상</td><td>전형적 발달</td></tr>
+      <tr><td><b>G/T</b></td><td>G1013X (X: <b>종결 코돈</b>) — 넌센스 변이</td><td><b>자폐</b></td></tr>
+    </tbody>
+  </table></div>
+  <span class="eval">염기 하나(G → T)가 바뀌어 단백질이 중간에 끊기면 뇌의 나트륨 통로가 제대로 만들어지지 않음. NGS가 있어 이런 단일 염기 변화를 찾아낼 수 있게 됨</span>
+
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>SCN2A와 자폐에 대해 조금 더</h5>
+    <ul>
+      <li>SCN2A는 대규모 엑솜 연구(예: Satterstrom 외, 2020, 자폐 관련 유전자 102개 보고)에서 자폐와 <b>가장 강하게 연관된 유전자 중 하나</b>로 꼽힘. 발견된 변이의 상당수가 드노보 변이임 (1-2와 연결)</li>
+      <li>같은 유전자라도 변이의 방향에 따라 결과가 다름: 통로 기능을 <b>잃게</b> 하는 변이 → 자폐·지적장애와 관련 / 통로 기능을 <b>지나치게 키우는</b> 변이 → 영아기 뇌전증과 관련</li>
+      <li>다만 이런 단일 유전자 변이로 설명되는 자폐는 일부이고, 자폐 전체로 보면 흔한 변이 여러 개가 함께 작용하는 다유전자 영향도 큼</li>
+    </ul>
+    <p class="why">평가 ▸ 자폐는 '고쳐야 할 병'으로만 볼지, 신경 다양성의 하나로 볼지를 두고 당사자 운동과 의학계 사이에 논의가 있음. 교안의 "Autism" 표현형 표기는 유전 연구 맥락의 분류임.</p>
+  </div>
+
+  <h4>NGS가 바꾼 '유전 인자'라는 말 (NGS shifted a term of heritable factor)</h4>
+  <ul class="pt">
+    <li>유전 인자(대립유전자)는 <b>유전 변이</b>임</li>
+    <li>유전 인자는 "유전자"가 아님. 유전자는 오래된 개념임</li>
+    <li>사람은 많은 변이를 지님. 표현형에 우성으로 크게 작용하는 변이는 소수이고, 대부분은 표현형에 조금씩만 기여함 → 이를 <b>"가산적(additive)"</b>이라 부름</li>
+  </ul>
+  <span class="eval">"유전자는 오래된 개념"이라는 교안 표현은, 유전자라는 단위가 쓸모없어졌다는 뜻이 아니라 '유전되는 차이의 원인'을 가리킬 때는 유전자보다 변이(대립유전자)로 보는 것이 정확하다는 뜻으로 읽는 편이 맞음</span>
+</section>
+
+<section class="topic" id="t2-8">
+  <h3><span class="num">2-8</span>대부분의 형질은 '가산적' <span class="en">Most human traits are additive</span></h3>
+  <div class="tbl"><table>
+    <thead><tr><th>모델</th><th>대립유전자 개수(0·1·2)에 따른 효과</th><th>모양</th></tr></thead>
+    <tbody>
+      <tr><td><b>가산적 (additive)</b></td><td>하나 늘 때마다 효과가 같은 만큼 늘어남</td><td>직선</td></tr>
+      <tr><td><b>우성 (dominance)</b></td><td>하나만 있어도 효과가 거의 다 나타나고, 둘째는 더 보태는 것이 적음</td><td>꺾인 선</td></tr>
+      <tr><td><b>초우성 (overdominance)</b></td><td>하나만 가진 이형접합(1)일 때 효과가 가장 큼</td><td>산 모양</td></tr>
+    </tbody>
+  </table></div>
+  <ul class="pt">
+    <li>Palmer 외(2023, 영국 바이오뱅크): 형질 <b>1,060개</b>를 분석한 결과 대부분이 <b class="g">가산적 모델</b>을 따름. 우성 효과가 뚜렷한 것은 혈구 관련 형질이나 머리색 등 일부뿐임</li>
+  </ul>
+  <figure>
+    <svg viewBox="0 0 720 190" role="img" aria-label="가산 우성 초우성 모델 비교">
+      <style>.t2{font:700 13px Pretendard,sans-serif;fill:#123d26}.ax{font:500 11px Pretendard,sans-serif;fill:#56635b}</style>
+      <g transform="translate(30,20)">
+        <text x="70" y="0" class="t2" text-anchor="middle">가산적</text>
+        <line x1="0" y1="140" x2="160" y2="140" stroke="#9aa"/><line x1="0" y1="140" x2="0" y2="20" stroke="#9aa"/>
+        <polyline points="20,120 80,80 140,40" fill="none" stroke="#15803d" stroke-width="3"/>
+        <g fill="#7cc795"><circle cx="20" cy="120" r="7"/><circle cx="80" cy="80" r="7"/><circle cx="140" cy="40" r="7"/></g>
+        <g class="ax" text-anchor="middle"><text x="20" y="156">0</text><text x="80" y="156">1</text><text x="140" y="156">2</text></g>
+      </g>
+      <g transform="translate(270,20)">
+        <text x="70" y="0" class="t2" text-anchor="middle">우성</text>
+        <line x1="0" y1="140" x2="160" y2="140" stroke="#9aa"/><line x1="0" y1="140" x2="0" y2="20" stroke="#9aa"/>
+        <polyline points="20,120 80,50 140,42" fill="none" stroke="#15803d" stroke-width="3"/>
+        <g fill="#7cc795"><circle cx="20" cy="120" r="7"/><circle cx="80" cy="50" r="7"/><circle cx="140" cy="42" r="7"/></g>
+        <g class="ax" text-anchor="middle"><text x="20" y="156">0</text><text x="80" y="156">1</text><text x="140" y="156">2</text></g>
+      </g>
+      <g transform="translate(510,20)">
+        <text x="70" y="0" class="t2" text-anchor="middle">초우성</text>
+        <line x1="0" y1="140" x2="160" y2="140" stroke="#9aa"/><line x1="0" y1="140" x2="0" y2="20" stroke="#9aa"/>
+        <polyline points="20,115 80,40 140,115" fill="none" stroke="#15803d" stroke-width="3"/>
+        <g fill="#7cc795"><circle cx="20" cy="115" r="7"/><circle cx="80" cy="40" r="7"/><circle cx="140" cy="115" r="7"/></g>
+        <g class="ax" text-anchor="middle"><text x="20" y="156">0</text><text x="80" y="156">1</text><text x="140" y="156">2</text></g>
+      </g>
+      <text x="360" y="186" class="ax" text-anchor="middle">가로: 가진 대립유전자 수 (유전형 0·1·2) · 세로: 형질에 미치는 효과</text>
+    </svg>
+    <figcaption>교안 Palmer(2023) 그림 왼쪽 세 칸을 단순하게 다시 그림</figcaption>
+  </figure>
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>초우성의 대표 예 – 겸상 적혈구 변이</h5>
+    <ul>
+      <li>헤모글로빈 β 유전자 변이를 <b>두 개</b> 가지면 겸상 적혈구 빈혈이 생김. <b>하나만</b> 가지면 거의 증상이 없으면서 말라리아에 더 잘 견딤</li>
+      <li>그래서 말라리아가 흔한 지역에서는 이형접합(1개)이 가장 유리해 이 변이가 높은 빈도로 남음 → 1-9 "적합도가 대립유전자 빈도를 정한다"의 실제 예</li>
+    </ul>
+  </div>
+</section>
+
+<section class="topic" id="t2-9">
+  <h3><span class="num">2-9</span>유전체 연구에 필요한 것 <span class="en">What you need for future genomic research</span></h3>
+  <h4>NGS 데이터의 규모</h4>
+  <ul class="pt">
+    <li>한 사람의 전장 유전체 데이터에 약 <b>1테라바이트(TB)</b>가 필요함 → 2,000명이면 2,000TB</li>
+    <li>영국 바이오뱅크가 15만 명의 전장 유전체 데이터를 공개함 → 약 <b>150페타바이트(PB)</b> 필요</li>
+    <li>염기서열 분석 기술이 발전하면서 유전체 데이터가 기하급수적으로 늘어나고 있음</li>
+    <li>국가 바이오뱅크·컨소시엄: 국제 암 유전체 컨소시엄(ICGC, 2010) — 11개국이 50종 이상 암에서 암종별로 종양 500개씩 해독하기로 함. 암종 하나에 약 2,000만 달러 소요 예상</li>
+  </ul>
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>교안 수치의 업데이트</h5>
+    <ul>
+      <li>영국 바이오뱅크는 2023년 11월 약 <b>50만 명</b> 전원의 전장 유전체 데이터를 공개함 (교안의 15만 명은 2021년 1차 공개 기준)</li>
+      <li>1인당 1TB는 분석 중간 파일까지 넉넉히 잡은 값으로 보임. 압축된 정렬 파일(CRAM)만 보면 30배 깊이 기준 수십 GB 수준이라, 저장 형식에 따라 크게 달라짐</li>
+      <li>한국에서도 '국가 바이오 빅데이터 구축 사업'으로 최대 100만 명 규모의 유전체·임상 정보 수집이 진행되고 있음</li>
+    </ul>
+  </div>
+
+  <h4>생물학자에게 필수가 된 프로그래밍</h4>
+  <ul class="pt">
+    <li>예전 연구는 데이터를 만드는 일 자체가 어려웠음. 요즘은 대부분의 기술이 자동화되어 한 사람이 과거 여러 사람보다 많은 데이터를 만들 수 있음</li>
+    <li>쏟아지는 데이터를 다루려면 <b>확장성(scalability)</b>이 중요함</li>
+    <li>교안의 트윗(Tanentzapf Lab, 2021): 젊은 과학자를 위한 조언 4가지 — "① 코딩 배우기 ② 코딩 배우기 ③ 코딩 배우기 ④ 들을 수 있는 생물통계 수업은 다 듣기"</li>
+  </ul>
+
+  <h4>유전체 분석을 위한 클라우드 컴퓨팅</h4>
+  <ul class="pt">
+    <li>클라우드는 필요할 때 빌려 쓰는 인프라, 병렬 처리, 저렴한 저장·계산을 제공함 (예: AWS, Google Cloud, Microsoft Azure의 유전체 서비스)</li>
+  </ul>
+  <div class="tbl"><table>
+    <thead><tr><th>시기</th><th>환경</th><th>데이터</th><th>걸린 시간</th></tr></thead>
+    <tbody>
+      <tr><td>2013년 (강의자 경험)</td><td>대학 슈퍼컴퓨터 서버</td><td>약 5TB</td><td><b>6개월</b></td></tr>
+      <tr><td>2017년 (강의자 경험)</td><td>아마존 클라우드</td><td>약 500TB</td><td><b>7일</b></td></tr>
+      <tr><td>2022년 (아스트라제네카)</td><td>아마존 클라우드 + 일루미나 DRAGEN</td><td>영국 바이오뱅크 40만 명 WGS (교안: 약 400PB)</td><td><b>10일 이내</b></td></tr>
+    </tbody>
+  </table></div>
+
+  <h4>협업이 핵심</h4>
+  <ul class="pt">
+    <li>과학은 팀으로 하는 일임. 소통과 협업 능력이 연구 성공의 핵심 요인임</li>
+    <li>특히 유전체 연구는 새로운 발견을 함께 하려는 <b>100~1,000명</b> 규모의 과학자가 함께 수행함</li>
+    <li>예: PGC(정신질환 유전체 컨소시엄), T2D-GENES(2형 당뇨), ICGC(국제 암 유전체), ASC(자폐 염기서열 컨소시엄), 암 유전체 컨소시엄, COG-UK(코로나19 유전체), BAT 1K(박쥐 1,000종 유전체)</li>
+  </ul>
+
+  <div class="key"><span class="label">02차시 (2) 학습정리</span>
+    <ul class="pt" style="margin-bottom:0">
+      <li>차세대 염기서열 분석은 유전 변이를 대규모로 찾아낼 수 있음</li>
+      <li>협업, 프로그래밍, 클라우드 컴퓨팅 역량이 유전체 연구에 필수임</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===================== PART 3 ===================== -->
+<div class="part" id="p3">
+  <div class="part-head"><span class="no">용어</span><h2>용어 정리와 용어사전 정정</h2></div>
+  <p class="part-sub">「생명과학의 세계」 3주차 용어사전 수록 용어를 이번 주 내용 기준으로 짧게 정리</p>
+</div>
+
+<section class="topic">
+  <div class="tbl"><table>
+    <thead><tr><th>영문</th><th>국문</th><th>한 줄 정리</th></tr></thead>
+    <tbody>
+      <tr><td>abnormality</td><td>이상성</td><td>정상적인 구조·위치·행동에서 벗어난 상태</td></tr>
+      <tr><td>achondroplasia</td><td>연골무형성증</td><td>FGFR3 변이로 생기는 가장 흔한 짧은 팔다리형 저신장. 상염색체 우성</td></tr>
+      <tr><td>adaptation</td><td>적응</td><td>생물의 형태·기능이 환경에 잘 맞게 되는 것, 또는 그런 형질</td></tr>
+      <tr><td>allele</td><td>대립유전자</td><td>같은 유전자 자리에서 서로 다른 형태. 현대적 의미로는 DNA 서열의 변이</td></tr>
+      <tr><td>autism</td><td>자폐(자폐 스펙트럼)</td><td>사회적 소통의 어려움, 반복 행동·제한된 관심이 특징인 신경발달 상태</td></tr>
+      <tr><td>autosomal dominant inheritance</td><td>상염색체 우성 유전</td><td>상염색체의 대립유전자 하나만 변이여도 형질이 나타나는 유전 방식</td></tr>
+      <tr><td>breeding</td><td>번식 · 품종 개량</td><td>자손을 낳아 개체를 늘림. 교안에서는 품종 개량의 뜻으로도 쓰임</td></tr>
+      <tr><td>chromosome</td><td>염색체</td><td>DNA와 단백질이 응축된 구조. 사람은 23쌍</td></tr>
+      <tr><td>de novo</td><td>드노보 (새로 생긴)</td><td>부모에게 없고 자녀에게서 처음 나타난 변이</td></tr>
+      <tr><td>epigenome</td><td>후성유전체</td><td>DNA 서열은 그대로 두고 유전자 발현을 조절하는 화학적 표지 전체</td></tr>
+      <tr><td>exome</td><td>엑솜 (진유전체)</td><td>유전체 안의 엑손 전체. 유전체의 약 1~2%</td></tr>
+      <tr><td>fertilization</td><td>수정</td><td>정자와 난자가 합쳐져 접합자가 되는 과정</td></tr>
+      <tr><td>fibroblast</td><td>섬유아세포</td><td>결합조직을 만드는 세포. FGFR3의 "F"가 이 세포의 성장인자에서 온 이름</td></tr>
+      <tr><td>fluorescence</td><td>형광</td><td>빛을 받아 다른 빛을 내며, 빛을 끄면 바로 사라지는 발광</td></tr>
+      <tr><td>gamete</td><td>생식세포 (배우자)</td><td>염색체를 절반만 가진 정자·난자</td></tr>
+      <tr><td>genetic diversity</td><td>유전적 다양성</td><td>종 안의 유전 변이가 얼마나 다양한지</td></tr>
+      <tr><td>genome</td><td>유전체 (게놈)</td><td>한 생물이 가진 유전 정보 전체</td></tr>
+      <tr><td>haplotype</td><td>일배체형</td><td>한 염색체에서 함께 유전되는 대립유전자 묶음</td></tr>
+      <tr><td>heredity</td><td>유전</td><td>부모의 형질이 자손에게 전해지는 현상</td></tr>
+      <tr><td>hybridization</td><td>잡종 형성 · 부합</td><td>(교배) 잡종을 만드는 것 / (분자) 상보적인 두 핵산 가닥이 붙는 것</td></tr>
+      <tr><td>in situ</td><td>제자리에서</td><td>세포·조직 안 원래 위치 그대로 관찰하는 것</td></tr>
+      <tr><td>linkage analysis</td><td>연관 분석</td><td>가족 안에서 질환과 함께 전달되는 염색체 구간을 찾는 방법</td></tr>
+      <tr><td>meiosis</td><td>감수분열</td><td>연속 두 번의 분열로 염색체 수가 절반인 생식세포를 만드는 분열</td></tr>
+      <tr><td>microarray</td><td>마이크로어레이 (미세배열)</td><td>서열을 아는 DNA를 칩에 촘촘히 붙여 한꺼번에 검사하는 도구</td></tr>
+      <tr><td>mutation</td><td>돌연변이</td><td>DNA 염기서열의 변화. 요즘은 중립적인 variant(변이)를 더 많이 씀</td></tr>
+      <tr><td>natural selection</td><td>자연선택</td><td>환경에 잘 맞는 변이를 가진 개체가 자손을 더 많이 남기는 과정</td></tr>
+      <tr><td>nucleotide</td><td>뉴클레오티드</td><td>DNA·RNA의 기본 단위. 염기 + 5탄당 + 인산</td></tr>
+      <tr><td>peptide</td><td>펩타이드</td><td>아미노산이 펩타이드 결합으로 이어진 사슬</td></tr>
+      <tr><td>point mutation</td><td>점 돌연변이</td><td>염기 하나가 바뀌는 변이. 침묵·과오·넌센스로 나뉨</td></tr>
+      <tr><td>polygenic</td><td>다유전자성</td><td>여러 유전 변이가 함께 영향을 주는</td></tr>
+      <tr><td>quantitative trait</td><td>양적 형질</td><td>키처럼 연속적인 값으로 나타나는 형질</td></tr>
+      <tr><td>reproductive organ</td><td>생식기관</td><td>생식세포를 만들고 운반하는 기관</td></tr>
+      <tr><td>rhizomelic</td><td>근위지(近位肢)의</td><td>팔다리 중 몸통에 가까운 부분(위팔·넓적다리)에 관한</td></tr>
+      <tr><td>sequencing</td><td>염기서열 분석 (시퀀싱)</td><td>DNA 염기나 단백질 아미노산의 순서를 밝히는 것</td></tr>
+      <tr><td>transcription</td><td>전사</td><td>DNA를 본떠 RNA를 만드는 과정</td></tr>
+      <tr><td>translation</td><td>번역</td><td>mRNA의 서열에 따라 아미노산을 이어 단백질을 만드는 과정</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>용어사전에서 잘못 들어간 부분</h5>
+    <div class="tbl"><table>
+      <thead><tr><th>항목</th><th>문제</th><th>바르게 읽는 법</th></tr></thead>
+      <tbody>
+        <tr><td>allele / autosomal dominant inheritance</td><td>allele 항목에 영문 정의가 없고, 그 영문 정의("An allele is a term coined…")가 autosomal dominant 항목 앞쪽에 들어가 있음</td><td>autosomal dominant 항목의 첫 영문 단락은 allele의 정의임</td></tr>
+        <tr><td>hybridization / linkage analysis</td><td>hybridization 항목에 영문 정의가 없고, 그 정의("The act or process of mating…")가 linkage analysis 항목에 들어가 있음</td><td>linkage analysis 항목의 첫 영문 단락은 hybridization의 정의임</td></tr>
+        <tr><td>autosomal dominant inheritance (국문)</td><td>"표현형은 열성형질이다", "4명 중 2명은 정상"처럼 오해를 부르는 문장. '열성혈질'은 '열성형질'의 오타</td><td>부모 한쪽이 이형접합이면 <b>자녀마다 각각 50%</b> 확률로 물려받음. 4명 중 정확히 2명이 된다는 뜻이 아님. 표제어도 '유전병'이 아니라 '유전 방식'으로 보는 것이 맞음</td></tr>
+        <tr><td>meiosis (국문)</td><td>DNA를 합성하는 시기를 "시냅시스기(sinapsis stage)"라고 씀</td><td>DNA 합성 시기는 <b>S기(합성기)</b>임. 시냅시스(synapsis)는 감수분열 제1분열 때 상동염색체가 짝을 짓는 현상으로 다른 개념임</td></tr>
+        <tr><td>linkage analysis (국문)</td><td>"로트(Rot)치"를 사용한다고 씀</td><td>연관 분석에서 쓰는 값은 <b>LOD 점수</b>(로드 점수)임</td></tr>
+        <tr><td>point mutation (국문)</td><td>"1아미노산이 치환한 과오변이가 폴리펩티드사슬이 도내에서 종결하는 과오변이를 제공한다"로 문장이 엉킴</td><td>아미노산 하나가 바뀌면 <b>과오(missense)</b>, 사슬이 중간에 끝나면 <b>넌센스(nonsense)</b> 변이임</td></tr>
+        <tr><td>rhizomelic</td><td>국문을 "고관절의"로 옮김</td><td>강의 문맥(rhizomelic shortening)에서는 팔다리 <b>근위부(위팔·넓적다리)</b>가 짧다는 뜻이므로 '근위지의'가 더 정확함</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="err"><span class="tag">교안 오탈자</span>
+    <ul>
+      <li>"Ronal Fisher" → Ronald Fisher / "Mendalian" → Mendelian / "contributing litte" → little / "expect few traits" → except few traits / "Aztrazeneca" → AstraZeneca / "Primordal" → Primordial</li>
+      <li>2-5 중심원리 연도·인물 표기는 위 '교안 확인' 상자 참고</li>
+    </ul>
+  </div>
+</section>
+
+<nav class="pager"><a class="prev" href="week02_cell_communication.html"><small>← 이전 주차</small>2주차 · 세포 소통</a><a class="next" href="week04_cancer.html"><small>다음 주차 →</small>4주차 · 암</a></nav>
+
+<footer>
+  <p>자료 기준: 「생명과학의 세계」(고려대학교) 3주차 01차시 아들의 지능은 엄마가 결정한다? (1)(2), 02차시 유전질환: 관찰에서 디지털로 전환 (1)(2) 교안 및 3주차 용어사전.<br>
+  이 문서의 그림은 교안 내용을 바탕으로 새로 그린 것임. '보충' 상자의 내용은 교안에 없는 참고 내용으로, 시험 범위 여부는 강의 기준을 따를 것.</p>
+</footer>
+
+</div>
+</body>
+</html>

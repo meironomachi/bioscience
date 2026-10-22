@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>생명과학의 세계 교안 요약</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --g900:#123d26; --g800:#14532d; --g700:#166534; --g600:#15803d; --g500:#22a05a;
+  --g200:#bbe5c8; --g100:#dcf3e3; --g50:#f2faf4;
+  --ink:#1c2420; --muted:#56635b; --line:#d6e2da; --bg:#fbfdfb; --card:#ffffff;
+  --sup-bg:#f6f9ec; --sup-line:#9bb35a; --sup-tag:#5b7a1e;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Pretendard","Gothic A1",-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  font-size:16px;line-height:1.72;word-break:keep-all;}
+.wrap{max-width:920px;margin:0 auto;padding:0 20px 80px}
+header.hero{background:linear-gradient(135deg,var(--g800),var(--g600));color:#fff;padding:56px 20px 44px}
+header.hero .wrap{padding-bottom:0}
+.hero .kicker{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);
+  padding:3px 12px;border-radius:999px;font-size:13px;letter-spacing:.04em}
+.hero h1{font-size:34px;line-height:1.3;margin:14px 0 8px;font-weight:800}
+.hero p{margin:0;opacity:.9}
+.hero .meta{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px;font-size:13px}
+.hero .meta span{background:rgba(0,0,0,.18);padding:4px 10px;border-radius:6px}
+
+.part{margin-top:44px}
+.part-head{display:flex;align-items:center;gap:12px;border-bottom:3px solid var(--g600);padding-bottom:8px}
+.part-head .no{background:var(--g700);color:#fff;font-weight:800;border-radius:8px;padding:4px 12px;font-size:14px}
+.part-head h2{margin:0;font-size:25px;color:var(--g900)}
+.part-sub{color:var(--muted);font-size:14px;margin:6px 0 0}
+
+.weeks{list-style:none;margin:20px 0 0;padding:0;display:grid;gap:14px}
+a.week{display:grid;grid-template-columns:78px 1fr auto;gap:18px;align-items:center;
+  background:var(--card);border:1px solid var(--line);border-left:5px solid var(--g600);border-radius:10px;
+  padding:16px 20px;color:var(--ink);text-decoration:none;transition:border-color .15s,box-shadow .15s,transform .15s}
+a.week:hover{border-color:var(--g500);box-shadow:0 4px 14px rgba(21,128,61,.12);transform:translateY(-1px)}
+a.week:focus-visible{outline:3px solid var(--g500);outline-offset:2px}
+.week .wk{text-align:center;background:var(--g50);border:1px solid var(--g200);border-radius:10px;padding:8px 0;line-height:1.15}
+.week .wk b{display:block;font-size:28px;color:var(--g700);font-weight:800}
+.week .wk small{font-size:12px;color:var(--muted)}
+.week h3{margin:0 0 2px;font-size:19px;color:var(--g800);line-height:1.4}
+.week p{margin:0;font-size:14.5px;color:var(--muted)}
+.week .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.week .chips span{background:var(--g50);border:1px solid var(--g200);border-radius:999px;padding:1px 10px;font-size:12.5px;color:var(--g800)}
+.week .go{color:var(--g600);font-weight:800;font-size:22px}
+@media (max-width:680px){
+  .hero h1{font-size:27px}
+  a.week{grid-template-columns:56px 1fr;gap:14px;padding:14px 16px}
+  .week .wk b{font-size:22px}
+  .week .go{display:none}
+}
+
+.key{background:var(--card);border:1px solid var(--g200);border-radius:10px;padding:14px 18px;margin:14px 0;
+  box-shadow:0 1px 0 var(--g100)}
+.key .label{display:inline-block;font-size:12px;font-weight:800;color:#fff;background:var(--g600);
+  padding:2px 9px;border-radius:5px;margin-bottom:6px}
+.sup{background:var(--sup-bg);border:1.5px dashed var(--sup-line);border-radius:10px;padding:14px 18px 12px;margin:14px 0}
+.sup .tag{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:800;color:#fff;
+  background:var(--sup-tag);padding:2px 10px;border-radius:5px}
+.sup .tag::before{content:"+";font-size:14px}
+.sup p,.key p{margin:6px 0 0;font-size:14.5px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:680px){.grid2{grid-template-columns:1fr}}
+
+footer{margin-top:60px;border-top:1px solid var(--line);padding-top:16px;font-size:13px;color:var(--muted)}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="kicker">생명과학의 세계 · 고려대학교</span>
+    <h1>생명과학의 세계 주차별 교안 요약</h1>
+    <p>세포에서 자아까지, 주차별 교안과 용어사전을 한 곳에 모은 정리 노트</p>
+    <div class="meta">
+      <span>2주차 ~ 6주차</span><span>주차당 2차시 통합 정리</span><span>용어사전 반영</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+<section class="part">
+  <div class="part-head"><span class="no">목록</span><h2>주차별 교안</h2></div>
+  <p class="part-sub">카드를 누르면 해당 주차 요약본이 열립니다. 각 요약본 위쪽 막대에서 목록으로 돌아올 수 있습니다.</p>
+
+  <ul class="weeks">
+    <li><a class="week" href="weeks/week02_cell_communication.html">
+      <div class="wk"><b>02</b><small>주차</small></div>
+      <div>
+        <h3>생명체의 기본단위 세포는 어떻게 소통할까?</h3>
+        <p>세포의 기본 개념과 세포 사이의 신호 전달</p>
+        <div class="chips"><span>01차시 세포의 기본 개념</span><span>02차시 세포 소통</span></div>
+      </div>
+      <span class="go" aria-hidden="true">→</span>
+    </a></li>
+    <li><a class="week" href="weeks/week03_genetic_variation.html">
+      <div class="wk"><b>03</b><small>주차</small></div>
+      <div>
+        <h3>아들의 지능은 엄마가 결정한다? · 유전질환: 관찰에서 디지털로</h3>
+        <p>드노보 변이와 대립유전자 · 다유전자 모델 · 멘델에서 차세대 염기서열 분석까지</p>
+        <div class="chips"><span>01차시 아들의 지능은 엄마가 결정한다?</span><span>02차시 유전질환: 관찰에서 디지털로 전환</span></div>
+      </div>
+      <span class="go" aria-hidden="true">→</span>
+    </a></li>
+    <li><a class="week" href="weeks/week04_cancer.html">
+      <div class="wk"><b>04</b><small>주차</small></div>
+      <div>
+        <h3>암이란 무엇인가 · 암세포의 특징</h3>
+        <p>암과 종양의 차이 · 암 연구와 치료의 역사 · 암세포의 내재적·환경적 특징</p>
+        <div class="chips"><span>01차시 암이란 무엇인가? · 암 연구와 치료의 역사</span><span>02차시 암세포의 내재적·환경적 특징</span></div>
+      </div>
+      <span class="go" aria-hidden="true">→</span>
+    </a></li>
+    <li><a class="week" href="weeks/week05_immunity_allergy.html">
+      <div class="wk"><b>05</b><small>주차</small></div>
+      <div>
+        <h3>면역은 우리 몸을 어떻게 지킬까 · 알레르기</h3>
+        <p>선천면역과 호중구 · 알레르기(제1형 과민반응)의 원리와 치료</p>
+        <div class="chips"><span>01차시 면역이 우리 몸을 어떻게 지켜낼까?</span><span>02차시 알레르기: 과도한 면역작용, 어떻게 극복할까?</span></div>
+      </div>
+      <span class="go" aria-hidden="true">→</span>
+    </a></li>
+    <li><a class="week" href="weeks/week06_homeostasis_memory_self.html">
+      <div class="wk"><b>06</b><small>주차</small></div>
+      <div>
+        <h3>나는 누구인가 · 항상성과 자아, 기억과 자아</h3>
+        <p>체온 조절과 신경계 · 고유감각·내수용감각·감정 · 자전적 자아, 기억, 잠, 망각</p>
+        <div class="chips"><span>01차시 항상성과 자아</span><span>02차시 기억과 자아</span></div>
+      </div>
+      <span class="go" aria-hidden="true">→</span>
+    </a></li>
+  </ul>
+</section>
+
+<section class="part">
+  <div class="part-head"><span class="no">안내</span><h2>요약본 읽는 법</h2></div>
+  <div class="grid2">
+    <div class="key">
+      <span class="label">핵심</span>
+      <p>초록 테두리 상자는 교안의 핵심 개념입니다. 각 주제 끝의 '정리 ▸' 줄은 그 주제를 한 문장으로 요약합니다.</p>
+    </div>
+    <div class="sup">
+      <span class="tag">보충</span>
+      <p>점선 상자는 교안에 없는 참고 내용입니다. 시험 범위 여부는 강의 기준을 따르세요.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>자료 기준: 「생명과학의 세계」(고려대학교) 각 주차 교안 및 용어사전. 요약본의 그림은 교안 내용을 바탕으로 새로 그린 것이며, 원 그림 출처는 각 차시 교안의 "출처 및 참고문헌"을 따름.</p>
+</footer>
+
+</div>
+</body>
+</html>
