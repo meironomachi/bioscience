@@ -15,6 +15,7 @@
   --sup-bg:#f6f9ec; --sup-line:#9bb35a; --sup-tag:#5b7a1e;
 }
 *{box-sizing:border-box}
+html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--ink);
   font-family:"Pretendard","Gothic A1",-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
   font-size:16px;line-height:1.72;word-break:keep-all;}
@@ -28,13 +29,6 @@ body{margin:0;background:var(--bg);color:var(--ink);
 .sitebar nav a:hover{background:var(--g50)}
 .sitebar nav a.quiz{background:var(--g600);color:#fff;margin-left:4px}
 .sitebar nav a.quiz:hover{background:var(--g700)}
-.quizbox{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
-  background:var(--card);border:1px solid var(--g200);border-radius:10px;padding:16px 20px;margin-top:20px}
-.quizbox>div{flex:1 1 300px}
-.quizbox p{margin:0;font-size:14.5px;color:var(--muted)}
-.quizbox b{display:block;color:var(--g800);font-size:17px}
-.quizbox a{flex:none;background:var(--g600);color:#fff;text-decoration:none;font-weight:700;border-radius:8px;padding:9px 18px}
-.quizbox a:hover{background:var(--g700)}
 @media (max-width:680px){.sitebar nav{gap:0}.sitebar nav a{padding:2px 5px}.sitebar nav a span{display:none}.sitebar nav a.quiz{padding:2px 10px}}
 header.hero{background:linear-gradient(135deg,var(--g800),var(--g600));color:#fff;padding:56px 20px 44px}
 header.hero .wrap{padding-bottom:0}
@@ -44,6 +38,12 @@ header.hero .wrap{padding-bottom:0}
 .hero p{margin:0;opacity:.9}
 .hero .meta{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px;font-size:13px}
 .hero .meta span{background:rgba(0,0,0,.18);padding:4px 10px;border-radius:6px}
+.hero .cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.hero .cta a{text-decoration:none;font-weight:700;border-radius:8px;padding:10px 20px;font-size:15px}
+.hero .cta .solve{background:#fff;color:var(--g800)}
+.hero .cta .solve:hover{background:var(--g50)}
+.hero .cta .list{color:#fff;border:1px solid rgba(255,255,255,.5)}
+.hero .cta .list:hover{background:rgba(255,255,255,.12)}
 
 .part{margin-top:44px}
 .part-head{display:flex;align-items:center;gap:12px;border-bottom:3px solid var(--g600);padding-bottom:8px}
@@ -52,11 +52,21 @@ header.hero .wrap{padding-bottom:0}
 .part-sub{color:var(--muted);font-size:14px;margin:6px 0 0}
 
 .weeks{list-style:none;margin:20px 0 0;padding:0;display:grid;gap:14px}
-a.week{display:grid;grid-template-columns:78px 1fr auto;gap:18px;align-items:center;
-  background:var(--card);border:1px solid var(--line);border-left:5px solid var(--g600);border-radius:10px;
-  padding:16px 20px;color:var(--ink);text-decoration:none;transition:border-color .15s,box-shadow .15s,transform .15s}
-a.week:hover{border-color:var(--g500);box-shadow:0 4px 14px rgba(21,128,61,.12);transform:translateY(-1px)}
-a.week:focus-visible{outline:3px solid var(--g500);outline-offset:2px}
+.weeks>li{display:grid;grid-template-columns:1fr auto;align-items:center;background:var(--card);
+  border:1px solid var(--line);border-left:5px solid var(--g600);border-radius:10px;transition:border-color .15s,box-shadow .15s}
+.weeks>li:hover{border-color:var(--g500);box-shadow:0 4px 14px rgba(21,128,61,.12)}
+.weeks .acts{display:flex;flex-direction:column;gap:8px;padding:16px 20px 16px 0}
+.weeks .acts a{display:block;text-align:center;white-space:nowrap;text-decoration:none;font-weight:700;font-size:14.5px;
+  border-radius:8px;padding:7px 16px;border:1px solid var(--g600)}
+.weeks .acts .read{color:var(--g700);background:var(--card);border-color:var(--g200)}
+.weeks .acts .read:hover{background:var(--g50)}
+.weeks .acts .solve{color:#fff;background:var(--g600)}
+.weeks .acts .solve:hover{background:var(--g700)}
+.weeks .acts a:focus-visible{outline:3px solid var(--g500);outline-offset:2px}
+a.week{display:grid;grid-template-columns:78px 1fr;gap:18px;align-items:center;
+  padding:16px 20px;color:var(--ink);text-decoration:none}
+#list{scroll-margin-top:56px}
+a.week:focus-visible{outline:3px solid var(--g500);outline-offset:-3px;border-radius:10px}
 .week .wk{text-align:center;background:var(--g50);border:1px solid var(--g200);border-radius:10px;padding:8px 0;line-height:1.15}
 .week .wk b{display:block;font-size:28px;color:var(--g700);font-weight:800}
 .week .wk small{font-size:12px;color:var(--muted)}
@@ -64,12 +74,13 @@ a.week:focus-visible{outline:3px solid var(--g500);outline-offset:2px}
 .week p{margin:0;font-size:14.5px;color:var(--muted)}
 .week .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
 .week .chips span{background:var(--g50);border:1px solid var(--g200);border-radius:999px;padding:1px 10px;font-size:12.5px;color:var(--g800)}
-.week .go{color:var(--g600);font-weight:800;font-size:22px}
 @media (max-width:680px){
   .hero h1{font-size:27px}
-  a.week{grid-template-columns:56px 1fr;gap:14px;padding:14px 16px}
+  .weeks>li{grid-template-columns:1fr}
+  a.week{grid-template-columns:56px 1fr;gap:14px;padding:14px 16px 10px}
+  .weeks .acts{flex-direction:row;padding:0 16px 14px 86px}
+  .weeks .acts a{flex:1;padding:6px 10px}
   .week .wk b{font-size:22px}
-  .week .go{display:none}
 }
 
 .key{background:var(--card);border:1px solid var(--g200);border-radius:10px;padding:14px 18px;margin:14px 0;
@@ -110,14 +121,15 @@ footer{margin-top:60px;border-top:1px solid var(--line);padding-top:16px;font-si
     <div class="meta">
       <span>2주차 ~ 8주차</span><span>주차별 통합 정리</span><span>용어사전 반영</span>
     </div>
+    <div class="cta"><a class="solve" href="quiz/index.html">문제 풀러 가기 →</a><a class="list" href="#list">주차별 교안 보기</a></div>
   </div>
 </header>
 
 <div class="wrap">
 
-<section class="part">
+<section class="part" id="list">
   <div class="part-head"><span class="no">목록</span><h2>주차별 교안</h2></div>
-  <p class="part-sub">카드를 누르면 해당 주차 요약본이 열립니다. 맨 위 막대에서 주차를 바로 고를 수도 있고, 각 요약본 위쪽 막대에서 목록으로 돌아올 수 있습니다.</p>
+  <p class="part-sub">주차마다 교안 요약을 보거나 바로 문제를 풀 수 있습니다. 문제는 주차당 30문제 이상이며, 고르면 바로 정답과 해설이 나옵니다.</p>
 
   <ul class="weeks">
     <li><a class="week" href="weeks/week02_cell_communication.html">
@@ -127,8 +139,8 @@ footer{margin-top:60px;border-top:1px solid var(--line);padding-top:16px;font-si
         <p>세포의 기본 개념과 세포 사이의 신호 전달</p>
         <div class="chips"><span>01차시 세포의 기본 개념</span><span>02차시 세포 소통</span></div>
       </div>
-      <span class="go" aria-hidden="true">→</span>
-    </a></li>
+    </a>
+    <div class="acts"><a class="read" href="weeks/week02_cell_communication.html">요약 보기</a><a class="solve" href="quiz/index.html?w=02">문제 풀기</a></div></li>
     <li><a class="week" href="weeks/week03_genetic_variation.html">
       <div class="wk"><b>03</b><small>주차</small></div>
       <div>
@@ -136,8 +148,8 @@ footer{margin-top:60px;border-top:1px solid var(--line);padding-top:16px;font-si
         <p>드노보 변이와 대립유전자 · 다유전자 모델 · 멘델에서 차세대 염기서열 분석까지</p>
         <div class="chips"><span>01차시 아들의 지능은 엄마가 결정한다?</span><span>02차시 유전질환: 관찰에서 디지털로 전환</span></div>
       </div>
-      <span class="go" aria-hidden="true">→</span>
-    </a></li>
+    </a>
+    <div class="acts"><a class="read" href="weeks/week03_genetic_variation.html">요약 보기</a><a class="solve" href="quiz/index.html?w=03">문제 풀기</a></div></li>
     <li><a class="week" href="weeks/week04_cancer.html">
       <div class="wk"><b>04</b><small>주차</small></div>
       <div>
@@ -145,8 +157,8 @@ footer{margin-top:60px;border-top:1px solid var(--line);padding-top:16px;font-si
         <p>암과 종양의 차이 · 암 연구와 치료의 역사 · 암세포의 내재적·환경적 특징</p>
         <div class="chips"><span>01차시 암이란 무엇인가? · 암 연구와 치료의 역사</span><span>02차시 암세포의 내재적·환경적 특징</span></div>
       </div>
-      <span class="go" aria-hidden="true">→</span>
-    </a></li>
+    </a>
+    <div class="acts"><a class="read" href="weeks/week04_cancer.html">요약 보기</a><a class="solve" href="quiz/index.html?w=04">문제 풀기</a></div></li>
     <li><a class="week" href="weeks/week05_immunity_allergy.html">
       <div class="wk"><b>05</b><small>주차</small></div>
       <div>
@@ -154,8 +166,8 @@ footer{margin-top:60px;border-top:1px solid var(--line);padding-top:16px;font-si
         <p>선천면역과 호중구 · 알레르기(제1형 과민반응)의 원리와 치료</p>
         <div class="chips"><span>01차시 면역이 우리 몸을 어떻게 지켜낼까?</span><span>02차시 알레르기: 과도한 면역작용, 어떻게 극복할까?</span></div>
       </div>
-      <span class="go" aria-hidden="true">→</span>
-    </a></li>
+    </a>
+    <div class="acts"><a class="read" href="weeks/week05_immunity_allergy.html">요약 보기</a><a class="solve" href="quiz/index.html?w=05">문제 풀기</a></div></li>
     <li><a class="week" href="weeks/week06_homeostasis_memory_self.html">
       <div class="wk"><b>06</b><small>주차</small></div>
       <div>
@@ -163,8 +175,8 @@ footer{margin-top:60px;border-top:1px solid var(--line);padding-top:16px;font-si
         <p>체온 조절과 신경계 · 고유감각·내수용감각·감정 · 자전적 자아, 기억, 잠, 망각</p>
         <div class="chips"><span>01차시 항상성과 자아</span><span>02차시 기억과 자아</span></div>
       </div>
-      <span class="go" aria-hidden="true">→</span>
-    </a></li>
+    </a>
+    <div class="acts"><a class="read" href="weeks/week06_homeostasis_memory_self.html">요약 보기</a><a class="solve" href="quiz/index.html?w=06">문제 풀기</a></div></li>
     <li><a class="week" href="weeks/week07_genome_acquired_change.html">
       <div class="wk"><b>07</b><small>주차</small></div>
       <div>
@@ -172,8 +184,8 @@ footer{margin-top:60px;border-top:1px solid var(--line);padding-top:16px;font-si
         <p>RNA에 의한 표현형 변화 · 후성 유전체-전사체 · 차세대 서열 분석 · 빅데이터 AI</p>
         <div class="chips"><span>(1) RNA에 의한 표현형 변화</span><span>(2) 후성 유전체-전사체 변형</span><span>(3) 차세대 서열 분석</span><span>(4) 빅데이터 AI</span></div>
       </div>
-      <span class="go" aria-hidden="true">→</span>
-    </a></li>
+    </a>
+    <div class="acts"><a class="read" href="weeks/week07_genome_acquired_change.html">요약 보기</a><a class="solve" href="quiz/index.html?w=07">문제 풀기</a></div></li>
     <li><a class="week" href="weeks/week08_mrna_therapeutics.html">
       <div class="wk"><b>08</b><small>주차</small></div>
       <div>
@@ -181,17 +193,9 @@ footer{margin-top:60px;border-top:1px solid var(--line);padding-top:16px;font-si
         <p>RNA 치료제 개요부터 mRNA 백신, 생산·최적화, 지질나노입자(LNP)까지</p>
         <div class="chips"><span>(1) RNA 치료제 개요</span><span>(2) mRNA 백신과 면역</span><span>(3) mRNA 생산과 최적화</span><span>(4) 지질나노입자(LNP)</span></div>
       </div>
-      <span class="go" aria-hidden="true">→</span>
-    </a></li>
+    </a>
+    <div class="acts"><a class="read" href="weeks/week08_mrna_therapeutics.html">요약 보기</a><a class="solve" href="quiz/index.html?w=08">문제 풀기</a></div></li>
   </ul>
-</section>
-
-<section class="part">
-  <div class="part-head"><span class="no">복습</span><h2>문제 풀기</h2></div>
-  <div class="quizbox">
-    <div><b>주차별 복습 문제</b><p>교안 내용으로 만든 객관식·O/X 문제가 주차마다 30문제 이상. 고르면 바로 정답과 해설이 나오고, 틀린 문제만 다시 풀 수 있습니다.</p></div>
-    <a href="quiz/index.html">문제 풀러 가기 →</a>
-  </div>
 </section>
 
 <section class="part">
