@@ -1,0 +1,969 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>8주차 mRNA 치료제와 전달</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --g900:#123d26; --g800:#14532d; --g700:#166534; --g600:#15803d; --g500:#22a05a;
+  --g200:#bbe5c8; --g100:#dcf3e3; --g50:#f2faf4;
+  --ink:#1c2420; --muted:#56635b; --line:#d6e2da; --bg:#fbfdfb; --card:#ffffff;
+  --sup-bg:#f6f9ec; --sup-line:#9bb35a; --sup-tag:#5b7a1e;
+  --warn:#9a3412; --na:#1d5fbf; --k:#b4232a;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Pretendard","Gothic A1",-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  font-size:16px;line-height:1.72;word-break:keep-all;}
+.wrap{max-width:920px;margin:0 auto;padding:0 20px 80px}
+header.hero{background:linear-gradient(135deg,var(--g800),var(--g600));color:#fff;padding:56px 20px 44px}
+header.hero .wrap{padding-bottom:0}
+.hero .kicker{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);
+  padding:3px 12px;border-radius:999px;font-size:13px;letter-spacing:.04em}
+.hero h1{font-size:34px;line-height:1.3;margin:14px 0 8px;font-weight:800}
+.hero p{margin:0;opacity:.9}
+.hero .meta{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px;font-size:13px}
+.hero .meta span{background:rgba(0,0,0,.18);padding:4px 10px;border-radius:6px}
+
+nav.toc{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--g600);
+  border-radius:10px;padding:18px 22px;margin:28px 0}
+nav.toc h2{margin:0 0 8px;font-size:17px;color:var(--g800)}
+nav.toc ol{margin:0;padding-left:20px}
+nav.toc li{margin:2px 0}
+nav.toc a{color:var(--ink);text-decoration:none}
+nav.toc a:hover{color:var(--g600);text-decoration:underline}
+nav.toc ol ol{list-style:none;padding-left:14px;font-size:14.5px;color:var(--muted)}
+nav.toc ol ol a{color:var(--muted)}
+
+.part{margin-top:56px}
+.part-head{display:flex;align-items:center;gap:12px;border-bottom:3px solid var(--g600);padding-bottom:8px}
+.part-head .no{background:var(--g700);color:#fff;font-weight:800;border-radius:8px;padding:4px 12px;font-size:14px;white-space:nowrap}
+.part-head h2{margin:0;font-size:25px;color:var(--g900)}
+.part-sub{color:var(--muted);font-size:14px;margin:6px 0 0}
+
+section.topic{margin-top:38px}
+section.topic h3{font-size:20px;margin:0 0 10px;color:var(--g800);display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+section.topic h3 .num{color:var(--g500);font-weight:800;font-size:16px}
+section.topic h3 .en{font-size:13px;color:var(--muted);font-weight:500}
+h4{font-size:16.5px;margin:20px 0 6px;color:var(--g700)}
+ul.pt{margin:6px 0 10px;padding-left:20px}
+ul.pt li{margin:3px 0}
+ul.pt li::marker{color:var(--g600)}
+.eval{display:block;margin:10px 0;padding:8px 12px;background:var(--g50);border-left:3px solid var(--g500);
+  font-size:14.5px;color:#2d3d33}
+.eval::before{content:"정리 ▸ ";font-weight:700;color:var(--g700)}
+b.g, .hl{color:var(--g700);font-weight:700}
+.na{color:var(--na);font-weight:700}.k{color:var(--k);font-weight:700}
+.src{font-size:12.5px;color:var(--muted);margin-top:4px}
+
+.key{background:var(--card);border:1px solid var(--g200);border-radius:10px;padding:14px 18px;margin:14px 0;
+  box-shadow:0 1px 0 var(--g100)}
+.key .label{display:inline-block;font-size:12px;font-weight:800;color:#fff;background:var(--g600);
+  padding:2px 9px;border-radius:5px;margin-bottom:6px}
+
+.sup{background:var(--sup-bg);border:1.5px dashed var(--sup-line);border-radius:10px;padding:14px 18px 12px;margin:18px 0;position:relative}
+.sup .tag{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:800;color:#fff;
+  background:var(--sup-tag);padding:2px 10px;border-radius:5px}
+.sup .tag::before{content:"+";font-size:14px}
+.sup h5{margin:8px 0 4px;font-size:15.5px;color:#3b4f14}
+.sup p,.sup li{font-size:14.5px}
+.sup ul{padding-left:18px;margin:6px 0}
+.sup .why{font-size:13px;color:#5e6b45;margin-top:6px}
+
+.tbl{width:100%;overflow-x:auto;margin:12px 0}
+table{border-collapse:collapse;width:100%;font-size:14.5px;background:var(--card)}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+thead th{background:var(--g700);color:#fff;font-weight:700;white-space:nowrap}
+tbody tr:nth-child(even) td{background:var(--g50)}
+td.c,th.c{text-align:center}
+tr.sep td{border-top:3px solid var(--g600)}
+
+figure{margin:16px 0;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px}
+figure svg{width:100%;height:auto;display:block}
+figcaption{font-size:13px;color:var(--muted);margin-top:8px;text-align:center}
+
+.flow{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:12px 0}
+.flow span{background:var(--g50);border:1px solid var(--g200);border-radius:999px;padding:4px 12px;font-size:14px}
+.flow span.on{background:var(--g600);color:#fff;border-color:var(--g600);font-weight:700}
+.flow i{color:var(--g500);font-style:normal;font-weight:700}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:680px){.grid2{grid-template-columns:1fr}.hero h1{font-size:27px}}
+.mini{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px}
+.mini h4{margin-top:0}
+
+.quiz{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:12px 0}
+.quiz .q{font-weight:700;margin:0 0 6px}
+.quiz ol{margin:4px 0 8px;padding-left:22px}
+.quiz ol li{margin:2px 0}
+.quiz details{font-size:14.5px;background:var(--g50);border-radius:6px;padding:6px 10px}
+.quiz summary{cursor:pointer;color:var(--g700);font-weight:700}
+
+footer{margin-top:60px;border-top:1px solid var(--line);padding-top:16px;font-size:13px;color:var(--muted)}
+@media print{
+  header.hero{background:var(--g800)!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .sup,.key,figure,table,.quiz{break-inside:avoid}
+  nav.toc{display:none}
+}
+</style>
+<style>
+.sitebar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line);font-size:14px}
+.sitebar .in{max-width:920px;margin:0 auto;padding:8px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.sitebar a{color:var(--g700);text-decoration:none;font-weight:700}
+.sitebar a:hover{text-decoration:underline}
+.sitebar .wk{color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pager{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:48px}
+.pager a{display:block;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px;
+  color:var(--ink);text-decoration:none}
+.pager a:hover{border-color:var(--g500)}
+.pager small{display:block;color:var(--muted);font-size:12.5px}
+.pager .next{text-align:right;grid-column:2}
+@media (max-width:680px){.pager{grid-template-columns:1fr}.pager .next{grid-column:1}}
+@media print{.sitebar,.pager{display:none}}
+</style>
+</head>
+<body>
+<div class="sitebar"><div class="in"><a href="../index.html">← 전체 교안 목록</a><span class="wk">8주차 · mRNA 치료제</span></div></div>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="kicker">생명과학의 세계 · 8주차</span>
+    <h1>mRNA 치료제와 전달 시스템</h1>
+    <p>mRNA Therapeutics and its Delivery Systems (1)~(4) 통합 정리</p>
+    <div class="meta">
+      <span>이규리 교수 (고려대 바이오시스템의과학부)</span><span>(1) RNA 치료제 개요</span><span>(2) mRNA 백신과 면역</span><span>(3) mRNA 생산과 최적화</span><span>(4) 지질나노입자(LNP)</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+<nav class="toc">
+  <h2>목차</h2>
+  <ol>
+    <li><a href="#p1">RNA 치료제의 기본 개념과 종류</a>
+      <ol>
+        <li><a href="#t1-1">1-1 바이오의약품과 제약 산업의 흐름</a></li>
+        <li><a href="#t1-2">1-2 RNA 치료제의 두 목표 – 켜기와 끄기</a></li>
+        <li><a href="#t1-3">1-3 RNA 치료제 4종의 작동 방식</a></li>
+        <li><a href="#t1-4">1-4 RNA를 세포 안으로 – 전달 경로</a></li>
+        <li><a href="#t1-5">1-5 실제 RNA 치료제 사례</a></li>
+      </ol>
+    </li>
+    <li><a href="#p2">mRNA 백신과 면역</a>
+      <ol>
+        <li><a href="#t2-1">2-1 siRNA와 mRNA의 구조</a></li>
+        <li><a href="#t2-2">2-2 mRNA의 응용 – 단백질 대체와 백신</a></li>
+        <li><a href="#t2-3">2-3 코로나19 mRNA 백신의 작동 과정</a></li>
+        <li><a href="#t2-4">2-4 면역의 기초와 암 면역치료</a></li>
+        <li><a href="#t2-5">2-5 면역관문 억제제 – CTLA-4, PD-1</a></li>
+        <li><a href="#t2-6">2-6 mRNA 암 백신</a></li>
+      </ol>
+    </li>
+    <li><a href="#p3">mRNA 생산과 최적화</a>
+      <ol>
+        <li><a href="#t3-1">3-1 시험관 내 전사(IVT)로 mRNA 만들기</a></li>
+        <li><a href="#t3-2">3-2 mRNA 부위별 최적화</a></li>
+        <li><a href="#t3-3">3-3 변형 우리딘 – 면역은 낮추고 번역은 높이고</a></li>
+        <li><a href="#t3-4">3-4 최적화 실험 결과 읽기</a></li>
+      </ol>
+    </li>
+    <li><a href="#p4">유전자 전달 시스템과 지질나노입자(LNP)</a>
+      <ol>
+        <li><a href="#t4-1">4-1 유전자 전달 시스템의 분류</a></li>
+        <li><a href="#t4-2">4-2 LNP의 제조와 세포 전달</a></li>
+        <li><a href="#t4-3">4-3 LNP의 4가지 구성 성분</a></li>
+        <li><a href="#t4-4">4-4 이온화 지질 – pH에 따라 바뀌는 전하</a></li>
+        <li><a href="#t4-5">4-5 상용 이온화 지질과 백신 비교</a></li>
+        <li><a href="#t4-6">4-6 mRNA에 맞춘 LNP 최적화</a></li>
+      </ol>
+    </li>
+    <li><a href="#p5">용어 정리와 교안 표기 정정</a></li>
+    <li><a href="#p6">4지선다 예상문제 10</a></li>
+  </ol>
+</nav>
+
+<!-- ===================== PART 1 ===================== -->
+<div class="part" id="p1">
+  <div class="part-head"><span class="no">강의 (1)</span><h2>RNA 치료제의 기본 개념과 종류</h2></div>
+  <p class="part-sub">학습목표: RNA 치료제의 기본 개념 이해 · RNA 기반 치료제의 종류 구분 · 실제 사례 살펴보기</p>
+</div>
+
+<section class="topic" id="t1-1">
+  <h3><span class="num">1-1</span>바이오의약품과 제약 산업의 흐름 <span class="en">BioPharmaceuticals</span></h3>
+  <div class="tbl"><table>
+    <thead><tr><th>바이오의약품</th><th>무엇을 약으로 쓰나</th><th>예</th></tr></thead>
+    <tbody>
+      <tr><td><b>단백질 치료제</b> (Protein)</td><td>단백질 자체</td><td>항체, 인슐린, 호르몬</td></tr>
+      <tr><td><b>유전자 치료제</b> (Gene)</td><td>DNA·RNA 등 유전물질</td><td>mRNA, siRNA, ASO</td></tr>
+      <tr><td><b>세포 치료제</b> (Cell)</td><td>살아 있는 세포</td><td>줄기세포, CAR-T 세포</td></tr>
+    </tbody>
+  </table></div>
+  <ul class="pt">
+    <li>시장 점유율 추이: <b>화학합성의약품(chemical drugs)</b>은 서서히 줄고, <b class="g">바이오의약품</b>은 1990년대부터 늘어 2020년 무렵 역전</li>
+    <li>1990년대 성장의 주역은 <b>단백질 치료제(항체)</b>, 2000~2010년 이후에는 <b>유전자·세포 치료제</b>가 가파르게 성장(점선)</li>
+  </ul>
+</section>
+
+<section class="topic" id="t1-2">
+  <h3><span class="num">1-2</span>RNA 치료제의 두 목표 – 켜기와 끄기 <span class="en">Gene "ON" / Gene "OFF"</span></h3>
+  <div class="grid2">
+    <div class="mini">
+      <h4>Aim 1. 유전자 발현 도구 → Gene "ON"</h4>
+      <ul class="pt">
+        <li><b>pDNA</b> (플라스미드 DNA): 원형 DNA</li>
+        <li><b>mRNA</b>: 5′ cap … poly(A) 꼬리(AAA)를 가진 선형 RNA</li>
+      </ul>
+      <p style="margin:0;font-size:14px">없는 단백질을 새로 만들게 함</p>
+    </div>
+    <div class="mini">
+      <h4>Aim 2. 유전자 억제 도구 → Gene "OFF"</h4>
+      <ul class="pt">
+        <li><b>ASO</b> (안티센스 올리고뉴클레오타이드)</li>
+        <li><b>siRNA</b> (작은 간섭 RNA)</li>
+        <li><b>CRISPR-Cas9</b> (가이드 RNA + 절단 효소)</li>
+      </ul>
+      <p style="margin:0;font-size:14px">해로운 유전자의 발현을 막음</p>
+    </div>
+  </div>
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>pDNA보다 mRNA가 유리한 점</h5>
+    <ul>
+      <li>pDNA는 <b>핵 안</b>까지 들어가야 전사될 수 있음 → 분열하지 않는 세포에서 효율이 낮고, 드물게 숙주 유전체에 끼어들 위험이 있음</li>
+      <li>mRNA는 <b>세포질</b>에 도착하면 바로 리보솜이 번역함 → 핵에 들어가지 않으므로 유전체를 바꾸지 않고, 며칠 뒤 분해되어 효과가 <b>일시적</b>임</li>
+      <li>CRISPR-Cas9은 RNA(가이드 RNA)가 길잡이 역할을 하지만 실제로는 <b>DNA를 자르는</b> 유전자 편집 도구라는 점에서 나머지와 다름</li>
+    </ul>
+  </div>
+</section>
+
+<section class="topic" id="t1-3">
+  <h3><span class="num">1-3</span>RNA 치료제 4종의 작동 방식 <span class="en">RNA Therapeutics</span></h3>
+  <div class="tbl"><table>
+    <thead><tr><th>종류</th><th>구조</th><th>작동 방식</th><th>결과</th></tr></thead>
+    <tbody>
+      <tr><td><b>A. ASO</b> (안티센스 RNA)</td><td>단일가닥</td><td>mRNA에 상보적으로 결합 → <b>스플라이싱 조절</b> 또는 <b>분해 유도</b></td><td rowspan="2">분해 촉진 / 번역 억제<br>(Gene OFF)</td></tr>
+      <tr><td><b>B. siRNA</b> (RNAi)</td><td>이중가닥</td><td>RISC에 실린 뒤 가닥 분리 → 표적 mRNA를 <b>절단</b></td></tr>
+      <tr><td>&nbsp;└ miRNA (RNAi)</td><td>이중가닥 유래</td><td>부분 결합으로 여러 mRNA 억제 (7주차 1-6)</td><td>분해 / 번역 억제</td></tr>
+      <tr><td><b>C. RNA 앱타머</b></td><td>입체 구조</td><td>단백질(수용체)에 항체처럼 결합해 <b>기능·신호 전달을 막음</b></td><td>단백질 기능 차단</td></tr>
+      <tr><td><b>D. mRNA</b></td><td>단일가닥, cap·poly(A)</td><td>세포 안에서 <b>단백질로 번역</b></td><td>단백질·항원 발현 (Gene ON)</td></tr>
+    </tbody>
+  </table></div>
+  <ul class="pt">
+    <li>mRNA 플랫폼의 세 갈래: <b>mRNA 치료제</b>, <b>mRNA 기반 세포치료</b>, <b>mRNA 백신</b></li>
+  </ul>
+</section>
+
+<section class="topic" id="t1-4">
+  <h3><span class="num">1-4</span>RNA를 세포 안으로 – 전달 경로 <span class="en">RNA Delivery</span></h3>
+  <div class="tbl"><table>
+    <thead><tr><th>형태</th><th>들어가는 길</th></tr></thead>
+    <tbody>
+      <tr><td><b>Naked RNA</b> (아무것도 씌우지 않은 RNA)</td><td>막을 직접 통과?(direct translocation?) – 교안도 물음표로 둠. 실제로는 거의 못 들어감</td></tr>
+      <tr><td><b>나노입자</b> (Nanoparticle)</td><td>RNA를 입자에 싸서 <b>세포내 섭취(endocytosis)</b>로 들어감</td></tr>
+      <tr><td><b>접합체</b> (Conjugate)</td><td>RNA에 특정 수용체가 알아보는 분자를 붙여 <b>수용체 매개 세포내 섭취</b>로 들어감</td></tr>
+    </tbody>
+  </table></div>
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>2주차 "방과 문" 비유로 보는 RNA 전달의 어려움</h5>
+    <ul>
+      <li>RNA는 크고 <b>음전하</b>를 띤 극성 분자 → 인지질 이중층을 스스로 통과하지 못함 (2주차 규칙 1 "문이 없으면 못 들어감")</li>
+      <li>게다가 혈액·조직에 RNA 분해효소(RNase)가 많아 맨몸으로는 금방 분해됨</li>
+      <li>그래서 2주차 2-8에서 배운 <b>세포내 섭취</b>를 이용해 "막째로" 들여보내는 전략을 씀 → (4)강의 LNP가 그 대표</li>
+      <li>접합체 예: 간세포 수용체가 알아보는 당(GalNAc)을 붙인 siRNA는 피하주사만으로 간에 잘 전달됨</li>
+    </ul>
+  </div>
+</section>
+
+<section class="topic" id="t1-5">
+  <h3><span class="num">1-5</span>실제 RNA 치료제 사례 <span class="en">Real-world examples</span></h3>
+  <h4>승인된 대표 약 (교안 표 발췌)</h4>
+  <div class="tbl"><table>
+    <thead><tr><th>약 (제품명)</th><th>종류</th><th>투여 경로</th><th>질환</th><th>상태 (교안)</th></tr></thead>
+    <tbody>
+      <tr><td>Nusinersen (Spinraza)</td><td>ASO</td><td>척수강 내</td><td>척수성 근위축증(SMA)</td><td>FDA 2016</td></tr>
+      <tr><td>Eteplirsen (Exondys 51)</td><td>ASO</td><td>정맥</td><td>뒤센 근이영양증</td><td>FDA 2016</td></tr>
+      <tr><td>Inotersen (Tegsedi)</td><td>ASO</td><td>피하</td><td>가족성 아밀로이드 다발신경병증</td><td>FDA 2016 → <b class="k">실제 2018</b></td></tr>
+      <tr><td>Volanesorsen (Waylivra)</td><td>ASO</td><td>피하</td><td>가족성 킬로미크론혈증 증후군</td><td>EU 2019</td></tr>
+      <tr><td>Patisiran (Onpattro)</td><td>siRNA</td><td>정맥</td><td>다발신경병증</td><td>FDA 2018</td></tr>
+      <tr><td>Givosiran (Givlaari)</td><td>siRNA</td><td>피하</td><td>급성 간성 포르피린증</td><td>FDA 2019</td></tr>
+      <tr><td>Pegaptanib (Macugen)</td><td>RNA 앱타머</td><td>유리체 내</td><td>황반변성</td><td>FDA 2014 → <b class="k">실제 2004</b></td></tr>
+      <tr class="sep"><td>BNT162b2 (화이자·바이오엔텍)</td><td>mRNA</td><td>근육</td><td>코로나19</td><td>FDA 긴급사용 2020</td></tr>
+      <tr><td>mRNA-1273 (모더나)</td><td>mRNA</td><td>근육</td><td>코로나19</td><td>FDA 긴급사용 2020</td></tr>
+    </tbody>
+  </table></div>
+  <h4>임상 단계 후보 – 눈여겨볼 패턴</h4>
+  <ul class="pt">
+    <li><b>miRNA 치료제</b>(miRagen): Cobomarsen(혈액암), Remlarsen(켈로이드), MRG-110(조직 재생) – 2상 이하</li>
+    <li><b>mRNA</b>는 대상이 가장 넓음: 감염병 백신(코로나19, 거대세포바이러스, 지카, 광견병, 치쿤구니야), <b>암</b>(흑색종, 폐암, 고형암 – 종양 내 주사도 많음), 희귀 대사질환(메틸말론산혈증, 요소회로 이상), 낭포성 섬유증(흡입), 허혈성 심장병(심외막 주사)</li>
+    <li>투여 경로가 질환 부위에 맞춰 다양함: 척수강·유리체·종양 내·흡입 등 → 전달이 RNA 약의 핵심 과제임을 보여 줌</li>
+  </ul>
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>교안 표 이후 바뀐 것 (2026년 기준)</h5>
+    <ul>
+      <li>BNT162b2(코미나티)는 2021년 8월, mRNA-1273(스파이크박스)은 2022년 1월 FDA <b>정식 승인</b>을 받음</li>
+      <li>CureVac의 CVnCoV는 3상에서 예방 효과가 기대에 못 미쳐(약 48%) 2021년 개발이 중단됨</li>
+      <li>모더나 mRNA-4157(개인 맞춤 암 백신)은 이후 3상으로 진입함 → 2-6 참고</li>
+      <li>교안 표의 임상 단계는 자료 작성 시점 기준이므로 최신 상태와 다를 수 있음</li>
+    </ul>
+  </div>
+  <div class="key"><span class="label">강의 (1) 학습정리</span>
+    <ul class="pt" style="margin-bottom:0">
+      <li>제약 산업은 전통적 화학의약품에서 첨단 바이오의약품으로 옮겨가고 있으며, RNA가 중심 역할을 함</li>
+      <li>RNA 약은 유전자 발현을 "켜거나"(mRNA) 해로운 유전자를 "꺼서"(ASO, siRNA, miRNA) 병을 치료함</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===================== PART 2 ===================== -->
+<div class="part" id="p2">
+  <div class="part-head"><span class="no">강의 (2)</span><h2>mRNA 백신과 면역</h2></div>
+  <p class="part-sub">학습목표: mRNA 백신이 면역계를 "가르치는" 원리 설명 · 면역의 기본 개념 이해 · mRNA를 이용한 암 치료의 미래 탐색</p>
+</div>
+
+<section class="topic" id="t2-1">
+  <h3><span class="num">2-1</span>siRNA와 mRNA의 구조 <span class="en">siRNA for inhibition / mRNA for expression</span></h3>
+  <h4>siRNA – 유전자 억제</h4>
+  <div class="flow">
+    <span>siRNA (21 nt 이중가닥)</span><i>→</i><span>RISC에 실림</span><i>→</i><span>가닥 풀림(unwinding)</span><i>→</i><span>표적 mRNA–siRNA 복합체</span><i>→</i><span class="on">mRNA 절단</span>
+  </div>
+  <ul class="pt"><li>RNA 간섭(RNAi)을 발견한 <b>앤드루 파이어·크레이그 멜로</b> → <b>2006년 노벨 생리의학상</b></li></ul>
+  <h4>mRNA – 유전자 발현 (mRNA construct → 암호화된 단백질)</h4>
+  <div class="tbl"><table>
+    <thead><tr><th>부위 (5′→3′)</th><th>역할</th></tr></thead>
+    <tbody>
+      <tr><td><b>5′ Cap</b></td><td>리보솜이 붙는 표지. 분해효소로부터 앞쪽 끝을 보호</td></tr>
+      <tr><td><b>5′ UTR</b></td><td>번역 시작 효율 조절</td></tr>
+      <tr><td><b>ORF</b> (open reading frame)</td><td>실제 단백질 정보가 담긴 부분</td></tr>
+      <tr><td><b>3′ UTR</b></td><td>mRNA 안정성·수명 조절</td></tr>
+      <tr><td><b>Poly(A) tail</b></td><td>A가 길게 이어진 꼬리. 분해를 늦추고 번역을 도움</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section class="topic" id="t2-2">
+  <h3><span class="num">2-2</span>mRNA의 응용 – 단백질 대체와 백신 <span class="en">Applications of mRNA</span></h3>
+  <div class="grid2">
+    <div class="mini">
+      <h4>① 단백질 대체 요법</h4>
+      <p style="margin:0">몸에 없거나 모자란 단백질의 mRNA를 넣어 세포가 직접 만들게 함. 만들어진 단백질은 세 가지로 쓰임</p>
+      <ul class="pt">
+        <li><b>분비 단백질</b> (세포 밖으로)</li>
+        <li><b>막관통 단백질</b> (세포막에 박힘)</li>
+        <li><b>세포내 단백질</b> (세포 안에서 작용)</li>
+      </ul>
+    </div>
+    <div class="mini">
+      <h4>② 백신 개발</h4>
+      <p style="margin:0">mRNA를 <b>면역세포</b>(대식세포, 수지상세포)에 전달해 항원을 만들게 함</p>
+      <ul class="pt">
+        <li><b>예방 백신</b> (prophylactic): 감염 전에 면역 기억을 만듦 – 코로나19</li>
+        <li><b>치료 백신</b> (therapeutic): 이미 생긴 병(암)을 공격하게 함</li>
+      </ul>
+    </div>
+  </div>
+  <h4>암 면역치료에서 mRNA의 4가지 쓰임 (교안 원형 그림)</h4>
+  <div class="tbl"><table>
+    <thead><tr><th>사분면</th><th>내용</th></tr></thead>
+    <tbody>
+      <tr><td><b>항원 제시</b> (APC)</td><td>mRNA로 만든 항원 조각을 MHC I·II에 실어 T세포에 보여 줌</td></tr>
+      <tr><td><b>보조제 기능</b> (APC)</td><td>mRNA 자체가 TLR3/7/8, RIG-I/MDA5를 자극해 면역을 깨움</td></tr>
+      <tr><td><b>단백질 생산</b></td><td>항체, 사이토카인·케모카인, 공동자극 리간드 등을 몸 안에서 만들게 함</td></tr>
+      <tr><td><b>항원 수용체</b> (림프구)</td><td>T세포에 CAR, TCR을 발현시켜 암을 알아보게 함</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section class="topic" id="t2-3">
+  <h3><span class="num">2-3</span>코로나19 mRNA 백신의 작동 과정 <span class="en">mRNA Vaccine for COVID-19</span></h3>
+  <div class="tbl"><table>
+    <thead><tr><th class="c">단계</th><th>근육세포 또는 항원제시세포 안에서 일어나는 일</th></tr></thead>
+    <tbody>
+      <tr><td class="c">1</td><td>지질나노입자(LNP)+mRNA 복합체가 세포에 다가감 (transfection)</td></tr>
+      <tr><td class="c">2</td><td><b>세포내 섭취</b>(endocytosis)로 엔도솜 안에 들어감</td></tr>
+      <tr><td class="c">3</td><td>mRNA가 엔도솜에서 빠져나와 <b>세포질로 이동</b> (일부는 세포 안에서 분해)</td></tr>
+      <tr><td class="c">4</td><td>리보솜이 <b>번역</b> → 바이러스 <b>스파이크 단백질</b> 생성</td></tr>
+      <tr><td class="c">4a → 5a</td><td>일부는 프로테아솜이 잘게 분해 → <b>MHC I</b>에 실려 세포 표면에 제시 (근육세포)</td></tr>
+      <tr><td class="c">4b → 5b</td><td>일부는 소포체·골지체를 거쳐 <b>세포 밖으로 분비</b></td></tr>
+      <tr><td class="c">6b</td><td>분비된 스파이크를 항원제시세포가 다시 받아 <b>MHC II</b>로 제시</td></tr>
+      <tr><td class="c">7</td><td>면역세포(T세포·B세포)가 제시된 항원을 보고 학습 → 항체·기억 형성</td></tr>
+    </tbody>
+  </table></div>
+  <span class="eval">mRNA는 바이러스 전체가 아니라 "스파이크 단백질 설계도"만 줌. 세포가 직접 만든 스파이크를 보고 면역계가 미리 연습하는 원리임</span>
+  <ul class="pt">
+    <li>교안의 특허 네트워크 그림: 모더나·바이오엔텍·큐어백 주위에 UPenn(변형 뉴클레오사이드), Acuitas·Arbutus·Genevant(LNP), NIH(스파이크 단백질) 등이 라이선스·소송으로 얽혀 있음 → mRNA 백신은 <b>mRNA 기술 + 전달(LNP) 기술</b>의 결합임</li>
+  </ul>
+</section>
+
+<section class="topic" id="t2-4">
+  <h3><span class="num">2-4</span>면역의 기초와 암 면역치료 <span class="en">Basic immunity · Cancer immunotherapy</span></h3>
+  <h4>암 면역치료의 두 열쇠</h4>
+  <div class="flow">
+    <span>항원제시세포(APC)</span><i>→ (1) 항원 제시 →</i><span>T세포</span><i>→ (2) 면역 활성화 → 공격 →</i><span class="on">암세포 (같은 항원)</span>
+  </div>
+  <ul class="pt">
+    <li><b>보조제(adjuvant)</b>: 선천면역 수용체(예: TLR)를 자극해 면역반응을 키움 → APC가 사이토카인을 내고, T<sub>H</sub>1(세포성 면역: 대식세포·NK·CTL) 또는 T<sub>H</sub>2(체액성 면역: B세포·중화항체)로 이어짐</li>
+  </ul>
+  <h4>면역치료란 (What is Immunotherapy?)</h4>
+  <ul class="pt">
+    <li>몸 자신의 면역계를 이용해 암을 공격하는 치료</li>
+    <li>치료가 끝나도 <b class="g">면역 기억(memory)</b> 덕분에 효과가 오래가고 <b>전이를 억제</b>함</li>
+    <li>종류: ① 단일클론항체(mAbs) ② 비특이적 면역 자극 ③ 암 백신 ④ 면역관문 억제제 ⑤ 입양 T세포 전달(T세포 치료)</li>
+  </ul>
+  <h4>종양 면역감시의 발견</h4>
+  <ul class="pt">
+    <li><b>맥팔레인 버넷</b>(Burnet)이 제안: 면역계는 늘 몸을 "<b>스캔</b>"하며 새로 생긴 악성 세포를 찾아 없앰 = <b>면역감시(immune surveillance)</b></li>
+    <li>근거 실험: 방사선으로 죽인 종양 X 세포로 생쥐를 면역 → 살아 있는 종양 X는 거부, 다른 종양 Y는 거부 못함 → 면역이 <b>종양마다 고유한 항원</b>을 알아봄</li>
+  </ul>
+  <h4>암 면역편집의 3E (cancer immunoediting)</h4>
+  <div class="tbl"><table>
+    <thead><tr><th>단계</th><th>상태</th></tr></thead>
+    <tbody>
+      <tr><td><b>제거</b> (Elimination)</td><td>면역계가 암세포를 없앰 – 면역감시</td></tr>
+      <tr><td><b>평형</b> (Equilibrium)</td><td>면역계가 암세포를 억눌러 둠 – 암이 숨어 지속</td></tr>
+      <tr><td><b>회피</b> (Escape)</td><td>암세포가 MHC를 줄이거나 억제 신호를 내 면역을 피함 – 암 진행</td></tr>
+    </tbody>
+  </table></div>
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>버넷·메다워의 노벨상은 무엇이었나</h5>
+    <ul>
+      <li>두 사람은 <b>1960년 노벨 생리의학상</b>을 받았는데, 수상 이유는 "후천성 면역 관용"의 발견임 (면역계가 자기를 공격하지 않도록 배우는 원리)</li>
+      <li>면역감시 가설은 버넷이 그 뒤 따로 제안한 것이며, 3E 면역편집 개념은 2000년대 Dunn·Schreiber 등이 정리함</li>
+    </ul>
+  </div>
+</section>
+
+<section class="topic" id="t2-5">
+  <h3><span class="num">2-5</span>면역관문 억제제 – CTLA-4, PD-1 <span class="en">Immune checkpoint inhibitors</span></h3>
+  <p>암은 T세포의 "브레이크(면역관문)"를 밟아 공격을 피함 → 브레이크를 항체로 막아 T세포를 다시 움직이게 하는 것이 면역관문 억제제임.</p>
+  <div class="grid2">
+    <div class="mini">
+      <h4>CTLA-4 (림프절)</h4>
+      <ul class="pt">
+        <li>T세포 활성화에는 신호 두 개가 필요
+          <ul class="pt"><li><b>신호 1</b>: TCR이 MHC 위 항원을 인식</li><li><b>신호 2</b>: CD28이 수지상세포의 B7에 결합</li></ul></li>
+        <li>CTLA-4가 B7을 가로채면 신호 2가 막혀 T세포 활성화 억제</li>
+        <li><b>항-CTLA-4 항체</b>(이필리무맙) → T세포 활성화 허용</li>
+      </ul>
+    </div>
+    <div class="mini">
+      <h4>PD-1 (종양 환경)</h4>
+      <ul class="pt">
+        <li>T세포가 <b>PD-1</b> 수용체를 가짐</li>
+        <li>암세포의 <b>PD-L1</b>(리간드)이 PD-1에 붙으면 TCR 신호가 막혀 T세포 활성화 억제</li>
+        <li><b>항-PD-1 항체</b>(펨브롤리주맙, 니볼루맙) 또는 항-PD-L1 항체 → T세포 활성화 허용</li>
+      </ul>
+    </div>
+  </div>
+  <ul class="pt"><li>PD-1을 발견한 <b>혼조 다스쿠</b>, CTLA-4 차단 효과를 밝힌 <b>제임스 앨리슨</b> → <b>2018년 노벨 생리의학상</b></li></ul>
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>교안 라벨 "PD-1 checkpoint: Priming T cells"</h5>
+    <ul>
+      <li>CTLA-4는 림프절에서 T세포가 처음 활성화되는 <b>점화(priming) 단계</b>를 조절함</li>
+      <li>PD-1은 주로 이미 활성화된 T세포가 <b>종양 조직에서 공격하는 단계</b>를 억제함 (교안 본문 설명 "T-cell activation in Tumor environment"가 이 뜻)</li>
+      <li>그래서 두 약을 함께 쓰면 서로 다른 단계의 브레이크를 동시에 푸는 효과가 있음</li>
+    </ul>
+  </div>
+</section>
+
+<section class="topic" id="t2-6">
+  <h3><span class="num">2-6</span>mRNA 암 백신 <span class="en">mRNAs for Cancer Vaccine</span></h3>
+  <div class="grid2">
+    <div class="mini">
+      <h4>공유 암 항원 (Shared)</h4>
+      <p style="margin:0 0 6px">같은 암이면 여러 환자가 공통으로 가진 항원 → 기성품처럼 만들 수 있음</p>
+      <ul class="pt">
+        <li>BioNTech BNT111(흑색종), BNT112(전립선암), BNT113(HPV16+ 두경부암), BNT114(삼중음성 유방암), BNT115(난소암)</li>
+        <li>CureVac CV9202(비소세포폐암)</li>
+      </ul>
+    </div>
+    <div class="mini">
+      <h4>개인 맞춤 신항원 (Individualized neoantigen)</h4>
+      <p style="margin:0 0 6px">환자 암세포에만 생긴 돌연변이 항원 → 환자마다 따로 제작</p>
+      <ul class="pt">
+        <li>BioNTech + Genentech iNeST: BNT122(흑색종)</li>
+        <li>Moderna mRNA-4157(고형암)</li>
+      </ul>
+    </div>
+  </div>
+  <div class="flow">
+    <span>① 환자 혈액·조직 채취</span><i>→</i><span>② 정상 vs 종양 서열 비교로 돌연변이 찾기</span><i>→</i><span>③ 신항원 예측</span><i>→</i><span>④ 맞춤 RNA 즉시 제조</span><i>→</i><span class="on">⑤ 개인 맞춤 면역치료</span>
+  </div>
+  <span class="eval">②번의 "정상 vs 종양 서열 비교"는 7주차 NGS, ③번 예측은 7주차 빅데이터·AI임. 개인 맞춤 암 백신은 두 주차 내용이 합쳐진 결과물임</span>
+  <h4>mRNA가 암 면역치료에 좋은 이유</h4>
+  <ul class="pt">
+    <li><b>면역 자극</b>(Immune stimulation): mRNA 자체가 엔도솜 TLR7/8·TLR3, 세포질 RIG-I/MDA5를 자극해 제1형 인터페론 → 수지상세포 성숙 (<b>자가 보조제 효과</b>)</li>
+    <li><b>항원 제시</b>(Antigen presentation): 세포 안에서 만든 항원이 MHC I(→ CD8+ T세포)과 MHC II(→ CD4+ T세포, B세포)로 모두 제시됨</li>
+    <li>암·팬데믹 양쪽에서 큰 잠재력. 세포독성 T세포는 구멍(pore)을 뚫는 단백질로 암세포를 죽임</li>
+  </ul>
+  <div class="key"><span class="label">강의 (2) 학습정리</span>
+    <ul class="pt" style="margin-bottom:0">
+      <li>mRNA는 특정 바이러스 단백질을 만들게 하여 면역세포가 바이러스를 알아보고 싸우도록 가르치는 "설계도" 역할을 함</li>
+      <li>몸은 면역세포가 침입자를 알아보고 T세포 반응을 활성화하는 "항원 제시"를 통해 면역을 얻음</li>
+      <li>mRNA 기술은 면역계가 종양 세포를 정확히 찾아 파괴하도록 도와 암 치료의 미래를 엶</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===================== PART 3 ===================== -->
+<div class="part" id="p3">
+  <div class="part-head"><span class="no">강의 (3)</span><h2>mRNA 생산과 최적화</h2></div>
+  <p class="part-sub">학습목표: mRNA 생산 과정 이해 · mRNA 안정성과 단백질 번역 효율을 높이는 핵심 최적화 기법 파악</p>
+</div>
+
+<section class="topic" id="t3-1">
+  <h3><span class="num">3-1</span>시험관 내 전사(IVT)로 mRNA 만들기 <span class="en">Preparation of mRNA · In Vitro Transcription</span></h3>
+  <h4>주형 DNA 준비</h4>
+  <ul class="pt">
+    <li>원형 DNA 주형(플라스미드)에 <b>T7 프로모터 – 5′ UTR – ORF(표적 단백질 서열) – 3′ UTR</b>을 넣어 둠</li>
+    <li>(i) <b>제한효소로 잘라 선형화</b>하거나, (ii) poly(T)를 포함한 프라이머로 <b>PCR</b>하여 끝에 poly(T) 꼬리가 달린 선형 주형을 만듦</li>
+    <li>(iii) <b>시험관 내 전사(IVT)</b>: T7 RNA 중합효소가 선형 주형을 따라 RNA를 만들고, 주형 끝에서 떨어짐 → <b>5′ Cap – 5′UTR – ORF – 3′UTR – Poly(A) tail</b> mRNA 완성</li>
+  </ul>
+  <h4>생산 공정</h4>
+  <div class="flow">
+    <span>mRNA 서열 설계</span><i>→</i><span>유전자 합성·플라스미드 주형</span><i>→</i><span>pDNA 준비·선형화</span><i>→</i><span>mRNA 합성·정제</span><i>→</i><span class="on">품질검사(QC)</span>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>공정</th><th>하는 일</th></tr></thead>
+    <tbody>
+      <tr><td><b>무세포 합성</b> (cell-free synthesis)</td><td>세포 없이 DNA 주형과 효소 반응만으로 RNA 생산</td></tr>
+      <tr><td><b>정제</b> (purification)</td><td>남은 NTP·효소·DNA 조각 제거</td></tr>
+      <tr><td><b>TFF</b> (접선 흐름 여과)</td><td>완충액 교환과 농축</td></tr>
+      <tr><td><b>멸균 여과</b></td><td>0.2 µm 필터로 세균 제거 → RNA 원료의약품(drug substance)</td></tr>
+    </tbody>
+  </table></div>
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>mRNA 백신이 빨리 나올 수 있었던 이유</h5>
+    <ul>
+      <li>단백질 백신은 세포를 키워 단백질을 뽑아야 하지만, mRNA는 <b>세포 없이 효소 반응</b>으로 만듦 → 서열만 바꾸면 같은 공정을 그대로 쓸 수 있음</li>
+      <li>정제가 중요한 이유: IVT 과정에서 부산물로 생기는 <b>이중가닥 RNA(dsRNA)</b>가 TLR3 등 면역 센서를 강하게 자극하기 때문 (3-3과 연결)</li>
+    </ul>
+  </div>
+</section>
+
+<section class="topic" id="t3-2">
+  <h3><span class="num">3-2</span>mRNA 부위별 최적화 <span class="en">IVT mRNA Modification</span></h3>
+  <div class="tbl"><table>
+    <thead><tr><th>부위</th><th>최적화 방법</th><th>효과</th></tr></thead>
+    <tbody>
+      <tr><td><b>5′ Cap</b></td><td>뉴클레오타이드 메틸화</td><td>안정성 ↑ · 번역 ↑ · 분해 ↓ · 면역원성 ↓</td></tr>
+      <tr><td><b>코딩 서열</b></td><td>코돈 최적화 (같은 아미노산을 세포가 잘 읽는 코돈으로 바꿈)</td><td>mRNA 양 ↑ · 번역 ↑</td></tr>
+      <tr><td><b>Poly(A) tail</b></td><td>꼬리 늘리기</td><td>안정성 ↑ · 번역 ↑</td></tr>
+      <tr><td><b>전체 (U 자리)</b></td><td>뉴클레오사이드 변형: 우리딘(U) → 슈도유리딘(Ψ)</td><td>안정성 ↑ · 분해 ↓ · <b class="g">면역원성 ↓</b></td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section class="topic" id="t3-3">
+  <h3><span class="num">3-3</span>변형 우리딘 – 면역은 낮추고 번역은 높이고 <span class="en">Unmodified vs. Modified</span></h3>
+  <div class="grid2">
+    <div class="mini">
+      <h4>비변형·비정제 mRNA</h4>
+      <ul class="pt">
+        <li>엔도솜 RNA 센서 <b>TLR3, TLR7, TLR8</b>이 인식</li>
+        <li>세포질 RNA 센서 <b>PKR, OAS, MDA5, RIG-I</b>가 인식</li>
+        <li>→ 제1형 인터페론 분비 → 번역 억제</li>
+        <li><b class="k">면역 활성 높음, 번역 낮음</b></li>
+      </ul>
+    </div>
+    <div class="mini">
+      <h4>변형·정제 mRNA (Ψ)</h4>
+      <ul class="pt">
+        <li>센서가 "자기 RNA"처럼 여겨 잘 반응하지 않음</li>
+        <li>번역이 방해받지 않아 항원 단백질이 많이 만들어짐</li>
+        <li>→ 펩타이드–MHC 제시, 본래 모양 항원 발현</li>
+        <li><b class="g">면역 활성 낮음, 번역 높음</b></li>
+      </ul>
+    </div>
+  </div>
+  <h4>근거 실험 (Karikó 외, Immunity 2005)</h4>
+  <ul class="pt">
+    <li>인간 수지상세포에 여러 RNA를 넣고 TNF-α(염증 사이토카인) 측정:
+      <ul class="pt">
+        <li><b>시험관에서 전사한 RNA</b>, 대장균 RNA, 미토콘드리아 RNA → TNF-α <b>매우 높음</b></li>
+        <li>포유류 세포의 total·핵·세포질 RNA, tRNA → 거의 없음</li>
+        <li>RNase로 RNA를 분해하면(+) 반응이 사라짐 → 원인은 RNA 자체</li>
+      </ul>
+    </li>
+    <li>TLR7·TLR8 세포 실험: 비변형 RNA는 강하게 자극, <b>m5C, m6A, Ψ, m5U, s2U</b> 등 변형 염기를 넣으면 자극이 크게 줄거나 사라짐 → <b class="g">비변형 U가 면역 자극의 주범</b></li>
+  </ul>
+  <h4>N1-메틸슈도유리딘(m1Ψ)</h4>
+  <ul class="pt">
+    <li>염기쌍을 이루는 면(base pairing)은 그대로라 <b>번역에는 문제없음</b></li>
+    <li>튀어나온 메틸기(steric "bump")가 <b>TLR7 주머니에 잘 맞지 않음</b> → 면역 자극 ▼, 단백질 발현 ▲</li>
+    <li>EPO(적혈구 생성 호르몬) mRNA를 생쥐에 주사: U-mRNA는 인터페론-α를 많이 유발, Ψ-mRNA는 주사하지 않은 쥐 수준 / EPO 생산량은 Ψ-mRNA가 훨씬 높고, <b>코돈 최적화</b>까지 하면 더 높음 / Ψ-mRNA는 혈중 EPO가 <b>며칠 동안</b> 유지됨(U-mRNA·단백질 직접 주사는 하루 남짓)</li>
+  </ul>
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>2023년 노벨 생리의학상</h5>
+    <ul>
+      <li>교안 그래프의 원 논문 저자인 <b>커털린 커리코·드루 와이스먼</b>이 "mRNA 백신 개발을 가능하게 한 뉴클레오사이드 염기 변형 발견"으로 2023년 노벨 생리의학상을 받음</li>
+      <li>화이자·모더나 코로나19 백신은 모든 U를 <b>m1Ψ</b>로 바꿔 만듦. 특허 네트워크 그림의 UPenn(펜실베이니아대)이 이 연구가 이뤄진 곳임</li>
+      <li>7주차 (2)강 "후성전사체 – RNA 염기 변형"이 약으로 쓰인 사례로 연결해 기억하면 좋음</li>
+    </ul>
+  </div>
+</section>
+
+<section class="topic" id="t3-4">
+  <h3><span class="num">3-4</span>최적화 실험 결과 읽기 <span class="en">Optimization of mRNA</span></h3>
+  <div class="tbl"><table>
+    <thead><tr><th>비교 항목</th><th>결과 (형광 세기 = 단백질 발현)</th><th>의미</th></tr></thead>
+    <tbody>
+      <tr><td>1. 변형 vs 일반 뉴클레오타이드</td><td>Normal 약 2,000 vs <b>Modified 약 28,000</b></td><td>변형 염기만으로 발현이 10배 이상</td></tr>
+      <tr><td>2. CAP:GTP 비율</td><td><b>ARCA 4 : GTP 1</b> (약 28,000) &gt; ARCA 4 : GTP 3 (약 13,000)</td><td>캡 유사체 비율이 높을수록 캡이 붙은 mRNA가 많아짐</td></tr>
+      <tr><td>3. Poly(A) 길이</td><td>PCR로 붙인 A120 (약 1,400) &lt; <b>효소로 붙인 꼬리</b> (약 2,500)</td><td>꼬리 길이·방식이 발현을 좌우</td></tr>
+    </tbody>
+  </table></div>
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>ARCA와 CAP:GTP 비율의 원리</h5>
+    <ul>
+      <li>IVT에서 캡을 붙이려면 반응액에 <b>캡 유사체</b>를 넣음. 그런데 T7 중합효소는 첫 글자로 캡 유사체와 그냥 GTP 중 아무거나 씀 → <b>둘이 경쟁</b></li>
+      <li>GTP 비율이 높으면 캡이 없는 mRNA가 늘어 번역이 안 되고 면역 자극도 커짐. 반대로 캡 비율이 너무 높으면 전체 생산량이 줄어 적정 비율을 찾아야 함</li>
+      <li><b>ARCA</b>(Anti-Reverse Cap Analog): 캡이 거꾸로 붙는 것을 막도록 설계된 유사체. 최근에는 사람 mRNA와 같은 Cap 1 구조를 한 번에 만드는 캡 유사체가 많이 쓰임</li>
+    </ul>
+  </div>
+  <div class="key"><span class="label">강의 (3) 학습정리</span>
+    <ul class="pt" style="margin-bottom:0">
+      <li>mRNA는 시험관 내 전사(IVT)로 생산함</li>
+      <li>비변형 우리딘을 화학적으로 변형된 우리딘으로 바꾸면 원치 않는 면역 활성이 크게 줄고 단백질 번역은 늘어남</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===================== PART 4 ===================== -->
+<div class="part" id="p4">
+  <div class="part-head"><span class="no">강의 (4)</span><h2>유전자 전달 시스템과 지질나노입자(LNP)</h2></div>
+  <p class="part-sub">학습목표: 여러 유전자 전달 시스템의 종류 이해 · 지질나노입자(LNP)의 작동 원리 설명</p>
+</div>
+
+<section class="topic" id="t4-1">
+  <h3><span class="num">4-1</span>유전자 전달 시스템의 분류 <span class="en">Gene delivery systems</span></h3>
+  <div class="tbl"><table>
+    <thead><tr><th>분류</th><th>예</th><th>장점</th><th>단점</th></tr></thead>
+    <tbody>
+      <tr><td><b>바이러스성</b> (생물학적)</td><td>아데노바이러스, AAV, 레트로·렌티바이러스, 백시니아</td><td>전달 효율 높음, 유전자 치료에 널리 쓰임, 다루기 쉬움</td><td>실을 수 있는 유전자 크기가 작음</td></tr>
+      <tr class="sep"><td><b>비바이러스 – 물리적</b></td><td>유전자총, 바늘 주사, 레이저, 전기천공, 초음파천공</td><td>전달 부위 조절, 조직 침투 높음, 면역원성 낮음</td><td>조직 손상</td></tr>
+      <tr><td><b>비바이러스 – 화학적(유기)</b></td><td><b>지질나노입자(LNP)</b>, 고분자 나노입자</td><td>다양한 제형, 화물 유연성, <b>스스로 조립</b>됨</td><td>독성·면역원성</td></tr>
+      <tr><td><b>비바이러스 – 화학적(무기)</b></td><td>금 나노입자, 탄소나노튜브, 메조다공성 실리카, 자성 나노입자, 양자점</td><td>전기·자기·광학 특성, 모양·크기 조절 쉬움</td><td>독성·용해도</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section class="topic" id="t4-2">
+  <h3><span class="num">4-2</span>LNP의 제조와 세포 전달 <span class="en">Lipid Nanoparticles for RNA Delivery</span></h3>
+  <div class="tbl"><table>
+    <thead><tr><th class="c">단계</th><th>내용</th></tr></thead>
+    <tbody>
+      <tr><td class="c">1</td><td>한쪽 관에 <b>지질(에탄올에 녹임)</b>, 다른 관에 <b>RNA(산성 수용액)</b>를 흘려 넣음</td></tr>
+      <tr><td class="c">2–3</td><td>미세유체 칩 안에서 층흐름 혼합(laminar flow mixing)으로 빠르고 고르게 섞임</td></tr>
+      <tr><td class="c">4</td><td>RNA가 담긴 나노입자 완성</td></tr>
+      <tr><td class="c">5</td><td>세포막 수용체와 만나 <b>세포내 섭취</b>로 흡수</td></tr>
+      <tr><td class="c">6</td><td>엔도솜 안 <b>pH 변화</b>로 입자가 풀리며 RNA가 세포질로 방출</td></tr>
+    </tbody>
+  </table></div>
+  <ul class="pt">
+    <li>자기조립 원리: 에탄올이 물에 희석되며 <b>용매 극성이 커지면</b>, 물을 싫어하는 지질 꼬리끼리 모이고 양전하 이온화 지질이 음전하 mRNA를 감싸며 입자가 됨 (2주차 마이셀·리포솜 형성과 같은 원리)</li>
+  </ul>
+</section>
+
+<section class="topic" id="t4-3">
+  <h3><span class="num">4-3</span>LNP의 4가지 구성 성분 <span class="en">Lipid Nanoparticles Technology</span></h3>
+  <div class="tbl"><table>
+    <thead><tr><th>성분</th><th>몰비 (예)</th><th>역할</th></tr></thead>
+    <tbody>
+      <tr><td><b class="k">이온화 지질</b> (ionizable lipid)</td><td class="c">약 50%</td><td><b>핵심 성분</b>. 산성에서 양전하를 띠어 mRNA를 붙잡고, 엔도솜에서 막을 흔들어 mRNA를 꺼내 줌</td></tr>
+      <tr><td><b>구조 지질</b> (helper/structural: DSPC, DOPE)</td><td class="c">약 10%</td><td>입자의 막 골격. 종류에 따라 안정성·방출 효율이 달라짐</td></tr>
+      <tr><td><b>콜레스테롤</b></td><td class="c">약 38.5%</td><td>지질 사이 틈을 메워 입자를 단단하고 안정하게 함 (2주차 세포막 유동성 조절과 같은 역할)</td></tr>
+      <tr><td><b>PEG-지질</b> (stealth lipid)</td><td class="c">약 1.5%</td><td>표면을 덮어 입자끼리 뭉치지 않게 하고 크기를 조절, 혈중 순환 시간 조절</td></tr>
+    </tbody>
+  </table></div>
+  <p class="src">몰비 50 : 10 : 38.5 : 1.5는 Onpattro·모더나·큐어백 제형 기준. 화이자-바이오엔텍은 46.3 : 9.4 : 42.7 : 1.6 (4-5 표 참고)</p>
+</section>
+
+<section class="topic" id="t4-4">
+  <h3><span class="num">4-4</span>이온화 지질 – pH에 따라 바뀌는 전하 <span class="en">Function of Ionizable Lipid</span></h3>
+  <figure>
+    <svg viewBox="0 0 720 210" role="img" aria-label="pH에 따른 이온화 지질 전하 변화">
+      <style>.t{font:700 14px Pretendard,sans-serif}.s{font:500 12.5px Pretendard,sans-serif}</style>
+      <g>
+        <rect x="10" y="20" width="160" height="110" rx="10" fill="#fbe9ea" stroke="#e8b4b7"/>
+        <text x="90" y="44" text-anchor="middle" class="t" fill="#b4232a">① 제조</text>
+        <text x="90" y="64" text-anchor="middle" class="s" fill="#56635b">낮은 pH (~4)</text>
+        <text x="90" y="96" text-anchor="middle" style="font:800 26px sans-serif" fill="#b4232a">+ + +</text>
+        <text x="90" y="120" text-anchor="middle" class="s" fill="#56635b">mRNA(−)를 붙잡음</text>
+      </g>
+      <g>
+        <rect x="190" y="20" width="160" height="110" rx="10" fill="#eef1f0" stroke="#cfd8d3"/>
+        <text x="270" y="44" text-anchor="middle" class="t" fill="#123d26">② 보관</text>
+        <text x="270" y="64" text-anchor="middle" class="s" fill="#56635b">pH ~7</text>
+        <text x="270" y="96" text-anchor="middle" style="font:800 26px sans-serif" fill="#56635b">0</text>
+        <text x="270" y="120" text-anchor="middle" class="s" fill="#56635b">중성</text>
+      </g>
+      <g>
+        <rect x="370" y="20" width="160" height="110" rx="10" fill="#eef1f0" stroke="#cfd8d3"/>
+        <text x="450" y="44" text-anchor="middle" class="t" fill="#123d26">③ 혈중 순환</text>
+        <text x="450" y="64" text-anchor="middle" class="s" fill="#56635b">pH ~7.4</text>
+        <text x="450" y="96" text-anchor="middle" style="font:800 26px sans-serif" fill="#56635b">0</text>
+        <text x="450" y="120" text-anchor="middle" class="s" fill="#56635b">중성 → 독성·제거 ↓</text>
+      </g>
+      <g>
+        <rect x="550" y="20" width="160" height="110" rx="10" fill="#fbe9ea" stroke="#e8b4b7"/>
+        <text x="630" y="44" text-anchor="middle" class="t" fill="#b4232a">④ 엔도솜</text>
+        <text x="630" y="64" text-anchor="middle" class="s" fill="#56635b">pH 5~6</text>
+        <text x="630" y="96" text-anchor="middle" style="font:800 26px sans-serif" fill="#b4232a">+ + +</text>
+        <text x="630" y="120" text-anchor="middle" class="s" fill="#56635b">막 교란 → mRNA 방출</text>
+      </g>
+      <g fill="#15803d"><path d="M172 75 l14 0 l0 -6 l10 10 l-10 10 l0 -6 l-14 0z"/><path d="M352 75 l14 0 l0 -6 l10 10 l-10 10 l0 -6 l-14 0z"/><path d="M532 75 l14 0 l0 -6 l10 10 l-10 10 l0 -6 l-14 0z"/></g>
+      <text x="360" y="170" text-anchor="middle" class="t" fill="#123d26">이온화 지질의 pKa ≈ 6~7 : 이보다 산성이면 양전하(H⁺ 결합), 중성이면 전하 없음</text>
+      <text x="360" y="194" text-anchor="middle" class="s" fill="#56635b">ALC-0315 6.09 · MC3 6.4 · SM-102 6.75 (교안 TNS pKa)</text>
+    </svg>
+    <figcaption>주변 pH를 이용하는 이온화 아민(교안 Function of Ionizable Lipid 그림을 단순화해 다시 그림)</figcaption>
+  </figure>
+  <ul class="pt">
+    <li>이온화 지질은 <b>아민(amine) + 에폭사이드(epoxide)</b> 반응 등으로 합성. 질소(N)가 H⁺를 받으면 양전하(N⁺–H)가 됨</li>
+    <li>항상 양전하인 지질(영구 양이온 지질)은 혈중에서 독성이 큼 → <b class="g">필요할 때만 양전하</b>가 되는 이온화 지질이 핵심 혁신</li>
+    <li>엔도솜에서 양전하가 된 지질이 엔도솜 막의 음전하 지질과 붙어 막 구조를 무너뜨림 → <b>엔도솜 탈출</b></li>
+  </ul>
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>엔도솜은 왜 산성인가 – 2주차와 연결</h5>
+    <ul>
+      <li>엔도솜·리소좀 막에는 ATP를 써서 H⁺를 안으로 퍼 넣는 <b>양성자 펌프(V-ATPase)</b>가 있음 → 2주차 2-6의 <b>1차 능동수송(H⁺ 펌프)</b>임</li>
+      <li>엔도솜이 성숙할수록 pH가 6 → 5 → 리소좀(pH 4.5~5)으로 낮아짐. mRNA가 리소좀까지 가면 분해되므로, 그 전에 빠져나오는 것이 전달 효율을 좌우함</li>
+    </ul>
+  </div>
+</section>
+
+<section class="topic" id="t4-5">
+  <h3><span class="num">4-5</span>상용 이온화 지질과 백신 비교 <span class="en">Commercialized Ionizable Lipids</span></h3>
+  <div class="tbl"><table>
+    <thead><tr><th>이온화 지질</th><th>쓰인 제품</th><th>교안 표기 회사</th><th class="c">pKa</th></tr></thead>
+    <tbody>
+      <tr><td><b>ALC-0315</b></td><td>화이자-바이오엔텍 코로나19 백신 (BNT162b2, 코미나티)</td><td>Genevant (구조식 출처는 Acuitas)</td><td class="c">6.09</td></tr>
+      <tr><td><b>SM-102</b></td><td>모더나 코로나19 백신 (mRNA-1273) – "Moderna Lipid H"</td><td>Arbutus</td><td class="c">6.75</td></tr>
+      <tr><td><b>D-Lin-MC3-DMA</b> (MC3)</td><td>앨나일람 <b>Onpattro (patisiran, siRNA)</b> – 최초 승인 siRNA 약</td><td>PNI (Precision NanoSystems)</td><td class="c">6.4</td></tr>
+      <tr><td><b>C12-200</b></td><td>연구용 지질 유사체(lipidoid), siRNA·mRNA 전달 비교 기준</td><td>Corden</td><td class="c">–</td></tr>
+    </tbody>
+  </table></div>
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>괄호 안 회사 이름을 읽을 때</h5>
+    <ul>
+      <li>ALC-0315는 Acuitas가 개발해 바이오엔텍에 공급했고, SM-102는 모더나가 자체 개발한 지질임 (교안 하단 구조식 캡션도 각각 Acuitas, Moderna로 표기)</li>
+      <li>교안 제목의 Genevant·Arbutus는 LNP 원천 특허를 주장하며 라이선스·소송으로 얽힌 회사들임 (2-3 특허 네트워크 그림 참고). "누가 만들었나"와 "누가 특허를 주장하나"를 구분해서 보면 됨</li>
+    </ul>
+  </div>
+
+  <h4>모더나 vs 화이자-바이오엔텍 코로나19 백신</h4>
+  <div class="tbl"><table>
+    <thead><tr><th></th><th>모더나 (mRNA-1273)</th><th>화이자-바이오엔텍 (BNT162b2)</th></tr></thead>
+    <tbody>
+      <tr><td><b>용량·접종</b></td><td><b>100 µg</b>, 근육주사 2회, <b>28일</b> 간격</td><td><b>30 µg</b>, 근육주사 2회, <b>21일</b> 간격</td></tr>
+      <tr><td><b>포장</b></td><td>냉동 액체, 바이알당 10회분, 보존제 없음</td><td>냉동 액체, 바이알당 5회분, 보존제 없음, 별도 희석액과 섞어야 함</td></tr>
+      <tr><td><b>보관</b></td><td><b>−20℃</b> 최대 6개월 / 2~8℃ 7일 / 개봉 후 6시간</td><td>드라이아이스 운송, <b>−70℃</b> 최대 6개월 / 2~8℃ 24시간 / 실온 2시간 / 희석 후 6시간</td></tr>
+      <tr><td><b>LNP 성분</b></td><td>SM-102, PEG2000-DMG, 콜레스테롤, DSPC</td><td>ALC-0315, ALC-0159(PEG-지질), DSPC, 콜레스테롤</td></tr>
+      <tr><td><b>완충액 등</b></td><td>트로메타민(Tris), 아세트산·아세트산나트륨, 수크로스</td><td>인산염 완충액, NaCl·KCl, 수크로스</td></tr>
+    </tbody>
+  </table></div>
+  <p class="src">교안 표 기준(초기 긴급사용 시기 정보). 이후 보관 조건 등은 제형 변경으로 달라짐. 수크로스는 얼릴 때 입자를 보호하는 동결보호제 역할</p>
+
+  <h4>제형 종합 비교 (교안 표)</h4>
+  <div class="tbl"><table>
+    <thead><tr><th></th><th>Onpattro (siRNA)</th><th>화이자-바이오엔텍</th><th>모더나</th><th>큐어백 (후보)</th></tr></thead>
+    <tbody>
+      <tr><td>용량·경로</td><td>0.3 mg/kg 정맥</td><td>30 µg 근육</td><td>100 µg 근육</td><td>12 µg 근육</td></tr>
+      <tr><td>몰비 (이온화:중성:콜레스테롤:PEG)</td><td>50:10:38.5:1.5</td><td>46.3:9.4:42.7:1.6</td><td>50:10:38.5:1.5</td><td>50:10:38.5:1.5</td></tr>
+      <tr><td><b>N/P 비</b></td><td class="c"><b>3</b></td><td class="c"><b>6</b></td><td class="c"><b>6</b></td><td class="c"><b>6</b></td></tr>
+    </tbody>
+  </table></div>
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>N/P 비란</h5>
+    <ul>
+      <li>이온화 지질의 <b>질소(N, 양전하가 될 수 있는 자리)</b> 수 ÷ RNA의 <b>인산기(P, 음전하)</b> 수</li>
+      <li>짧은 siRNA는 3이면 충분하지만, 길고 잘 접히는 mRNA를 안정하게 싸려면 더 많은 양전하(6)가 필요함 → 4-6의 "siRNA와 mRNA는 다르다"로 이어짐</li>
+    </ul>
+  </div>
+</section>
+
+<section class="topic" id="t4-6">
+  <h3><span class="num">4-6</span>mRNA에 맞춘 LNP 최적화 <span class="en">Optimization of LNPs for mRNA</span></h3>
+  <h4>siRNA vs mRNA</h4>
+  <ul class="pt">
+    <li><b>siRNA</b>: 약 21 bp의 짧고 단단한 이중가닥</li>
+    <li><b>mRNA</b>: 수천 nt의 긴 단일가닥, 5′ cap–UTR–코딩 영역–3′ UTR–poly(A), 스스로 복잡하게 접힘</li>
+    <li>→ siRNA용으로 개발된 LNP(MC3 등)를 그대로 쓰면 mRNA에는 최적이 아님 → 성분을 다시 조정해야 함</li>
+  </ul>
+  <h4>구조 지질 바꾸기: DSPC → DOPE</h4>
+  <div class="grid2">
+    <div class="mini">
+      <h4>DSPC</h4>
+      <ul class="pt">
+        <li>원통 모양 → 안정한 <b>층판상(lamellar, 이중층)</b></li>
+        <li>mRNA와 강하게 결합, 봉입 효율 <b>90% 이상</b></li>
+        <li>생쥐 발광 영상: 발현 신호 보통</li>
+      </ul>
+    </div>
+    <div class="mini">
+      <h4>DOPE</h4>
+      <ul class="pt">
+        <li>원뿔 모양 → 덜 안정한 <b>역육각상(hexagonal H<sub>Ⅱ</sub>)</b></li>
+        <li>막이 쉽게 무너져 엔도솜 탈출에 유리</li>
+        <li>생쥐 발광 영상: <b class="g">발현 신호가 훨씬 강함</b></li>
+      </ul>
+    </div>
+  </div>
+  <span class="eval">"안정해서 잘 싸는 것"과 "세포 안에서 잘 푸는 것"은 서로 반대 방향일 수 있음. 전달체 설계는 이 균형을 맞추는 일임</span>
+
+  <h4>LNP 내부 구조</h4>
+  <ul class="pt">
+    <li>극저온 전자현미경(CryoTEM) 사진: 약 100 nm 크기의 둥근 입자 안에 <b>전자 밀도가 높은(진한) 부분</b>이 보임</li>
+    <li>제안된 모델
+      <ul class="pt">
+        <li>(a) <b>다층막(multilamellar)</b> 모델: 양파처럼 여러 겹 → 진한 중심부를 설명하지 못함 ✕</li>
+        <li>(b)(c) <b class="g">코어–셸(core–shell) 모델</b>: 바깥은 DSPC·PEG-지질 껍질, 안쪽은 이온화 지질이 RNA가 든 물방울을 둘러싼 구조 → <b>유력함</b></li>
+      </ul>
+    </li>
+  </ul>
+
+  <h4>지질 성분 최적화 실험 (Sci. Adv. 2021)</h4>
+  <ul class="pt">
+    <li>루시페라아제 mRNA 0.1 mg/kg 정맥주사 후 발광 세기(막대)와 봉입 효율(◆) 비교</li>
+    <li>C12-200(기존 기준): 발광 높음, 봉입 약 40% / F1: 봉입 약 95%인데 발광 낮음 / <b>F2</b>: 봉입 약 95%, 발광 높음 / F3: 발광 가장 높지만 봉입 약 57%</li>
+    <li>→ <b class="g">봉입 효율이 높다고 발현이 높은 것은 아님</b>. 둘 다 좋은 F2처럼 균형 잡힌 조합을 찾는 것이 최적화의 목표</li>
+  </ul>
+  <div class="key"><span class="label">강의 (4) 학습정리</span>
+    <ul class="pt" style="margin-bottom:0">
+      <li>유전자 전달은 바이러스성과 비바이러스성 방법으로 나뉨</li>
+      <li>표준 LNP는 네 가지 주성분, 즉 이온화 지질, 콜레스테롤, 구조 지질(DSPC/DOPE), PEG-지질로 이루어짐</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===================== PART 5 ===================== -->
+<div class="part" id="p5">
+  <div class="part-head"><span class="no">용어</span><h2>용어 정리와 교안 표기 정정</h2></div>
+  <p class="part-sub">8주차 네 강의에 나온 핵심 용어</p>
+</div>
+
+<section class="topic">
+  <div class="tbl"><table>
+    <thead><tr><th>영문</th><th>국문</th><th>한 줄 정리</th></tr></thead>
+    <tbody>
+      <tr><td>biopharmaceuticals</td><td>바이오의약품</td><td>단백질·유전자·세포를 이용한 의약품</td></tr>
+      <tr><td>pDNA</td><td>플라스미드 DNA</td><td>원형 DNA. 핵에 들어가야 발현됨</td></tr>
+      <tr><td>ASO</td><td>안티센스 올리고뉴클레오타이드</td><td>단일가닥, mRNA에 결합해 스플라이싱 조절·분해 유도</td></tr>
+      <tr><td>siRNA</td><td>작은 간섭 RNA</td><td>약 21 bp 이중가닥, RISC로 표적 mRNA 절단</td></tr>
+      <tr><td>aptamer</td><td>앱타머</td><td>입체 구조로 단백질에 결합해 기능을 막는 RNA</td></tr>
+      <tr><td>5′ cap / UTR / ORF / poly(A)</td><td>캡 / 비번역 부위 / 번역틀 / 아데닌 꼬리</td><td>mRNA를 이루는 다섯 부위</td></tr>
+      <tr><td>prophylactic / therapeutic vaccine</td><td>예방 백신 / 치료 백신</td><td>감염 전 대비 / 이미 생긴 병(암) 치료</td></tr>
+      <tr><td>antigen presentation · MHC</td><td>항원 제시 · 주조직적합복합체</td><td>항원 조각을 MHC에 실어 T세포에 보여 주는 과정</td></tr>
+      <tr><td>adjuvant</td><td>보조제</td><td>선천면역 수용체를 자극해 면역반응을 키우는 물질</td></tr>
+      <tr><td>TLR</td><td>톨유사수용체</td><td>병원체 패턴 인식 수용체. TLR3(dsRNA), TLR7/8(ssRNA)</td></tr>
+      <tr><td>immune surveillance</td><td>면역감시</td><td>면역계가 늘 몸을 살피며 악성 세포를 제거</td></tr>
+      <tr><td>immunoediting (3E)</td><td>면역편집</td><td>제거 → 평형 → 회피</td></tr>
+      <tr><td>immune checkpoint</td><td>면역관문</td><td>T세포 활성의 브레이크. CTLA-4, PD-1</td></tr>
+      <tr><td>neoantigen</td><td>신항원</td><td>암세포 돌연변이로 새로 생긴, 환자 고유 항원</td></tr>
+      <tr><td>IVT</td><td>시험관 내 전사</td><td>T7 RNA 중합효소로 DNA 주형에서 mRNA 합성</td></tr>
+      <tr><td>codon optimization</td><td>코돈 최적화</td><td>아미노산은 그대로 두고 잘 번역되는 코돈으로 교체</td></tr>
+      <tr><td>pseudouridine (Ψ) · m1Ψ</td><td>슈도유리딘 · N1-메틸슈도유리딘</td><td>U 대신 넣는 변형 염기. 면역 ↓ 번역 ↑</td></tr>
+      <tr><td>ARCA</td><td>역방향 방지 캡 유사체</td><td>IVT에서 캡을 올바른 방향으로 붙이게 하는 유사체</td></tr>
+      <tr><td>LNP</td><td>지질나노입자</td><td>이온화 지질·구조 지질·콜레스테롤·PEG-지질로 된 RNA 운반체</td></tr>
+      <tr><td>ionizable lipid · pKa</td><td>이온화 지질 · 산해리상수</td><td>pKa(약 6~7)보다 산성일 때만 양전하를 띠는 지질</td></tr>
+      <tr><td>endosomal escape</td><td>엔도솜 탈출</td><td>엔도솜에 갇힌 RNA가 세포질로 빠져나오는 단계</td></tr>
+      <tr><td>N/P ratio</td><td>N/P 비</td><td>지질 질소 수 ÷ RNA 인산 수 (siRNA 3, mRNA 6)</td></tr>
+      <tr><td>lamellar / hexagonal H<sub>Ⅱ</sub></td><td>층판상 / 역육각상</td><td>DSPC(안정, 봉입 ↑) / DOPE(불안정, 방출 ↑)</td></tr>
+      <tr><td>encapsulation efficiency</td><td>봉입 효율</td><td>넣은 RNA 중 입자 안에 담긴 비율</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>교안 표기에서 헷갈릴 수 있는 부분</h5>
+    <div class="tbl"><table>
+      <thead><tr><th>위치</th><th>교안 표기</th><th>바르게 읽기</th></tr></thead>
+      <tbody>
+        <tr><td>(1) 치료제 표</td><td>Inotersen FDA approval in 2016</td><td>2018년 승인</td></tr>
+        <tr><td>(1) 치료제 표</td><td>Pegaptanib FDA approval in 2014</td><td>2004년 승인 (최초의 앱타머 약)</td></tr>
+        <tr><td>(1) 치료제 표</td><td>Olaptesed pegel / Crystic Fibrosis</td><td>Olaptesed pegol / Cystic Fibrosis(낭포성 섬유증)</td></tr>
+        <tr><td>(1) 치료제 표</td><td>Jung and pancreatic cancer</td><td>"Jung"은 오타로 보임(문맥상 lung)</td></tr>
+        <tr><td>(2) 3E 그림</td><td>Ellimination</td><td>Elimination</td></tr>
+        <tr><td>(3) 학습목표·내용</td><td>Mrna / 학내용표</td><td>mRNA / 학습내용</td></tr>
+        <tr><td>(4) 백신 비교 표</td><td>Stroage / Ingradients</td><td>Storage / Ingredients</td></tr>
+        <tr><td>(4) 제형 표</td><td>mRAN dose</td><td>RNA dose (Onpattro는 siRNA 용량)</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+
+<!-- ===================== PART 6 ===================== -->
+<div class="part" id="p6">
+  <div class="part-head"><span class="no">문제</span><h2>4지선다 예상문제 10</h2></div>
+  <p class="part-sub">정답은 각 문제 아래를 눌러 확인</p>
+</div>
+
+<section class="topic">
+  <div class="quiz"><p class="q">1. 유전자 발현을 "켜는(Gene ON)" 도구에 해당하는 것은?</p>
+    <ol><li>ASO</li><li>siRNA</li><li>mRNA</li><li>CRISPR-Cas9</li></ol>
+    <details><summary>정답 · 해설</summary>③ mRNA(와 pDNA)는 단백질을 새로 만들게 하는 도구. ASO·siRNA·CRISPR-Cas9은 유전자 억제(Gene OFF) 도구로 분류됨.</details></div>
+
+  <div class="quiz"><p class="q">2. 이중가닥으로 RISC에 실려 표적 mRNA를 절단하는 RNA 치료제는?</p>
+    <ol><li>RNA 앱타머</li><li>siRNA</li><li>mRNA</li><li>ASO</li></ol>
+    <details><summary>정답 · 해설</summary>② 앱타머는 단백질 결합, ASO는 단일가닥으로 스플라이싱 조절·분해 유도, mRNA는 번역됨.</details></div>
+
+  <div class="quiz"><p class="q">3. mRNA 구조 중 실제 단백질 정보가 담겨 번역되는 부위는?</p>
+    <ol><li>5′ Cap</li><li>5′ UTR</li><li>ORF</li><li>Poly(A) tail</li></ol>
+    <details><summary>정답 · 해설</summary>③ Open Reading Frame. 나머지는 안정성·번역 효율을 조절하는 부위임.</details></div>
+
+  <div class="quiz"><p class="q">4. 비변형 우리딘(U)이 든 mRNA를 주로 인식해 면역반응을 일으키는 엔도솜 수용체는?</p>
+    <ol><li>TLR7/8</li><li>CTLA-4</li><li>PD-1</li><li>MHC II</li></ol>
+    <details><summary>정답 · 해설</summary>① TLR7/8은 단일가닥 RNA, TLR3은 이중가닥 RNA를 인식함. 변형 염기(Ψ, m1Ψ)를 넣으면 이 자극이 크게 줄어듦.</details></div>
+
+  <div class="quiz"><p class="q">5. mRNA의 U를 N1-메틸슈도유리딘(m1Ψ)으로 바꿨을 때의 효과로 옳은 것은?</p>
+    <ol><li>면역 활성 ↑, 번역 ↓</li><li>면역 활성 ↓, 번역 ↑</li><li>면역 활성 ↑, 번역 ↑</li><li>면역 활성 ↓, 번역 ↓</li></ol>
+    <details><summary>정답 · 해설</summary>② 염기쌍 면은 그대로라 번역은 잘 되고, 튀어나온 메틸기 때문에 TLR7이 잘 알아보지 못함 (커리코·와이스먼, 2023 노벨상).</details></div>
+
+  <div class="quiz"><p class="q">6. 시험관 내 전사(IVT)에서 캡 유사체(ARCA)와 GTP의 비율이 중요한 이유는?</p>
+    <ol><li>GTP가 poly(A) 꼬리를 만들기 때문</li><li>캡 유사체와 GTP가 첫 염기 자리를 두고 경쟁하기 때문</li><li>GTP가 T7 프로모터를 자르기 때문</li><li>캡 유사체가 우리딘을 대체하기 때문</li></ol>
+    <details><summary>정답 · 해설</summary>② GTP가 많으면 캡 없는 mRNA가 늘어 발현이 줄어듦. 교안 실험에서 ARCA 4 : GTP 1이 4 : 3보다 발현이 높았음.</details></div>
+
+  <div class="quiz"><p class="q">7. LNP의 이온화 지질이 혈중(pH 7.4)에서는 중성, 엔도솜(pH 5~6)에서는 양전하를 띠는 것의 의미로 가장 알맞은 것은?</p>
+    <ol><li>혈중에서 mRNA를 방출하기 위해</li><li>혈중 독성은 줄이고 엔도솜에서는 막을 교란해 mRNA를 세포질로 내보내기 위해</li><li>엔도솜에서 리소좀으로 빨리 보내기 위해</li><li>핵 안으로 들어가기 위해</li></ol>
+    <details><summary>정답 · 해설</summary>② pKa 약 6~7인 이온화 지질이 "필요할 때만" 양전하가 되어 엔도솜 탈출을 도움.</details></div>
+
+  <div class="quiz"><p class="q">8. 표준 LNP의 네 가지 주성분이 아닌 것은?</p>
+    <ol><li>이온화 지질</li><li>콜레스테롤</li><li>PEG-지질</li><li>히스톤 단백질</li></ol>
+    <details><summary>정답 · 해설</summary>④ 네 성분은 이온화 지질, 구조 지질(DSPC/DOPE), 콜레스테롤, PEG-지질.</details></div>
+
+  <div class="quiz"><p class="q">9. 구조 지질을 DSPC에서 DOPE로 바꾸었을 때의 설명으로 옳은 것은?</p>
+    <ol><li>더 안정한 층판상을 이뤄 봉입 효율만 높아짐</li><li>역육각상(H<sub>Ⅱ</sub>)을 이뤄 막이 쉽게 무너지고 mRNA 발현이 높아짐</li><li>PEG-지질 역할을 대신함</li><li>mRNA를 핵으로 보냄</li></ol>
+    <details><summary>정답 · 해설</summary>② DOPE는 덜 안정하지만 엔도솜 탈출에 유리해 생쥐 실험에서 발현 신호가 더 강했음.</details></div>
+
+  <div class="quiz"><p class="q">10. 림프절에서 CTLA-4가 T세포 활성화를 억제하는 방식은?</p>
+    <ol><li>TCR과 MHC의 결합(신호 1)을 끊음</li><li>B7을 가로채 CD28 자극(신호 2)을 막음</li><li>암세포의 PD-L1과 결합함</li><li>항체를 분비함</li></ol>
+    <details><summary>정답 · 해설</summary>② 이를 항-CTLA-4 항체(이필리무맙)로 막으면 T세포가 활성화됨. PD-1–PD-L1은 종양 환경에서 TCR 신호를 막는 다른 관문임.</details></div>
+</section>
+
+<nav class="pager"><a class="prev" href="week07_genome_acquired_change.html"><small>← 이전 주차</small>7주차 · 유전체의 후천적 변화</a></nav>
+
+<footer>
+  <p>자료 기준: 「생명과학의 세계」(고려대학교) 8주차 이규리 교수 강의 교안 – mRNA Therapeutics and its Delivery Systems (1)~(4).<br>
+  교안 그림 출처(ResearchGate, MDPI, ScienceDirect, Nature 등)는 각 강의 교안의 "출처 및 참고문헌"을 따름. 이 문서의 그림은 교안 그림을 단순화해 새로 그린 것임.<br>
+  '보충' 상자와 예상문제는 교안에 없는 참고 내용으로, 시험 범위 여부는 강의 기준을 따를 것.</p>
+</footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,918 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>7주차 유전체 정보의 후천적 변화</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --g900:#123d26; --g800:#14532d; --g700:#166534; --g600:#15803d; --g500:#22a05a;
+  --g200:#bbe5c8; --g100:#dcf3e3; --g50:#f2faf4;
+  --ink:#1c2420; --muted:#56635b; --line:#d6e2da; --bg:#fbfdfb; --card:#ffffff;
+  --sup-bg:#f6f9ec; --sup-line:#9bb35a; --sup-tag:#5b7a1e;
+  --warn:#9a3412; --na:#1d5fbf; --k:#b4232a;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Pretendard","Gothic A1",-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  font-size:16px;line-height:1.72;word-break:keep-all;}
+.wrap{max-width:920px;margin:0 auto;padding:0 20px 80px}
+header.hero{background:linear-gradient(135deg,var(--g800),var(--g600));color:#fff;padding:56px 20px 44px}
+header.hero .wrap{padding-bottom:0}
+.hero .kicker{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);
+  padding:3px 12px;border-radius:999px;font-size:13px;letter-spacing:.04em}
+.hero h1{font-size:34px;line-height:1.3;margin:14px 0 8px;font-weight:800}
+.hero p{margin:0;opacity:.9}
+.hero .meta{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px;font-size:13px}
+.hero .meta span{background:rgba(0,0,0,.18);padding:4px 10px;border-radius:6px}
+
+nav.toc{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--g600);
+  border-radius:10px;padding:18px 22px;margin:28px 0}
+nav.toc h2{margin:0 0 8px;font-size:17px;color:var(--g800)}
+nav.toc ol{margin:0;padding-left:20px}
+nav.toc li{margin:2px 0}
+nav.toc a{color:var(--ink);text-decoration:none}
+nav.toc a:hover{color:var(--g600);text-decoration:underline}
+nav.toc ol ol{list-style:none;padding-left:14px;font-size:14.5px;color:var(--muted)}
+nav.toc ol ol a{color:var(--muted)}
+
+.part{margin-top:56px}
+.part-head{display:flex;align-items:center;gap:12px;border-bottom:3px solid var(--g600);padding-bottom:8px}
+.part-head .no{background:var(--g700);color:#fff;font-weight:800;border-radius:8px;padding:4px 12px;font-size:14px;white-space:nowrap}
+.part-head h2{margin:0;font-size:25px;color:var(--g900)}
+.part-sub{color:var(--muted);font-size:14px;margin:6px 0 0}
+
+section.topic{margin-top:38px}
+section.topic h3{font-size:20px;margin:0 0 10px;color:var(--g800);display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+section.topic h3 .num{color:var(--g500);font-weight:800;font-size:16px}
+section.topic h3 .en{font-size:13px;color:var(--muted);font-weight:500}
+h4{font-size:16.5px;margin:20px 0 6px;color:var(--g700)}
+ul.pt{margin:6px 0 10px;padding-left:20px}
+ul.pt li{margin:3px 0}
+ul.pt li::marker{color:var(--g600)}
+.eval{display:block;margin:10px 0;padding:8px 12px;background:var(--g50);border-left:3px solid var(--g500);
+  font-size:14.5px;color:#2d3d33}
+.eval::before{content:"정리 ▸ ";font-weight:700;color:var(--g700)}
+b.g, .hl{color:var(--g700);font-weight:700}
+.na{color:var(--na);font-weight:700}.k{color:var(--k);font-weight:700}
+.src{font-size:12.5px;color:var(--muted);margin-top:4px}
+
+.key{background:var(--card);border:1px solid var(--g200);border-radius:10px;padding:14px 18px;margin:14px 0;
+  box-shadow:0 1px 0 var(--g100)}
+.key .label{display:inline-block;font-size:12px;font-weight:800;color:#fff;background:var(--g600);
+  padding:2px 9px;border-radius:5px;margin-bottom:6px}
+
+.sup{background:var(--sup-bg);border:1.5px dashed var(--sup-line);border-radius:10px;padding:14px 18px 12px;margin:18px 0;position:relative}
+.sup .tag{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:800;color:#fff;
+  background:var(--sup-tag);padding:2px 10px;border-radius:5px}
+.sup .tag::before{content:"+";font-size:14px}
+.sup h5{margin:8px 0 4px;font-size:15.5px;color:#3b4f14}
+.sup p,.sup li{font-size:14.5px}
+.sup ul{padding-left:18px;margin:6px 0}
+.sup .why{font-size:13px;color:#5e6b45;margin-top:6px}
+
+.tbl{width:100%;overflow-x:auto;margin:12px 0}
+table{border-collapse:collapse;width:100%;font-size:14.5px;background:var(--card)}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+thead th{background:var(--g700);color:#fff;font-weight:700;white-space:nowrap}
+tbody tr:nth-child(even) td{background:var(--g50)}
+td.c,th.c{text-align:center}
+tr.sep td{border-top:3px solid var(--g600)}
+
+figure{margin:16px 0;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px}
+figure svg{width:100%;height:auto;display:block}
+figcaption{font-size:13px;color:var(--muted);margin-top:8px;text-align:center}
+
+.flow{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:12px 0}
+.flow span{background:var(--g50);border:1px solid var(--g200);border-radius:999px;padding:4px 12px;font-size:14px}
+.flow span.on{background:var(--g600);color:#fff;border-color:var(--g600);font-weight:700}
+.flow i{color:var(--g500);font-style:normal;font-weight:700}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:680px){.grid2{grid-template-columns:1fr}.hero h1{font-size:27px}}
+.mini{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px}
+.mini h4{margin-top:0}
+
+.quiz{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:12px 0}
+.quiz .q{font-weight:700;margin:0 0 6px}
+.quiz ol{margin:4px 0 8px;padding-left:22px}
+.quiz ol li{margin:2px 0}
+.quiz details{font-size:14.5px;background:var(--g50);border-radius:6px;padding:6px 10px}
+.quiz summary{cursor:pointer;color:var(--g700);font-weight:700}
+
+footer{margin-top:60px;border-top:1px solid var(--line);padding-top:16px;font-size:13px;color:var(--muted)}
+@media print{
+  header.hero{background:var(--g800)!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .sup,.key,figure,table,.quiz{break-inside:avoid}
+  nav.toc{display:none}
+  .quiz details{display:block}
+}
+</style>
+<style>
+.sitebar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line);font-size:14px}
+.sitebar .in{max-width:920px;margin:0 auto;padding:8px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.sitebar a{color:var(--g700);text-decoration:none;font-weight:700}
+.sitebar a:hover{text-decoration:underline}
+.sitebar .wk{color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pager{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:48px}
+.pager a{display:block;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px;
+  color:var(--ink);text-decoration:none}
+.pager a:hover{border-color:var(--g500)}
+.pager small{display:block;color:var(--muted);font-size:12.5px}
+.pager .next{text-align:right;grid-column:2}
+@media (max-width:680px){.pager{grid-template-columns:1fr}.pager .next{grid-column:1}}
+@media print{.sitebar,.pager{display:none}}
+</style>
+</head>
+<body>
+<div class="sitebar"><div class="in"><a href="../index.html">← 전체 교안 목록</a><span class="wk">7주차 · 유전체의 후천적 변화</span></div></div>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="kicker">생명과학의 세계 · 7주차</span>
+    <h1>유전체 정보는 어떻게 후천적으로 바뀔 수 있을까?</h1>
+    <p>RNA에 의한 표현형 변화 · 후성 유전체-전사체 · 차세대 서열 분석 · 빅데이터 AI 시대 통합 정리</p>
+    <div class="meta">
+      <span>지성욱 교수 (고려대 생명과학부)</span><span>(1) RNA에 의한 표현형 변화</span><span>(2) 후성 유전체-전사체 변형</span><span>(3) 차세대 서열 분석</span><span>(4) 빅데이터 AI</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+<nav class="toc">
+  <h2>목차</h2>
+  <ol>
+    <li><a href="#p1">RNA에 의한 표현형 변화</a>
+      <ol>
+        <li><a href="#t1-1">1-1 연구의 틀 – in vivo · in vitro · in silico</a></li>
+        <li><a href="#t1-2">1-2 DNA 유전체의 구조</a></li>
+        <li><a href="#t1-3">1-3 인간 유전체와 서열 분석의 발전</a></li>
+        <li><a href="#t1-4">1-4 중심이론과 선천적·후천적 형질</a></li>
+        <li><a href="#t1-5">1-5 유전체의 80%가 RNA를 만든다</a></li>
+        <li><a href="#t1-6">1-6 마이크로RNA의 유전자 조절</a></li>
+        <li><a href="#t1-7">1-7 AGO CLIP-Seq과 뇌의 마이크로RNA 표적지도</a></li>
+        <li><a href="#t1-8">1-8 마이크로RNA로 바뀌는 세포와 뇌</a></li>
+        <li><a href="#t1-9">1-9 RNA의 복잡성과 종간 차이</a></li>
+      </ol>
+    </li>
+    <li><a href="#p2">후성 유전체-전사체 변형에 의한 표현형 변화</a>
+      <ol>
+        <li><a href="#t2-1">2-1 후천적 변화의 세 갈래</a></li>
+        <li><a href="#t2-2">2-2 후성유전체 – 히스톤 변형과 DNA 메틸화</a></li>
+        <li><a href="#t2-3">2-3 후성전사체 – RNA 염기 변형</a></li>
+        <li><a href="#t2-4">2-4 산화된 마이크로RNA와 심비대증</a></li>
+      </ol>
+    </li>
+    <li><a href="#p3">차세대 서열 분석을 통한 연구</a>
+      <ol>
+        <li><a href="#t3-1">3-1 인간 유전체 프로젝트에서 NGS까지</a></li>
+        <li><a href="#t3-2">3-2 초소형·이동형 서열 분석</a></li>
+        <li><a href="#t3-3">3-3 개인 유전자 분석과 질병 변이 탐색</a></li>
+        <li><a href="#t3-4">3-4 고인류 유전체와 단일세포 유전체학</a></li>
+        <li><a href="#t3-5">3-5 유전형에서 표현형으로 – 금발 유전자 예</a></li>
+      </ol>
+    </li>
+    <li><a href="#p4">빅데이터 AI 시대의 유전체 연구</a>
+      <ol>
+        <li><a href="#t4-1">4-1 RNA 세계와 RNA의 복잡성</a></li>
+        <li><a href="#t4-2">4-2 RNA 결합 단백질(RBP)과 질병</a></li>
+        <li><a href="#t4-3">4-3 AlphaFold와 시스템 생물학</a></li>
+        <li><a href="#t4-4">4-4 개인 유전체 맞춤 의학과 빅데이터</a></li>
+      </ol>
+    </li>
+    <li><a href="#p5">용어 정리와 교안 표기 정정</a></li>
+    <li><a href="#p6">4지선다 예상문제 10</a></li>
+  </ol>
+</nav>
+
+<!-- ===================== PART 1 ===================== -->
+<div class="part" id="p1">
+  <div class="part-head"><span class="no">강의 (1)</span><h2>RNA에 의한 표현형 변화</h2></div>
+  <p class="part-sub">학습목표: RNA가 일으키는 표현형(phenotype) 변화를 이해함</p>
+</div>
+
+<section class="topic" id="t1-1">
+  <h3><span class="num">1-1</span>연구의 틀 – in vivo · in vitro · in silico <span class="en">Molecular &amp; Computational Genomics Lab</span></h3>
+  <div class="flow">
+    <span>in vivo (생명과학·질병)</span><i>→ 시퀀싱 →</i><span class="on">in silico (생물정보학)</span><i>→ 데이터 기반 가설 →</i><span>in vitro (분자생물학)</span><i>→ 시퀀싱 →</i><span>다시 in vivo</span>
+  </div>
+  <ul class="pt">
+    <li><b>in vivo</b>: 살아 있는 몸 안. 환자 샘플, 마우스 동물 모델로 질병을 봄</li>
+    <li><b>in silico</b>: 컴퓨터 안. 시퀀싱 데이터를 생물정보학으로 분석해 <b class="g">데이터에서 가설을 끌어냄(data-driven hypothesis)</b></li>
+    <li><b>in vitro</b>: 시험관·배양접시 안. 세운 가설을 분자생물학 실험으로 확인</li>
+    <li>세 영역 한가운데에 <b class="g">유전체학(특히 RNA)</b>이 있음</li>
+  </ul>
+  <span class="eval">이번 주 네 강의는 모두 이 순환 구조로 읽으면 됨. 시퀀싱으로 데이터를 얻고(3강), 컴퓨터로 분석하고(4강), 실험으로 RNA의 기능을 확인(1·2강)함</span>
+</section>
+
+<section class="topic" id="t1-2">
+  <h3><span class="num">1-2</span>DNA 유전체의 구조 <span class="en">DNA genome structure</span></h3>
+  <ul class="pt">
+    <li>DNA 유전정보는 <b>핵</b>에 있고, 생명현상은 <b>세포</b> 전체에서 일어남 (DNA 유전정보(핵) &gt; 생명현상(세포))</li>
+    <li>DNA 이중나선의 염기쌍: <b class="g">A=T, G≡C</b> (A–T는 수소결합 2개, G–C는 3개)</li>
+    <li>교안 표기: <b>유전체(genome) = 유전자(gene) + 염색체(chromosome)</b> → 보충 참고</li>
+  </ul>
+  <h4>세포분열과 염색체</h4>
+  <ul class="pt">
+    <li>세포분열 때 유전정보가 복제됨. <b>전기</b>에 염색질이 응축하기 시작하고, <b>중기</b>에 염색체가 가장 응축되어 가운데에 늘어섬</li>
+    <li>중기 염색체를 <b>김사(Giemsa) 염색</b>하면 줄무늬(G band)가 보임 → 염색체를 크기·모양·띠 순으로 나열한 것이 <b>핵형(karyotype)</b></li>
+  </ul>
+  <div class="tbl"><table>
+    <thead><tr><th>구조</th><th>설명</th></tr></thead>
+    <tbody>
+      <tr><td><b>뉴클레오솜 (nucleosome)</b></td><td>DNA가 <b class="g">히스톤 단백질</b> 8량체를 감은 기본 단위 (DNA + 히스톤)</td></tr>
+      <tr><td><b>염색질 (chromatin)</b></td><td>뉴클레오솜이 줄줄이 이어지고 다시 감긴 섬유. 평소 핵 안의 상태</td></tr>
+      <tr><td><b>염색체 (chromosome)</b></td><td>분열 때 염색질이 고도로 응축된 형태 (condensed chromosome)</td></tr>
+      <tr><td>텔로미어 (telomere)</td><td>염색체 양 끝. 반복 서열로 끝을 보호함</td></tr>
+      <tr><td>동원체 (centromere)</td><td>두 염색분체가 붙은 잘록한 부위. 방추사가 붙는 곳</td></tr>
+      <tr><td>팔 (arm)</td><td>동원체를 기준으로 짧은 팔(p)과 긴 팔(q)</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>"유전체 = 유전자 + 염색체"를 정확히 읽기</h5>
+    <ul>
+      <li>유전체(genome)는 gene + chromosome을 합친 <b>단어의 어원</b>을 보여 주는 표기임. 의미는 "한 생물이 가진 <b>DNA 전체 염기서열</b>"</li>
+      <li>유전자(gene)는 그중 RNA·단백질을 만드는 정보가 담긴 구간이고, 염색체는 그 DNA가 포장된 구조물임</li>
+    </ul>
+    <p class="why">교안 등식을 그대로 "더하기"로 이해하면 개념이 섞이기 쉬워 덧붙임.</p>
+  </div>
+</section>
+
+<section class="topic" id="t1-3">
+  <h3><span class="num">1-3</span>인간 유전체와 서열 분석의 발전 <span class="en">Human genome · NGS</span></h3>
+  <ul class="pt">
+    <li>인간 유전체: 약 <b class="g">30억 개 DNA 염기서열</b>, 교안 표기로 23종류의 염색체 (→ 보충)</li>
+  </ul>
+  <div class="tbl"><table>
+    <thead><tr><th>시기</th><th>사건</th><th>걸린 시간·비용</th></tr></thead>
+    <tbody>
+      <tr><td>1953</td><td>왓슨·크릭, DNA 이중나선 구조 발표 (Nature)</td><td class="c">–</td></tr>
+      <tr><td>1990–2003</td><td><b>인간 유전체 프로젝트(HGP)</b> – 30억 염기서열 결정</td><td><b>13년, 30억 달러</b></td></tr>
+      <tr><td>2008</td><td><b>차세대 서열 분석(NGS)</b>으로 한 개인(제임스 왓슨)의 전체 유전체 해독 (Wheeler 외, Nature)</td><td><b>2달, 백만 달러 미만</b></td></tr>
+      <tr><td>2017~</td><td>Illumina <b>NovaSeq</b> – 30억 염기서열을 약 10번 겹쳐 읽음(×10)</td><td><b>2일, 약 100달러(약 10만 원)</b></td></tr>
+    </tbody>
+  </table></div>
+  <span class="eval">같은 30억 염기를 읽는 데 13년·30억 달러 → 2일·100달러. 이 비용 하락이 개인 유전체·빅데이터 연구(3·4강)의 출발점임</span>
+
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>"23종류의 염색체"와 "James Watson (1928–)"</h5>
+    <ul>
+      <li>사람의 체세포 염색체는 <b>23쌍(46개)</b>임. 종류로 세면 상염색체 22종 + X + Y = <b>24종</b>이 됨. 교안 "23종류"는 "23쌍"으로 이해하면 됨</li>
+      <li>교안 핵형 그림의 마지막 칸 "XX or XY"가 성염색체 한 쌍임 (여성 XX, 남성 XY)</li>
+      <li>제임스 왓슨은 2025년 11월 별세함(향년 97세). 교안의 "(1928–)" 표기는 제작 시점 기준임</li>
+    </ul>
+  </div>
+</section>
+
+<section class="topic" id="t1-4">
+  <h3><span class="num">1-4</span>중심이론과 선천적·후천적 형질 <span class="en">Central dogma · Nature vs. nurture</span></h3>
+  <div class="flow">
+    <span>DNA (유전체, Genomics)</span><i>→ 전사 →</i><span class="on">RNA (전사체, Transcriptomics)</span><i>→ 번역 →</i><span>단백질 (단백질체, Proteomics)</span><i>→</i><span>형질 발현</span>
+  </div>
+  <ul class="pt">
+    <li><b>중심이론(central dogma)</b>: 유전정보는 DNA → RNA → 단백질 방향으로 흐름. 맨 아래 DNA가 "생명정보", 맨 위가 "형질 발현"</li>
+    <li>각 층을 통째로 연구하는 학문: 유전체학 · 전사체학 · 단백질체학 (-omics = 전체를 다룸)</li>
+    <li>영화 〈엑스맨〉의 <b>돌연변이(mutants)</b> = DNA 자체가 바뀌어 형질이 달라지는 경우의 비유</li>
+  </ul>
+  <h4>선천적 vs 후천적 형질 획득</h4>
+  <div class="grid2">
+    <div class="mini"><h4>선천적 형질</h4><p style="margin:0">일란성 쌍둥이는 <b>DNA가 같음</b> → 타고난 형질은 같아야 함</p></div>
+    <div class="mini"><h4>후천적 환경 변화</h4><p style="margin:0">그런데 쌍둥이도 한 명만 병에 걸리기도 함 → <b class="g">유전정보의 "발현" 차이</b>로 설명</p></div>
+  </div>
+  <ul class="pt">
+    <li>교안 그림: Nature 표지 "THE MS GENOME" – 다발성 경화증(MS)이 한 명에게만 생긴 일란성 쌍둥이의 유전체 연구 (2010)</li>
+    <li>결론: DNA 서열이 같아도 <b>어떤 유전자가 언제·얼마나 켜지는지</b>가 달라 형질이 달라질 수 있음 → 그 조절의 중심에 <b>RNA</b>가 있음</li>
+  </ul>
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>MS 쌍둥이 연구의 실제 결과</h5>
+    <ul>
+      <li>이 연구(Baranzini 외, Nature 2010)는 한 명만 MS인 일란성 쌍둥이의 유전체·전사체·DNA 메틸화를 비교했으나, 병을 설명할 만한 <b>뚜렷한 차이를 찾지 못함</b></li>
+      <li>그래서 "DNA만으로는 설명이 안 되니 다른 층(발현·환경)을 봐야 한다"는 문제 제기의 상징으로 자주 인용됨</li>
+    </ul>
+  </div>
+</section>
+
+<section class="topic" id="t1-5">
+  <h3><span class="num">1-5</span>유전체의 80%가 RNA를 만든다 <span class="en">Noncoding RNA</span></h3>
+  <ul class="pt">
+    <li>단백질을 만드는 <b>코딩 유전자</b>는 유전체의 일부(교안 원그래프: 약 5%, 그중 실제 단백질 정보 약 1%)뿐임 → 나머지 "94%?"는 무엇을 하나?</li>
+    <li>신체 부위(머리·몸통·다리)별로 보면 각기 다른 부분에서 RNA가 만들어지고, 이를 합하면 <b class="g">유전체의 약 80%가 RNA만 특이적으로 생성</b>함</li>
+    <li>이 RNA 대부분은 단백질을 만들지 않는 <b>논코딩 RNA(noncoding RNA)</b>임</li>
+    <li>질문: 단백질도 안 만드는 RNA를 왜 이렇게 많이 만들까? → RNA 자체가 <b>기능</b>을 가진다는 답으로 이어짐 (DNA → RNA → <s>단백질</s> → 기능)</li>
+  </ul>
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>"80%"라는 숫자를 볼 때 알아 둘 점</h5>
+    <ul>
+      <li>이 수치는 국제 공동연구 <b>ENCODE(2012)</b>가 "유전체의 대부분이 어떤 조직에서든 한 번은 전사된다"고 보고한 데서 나옴</li>
+      <li>단백질을 암호화하는 엑손만 따지면 유전체의 <b>약 1~2%</b> 수준임</li>
+      <li>"전사된다 = 기능이 있다"로 볼 수 있는지는 학계에서 논쟁이 있었음. 교안 흐름에서는 "논코딩 RNA도 중요한 기능을 한다"는 메시지로 이해하면 됨</li>
+    </ul>
+  </div>
+</section>
+
+<section class="topic" id="t1-6">
+  <h3><span class="num">1-6</span>마이크로RNA의 유전자 조절 <span class="en">RNA-mediated regulation: microRNA</span></h3>
+  <ul class="pt">
+    <li>도입: 영화 〈스파이더맨〉(2002) – 거미에게 물린 뒤 유전체가 바뀌는 설정, 대사 "합성 전이 RNA를 이용해" → <b>"RNA로 유전체 정보를 바꿀 수 있을까?"</b></li>
+    <li>실제 생물학의 답: RNA가 DNA를 고쳐 쓰지는 않지만, <b class="g">특정 유전자의 발현을 억제</b>해 형질을 바꿀 수 있음</li>
+  </ul>
+  <div class="flow">
+    <span>유전형: DNA</span><i>→ 전사 →</i><span>mRNA</span><i>✕</i><span class="on">miRNA가 억제</span><i>→ 번역 ✕ →</i><span>단백질</span><i>→</i><span>기능 = 표현형</span>
+  </div>
+  <h4>마이크로RNA(miRNA)의 작동 방식</h4>
+  <ul class="pt">
+    <li>길이 약 <b>21 nt</b>의 짧은 RNA. 이중가닥으로 만들어진 뒤 한 가닥이 <b>아고너트(Argonaute, Ago)</b> 단백질에 실려 <b>RISC</b> 복합체가 됨</li>
+    <li>miRNA의 앞쪽 <b class="g">seed 부위(5′ 끝 2~8번 염기)</b>가 표적 mRNA와 짝을 이룸. 나머지는 일부만 짝지음(<b>partial pairing</b>)</li>
+    <li>주로 표적 mRNA의 <b>3′ UTR</b>에 붙어 → mRNA 분해 또는 번역 억제 (<b>target gene repression</b>)</li>
+    <li>mRNA는 약 1,000 nt로 miRNA보다 훨씬 김. seed만 맞으면 되므로 miRNA 하나가 <b>수백 개 유전자</b>를 조절할 수 있음</li>
+  </ul>
+
+  <figure>
+    <svg viewBox="0 0 720 200" role="img" aria-label="miRNA seed 결합 모식도">
+      <style>.t{font:600 14px Pretendard,sans-serif}.s{font:500 12px Pretendard,sans-serif}</style>
+      <rect x="20" y="30" width="680" height="6" rx="3" fill="#1d5fbf"/>
+      <text x="20" y="22" class="t" fill="#1d5fbf">표적 mRNA 5′ ······ 코딩 영역 ······ 3′ UTR ······ 3′</text>
+      <rect x="440" y="30" width="200" height="6" fill="#7fa8e6"/>
+      <ellipse cx="520" cy="92" rx="150" ry="58" fill="#eef4f0" stroke="#bbe5c8"/>
+      <text x="400" y="160" class="s" fill="#56635b">Ago (아고너트) 단백질</text>
+      <rect x="400" y="80" width="230" height="6" rx="3" fill="#b4232a"/>
+      <text x="398" y="105" class="s" fill="#b4232a">3′ ─── miRNA (~21 nt) ─── 5′</text>
+      <rect x="540" y="40" width="88" height="40" fill="none" stroke="#15803d" stroke-width="2" stroke-dasharray="4 3"/>
+      <text x="548" y="62" class="t" fill="#15803d">seed 2~8</text>
+      <g stroke="#b4232a" stroke-width="2"><line x1="548" y1="38" x2="548" y2="78"/><line x1="560" y1="38" x2="560" y2="78"/><line x1="572" y1="38" x2="572" y2="78"/><line x1="584" y1="38" x2="584" y2="78"/><line x1="596" y1="38" x2="596" y2="78"/><line x1="608" y1="38" x2="608" y2="78"/><line x1="620" y1="38" x2="620" y2="78"/></g>
+      <g stroke="#b4232a" stroke-width="1" stroke-dasharray="2 3"><line x1="430" y1="38" x2="430" y2="78"/><line x1="450" y1="38" x2="450" y2="78"/></g>
+      <text x="40" y="100" class="t" fill="#123d26">완전히 짝지을 필요 없음</text>
+      <text x="40" y="122" class="s" fill="#56635b">seed가 핵심 → 부분 결합만으로 억제</text>
+      <text x="40" y="142" class="s" fill="#56635b">결과: mRNA 분해 · 번역 억제</text>
+    </svg>
+    <figcaption>miRNA는 seed(2~8번)로 표적 mRNA의 3′ UTR에 결합함 (교안 Partial pairing 그림을 단순화)</figcaption>
+  </figure>
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>miRNA와 siRNA, RNAi</h5>
+    <ul>
+      <li>짧은 RNA로 유전자를 끄는 현상 전체를 <b>RNA 간섭(RNAi)</b>이라 함. 1998년 Fire와 Mello가 예쁜꼬마선충에서 발견하여 2006년 노벨 생리의학상을 받음</li>
+      <li><b>miRNA</b>: 몸이 스스로 만드는 조절자. 부분 결합으로 여러 표적을 조금씩 억제</li>
+      <li><b>siRNA</b>: 표적과 완전히 상보적. 한 표적 mRNA를 정확히 잘라냄 → 8주차 RNA 치료제(Onpattro 등)로 이어짐</li>
+    </ul>
+    <p class="why">교안 마지막 피라미드에 등장하는 "RNAi"의 뜻을 짚어 둠. 8주차 내용과 직접 연결됨.</p>
+  </div>
+</section>
+
+<section class="topic" id="t1-7">
+  <h3><span class="num">1-7</span>AGO CLIP-Seq과 뇌의 마이크로RNA 표적지도 <span class="en">Ago HITS-CLIP</span></h3>
+  <ul class="pt">
+    <li>문제: miRNA가 <b>실제로</b> 어떤 mRNA에 붙는지 알기 어려움 (seed만 맞아도 붙으니 후보가 너무 많음)</li>
+    <li>해법: Ago–miRNA–표적 mRNA가 한데 붙은 <b class="g">3중 복합체(Ago ternary complex)</b>를 통째로 잡아 NGS로 읽음 = <b>AGO CLIP-Seq</b></li>
+  </ul>
+  <div class="flow">
+    <span>조직(뇌)에 자외선 → RNA–단백질 교차결합</span><i>→</i><span>Ago 항체로 면역침강(IP)</span><i>→</i><span>RNA 크기별 분리</span><i>→</i><span class="on">cDNA → NGS</span>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>교안 실험 그림</th><th>읽는 법</th></tr></thead>
+    <tbody>
+      <tr><td>Protein (IB: Ago)</td><td>대조군 IgG에는 없고 Ago로 잡은 칸에만 약 105 kD 띠 → Ago가 제대로 잡힘</td></tr>
+      <tr><td>RNA (³²P 표지)</td><td>Ago에 붙은 RNA가 90 / 110 / 130 kD 위치에 퍼져 나타남</td></tr>
+      <tr><td>cDNA</td><td><b>110 kD</b> 부분 → 짧은 cDNA(<b>miRNA</b>), <b>130 kD</b> 부분 → 더 긴 cDNA(<b>miRNA + mRNA 조각</b>)</td></tr>
+    </tbody>
+  </table></div>
+  <h4>대뇌피질 마이크로RNA 표적지도 결과</h4>
+  <ul class="pt">
+    <li><b>아고너트–miRNA</b>: 상위 20개 miRNA가 Ago에 실린 miRNA의 <b class="g">약 90%</b> 차지 (1위 miR-30e, 이어서 miR-30d, miR-9 … miR-124 등)</li>
+    <li><b>아고너트–mRNA</b>: Ago가 붙은 자리(Ago footprint)가 봉우리(peak)로 나타남 → 약 <b class="g">10,000개</b> Ago–mRNA 클러스터</li>
+    <li>두 데이터를 <b>seed 서열</b>로 짝지어 → 어떤 miRNA가 어느 염색체의 어느 mRNA에 붙는지 그린 <b>"뇌의 마이크로RNA 표적지도"</b> 완성</li>
+  </ul>
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>이 연구의 출처</h5>
+    <ul>
+      <li>Chi(지성욱) 외, "Argonaute HITS-CLIP decodes microRNA–mRNA interaction maps", <b>Nature 2009</b>. 교안 사진의 두 연구자가 공동 연구자(Robert Darnell)와 강의 교수임</li>
+      <li>HITS-CLIP = High-Throughput Sequencing of RNA isolated by CrossLinking ImmunoPrecipitation. 자외선 교차결합으로 "실제로 붙어 있던" 쌍만 골라낸다는 점이 핵심</li>
+    </ul>
+  </div>
+</section>
+
+<section class="topic" id="t1-8">
+  <h3><span class="num">1-8</span>마이크로RNA로 바뀌는 세포와 뇌 <span class="en">miRNA changes cell identity</span></h3>
+  <h4>① miR-124: 세포를 다른 종류로 바꿈</h4>
+  <ul class="pt">
+    <li>miR-124 서열: <b>UAAGGCACGCGGUGAAUGCCAA</b> (뇌에 가장 많은 miRNA 중 하나)</li>
+    <li>세포에 miR-124를 넣으면 약 <b>86시간</b> 뒤 세포가 신경세포처럼 긴 돌기를 뻗음 → <b class="g">miRNA 하나로 세포 정체성이 바뀜</b></li>
+  </ul>
+  <h4>② 유인원 특이적 신경세포 마이크로RNA</h4>
+  <ul class="pt">
+    <li>생쥐 뇌 vs 인간 뇌: 인간 뇌가 훨씬 크고 주름이 많음 → 그 차이를 만드는 RNA가 있을까?</li>
+    <li>생쥐 신경세포주(<b>N2a</b>)에 <b>유인원에만 있는 miRNA</b>를 넣으면 신경돌기 모양이 달라짐</li>
+    <li>이 miRNA를 가진 생쥐는 (교안 사진에서) 대뇌 영역이 더 크고, <b>단일세포 RNA 분석(scRNA-Seq)</b>에서 <b class="g">GABA성 억제 신경세포</b> 군집이 늘어남</li>
+    <li>scRNA-Seq 지도 표지: GABA(억제성 신경세포), Glut1·Glut2(흥분성 신경세포), Oligo(희소돌기아교세포), MG(미세아교세포), Astro(별아교세포)</li>
+  </ul>
+  <span class="eval">DNA 몇 글자가 아니라 작은 RNA 하나가 들어오는 것만으로 세포 모양·뇌 구성이 바뀔 수 있음 = "RNA에 의한 표현형 변화"</span>
+</section>
+
+<section class="topic" id="t1-9">
+  <h3><span class="num">1-9</span>RNA의 복잡성과 종간 차이 <span class="en">RNA complexity</span></h3>
+  <div class="tbl"><table>
+    <thead><tr><th></th><th class="c">사람 (Human)</th><th class="c">생쥐 (Mouse)</th><th class="c">예쁜꼬마선충 (Worm)</th></tr></thead>
+    <tbody>
+      <tr><td><b>코딩 유전자 (DNA)</b></td><td class="c">21,550</td><td class="c">22,670</td><td class="c">20,389</td></tr>
+      <tr><td><b>전사체 (RNA)</b></td><td class="c"><b>126,019</b></td><td class="c">77,177</td><td class="c">29,873</td></tr>
+    </tbody>
+  </table></div>
+  <ul class="pt">
+    <li>코딩 유전자 수는 사람·생쥐·선충이 <b>거의 비슷</b>함 → 유전자 개수로는 복잡성 차이를 설명 못함</li>
+    <li>RNA 종류(전사체 수)는 사람이 선충의 4배 이상 → <b class="g">RNA 수준의 다양성</b>이 종간 형질 차이와 맞물림</li>
+    <li>한 유전자에서 여러 RNA가 나오는 방법(RNA variants):
+      <ul class="pt">
+        <li><b>선택적 스플라이싱(alternative splicing)</b>: 엑손을 다르게 이어 붙임 (교안 그림: 가운데 엑손을 넣거나 빼기)</li>
+        <li><b>선택적 폴리아데닐화(alternative polyadenylation)</b>: RNA 꼬리(poly A)를 붙이는 위치를 달리해 3′ UTR 길이가 달라짐 → miRNA가 붙을 자리 수도 달라짐</li>
+      </ul>
+    </li>
+  </ul>
+  <div class="key"><span class="label">강의 (1) 학습정리</span><br>
+    논코딩 RNA는 유전체의 발현을 조절하여 표현형을 바꿀 수 있음 (Noncoding RNAs can regulate the expression of genome thereby changing the phenotypes)
+  </div>
+</section>
+
+<!-- ===================== PART 2 ===================== -->
+<div class="part" id="p2">
+  <div class="part-head"><span class="no">강의 (2)</span><h2>후성 유전체-전사체 변형에 의한 표현형 변화</h2></div>
+  <p class="part-sub">학습목표: 후성유전(epigenetic)·후성전사(epitranscriptional) 변화가 표현형을 바꾸는 방식을 이해함</p>
+</div>
+
+<section class="topic" id="t2-1">
+  <h3><span class="num">2-1</span>후천적 변화의 세 갈래</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>층</th><th>무엇이 바뀌나</th><th>예</th></tr></thead>
+    <tbody>
+      <tr><td><b>RNAi</b> (강의 1)</td><td>작은 RNA가 mRNA 발현을 억제</td><td>miRNA, siRNA</td></tr>
+      <tr><td><b>후성유전체</b> (epigenome)</td><td>DNA 서열은 그대로, DNA·히스톤에 붙는 <b>화학 표지</b>가 바뀜</td><td>H3K4me3, H3K27me3, DNA 메틸화</td></tr>
+      <tr><td><b>후성전사체</b> (epitranscriptome)</td><td>RNA 서열은 그대로, RNA <b>염기에 화학 변형</b>이 생김</td><td>산화 구아닌(o⁸G)</td></tr>
+    </tbody>
+  </table></div>
+  <ul class="pt">
+    <li>도입: 영화 〈어메이징 스파이더맨〉(2012) – 다른 종의 유전자를 섞는 실험 설정 → "어떻게 <b>전체</b> DNA 유전체 정보를 바꿨을까?" → 서열이 아니라 <b>표지</b>를 바꾸는 방법</li>
+  </ul>
+</section>
+
+<section class="topic" id="t2-2">
+  <h3><span class="num">2-2</span>후성유전체 – 히스톤 변형과 DNA 메틸화 <span class="en">Epigenome: same DNA, different modification, different trait</span></h3>
+  <ul class="pt">
+    <li>포장 계층: 염색체 → 초나선 구조(supercoiled) → 솔레노이드 → <b>뉴클레오솜</b>(히스톤 H2A·H2B·H3·H4 각 2개 + 링커 H1) → DNA</li>
+    <li>히스톤 단백질 꼬리(histone tails)가 밖으로 삐져나와 있고, 여기 특정 아미노산(주로 <b>라이신 K</b>)에 화학기가 붙음</li>
+  </ul>
+  <div class="grid2">
+    <div class="mini">
+      <h4>① 히스톤 단백질 변형</h4>
+      <ul class="pt">
+        <li><b>아세틸화</b>(파랑): 대체로 유전자 켜짐</li>
+        <li><b>허용 메틸화</b>(초록, permissive): 켜짐 예) H3K4</li>
+        <li><b>억제 메틸화</b>(빨강, repressive): 꺼짐 예) H3K9, H3K27</li>
+      </ul>
+    </div>
+    <div class="mini">
+      <h4>② DNA 염기 메틸화</h4>
+      <ul class="pt">
+        <li>DNA의 <b>시토신(C)</b>에 메틸기가 붙음 (methylated cytosine)</li>
+        <li>주로 C 다음에 G가 오는 자리(CpG)에서 일어남</li>
+        <li>유전자 앞부분(프로모터)이 메틸화되면 대체로 <b>발현 억제</b></li>
+      </ul>
+    </div>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>표지</th><th>읽는 법</th><th>의미</th></tr></thead>
+    <tbody>
+      <tr><td><b class="g">H3K4me3</b></td><td>히스톤 <b>H3</b>의 <b>4</b>번째 라이신(<b>K</b>)에 메틸기 <b>3</b>개(me3)</td><td>활성 유전자 시작 부위 표지 → <b>켜짐</b></td></tr>
+      <tr><td><b class="k">H3K27me3</b></td><td>히스톤 H3의 27번째 라이신에 메틸기 3개</td><td>억제 표지 → <b>꺼짐</b></td></tr>
+    </tbody>
+  </table></div>
+  <span class="eval">"같은 DNA, 다른 변형, 다른 형질". 같은 책이라도 어느 쪽에 클립을 끼워 두느냐에 따라 펼쳐 읽는 페이지가 달라지는 것과 같음. 일란성 쌍둥이의 차이, 세포마다 다른 모양을 설명하는 틀임</span>
+</section>
+
+<section class="topic" id="t2-3">
+  <h3><span class="num">2-3</span>후성전사체 – RNA 염기 변형 <span class="en">Epitranscriptome</span></h3>
+  <div class="grid2">
+    <div class="mini"><h4>DNA = 생명의 책 (Book of life)</h4><p style="margin:0">원본 책에 형광펜을 칠함 → <b>다른 DNA 염기 변형</b> = 후성유전체</p></div>
+    <div class="mini"><h4>RNA = 사본 (Copy script)</h4><p style="margin:0">책에서 베껴 쓴 노트에 형광펜을 칠함 → <b>다른 RNA 염기 변형</b> = 후성전사체</p></div>
+  </div>
+  <ul class="pt">
+    <li>두 경우 모두 <b>글자(서열)는 그대로</b>이고 표시만 달라짐</li>
+    <li>이런 변형 위치는 <b>NGS 서열분석법</b>을 응용해 유전체 전체에서 찾아냄</li>
+  </ul>
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>RNA 변형은 이미 백신 속에 있음</h5>
+    <ul>
+      <li>RNA에는 100종이 넘는 화학 변형이 알려져 있음. 대표적인 것이 m⁶A(아데닌 메틸화), 슈도유리딘(Ψ) 등</li>
+      <li>코로나19 mRNA 백신은 우리딘(U)을 <b>N1-메틸슈도유리딘(m1Ψ)</b>으로 바꿔 넣어 면역 거부를 줄였음 → 8주차 (3)강에서 자세히 다룸</li>
+    </ul>
+  </div>
+</section>
+
+<section class="topic" id="t2-4">
+  <h3><span class="num">2-4</span>산화된 마이크로RNA와 심비대증 <span class="en">Position-specific oxidation of miR-1</span></h3>
+  <div class="flow">
+    <span>활성산소(ROS)</span><i>→</i><span>산화스트레스</span><i>→</i><span class="on">miRNA의 G가 산화</span><i>→</i><span>심비대증</span><i>→</i><span>심근경색·심장마비 위험</span>
+  </div>
+  <h4>산화 구아닌 o⁸G</h4>
+  <ul class="pt">
+    <li>정식 이름: <b>7,8-dihydro-8-oxoguanine</b> (8-oxo-G, o⁸G). 구아닌의 8번 탄소에 산소(=O)가 붙은 <b>산화변형</b> (Kasai &amp; Nishimura, 1984)</li>
+    <li>보통 G는 <b>C</b>와 짝을 지음 → o⁸G는 모양이 바뀌어 <b class="g">A와 짝을 지음 (new base-pairing)</b></li>
+    <li>즉 서열은 G 그대로인데, 실제로는 <b>"T/U처럼" 읽히는 글자</b>가 됨</li>
+  </ul>
+  <h4>쥐 심근세포 실험</h4>
+  <div class="tbl"><table>
+    <thead><tr><th>넣은 RNA</th><th>서열</th><th>결과</th></tr></thead>
+    <tbody>
+      <tr><td>miR-1 (정상 마이크로RNA)</td><td>UGGAAUGUAAAGAAGUAUGUAU</td><td>심근세포 정상 (0 hr 모습 유지)</td></tr>
+      <tr><td><b>7o8G-miR-1</b> (산화 변형 마이크로RNA)</td><td>UGGAAU<b class="k">G</b>UAAAGAAGUAUGUAU<br><span class="src">7번째 G가 o⁸G</span></td><td>72시간 뒤 <b class="g">심근세포가 크게 비대</b>, 생쥐 <b>심장도 커짐</b></td></tr>
+    </tbody>
+  </table></div>
+  <ul class="pt">
+    <li>결론: miRNA의 <b>특정 위치</b> 염기 하나가 산화되는 것만으로 심비대증이 유도됨 (Seok 외, <b>Nature 2020</b>; Nature Reviews Cardiology 2020.8.20 하이라이트 "Oxidation of miRNAs by ROS leads to cardiac hypertrophy")</li>
+  </ul>
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>왜 "7번째" 염기가 중요한가</h5>
+    <ul>
+      <li>7번 위치는 miRNA의 <b>seed(2~8번)</b> 안에 있음 (1-6 참고)</li>
+      <li>seed의 G가 o⁸G가 되어 C 대신 A와 짝을 지으면, miR-1이 알아보는 표적 mRNA가 <b>원래 표적에서 새로운 표적으로 바뀜</b> → 심근세포를 키우는 방향의 유전자 조절이 일어남</li>
+      <li>"DNA는 그대로인데 RNA 한 글자의 화학 상태가 바뀌어 질병 형질이 생긴다" = 후성전사체에 의한 표현형 변화의 대표 예</li>
+    </ul>
+  </div>
+
+  <h4>종합 – 후천적으로 생명정보를 바꾸는 방법</h4>
+  <div class="tbl"><table>
+    <thead><tr><th>피라미드 층</th><th>후천적 변화</th><th>읽는 도구</th></tr></thead>
+    <tbody>
+      <tr><td>DNA (유전체)</td><td>후성유전체: H3K27me3, H3K4me3, DNA 메틸화</td><td>NGS 서열분석</td></tr>
+      <tr><td>RNA (전사체)</td><td>RNAi(miRNA), 후성전사체: RNA 염기 변형(o⁸G)</td><td>NGS</td></tr>
+      <tr><td>형질 발현</td><td colspan="2">질병, 노화</td></tr>
+    </tbody>
+  </table></div>
+  <div class="key"><span class="label">강의 (2) 학습정리</span><br>
+    후성유전·후성전사 변형은 유전체 정보를 바꾸어 표현형을 바꿀 수 있음 (Epigenetic and epitranscriptional modification can change information in the genome thereby changing the phenotypes)
+  </div>
+</section>
+
+<!-- ===================== PART 3 ===================== -->
+<div class="part" id="p3">
+  <div class="part-head"><span class="no">강의 (3)</span><h2>차세대 서열 분석을 통한 연구</h2></div>
+  <p class="part-sub">학습목표: 차세대 서열 분석(NGS)과 그 응용을 이해함</p>
+</div>
+
+<section class="topic" id="t3-1">
+  <h3><span class="num">3-1</span>인간 유전체 프로젝트에서 NGS까지 <span class="en">HGP → NGS</span></h3>
+  <ul class="pt">
+    <li><b>인간 유전체 프로젝트(1990–2003)</b>: 13년, 30억 달러로 30억 염기서열 결정</li>
+    <li>2000년 6월 백악관 발표("Decoding the Book of Life") → <b>2001년 초안</b>(Nature) → <b>2004년 완성본</b>(Nature) 발표</li>
+    <li><b>차세대 서열 분석(NGS, 2008~현재)</b>: <b class="g">초고속 · 대용량 · 병렬화</b>
+      <ul class="pt">
+        <li>DNA를 잘게 조각내(DNA fragmentation) 수많은 조각을 <b>동시에</b> 읽은 뒤 컴퓨터로 이어 붙임</li>
+        <li>Illumina NovaSeq(2017): 30억 염기 ×10, 2일, 100달러</li>
+      </ul>
+    </li>
+    <li>결과: 누구나 자기 유전체를 읽는 <b>개인 유전체학(Personal Genomics)</b>과 <b>개인맞춤 의학(Personalized Medicine)</b> 시대 (TIME 2012 표지 "Want to Know My Future?")</li>
+  </ul>
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>1세대(생어) vs 차세대(NGS) – 교안 "100개의 조각 서열분석/run" 그림 읽기</h5>
+    <div class="tbl"><table>
+      <thead><tr><th></th><th>1세대: 생어(Sanger) 서열분석</th><th>차세대: NGS</th></tr></thead>
+      <tbody>
+        <tr><td>방식</td><td>모세관 전기영동, 모세관 1개당 1조각(1 read/capillary)</td><td>유리판 위 수억~수십억 조각을 동시에 읽음</td></tr>
+        <tr><td>한 번에 읽는 양</td><td>약 100개(96개 모세관) 조각</td><td>수십억 조각</td></tr>
+        <tr><td>쓰임</td><td>인간 유전체 프로젝트, 지금도 짧은 구간 확인용</td><td>전체 유전체·전사체·CLIP-Seq 등</td></tr>
+      </tbody>
+    </table></div>
+    <p>교안 그림(International Neurourology Journal 2016)의 "Capillary array electrophoresis"는 사실 <b>1세대 방식</b>을 보여 줌. "한 번에 100개 정도밖에 못 읽던 시절"과 비교해 NGS의 병렬화를 이해하면 됨.</p>
+    <ul><li>참고: HGP 완성본에도 읽지 못한 빈칸(약 8%)이 남아 있었고, 2022년 T2T 컨소시엄이 <b>빈틈 없는 완전한 인간 유전체</b>를 발표함</li></ul>
+  </div>
+</section>
+
+<section class="topic" id="t3-2">
+  <h3><span class="num">3-2</span>초소형·이동형 서열 분석 <span class="en">Portable, real-time sequencing</span></h3>
+  <ul class="pt">
+    <li><b>Oxford Nanopore MinION</b>: USB 크기 장치를 노트북에 꽂아 현장에서 실시간 분석 (portable, real-time)</li>
+    <li>원리: DNA 가닥이 막에 박힌 <b>단백질 구멍(나노포어)</b>을 지날 때 염기마다 전류가 다르게 변함 → 전류 파형을 염기서열로 바꿈</li>
+    <li>2016년 NASA/SpaceX 9번째 화물선으로 국제우주정거장에 실려 가 <b>우주에서 처음 DNA 서열 분석</b> (우주비행사 Kate Rubins)</li>
+    <li>더 작은 SmidgION은 스마트폰에 연결하는 형태</li>
+    <li><b>IoLT(Internet of Living Things, 생물 사물인터넷)</b>: 농장·현장에서 얻은 서열을 클라우드(Metrichor)로 올려 분석</li>
+  </ul>
+  <p class="src">미래의 유전체학 10가지 예측(2030): 미국 국립인간유전체연구소(NHGRI) 영상 – 교안은 제목만 제시함</p>
+</section>
+
+<section class="topic" id="t3-3">
+  <h3><span class="num">3-3</span>개인 유전자 분석과 질병 변이 탐색 <span class="en">Personal genome service · SNP</span></h3>
+  <ul class="pt">
+    <li><b>23andMe</b>: 침 채취 키트(saliva collection kit)를 우편으로 보내면 유전 정보를 분석해 주는 개인 유전자 분석 서비스</li>
+  </ul>
+  <h4>유전체 서열분석을 통한 질병 유전자 변이 탐색</h4>
+  <ul class="pt">
+    <li>여러 사람의 DNA를 읽어 비교하면 특정 위치에서 <b>한 염기만 다른 곳</b>이 있음 = <b>SNP</b>(단일염기다형성) 예) 어떤 사람은 G(SNP<sup>G</sup>), 어떤 사람은 A(SNP<sup>A</sup>)</li>
+    <li><b>질병 환자군</b>과 <b>정상인군</b>에서 SNP 비율을 비교
+      <ul class="pt">
+        <li>정상인군: 일정 비율이 G, 나머지가 A</li>
+        <li>환자군에서 G가 <b>예상보다 많으면</b> → SNP<sup>G</sup>가 <b class="g">질병과 관련</b> (또는 SNP<sup>A</sup>가 보호 효과)</li>
+      </ul>
+    </li>
+  </ul>
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>소비자 유전자 검사를 볼 때</h5>
+    <ul>
+      <li>23andMe 같은 서비스는 대부분 전체 유전체를 NGS로 읽기보다 미리 정한 수십만 개 SNP만 확인하는 <b>DNA 칩(마이크로어레이)</b> 방식을 씀</li>
+      <li>"관련(association)"은 위험도가 조금 높다는 통계일 뿐, 그 병에 걸린다는 진단이 아님</li>
+      <li>23andMe는 2025년 파산 절차를 밟으며 고객 유전 정보의 처리 문제가 큰 논란이 됨 → 유전 정보는 바꿀 수 없는 개인정보라는 점에서 4강의 윤리(ELSI) 기둥과 연결됨</li>
+    </ul>
+  </div>
+</section>
+
+<section class="topic" id="t3-4">
+  <h3><span class="num">3-4</span>고인류 유전체와 단일세포 유전체학 <span class="en">Ancient genomes · Single-cell genomics</span></h3>
+  <h4>잃어버린 DNA: 고인류 유전체 분석</h4>
+  <ul class="pt">
+    <li><b>네안데르탈인</b>: 크로아티아 Vindija 동굴, 러시아 Mezmaiskaya 동굴 뼈에서 DNA 추출 (Science 2010 표지 "The Neandertal Genome")</li>
+    <li><b>데니소바인</b>: 시베리아 Denisova 동굴의 손가락뼈 조각 하나에서 DNA로 찾아낸 새로운 고인류</li>
+    <li>현생 인류(<b>호모 사피엔스</b>) 여러 집단의 유전체와 NGS로 비교 → 고인류와 섞인 흔적 발견</li>
+    <li><b>스반테 페보(Svante Pääbo)</b>: "멸종한 고인류의 유전체와 인류 진화에 관한 발견"으로 <b class="g">2022년 노벨 생리의학상</b> 단독 수상</li>
+  </ul>
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>우리 몸속의 고인류 DNA</h5>
+    <ul>
+      <li>아프리카 밖 현대인의 유전체에는 네안데르탈인 DNA가 약 1~2% 섞여 있음</li>
+      <li>파푸아뉴기니 등 오세아니아 집단에는 데니소바인 DNA가 수 % 남아 있음</li>
+      <li>티베트인이 고산지대 저산소에 잘 견디게 하는 <i>EPAS1</i> 유전자 변이는 데니소바인에게서 온 것으로 알려짐</li>
+    </ul>
+    <p class="why">교안의 노벨상 슬라이드 제목이 앞 슬라이드 제목("질병 유전자 변이 탐색")과 같게 들어가 있으나 내용은 고인류 유전체임.</p>
+  </div>
+  <h4>단일세포 유전체학 (Single-cell genomics)</h4>
+  <ul class="pt">
+    <li>기존 분석은 수많은 세포를 갈아 <b>평균값</b>을 읽음 → 세포 하나하나의 차이를 놓침</li>
+    <li>미세유체 장치에서 세포를 <b>물방울 하나에 하나씩</b> 가둔 뒤 각각에 바코드를 붙여 NGS로 읽음 (교안 아래 영상 그림)</li>
+    <li>태아 그림처럼 몸을 이루는 세포 하나하나의 종류를 점으로 찍어 지도를 만듦 (Science 2017 "Single-Cell Genomics" 특집). 1-8의 scRNA-Seq 결과가 이 기술임</li>
+  </ul>
+</section>
+
+<section class="topic" id="t3-5">
+  <h3><span class="num">3-5</span>유전형에서 표현형으로 – 금발 유전자 예 <span class="en">Genotype → Phenotype</span></h3>
+  <div class="flow">
+    <span>DNA = 유전형(genotype)</span><i>→ 전사(transcription) →</i><span>RNA</span><i>→ 번역(translation) →</i><span>단백질</span><i>→</i><span class="on">기능 = 표현형(phenotype)</span>
+  </div>
+  <ul class="pt">
+    <li><i>KITLG</i> 유전자에서 약 350 kb 떨어진 <b>모낭 인핸서(hair follicle enhancer)</b>에 한 염기 변이: CACTAAAG → C<b>G</b>CTAAAG</li>
+    <li>원래 서열(A)에는 전사인자 <b>LEF</b>가 잘 붙어 <i>KITLG</i>가 많이 발현 → <b>어두운 머리색</b></li>
+    <li>G 변이에서는 LEF 결합이 약해져 발현이 줄어듦(화살표가 가늘어짐) → <b class="g">금발</b></li>
+    <li>단백질 자체는 그대로이고 <b>발현량</b>만 달라져 형질이 바뀐 예 (Nature Genetics 2014)</li>
+  </ul>
+  <div class="key"><span class="label">강의 (3) 학습정리</span><br>
+    차세대 서열 분석(NGS)이 개인 유전체학의 새 시대를 엶 (Next-generation sequencing opens new era of personal genomics)
+  </div>
+</section>
+
+<!-- ===================== PART 4 ===================== -->
+<div class="part" id="p4">
+  <div class="part-head"><span class="no">강의 (4)</span><h2>빅데이터 AI 시대의 유전체 연구</h2></div>
+  <p class="part-sub">학습목표(교안 표기): NGS와 그 응용 – 이번 강의는 NGS가 만든 빅데이터를 해석하는 RNA 생물학·AI·시스템 생물학으로 확장</p>
+</div>
+
+<section class="topic" id="t4-1">
+  <h3><span class="num">4-1</span>RNA 세계와 RNA의 복잡성 <span class="en">RNA World</span></h3>
+  <ul class="pt">
+    <li>복습: 단백질 코딩유전자는 약 5%인데 유전체의 약 80%가 논코딩 RNA를 만듦 (1-5) → 왜?</li>
+  </ul>
+  <div class="tbl"><table>
+    <thead><tr><th></th><th>현대 세계 (중심이론)</th><th>RNA 세계 (태고)</th></tr></thead>
+    <tbody>
+      <tr><td>정보 저장</td><td>DNA</td><td rowspan="3">모두 <b>RNA</b>가 담당 (스스로 복제)</td></tr>
+      <tr><td>정보 저장·전달</td><td>RNA</td></tr>
+      <tr><td>기능</td><td>단백질</td></tr>
+    </tbody>
+  </table></div>
+  <ul class="pt">
+    <li>RNA는 한 가닥이라 스스로 접혀 <b>2차 구조</b>를 만들 수 있음 → <b class="g">단백질처럼 기능(효소 작용)</b>도 가능</li>
+    <li>그래서 생명의 첫 유전물질은 RNA였다는 <b>RNA 세계 가설</b>이 나옴. 효소 기능을 하는 RNA(리보자임)를 발견한 <b>토머스 체크(Thomas Cech)</b></li>
+    <li>RNA의 복잡성: 사람 코딩 유전자 21,550개 → 전사체 126,019개 (1-9). 선택적 스플라이싱을 발견한 <b>필립 샤프(Phillip Sharp)</b></li>
+  </ul>
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>교안 인물의 노벨상</h5>
+    <ul>
+      <li>토머스 체크: RNA의 촉매 기능 발견으로 <b>1989년 노벨 화학상</b>(시드니 올트먼과 공동)</li>
+      <li>필립 샤프: 유전자가 엑손·인트론으로 나뉘어 있음(split genes)을 발견해 <b>1993년 노벨 생리의학상</b>(리처드 로버츠와 공동)</li>
+    </ul>
+  </div>
+</section>
+
+<section class="topic" id="t4-2">
+  <h3><span class="num">4-2</span>RNA 결합 단백질(RBP)과 질병 <span class="en">RNA-binding protein</span></h3>
+  <ul class="pt">
+    <li>RNA는 혼자 일하지 않고 <b>RNA 결합 단백질(RBP)</b>과 <b class="g">RNA–단백질 복합체</b>를 이뤄 일함</li>
+    <li>RBP가 하는 일: ① <b>전사체 변이</b>(선택적 스플라이싱으로 엑손 선택) ② <b>전사후 조절</b>(3′ UTR에 붙어 안정성·번역 조절)</li>
+    <li>질문: "RNA–단백질 결합 복합체"가 생물학적 기능에서 매우 중요한가? → PND 사례로 답함</li>
+  </ul>
+  <h4>자가면역성 퇴행성 뇌질환 PND (Paraneoplastic Neurological Disorder)</h4>
+  <div class="flow">
+    <span>몸 어딘가의 암(유방·난소·폐)</span><i>→</i><span>암 항원에 면역반응</span><i>→</i><span>같은 단백질을 가진 신경세포까지 공격</span><i>→</i><span class="on">자가면역 뇌 질환</span>
+  </div>
+  <ul class="pt">
+    <li>환자 혈액(항체)으로 암 항원 유전자를 클로닝 → 유방/난소암 항원, 폐암 항원 확인</li>
+    <li>밝혀진 정체: 모두 <b class="g">RNA 결합 단백질 (Nova, Hu)</b>. 원래 신경세포에만 있어야 할 RBP를 암세포가 만들어 면역계 표적이 된 것</li>
+    <li><b>Nova 표적 RNA 지도(HITS-CLIP)</b>: Nova가 붙는 RNA를 지도로 그리니 GABA·글리신 수용체, 이온 통로 등 <b>시냅스 단백질</b>이 대거 포함됨 → Nova의 생물학적 기능 = 시냅스 조절</li>
+    <li><b>Nova 결손(KO) 생쥐</b>: 운동 이상을 보이며 정상적으로 자라지 못함</li>
+  </ul>
+  <h4>RBP와 질병 네트워크</h4>
+  <div class="tbl"><table>
+    <thead><tr><th>질병군</th><th>관련 RBP 예 (교안 그림)</th></tr></thead>
+    <tbody>
+      <tr><td><b>암</b></td><td>SF2/ASF, eIF4E, Sam68, HuR, TLS/FUS·EWS(전좌로 육종)</td></tr>
+      <tr><td><b>신경질환</b></td><td>NOVA-1,2, elav/HuB·C·D(자가면역), ATXN2(실조증), FMRP(취약 X 증후군, FXS)</td></tr>
+      <tr><td><b>퇴행성 근육질환</b></td><td>SMN(척수성 근위축증, SMA), MBNL·CUGBP1(근긴장성 이영양증, DM), PABPN1(OPMD)</td></tr>
+    </tbody>
+  </table></div>
+  <p class="src">교안 그림 오른쪽: James Darnell, 『RNA: Life's Indispensable Molecule』</p>
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>8주차와 이어지는 예 – 척수성 근위축증(SMA)</h5>
+    <ul>
+      <li>SMA는 RBP의 일종인 SMN 단백질이 부족해 생기는 병임</li>
+      <li>8주차 RNA 치료제 표의 첫 줄 <b>Nusinersen(Spinraza)</b>이 바로 SMA 치료제로, ASO가 비슷한 유전자 <i>SMN2</i>의 <b>스플라이싱을 바꿔</b> 정상 SMN을 더 만들게 함</li>
+      <li>"RBP·스플라이싱 이해(7주차) → RNA로 고치는 약(8주차)"의 흐름임</li>
+    </ul>
+  </div>
+</section>
+
+<section class="topic" id="t4-3">
+  <h3><span class="num">4-3</span>AlphaFold와 시스템 생물학 <span class="en">AI · Systems biology</span></h3>
+  <ul class="pt">
+    <li>여러 단계의 생명정보: 유전체·전사체는 NGS로 대량 측정 가능 → 단백질 단계는 <b>AI</b>가 돕기 시작</li>
+  </ul>
+  <h4>AlphaFold: AI로 단백질 3차원 구조 예측</h4>
+  <ul class="pt">
+    <li>구글 딥마인드(2016년 이세돌 9단과 대국한 알파고의 회사)가 개발</li>
+    <li>단백질은 아미노산 사슬 → 알파나선·베타병풍(pleated sheet) → 3차원 접힘 구조로 기능함</li>
+    <li>입력: 아미노산 서열(예: MALSVLLL…) → 유전 데이터베이스에서 진화적으로 비슷한 서열 정렬(MSA) + 구조 데이터베이스 주형 → <b>3차원 구조 출력</b></li>
+    <li>단백질 구조 예측 대회(CASP) 점수(GDT): 2016년까지 40점 안팎 → AlphaFold(2018) 약 60 → <b class="g">AlphaFold 2(2020) 90 근처</b>. 90점 이상이면 실험으로 구한 구조와 거의 같은 수준</li>
+    <li>AlphaFold 단백질 구조 데이터베이스로 공개되어 누구나 검색 가능</li>
+  </ul>
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>2024년 노벨 화학상</h5>
+    <ul>
+      <li>데미스 허사비스·존 점퍼(AlphaFold)와 데이비드 베이커(단백질 설계)가 2024년 노벨 화학상을 받음</li>
+      <li>AlphaFold 데이터베이스에는 2억 개가 넘는 단백질 예측 구조가 들어 있음</li>
+    </ul>
+  </div>
+  <h4>시스템 생물학: 네트워크</h4>
+  <div class="grid2">
+    <div class="mini"><h4>분자세포 생물학</h4><p style="margin:0">신호 경로를 한 줄씩 따라감 (예: MAPK/ERK 경로 Ras→Raf→Mek→Erk → 핵 → 전사, cAMP 경로)</p></div>
+    <div class="mini"><h4>네트워크 생물학</h4><p style="margin:0">수백 개 분자가 서로 얽힌 망 전체를 한꺼번에 봄 (세포막 → 세포질 → 핵 → 하위 유전자)</p></div>
+  </div>
+  <div class="flow">
+    <span>유전체</span><i>→</i><span>전사체</span><i>→</i><span>단백질체</span><i>→</i><span>대사체</span><i>→</i><span class="on">형질체</span>
+  </div>
+  <p>여러 층의 -omics 데이터를 쌓아 하나의 유전 요소가 어떻게 형질까지 이어지는지 통합적으로 분석함.</p>
+</section>
+
+<section class="topic" id="t4-4">
+  <h3><span class="num">4-4</span>개인 유전체 맞춤 의학과 빅데이터 <span class="en">Big data in personalized medicine</span></h3>
+  <ul class="pt">
+    <li>"<b>1,000달러 유전체, 10만 달러 분석?</b>" (The $1,000 genome, the $100,000 analysis?) – 읽는 비용은 싸졌지만 <b class="g">해석</b>이 병목이 됨</li>
+    <li>교안 만화: 환자 침대에 서열이 적힌 종이가 잔뜩 쌓여 있지만 의사들은 어찌할 줄 모름</li>
+    <li>23andMe(데이터 생산), Google Genomics(클라우드 분석) 등 IT 기업이 뛰어듦</li>
+    <li>NHGRI의 유전체 연구 미래 비전 그림: 인간 유전체 프로젝트를 토대로 "생물학 → 건강 → 사회" 층을 쌓고, 기둥으로 자원·기술개발·<b>계산생물학(Computational biology)</b>·<b>교육훈련(Training)</b>·윤리(ELSI)·교육이 받침 → 빨간 상자로 강조된 것이 <b>계산생물학과 인력 양성</b></li>
+    <li>영화 〈이너스페이스〉처럼 세포 안 유전체를 "세포를 돌리는 마스터 프로그램"으로 보고, 컴퓨터 앞에서 분석하는 생명공학 시대</li>
+  </ul>
+  <div class="key"><span class="label">강의 (4) 학습정리</span><br>
+    NGS가 가져온 빅데이터가 유전체학의 풀리지 않은 문제를 밝혀낼 것임 (Big data brought by NGS will elucidate unsolved problems in genomics)
+  </div>
+</section>
+
+<!-- ===================== PART 5 ===================== -->
+<div class="part" id="p5">
+  <div class="part-head"><span class="no">용어</span><h2>용어 정리와 교안 표기 정정</h2></div>
+  <p class="part-sub">7주차 네 강의에 나온 핵심 용어</p>
+</div>
+
+<section class="topic">
+  <div class="tbl"><table>
+    <thead><tr><th>영문</th><th>국문</th><th>한 줄 정리</th></tr></thead>
+    <tbody>
+      <tr><td>genome / gene / chromosome</td><td>유전체 / 유전자 / 염색체</td><td>DNA 전체 / 기능 단위 구간 / DNA가 포장된 구조</td></tr>
+      <tr><td>nucleosome · histone</td><td>뉴클레오솜 · 히스톤</td><td>DNA가 히스톤 8량체를 감은 기본 포장 단위</td></tr>
+      <tr><td>karyotype</td><td>핵형</td><td>중기 염색체를 크기·모양 순으로 나열한 그림 (김사 염색 G band)</td></tr>
+      <tr><td>central dogma</td><td>중심이론</td><td>DNA → (전사) → RNA → (번역) → 단백질</td></tr>
+      <tr><td>genomics · transcriptomics · proteomics</td><td>유전체학 · 전사체학 · 단백질체학</td><td>각 층을 통째로 측정·분석하는 학문</td></tr>
+      <tr><td>noncoding RNA</td><td>논코딩 RNA</td><td>단백질을 만들지 않고 RNA 자체로 기능하는 RNA</td></tr>
+      <tr><td>microRNA (miRNA)</td><td>마이크로RNA</td><td>약 21 nt, seed(2~8번)로 표적 mRNA 3′ UTR에 붙어 발현 억제</td></tr>
+      <tr><td>Argonaute (Ago) · RISC</td><td>아고너트 · RNA 유도 침묵 복합체</td><td>miRNA를 싣고 표적을 찾아가는 단백질과 그 복합체</td></tr>
+      <tr><td>RNAi</td><td>RNA 간섭</td><td>짧은 RNA가 상보적 mRNA의 발현을 끄는 현상</td></tr>
+      <tr><td>CLIP-Seq (HITS-CLIP)</td><td>교차결합 면역침강 시퀀싱</td><td>자외선으로 RNA–단백질을 고정해 실제 결합 RNA를 NGS로 읽음</td></tr>
+      <tr><td>alternative splicing</td><td>선택적 스플라이싱</td><td>엑손 조합을 바꿔 한 유전자에서 여러 mRNA 생성</td></tr>
+      <tr><td>alternative polyadenylation</td><td>선택적 폴리아데닐화</td><td>poly(A) 붙는 위치를 바꿔 3′ UTR 길이를 달리함</td></tr>
+      <tr><td>epigenome</td><td>후성유전체</td><td>서열 변화 없이 DNA·히스톤에 붙은 화학 표지 전체</td></tr>
+      <tr><td>epitranscriptome</td><td>후성전사체</td><td>서열 변화 없이 RNA 염기에 생긴 화학 변형 전체</td></tr>
+      <tr><td>H3K4me3 / H3K27me3</td><td>–</td><td>히스톤 H3 4번/27번 라이신 트라이메틸화 = 활성/억제 표지</td></tr>
+      <tr><td>8-oxoguanine (o⁸G)</td><td>8-옥소구아닌</td><td>산화된 G. C 대신 A와 짝지음</td></tr>
+      <tr><td>cardiac hypertrophy</td><td>심비대증</td><td>심근세포가 커져 심장이 비대해지는 상태</td></tr>
+      <tr><td>NGS</td><td>차세대 서열 분석</td><td>수십억 DNA 조각을 병렬로 읽는 초고속·대용량 기술</td></tr>
+      <tr><td>SNP</td><td>단일염기다형성</td><td>사람마다 한 염기가 다른 위치. 질병 관련성 탐색에 씀</td></tr>
+      <tr><td>single-cell RNA-Seq</td><td>단일세포 RNA 분석</td><td>세포 하나하나의 RNA를 따로 읽어 세포 지도를 만듦</td></tr>
+      <tr><td>genotype / phenotype</td><td>유전형 / 표현형</td><td>가진 유전 정보 / 겉으로 드러난 형질</td></tr>
+      <tr><td>ribozyme · RNA world</td><td>리보자임 · RNA 세계</td><td>효소 기능 RNA · RNA가 정보와 기능을 모두 맡던 태고 가설</td></tr>
+      <tr><td>RNA-binding protein (RBP)</td><td>RNA 결합 단백질</td><td>RNA와 복합체를 이뤄 스플라이싱·안정성·번역을 조절</td></tr>
+      <tr><td>PND</td><td>부종양성 신경 질환</td><td>암 항원(신경 RBP)에 대한 면역이 신경세포를 공격하는 병</td></tr>
+      <tr><td>AlphaFold</td><td>–</td><td>아미노산 서열에서 단백질 3차원 구조를 예측하는 AI</td></tr>
+      <tr><td>systems biology</td><td>시스템 생물학</td><td>분자들의 네트워크 전체를 통합적으로 분석</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>교안 표기에서 헷갈릴 수 있는 부분</h5>
+    <div class="tbl"><table>
+      <thead><tr><th>위치</th><th>교안 표기</th><th>바르게 읽기</th></tr></thead>
+      <tbody>
+        <tr><td>(1) 인간 유전체</td><td>23종류의 염색체</td><td>23쌍 (종류로는 22 + X + Y = 24종)</td></tr>
+        <tr><td>(1)·(4) RNA 복잡성</td><td>Alternative poly adenylation (스프라이싱)</td><td>"스플라이싱"은 alternative splicing의 번역. poly adenylation은 "폴리아데닐화"</td></tr>
+        <tr><td>(1) NGS</td><td>James Watson (1928–)</td><td>2025년 11월 별세</td></tr>
+        <tr><td>(2) 심비대증</td><td>Shibatani S et al (1991)</td><td>Shibutani S 외 (1991), Nature</td></tr>
+        <tr><td>(3) 고인류</td><td>읽어버린 DNA</td><td>잃어버린 DNA</td></tr>
+        <tr><td>(3) 노벨상 슬라이드</td><td>제목 "질병 유전자 변이 탐색"</td><td>내용은 고인류 유전체 연구(페보, 2022)</td></tr>
+        <tr><td>(3) NGS 병렬화</td><td>100개의 조각 서열분석 / run</td><td>그림은 1세대 생어 방식. NGS는 수십억 조각</td></tr>
+        <tr><td>(4) 학습목표</td><td>NGS and its application</td><td>(3)강 목표가 그대로 들어감. 실제 내용은 RNA 생물학·AI·시스템 생물학</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+
+<!-- ===================== PART 6 ===================== -->
+<div class="part" id="p6">
+  <div class="part-head"><span class="no">문제</span><h2>4지선다 예상문제 10</h2></div>
+  <p class="part-sub">정답은 각 문제 아래를 눌러 확인</p>
+</div>
+
+<section class="topic">
+  <div class="quiz"><p class="q">1. 마이크로RNA가 표적 mRNA를 알아보는 데 가장 핵심이 되는 부위는?</p>
+    <ol><li>miRNA의 3′ 말단</li><li>miRNA 5′ 쪽 2~8번째 염기(seed)</li><li>표적 mRNA의 poly(A) 꼬리</li><li>표적 mRNA의 5′ cap</li></ol>
+    <details><summary>정답 · 해설</summary>② seed 부위만 맞으면 나머지는 부분 결합(partial pairing)만으로도 표적 mRNA의 3′ UTR에 붙어 발현을 억제함.</details></div>
+
+  <div class="quiz"><p class="q">2. AGO CLIP-Seq 실험에서 130 kD 부근에서 얻은 cDNA가 담고 있는 것으로 가장 알맞은 것은?</p>
+    <ol><li>Ago 단백질만</li><li>miRNA만</li><li>miRNA와 표적 mRNA 조각</li><li>대조군 IgG에 붙은 RNA</li></ol>
+    <details><summary>정답 · 해설</summary>③ 110 kD는 Ago+miRNA, 130 kD는 Ago+miRNA+mRNA 3중 복합체로 더 긴 cDNA(mRNA 포함)가 나옴.</details></div>
+
+  <div class="quiz"><p class="q">3. "H3K27me3"에 대한 설명으로 옳은 것은?</p>
+    <ol><li>DNA의 27번째 시토신이 메틸화된 것</li><li>히스톤 H3의 27번째 라이신에 메틸기 3개가 붙은 억제 표지</li><li>히스톤 H3의 27번째 라이신이 아세틸화된 활성 표지</li><li>RNA의 27번째 구아닌이 산화된 것</li></ol>
+    <details><summary>정답 · 해설</summary>② H3 = 히스톤 H3, K27 = 27번 라이신, me3 = 트라이메틸. 유전자 꺼짐과 관련됨. H3K4me3는 반대로 활성 표지.</details></div>
+
+  <div class="quiz"><p class="q">4. 산화된 구아닌(o⁸G)의 특징으로 옳은 것은?</p>
+    <ol><li>시토신과만 더 강하게 결합함</li><li>아데닌과 새로운 염기쌍을 이룸</li><li>DNA에서만 생기고 RNA에서는 생기지 않음</li><li>히스톤 단백질에 붙는 변형임</li></ol>
+    <details><summary>정답 · 해설</summary>② 8번 탄소가 산화된 G는 C 대신 A와 짝을 지음(new base-pairing). RNA(miRNA)에서도 생기며 후성전사체 변형의 예임.</details></div>
+
+  <div class="quiz"><p class="q">5. 쥐 심근세포에 7o8G-miR-1(7번째 G가 산화된 miR-1)을 넣었을 때 나타난 결과는?</p>
+    <ol><li>심근세포가 신경세포로 바뀜</li><li>변화 없음</li><li>심근세포가 비대해지고 심장이 커짐</li><li>심근세포가 모두 죽음</li></ol>
+    <details><summary>정답 · 해설</summary>③ seed 안의 한 염기 산화로 표적이 바뀌어 심비대증이 유도됨 (Seok 외, Nature 2020).</details></div>
+
+  <div class="quiz"><p class="q">6. 사람·생쥐·선충의 코딩 유전자 수는 비슷하지만 전사체 수는 사람이 훨씬 많다. 이를 설명하는 기전으로 가장 알맞은 것은?</p>
+    <ol><li>선택적 스플라이싱과 선택적 폴리아데닐화</li><li>염색체 수의 차이</li><li>DNA 이중나선 구조의 차이</li><li>리보솜 수의 차이</li></ol>
+    <details><summary>정답 · 해설</summary>① 한 유전자에서 엑손 조합·3′ 끝 위치를 바꿔 여러 RNA 변이체를 만들기 때문임.</details></div>
+
+  <div class="quiz"><p class="q">7. 차세대 서열 분석(NGS)에 대한 설명으로 옳지 않은 것은?</p>
+    <ol><li>DNA를 조각내 수많은 조각을 동시에 읽음</li><li>모세관 하나에 한 조각씩, 한 번에 약 100조각만 읽음</li><li>사람 유전체 분석 비용을 100달러 수준까지 낮춤</li><li>나노포어 방식은 휴대용·실시간 분석이 가능함</li></ol>
+    <details><summary>정답 · 해설</summary>② 모세관 전기영동으로 한 번에 약 100조각을 읽는 것은 1세대 생어 방식임.</details></div>
+
+  <div class="quiz"><p class="q">8. 2022년 노벨 생리의학상을 받은 스반테 페보의 업적은?</p>
+    <ol><li>RNA 간섭 발견</li><li>멸종한 고인류의 유전체와 인류 진화 연구</li><li>인간 유전체 프로젝트 완성</li><li>단백질 구조 예측 AI 개발</li></ol>
+    <details><summary>정답 · 해설</summary>② 네안데르탈인 유전체 해독, 데니소바인 발견 등.</details></div>
+
+  <div class="quiz"><p class="q">9. 부종양성 신경 질환(PND) 환자의 혈액으로 찾아낸 암 항원 Nova, Hu의 정체는?</p>
+    <ol><li>DNA 메틸화 효소</li><li>RNA 결합 단백질(RBP)</li><li>히스톤 단백질</li><li>마이크로RNA</li></ol>
+    <details><summary>정답 · 해설</summary>② 신경세포의 RBP를 암세포가 만들고, 그에 대한 면역반응이 신경세포까지 공격함.</details></div>
+
+  <div class="quiz"><p class="q">10. AlphaFold가 입력받아 예측하는 것으로 옳은 것은?</p>
+    <ol><li>DNA 서열 → 유전자 발현량</li><li>아미노산 서열 → 단백질 3차원 구조</li><li>RNA 서열 → miRNA 표적</li><li>SNP → 질병 발생 여부</li></ol>
+    <details><summary>정답 · 해설</summary>② CASP 대회에서 AlphaFold 2(2020)는 실험 구조에 가까운 정확도(GDT 90 안팎)를 보임.</details></div>
+</section>
+
+<nav class="pager"><a class="prev" href="week06_homeostasis_memory_self.html"><small>← 이전 주차</small>6주차 · 항상성·기억과 자아</a><a class="next" href="week08_mrna_therapeutics.html"><small>다음 주차 →</small>8주차 · mRNA 치료제</a></nav>
+
+<footer>
+  <p>자료 기준: 「생명과학의 세계」(고려대학교) 7주차 지성욱 교수 강의 교안 – 유전체 정보는 어떻게 후천적으로 바뀔 수 있을까? (1) RNA에 의한 표현형 변화 (2) 후성 유전체-전사체 변형에 의한 표현형 변화 (3) 차세대 서열 분석을 통한 연구 (4) 빅데이터 AI 시대의 유전체 연구.<br>
+  교안 그림 출처(Nature, Science, Wikimedia, Getty Images Bank 등)는 각 강의 교안의 "출처 및 참고문헌"을 따름. 이 문서의 그림은 교안 그림을 단순화해 새로 그린 것임.<br>
+  '보충' 상자와 예상문제는 교안에 없는 참고 내용으로, 시험 범위 여부는 강의 기준을 따를 것.</p>
+</footer>
+
+</div>
+</body>
+</html>
