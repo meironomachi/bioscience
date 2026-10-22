@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>생명과학의 세계 문제 풀기</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --g900:#123d26; --g800:#14532d; --g700:#166534; --g600:#15803d; --g500:#22a05a;
+  --g200:#bbe5c8; --g100:#dcf3e3; --g50:#f2faf4;
+  --ink:#1c2420; --muted:#56635b; --line:#d6e2da; --bg:#fbfdfb; --card:#ffffff;
+  --bad:#b4232a; --bad-bg:#fdf0f0; --bad-line:#f0c4c4;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Pretendard","Gothic A1",-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  font-size:16px;line-height:1.72;word-break:keep-all;}
+.wrap{max-width:920px;margin:0 auto;padding:0 20px 80px}
+button{font:inherit;color:inherit}
+
+.sitebar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line);font-size:14px}
+.sitebar .in{max-width:920px;margin:0 auto;padding:8px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.sitebar a{color:var(--g700);text-decoration:none;font-weight:700;white-space:nowrap}
+.sitebar a:hover{text-decoration:underline}
+.sitebar .wk{color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+header.hero{background:linear-gradient(135deg,var(--g800),var(--g600));color:#fff;padding:48px 20px 38px}
+header.hero .wrap{padding-bottom:0}
+.hero .kicker{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);
+  padding:3px 12px;border-radius:999px;font-size:13px;letter-spacing:.04em}
+.hero h1{font-size:32px;line-height:1.3;margin:14px 0 8px;font-weight:800}
+.hero p{margin:0;opacity:.9}
+@media (max-width:680px){.hero h1{font-size:26px}}
+
+.part{margin-top:40px}
+.part-head{display:flex;align-items:center;gap:12px;border-bottom:3px solid var(--g600);padding-bottom:8px}
+.part-head .no{background:var(--g700);color:#fff;font-weight:800;border-radius:8px;padding:4px 12px;font-size:14px;white-space:nowrap}
+.part-head h2{margin:0;font-size:23px;color:var(--g900)}
+.part-sub{color:var(--muted);font-size:14px;margin:6px 0 0}
+
+/* 주차 선택 */
+.weeks{list-style:none;margin:20px 0 0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:680px){.weeks{grid-template-columns:1fr}}
+a.week{display:grid;grid-template-columns:62px 1fr;gap:14px;align-items:center;background:var(--card);
+  border:1px solid var(--line);border-left:5px solid var(--g600);border-radius:10px;padding:14px 16px;
+  color:var(--ink);text-decoration:none;height:100%}
+a.week:hover{border-color:var(--g500);box-shadow:0 4px 14px rgba(21,128,61,.12)}
+.week .wk{text-align:center;background:var(--g50);border:1px solid var(--g200);border-radius:10px;padding:6px 0;line-height:1.15}
+.week .wk b{display:block;font-size:24px;color:var(--g700);font-weight:800}
+.week .wk small{font-size:12px;color:var(--muted)}
+.week h3{margin:0;font-size:16.5px;color:var(--g800);line-height:1.4}
+.week p{margin:2px 0 0;font-size:13.5px;color:var(--muted)}
+
+/* 설정 */
+.panel{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px 20px;margin-top:20px}
+.field{margin:0 0 14px}
+.field:last-of-type{margin-bottom:18px}
+.field .label{display:block;font-weight:700;color:var(--g800);font-size:14.5px;margin-bottom:6px}
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.seg label{cursor:pointer}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg span{display:inline-block;border:1px solid var(--g200);background:var(--g50);border-radius:999px;padding:4px 14px;font-size:14px}
+.seg input:checked + span{background:var(--g600);border-color:var(--g600);color:#fff;font-weight:700}
+.seg input:focus-visible + span{outline:3px solid var(--g500);outline-offset:2px}
+.btn{display:inline-block;border:0;border-radius:8px;padding:10px 20px;font-weight:700;cursor:pointer;
+  background:var(--g600);color:#fff;text-decoration:none}
+.btn:hover{background:var(--g700)}
+.btn.ghost{background:var(--card);color:var(--g700);border:1px solid var(--g200)}
+.btn.ghost:hover{background:var(--g50)}
+.btn:disabled{opacity:.45;cursor:default}
+.btn:focus-visible{outline:3px solid var(--g500);outline-offset:2px}
+.note{font-size:13px;color:var(--muted);margin:12px 0 0}
+
+/* 문제 */
+.progress{display:flex;align-items:center;gap:12px;margin-top:24px;font-size:14px;color:var(--muted)}
+.bar{flex:1;height:8px;background:var(--g100);border-radius:999px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--g600);width:0;transition:width .2s}
+.qcard{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin-top:14px}
+.qmeta{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.qmeta span{font-size:12px;font-weight:700;border-radius:5px;padding:1px 8px;background:var(--g50);color:var(--g700);border:1px solid var(--g200)}
+.qtext{font-size:17.5px;font-weight:700;margin:0 0 16px;line-height:1.6}
+.choices{display:grid;gap:8px}
+.choices.ox{grid-template-columns:1fr 1fr}
+.choice{display:flex;gap:10px;align-items:flex-start;text-align:left;width:100%;background:var(--card);
+  border:1.5px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;font-size:15.5px;line-height:1.55}
+.choice:hover:not(:disabled){border-color:var(--g500);background:var(--g50)}
+.choice:focus-visible{outline:3px solid var(--g500);outline-offset:2px}
+.choice .n{flex:none;width:24px;height:24px;border-radius:50%;background:var(--g100);color:var(--g800);
+  font-size:13px;font-weight:800;display:grid;place-items:center;margin-top:1px}
+.choices.ox .choice{justify-content:center;font-size:26px;font-weight:800;padding:14px}
+.choice:disabled{cursor:default}
+.choice.right{border-color:var(--g600);background:var(--g50)}
+.choice.right .n{background:var(--g600);color:#fff}
+.choice.wrong{border-color:var(--bad);background:var(--bad-bg)}
+.choice.wrong .n{background:var(--bad);color:#fff}
+.feedback{margin-top:16px;padding:12px 14px;border-radius:8px;border-left:4px solid var(--g600);background:var(--g50);font-size:15px}
+.feedback.no{border-left-color:var(--bad);background:var(--bad-bg)}
+.feedback b{display:block;margin-bottom:2px}
+.feedback.ok b{color:var(--g700)}
+.feedback.no b{color:var(--bad)}
+.actions{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:16px;flex-wrap:wrap}
+.keys{font-size:12.5px;color:var(--muted)}
+@media (max-width:680px){.keys{display:none}.qcard{padding:16px}}
+
+/* 결과 */
+.score{text-align:center;background:var(--card);border:1px solid var(--g200);border-radius:12px;padding:26px 20px;margin-top:24px}
+.score .big{font-size:44px;font-weight:800;color:var(--g700);line-height:1.1}
+.score .big small{font-size:20px;color:var(--muted);font-weight:600}
+.score p{margin:6px 0 0;color:var(--muted)}
+.score .row{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:16px}
+.review{list-style:none;padding:0;margin:14px 0 0;display:grid;gap:10px}
+.review li{background:var(--card);border:1px solid var(--bad-line);border-left:4px solid var(--bad);border-radius:10px;padding:12px 16px;font-size:14.5px}
+.review .q{font-weight:700;margin-bottom:4px}
+.review .a{color:var(--g700);font-weight:700}
+.review .mine{color:var(--bad)}
+.review .e{color:var(--muted);margin-top:4px}
+.empty{color:var(--muted);font-size:14.5px;margin-top:12px}
+
+footer{margin-top:60px;border-top:1px solid var(--line);padding-top:16px;font-size:13px;color:var(--muted)}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+
+<div class="sitebar"><div class="in">
+  <a href="../index.html">← 전체 교안 목록</a>
+  <span class="wk" id="barLabel">문제 풀기</span>
+</div></div>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="kicker" id="heroKicker">생명과학의 세계 · 문제 풀기</span>
+    <h1 id="heroTitle">주차별 복습 문제</h1>
+    <p id="heroSub">교안 내용으로 만든 객관식·O/X 문제. 고르면 바로 정답과 해설이 나옴</p>
+  </div>
+</header>
+
+<div class="wrap">
+
+<!-- 주차 선택 -->
+<section class="part" id="pickView" hidden>
+  <div class="part-head"><span class="no">선택</span><h2>주차를 고르세요</h2></div>
+  <p class="part-sub">주차마다 30문제 이상. 범위와 문제 수는 다음 화면에서 정할 수 있음</p>
+  <ul class="weeks" id="weekList"></ul>
+</section>
+
+<!-- 설정 -->
+<section class="part" id="setupView" hidden>
+  <div class="part-head"><span class="no" id="setupNo"></span><h2 id="setupTitle"></h2></div>
+  <p class="part-sub" id="setupSub"></p>
+  <div class="panel">
+    <div class="field">
+      <span class="label">범위</span>
+      <div class="seg" id="scopeSeg"></div>
+    </div>
+    <div class="field">
+      <span class="label">문제 수</span>
+      <div class="seg" id="countSeg"></div>
+    </div>
+    <div class="field">
+      <span class="label">순서</span>
+      <div class="seg">
+        <label><input type="radio" name="order" value="shuffle" checked><span>무작위</span></label>
+        <label><input type="radio" name="order" value="seq"><span>교안 순서</span></label>
+      </div>
+    </div>
+    <button class="btn" id="startBtn">시작하기</button>
+    <a class="btn ghost" id="readLink" href="#">교안 요약 보기</a>
+    <p class="note" id="lastNote" hidden></p>
+  </div>
+</section>
+
+<!-- 문제 -->
+<section id="quizView" hidden>
+  <div class="progress"><span id="progText"></span><div class="bar"><i id="progBar"></i></div><span id="progScore"></span></div>
+  <div class="qcard">
+    <div class="qmeta" id="qMeta"></div>
+    <p class="qtext" id="qText"></p>
+    <div class="choices" id="choices"></div>
+    <div class="feedback" id="feedback" hidden></div>
+    <div class="actions">
+      <span class="keys">키보드: 숫자 1~4 · O/X · Enter 다음</span>
+      <span>
+        <button class="btn ghost" id="quitBtn">그만 풀기</button>
+        <button class="btn" id="nextBtn" disabled>다음 문제</button>
+      </span>
+    </div>
+  </div>
+</section>
+
+<!-- 결과 -->
+<section id="resultView" hidden>
+  <div class="score">
+    <div class="big" id="scoreBig"></div>
+    <p id="scoreMsg"></p>
+    <div class="row">
+      <button class="btn" id="retryWrongBtn">틀린 문제만 다시 풀기</button>
+      <button class="btn ghost" id="retryBtn">처음부터 다시</button>
+      <a class="btn ghost" id="otherBtn" href="index.html">다른 주차 고르기</a>
+    </div>
+  </div>
+  <section class="part">
+    <div class="part-head"><span class="no">오답</span><h2>틀린 문제 다시 보기</h2></div>
+    <ul class="review" id="reviewList"></ul>
+    <p class="empty" id="reviewEmpty" hidden>틀린 문제가 없습니다.</p>
+  </section>
+</section>
+
+<footer>
+  <p>문제는 「생명과학의 세계」(고려대학교) 각 주차 교안 요약본의 본문 내용으로 만든 복습용 문제이며, 실제 시험 문제와는 관계없음. 시험 범위는 강의 기준을 따를 것.</p>
+</footer>
+
+</div>
+
+<script>
+(function(){
+  var WEEKS = [
+    {id:"02", file:"week02_cell_communication.html", title:"생명체의 기본단위 세포는 어떻게 소통할까?", short:"세포 소통", parts:["01차시 세포의 기본 개념","02차시 세포 소통"]},
+    {id:"03", file:"week03_genetic_variation.html", title:"아들의 지능은 엄마가 결정한다? · 유전질환", short:"유전 변이와 유전질환", parts:["01차시 아들의 지능은 엄마가 결정한다?","02차시 유전질환: 관찰에서 디지털로"]},
+    {id:"04", file:"week04_cancer.html", title:"암이란 무엇인가 · 암세포의 특징", short:"암", parts:["01차시 암이란 무엇인가 · 암 연구와 치료의 역사","02차시 암세포의 특징"]},
+    {id:"05", file:"week05_immunity_allergy.html", title:"면역은 우리 몸을 어떻게 지킬까 · 알레르기", short:"면역과 알레르기", parts:["01차시 면역이 우리 몸을 어떻게 지켜낼까?","02차시 알레르기"]},
+    {id:"06", file:"week06_homeostasis_memory_self.html", title:"나는 누구인가 · 항상성과 자아, 기억과 자아", short:"항상성·기억과 자아", parts:["01차시 항상성과 자아","02차시 기억과 자아"]},
+    {id:"07", file:"week07_genome_acquired_change.html", title:"유전체 정보는 어떻게 후천적으로 바뀔 수 있을까?", short:"유전체의 후천적 변화", parts:["(1) RNA에 의한 표현형 변화","(2) 후성 유전체-전사체 변형","(3) 차세대 서열 분석","(4) 빅데이터 AI"]},
+    {id:"08", file:"week08_mrna_therapeutics.html", title:"mRNA 치료제와 전달 시스템", short:"mRNA 치료제", parts:["(1) RNA 치료제 개요","(2) mRNA 백신과 면역","(3) mRNA 생산과 최적화","(4) 지질나노입자(LNP)"]}
+  ];
+
+  function $(id){ return document.getElementById(id); }
+  function show(id){ ["pickView","setupView","quizView","resultView"].forEach(function(v){ $(v).hidden = (v !== id); }); window.scrollTo(0,0); }
+  function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
+  function shuffle(a){ a = a.slice(); for (var i = a.length - 1; i > 0; i--){ var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  function store(key, val){ try { if (val === undefined) return JSON.parse(localStorage.getItem(key)); localStorage.setItem(key, JSON.stringify(val)); } catch (e) { return null; } }
+
+  var params = new URLSearchParams(location.search);
+  var week = WEEKS.filter(function(w){ return w.id === params.get("w"); })[0];
+
+  // 주차 데이터는 data/weekNN.js에서 불러옴
+  function load(ids, done){
+    var left = ids.length;
+    ids.forEach(function(id){
+      var s = document.createElement("script");
+      s.src = "data/week" + id + ".js";
+      s.onload = s.onerror = function(){ if (--left === 0) done(); };
+      document.body.appendChild(s);
+    });
+  }
+
+  if (!week) { load(WEEKS.map(function(w){ return w.id; }), renderPick); return; }
+  load([week.id], function(){
+    if (window.QUIZ_DATA && window.QUIZ_DATA[week.id]) renderSetup();
+    else $("heroSub").textContent = "문제 파일을 불러오지 못했습니다.";
+  });
+
+  function renderPick(){
+    $("weekList").innerHTML = WEEKS.map(function(w){
+      var last = store("quiz-last-" + w.id);
+      var lastTxt = last ? " · 최근 " + last.right + "/" + last.total : "";
+      var qs = (window.QUIZ_DATA || {})[w.id];
+      return '<li><a class="week" href="?w=' + w.id + '"><div class="wk"><b>' + w.id + '</b><small>주차</small></div>' +
+        '<div><h3>' + esc(w.title) + '</h3><p>' + (qs ? qs.length + "문제" : "준비 중") + lastTxt + '</p></div></a></li>';
+    }).join("");
+    show("pickView");
+  }
+
+  var all, pool, idx, right, wrongs, answered, lastConfig;
+
+  function renderSetup(){
+    all = window.QUIZ_DATA[week.id];
+    document.title = week.id.replace(/^0/, "") + "주차 문제 풀기";
+    $("barLabel").textContent = Number(week.id) + "주차 · " + week.short;
+    $("heroKicker").textContent = "생명과학의 세계 · " + Number(week.id) + "주차 문제";
+    $("heroTitle").textContent = week.title;
+    $("heroSub").textContent = "객관식·O/X " + all.length + "문제. 고르면 바로 정답과 해설이 나옴";
+    $("setupNo").textContent = Number(week.id) + "주차";
+    $("setupTitle").textContent = "풀이 설정";
+    $("setupSub").textContent = "범위와 문제 수를 고른 뒤 시작하세요.";
+    $("readLink").href = "../weeks/" + week.file;
+
+    var scope = '<label><input type="radio" name="scope" value="0" checked><span>전체 (' + all.length + ')</span></label>';
+    week.parts.forEach(function(p, k){
+      var n = all.filter(function(q){ return q.s === k + 1; }).length;
+      scope += '<label><input type="radio" name="scope" value="' + (k + 1) + '"><span>' + esc(p) + ' (' + n + ')</span></label>';
+    });
+    $("scopeSeg").innerHTML = scope;
+    $("countSeg").innerHTML = [10, 20, 30, 0].map(function(n, k){
+      return '<label><input type="radio" name="count" value="' + n + '"' + (k === 1 ? " checked" : "") + '><span>' + (n ? n + "문제" : "전부") + '</span></label>';
+    }).join("");
+
+    var last = store("quiz-last-" + week.id);
+    if (last) { $("lastNote").hidden = false; $("lastNote").textContent = "최근 기록: " + last.total + "문제 중 " + last.right + "문제 정답 (" + last.date + ")"; }
+    show("setupView");
+  }
+
+  function val(name){ var el = document.querySelector('input[name="' + name + '"]:checked'); return el ? el.value : null; }
+
+  $("startBtn").onclick = function(){
+    var scope = Number(val("scope")), count = Number(val("count")), order = val("order");
+    var list = all.filter(function(q){ return !scope || q.s === scope; });
+    if (order === "shuffle") list = shuffle(list);
+    if (count && list.length > count) list = list.slice(0, count);
+    lastConfig = {scope:scope, count:count, order:order};
+    start(list);
+  };
+
+  function start(list){
+    pool = list.map(function(q){
+      if ("ox" in q) return {src:q, ox:true, opts:[{t:"O", ok:q.ox === true}, {t:"X", ok:q.ox === false}]};
+      return {src:q, ox:false, opts:shuffle(q.c.map(function(t, k){ return {t:t, ok:k === 0}; }))};
+    });
+    idx = 0; right = 0; wrongs = [];
+    show("quizView");
+    renderQ();
+  }
+
+  function renderQ(){
+    var item = pool[idx], q = item.src;
+    answered = false;
+    $("progText").textContent = (idx + 1) + " / " + pool.length;
+    $("progBar").style.width = (idx / pool.length * 100) + "%";
+    $("progScore").textContent = "정답 " + right;
+    $("qMeta").innerHTML = '<span>' + esc(week.parts[q.s - 1]) + '</span><span>' + (item.ox ? "O/X" : "객관식") + '</span>';
+    $("qText").textContent = q.q;
+    var box = $("choices");
+    box.className = "choices" + (item.ox ? " ox" : "");
+    box.innerHTML = item.opts.map(function(o, k){
+      return '<button class="choice" data-k="' + k + '">' + (item.ox ? "" : '<span class="n">' + (k + 1) + '</span>') + '<span>' + esc(o.t) + '</span></button>';
+    }).join("");
+    Array.prototype.forEach.call(box.children, function(b){ b.onclick = function(){ answer(Number(b.dataset.k)); }; });
+    $("feedback").hidden = true;
+    $("nextBtn").disabled = true;
+    $("nextBtn").textContent = idx === pool.length - 1 ? "결과 보기" : "다음 문제";
+    box.children[0].focus({preventScroll:true});
+  }
+
+  function answer(k){
+    if (answered) return;
+    answered = true;
+    var item = pool[idx], ok = item.opts[k].ok;
+    Array.prototype.forEach.call($("choices").children, function(b, j){
+      b.disabled = true;
+      if (item.opts[j].ok) b.classList.add("right");
+      else if (j === k) b.classList.add("wrong");
+    });
+    if (ok) right++;
+    else wrongs.push({src:item.src, mine:item.opts[k].t, ans:item.opts.filter(function(o){ return o.ok; })[0].t});
+    var fb = $("feedback");
+    fb.className = "feedback " + (ok ? "ok" : "no");
+    fb.innerHTML = "<b>" + (ok ? "정답" : "오답") + "</b>" + esc(item.src.e);
+    fb.hidden = false;
+    $("progScore").textContent = "정답 " + right;
+    $("progBar").style.width = ((idx + 1) / pool.length * 100) + "%";
+    $("nextBtn").disabled = false;
+    $("nextBtn").focus({preventScroll:true});
+  }
+
+  $("nextBtn").onclick = function(){ if (!answered) return; idx++; if (idx < pool.length) renderQ(); else finish(); };
+  $("quitBtn").onclick = function(){ pool = pool.slice(0, idx + (answered ? 1 : 0)); if (pool.length) finish(); else show("setupView"); };
+
+  document.addEventListener("keydown", function(e){
+    if ($("quizView").hidden || e.ctrlKey || e.metaKey || e.altKey) return;
+    var item = pool[idx], key = e.key.toLowerCase();
+    if (!answered) {
+      if (item.ox && (key === "o" || key === "x")) { answer(key === "o" ? 0 : 1); e.preventDefault(); }
+      else if (!item.ox && /^[1-4]$/.test(key)) { answer(Number(key) - 1); e.preventDefault(); }
+    } else if (key === "enter" && document.activeElement !== $("quitBtn")) { $("nextBtn").click(); e.preventDefault(); }
+  });
+
+  function finish(){
+    var total = pool.length, pct = Math.round(right / total * 100);
+    $("scoreBig").innerHTML = right + ' <small>/ ' + total + '</small>';
+    $("scoreMsg").textContent = "정답률 " + pct + "% · " + (pct >= 90 ? "아주 잘했어요!" : pct >= 70 ? "좋아요. 틀린 문제만 한 번 더 보세요." : "교안을 다시 읽고 틀린 문제를 풀어 보세요.");
+    var d = new Date();
+    store("quiz-last-" + week.id, {right:right, total:total, date:(d.getMonth() + 1) + "월 " + d.getDate() + "일"});
+    $("reviewList").innerHTML = wrongs.map(function(w){
+      return '<li><div class="q">' + esc(w.src.q) + '</div><div><span class="a">정답: ' + esc(w.ans) + '</span> · <span class="mine">내 답: ' + esc(w.mine) + '</span></div><div class="e">' + esc(w.src.e) + '</div></li>';
+    }).join("");
+    $("reviewEmpty").hidden = wrongs.length > 0;
+    $("retryWrongBtn").hidden = wrongs.length === 0;
+    show("resultView");
+  }
+
+  $("retryWrongBtn").onclick = function(){ start(shuffle(wrongs.map(function(w){ return w.src; }))); };
+  $("retryBtn").onclick = function(){ renderSetup(); };
+})();
+</script>
+</body>
+</html>

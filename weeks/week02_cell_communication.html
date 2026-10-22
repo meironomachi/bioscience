@@ -108,9 +108,11 @@ footer{margin-top:60px;border-top:1px solid var(--line);padding-top:16px;font-si
 .sitebar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:blur(6px);
   border-bottom:1px solid var(--line);font-size:14px}
 .sitebar .in{max-width:920px;margin:0 auto;padding:8px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
-.sitebar a{color:var(--g700);text-decoration:none;font-weight:700}
+.sitebar a{color:var(--g700);text-decoration:none;font-weight:700;white-space:nowrap}
 .sitebar a:hover{text-decoration:underline}
 .sitebar .wk{color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sitebar a.qz{flex:none;background:var(--g600);color:#fff;border-radius:999px;padding:2px 12px}
+.sitebar a.qz:hover{background:var(--g700);text-decoration:none}
 .pager{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:48px}
 .pager a{display:block;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px;
   color:var(--ink);text-decoration:none}
@@ -122,7 +124,7 @@ footer{margin-top:60px;border-top:1px solid var(--line);padding-top:16px;font-si
 </style>
 </head>
 <body>
-<div class="sitebar"><div class="in"><a href="../index.html">← 전체 교안 목록</a><span class="wk">2주차 · 세포 소통</span></div></div>
+<div class="sitebar"><div class="in"><a href="../index.html">← 전체 교안 목록</a><span class="wk">2주차 · 세포 소통</span><a class="qz" href="../quiz/index.html?w=02">문제 풀기 →</a></div></div>
 
 <header class="hero">
   <div class="wrap">

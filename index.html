@@ -26,7 +26,16 @@ body{margin:0;background:var(--bg);color:var(--ink);
 .sitebar nav{display:flex;gap:4px;overflow-x:auto}
 .sitebar nav a{color:var(--g700);text-decoration:none;font-weight:600;padding:2px 9px;border-radius:999px;white-space:nowrap}
 .sitebar nav a:hover{background:var(--g50)}
-@media (max-width:680px){.sitebar nav a{padding:2px 6px}.sitebar nav a span{display:none}}
+.sitebar nav a.quiz{background:var(--g600);color:#fff;margin-left:4px}
+.sitebar nav a.quiz:hover{background:var(--g700)}
+.quizbox{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  background:var(--card);border:1px solid var(--g200);border-radius:10px;padding:16px 20px;margin-top:20px}
+.quizbox>div{flex:1 1 300px}
+.quizbox p{margin:0;font-size:14.5px;color:var(--muted)}
+.quizbox b{display:block;color:var(--g800);font-size:17px}
+.quizbox a{flex:none;background:var(--g600);color:#fff;text-decoration:none;font-weight:700;border-radius:8px;padding:9px 18px}
+.quizbox a:hover{background:var(--g700)}
+@media (max-width:680px){.sitebar nav{gap:0}.sitebar nav a{padding:2px 5px}.sitebar nav a span{display:none}.sitebar nav a.quiz{padding:2px 10px}}
 header.hero{background:linear-gradient(135deg,var(--g800),var(--g600));color:#fff;padding:56px 20px 44px}
 header.hero .wrap{padding-bottom:0}
 .hero .kicker{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);
@@ -89,6 +98,7 @@ footer{margin-top:60px;border-top:1px solid var(--line);padding-top:16px;font-si
     <a href="weeks/week06_homeostasis_memory_self.html">6<span>주차</span></a>
     <a href="weeks/week07_genome_acquired_change.html">7<span>주차</span></a>
     <a href="weeks/week08_mrna_therapeutics.html">8<span>주차</span></a>
+    <a class="quiz" href="quiz/index.html">문제 풀기</a>
   </nav>
 </div></div>
 
@@ -174,6 +184,14 @@ footer{margin-top:60px;border-top:1px solid var(--line);padding-top:16px;font-si
       <span class="go" aria-hidden="true">→</span>
     </a></li>
   </ul>
+</section>
+
+<section class="part">
+  <div class="part-head"><span class="no">복습</span><h2>문제 풀기</h2></div>
+  <div class="quizbox">
+    <div><b>주차별 복습 문제</b><p>교안 내용으로 만든 객관식·O/X 문제가 주차마다 30문제 이상. 고르면 바로 정답과 해설이 나오고, 틀린 문제만 다시 풀 수 있습니다.</p></div>
+    <a href="quiz/index.html">문제 풀러 가기 →</a>
+  </div>
 </section>
 
 <section class="part">
