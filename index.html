@@ -24,6 +24,11 @@ body{margin:0;background:var(--bg);color:var(--ink);
   border-bottom:1px solid var(--line);font-size:14px}
 .sitebar .in{max-width:920px;margin:0 auto;padding:8px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
 .sitebar .home{color:var(--g800);text-decoration:none;font-weight:800;white-space:nowrap}
+.sitebar .crumb{display:flex;align-items:center;gap:8px;min-width:0;flex:none}
+.sitebar .meiro{color:var(--ink);text-decoration:none;font-weight:800;letter-spacing:.04em;white-space:nowrap}
+.sitebar .meiro:hover,.sitebar .home:hover{text-decoration:underline}
+.sitebar .sep{color:var(--line)}
+@media (max-width:480px){.sitebar .sep,.sitebar .home{display:none}}
 .sitebar nav{display:flex;gap:4px;overflow-x:auto}
 .sitebar nav a{color:var(--g700);text-decoration:none;font-weight:600;padding:2px 9px;border-radius:999px;white-space:nowrap}
 .sitebar nav a:hover{background:var(--g50)}
@@ -102,7 +107,7 @@ footer{margin-top:60px;border-top:1px solid var(--line);padding-top:16px;font-si
 </head>
 <body>
 <div class="sitebar"><div class="in">
-  <a class="home" href="index.html">생명과학의 세계</a>
+  <span class="crumb"><a class="meiro" href="/" title="meiro.kr 처음으로">MEIRO</a><span class="sep" aria-hidden="true">/</span><a class="home" href="index.html">생명과학의 세계</a></span>
   <nav aria-label="주차 바로가기">
     <a href="weeks/week02_cell_communication.html">2<span>주차</span></a>
     <a href="weeks/week03_genetic_variation.html">3<span>주차</span></a>
