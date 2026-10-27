@@ -1,0 +1,1069 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>9주차 나노입자와 생체재료</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --g900:#123d26; --g800:#14532d; --g700:#166534; --g600:#15803d; --g500:#22a05a;
+  --g200:#bbe5c8; --g100:#dcf3e3; --g50:#f2faf4;
+  --ink:#1c2420; --muted:#56635b; --line:#d6e2da; --bg:#fbfdfb; --card:#ffffff;
+  --sup-bg:#f6f9ec; --sup-line:#9bb35a; --sup-tag:#5b7a1e;
+  --warn:#9a3412; --na:#1d5fbf; --k:#b4232a;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Pretendard","Gothic A1",-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  font-size:16px;line-height:1.72;word-break:keep-all;}
+.wrap{max-width:920px;margin:0 auto;padding:0 20px 80px}
+header.hero{background:linear-gradient(135deg,var(--g800),var(--g600));color:#fff;padding:56px 20px 44px}
+header.hero .wrap{padding-bottom:0}
+.hero .kicker{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);
+  padding:3px 12px;border-radius:999px;font-size:13px;letter-spacing:.04em}
+.hero h1{font-size:34px;line-height:1.3;margin:14px 0 8px;font-weight:800}
+.hero p{margin:0;opacity:.9}
+.hero .meta{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px;font-size:13px}
+.hero .meta span{background:rgba(0,0,0,.18);padding:4px 10px;border-radius:6px}
+
+nav.toc{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--g600);
+  border-radius:10px;padding:18px 22px;margin:28px 0}
+nav.toc h2{margin:0 0 8px;font-size:17px;color:var(--g800)}
+nav.toc ol{margin:0;padding-left:20px}
+nav.toc li{margin:2px 0}
+nav.toc a{color:var(--ink);text-decoration:none}
+nav.toc a:hover{color:var(--g600);text-decoration:underline}
+nav.toc ol ol{list-style:none;padding-left:14px;font-size:14.5px;color:var(--muted)}
+nav.toc ol ol a{color:var(--muted)}
+
+.part{margin-top:56px}
+.part-head{display:flex;align-items:center;gap:12px;border-bottom:3px solid var(--g600);padding-bottom:8px}
+.part-head .no{background:var(--g700);color:#fff;font-weight:800;border-radius:8px;padding:4px 12px;font-size:14px}
+.part-head h2{margin:0;font-size:25px;color:var(--g900)}
+.part-sub{color:var(--muted);font-size:14px;margin:6px 0 0}
+
+section.topic{margin-top:38px}
+section.topic h3{font-size:20px;margin:0 0 10px;color:var(--g800);display:flex;align-items:baseline;gap:8px}
+section.topic h3 .num{color:var(--g500);font-weight:800;font-size:16px}
+section.topic h3 .en{font-size:13px;color:var(--muted);font-weight:500}
+h4{font-size:16.5px;margin:20px 0 6px;color:var(--g700)}
+ul.pt{margin:6px 0 10px;padding-left:20px}
+ul.pt li{margin:3px 0}
+ul.pt li::marker{color:var(--g600)}
+.eval{display:block;margin:10px 0;padding:8px 12px;background:var(--g50);border-left:3px solid var(--g500);
+  font-size:14.5px;color:#2d3d33}
+.eval::before{content:"정리 ▸ ";font-weight:700;color:var(--g700)}
+b.g, .hl{color:var(--g700);font-weight:700}
+.na{color:var(--na);font-weight:700}.k{color:var(--k);font-weight:700}
+.src{font-size:12.5px;color:var(--muted);margin-top:4px}
+
+.key{background:var(--card);border:1px solid var(--g200);border-radius:10px;padding:14px 18px;margin:14px 0;
+  box-shadow:0 1px 0 var(--g100)}
+.key .label{display:inline-block;font-size:12px;font-weight:800;color:#fff;background:var(--g600);
+  padding:2px 9px;border-radius:5px;margin-bottom:6px}
+
+.sup{background:var(--sup-bg);border:1.5px dashed var(--sup-line);border-radius:10px;padding:14px 18px 12px;margin:18px 0;position:relative}
+.sup .tag{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:800;color:#fff;
+  background:var(--sup-tag);padding:2px 10px;border-radius:5px}
+.sup .tag::before{content:"+";font-size:14px}
+.sup h5{margin:8px 0 4px;font-size:15.5px;color:#3b4f14}
+.sup p,.sup li{font-size:14.5px}
+.sup ul{padding-left:18px;margin:6px 0}
+.sup .why{font-size:13px;color:#5e6b45;margin-top:6px}
+
+.tbl{width:100%;overflow-x:auto;margin:12px 0}
+table{border-collapse:collapse;width:100%;font-size:14.5px;background:var(--card)}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+thead th{background:var(--g700);color:#fff;font-weight:700;white-space:nowrap}
+tbody tr:nth-child(even) td{background:var(--g50)}
+td.c,th.c{text-align:center}
+tr.sep td{border-top:3px solid var(--g600)}
+
+figure{margin:16px 0;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px}
+figure svg{width:100%;height:auto;display:block}
+figcaption{font-size:13px;color:var(--muted);margin-top:8px;text-align:center}
+
+.flow{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:12px 0}
+.flow span{background:var(--g50);border:1px solid var(--g200);border-radius:999px;padding:4px 12px;font-size:14px}
+.flow span.on{background:var(--g600);color:#fff;border-color:var(--g600);font-weight:700}
+.flow i{color:var(--g500);font-style:normal;font-weight:700}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:680px){.grid2{grid-template-columns:1fr}.hero h1{font-size:27px}}
+.mini{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px}
+.mini h4{margin-top:0}
+
+footer{margin-top:60px;border-top:1px solid var(--line);padding-top:16px;font-size:13px;color:var(--muted)}
+@media print{
+  header.hero{background:var(--g800)!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .sup,.key,figure,table{break-inside:avoid}
+  nav.toc{display:none}
+}
+
+.tl{position:relative;margin:14px 0 6px;padding-left:22px;border-left:3px solid var(--g200)}
+.tl .ev{position:relative;margin:0 0 12px}
+.tl .ev::before{content:"";position:absolute;left:-30px;top:6px;width:13px;height:13px;border-radius:50%;background:var(--g600);border:3px solid var(--g100)}
+.tl .yr{font-weight:800;color:var(--g700);margin-right:6px}
+.err{background:#fff6f2;border:1.5px solid #f0b9a5;border-radius:10px;padding:12px 18px;margin:16px 0}
+.err .tag{display:inline-block;font-size:12.5px;font-weight:800;color:#fff;background:var(--warn);padding:2px 10px;border-radius:5px}
+.err ul{padding-left:18px;margin:8px 0 2px}.err li{font-size:14.5px}
+code.seq{font-family:ui-monospace,Menlo,Consolas,monospace;background:var(--g50);padding:1px 5px;border-radius:4px;font-size:14px}
+</style>
+<style>
+.sitebar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line);font-size:14px}
+.sitebar .in{max-width:920px;margin:0 auto;padding:8px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.sitebar a{color:var(--g700);text-decoration:none;font-weight:700;white-space:nowrap}
+.sitebar a:hover{text-decoration:underline}
+.sitebar .wk{color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sitebar a.qz{flex:none;background:var(--g600);color:#fff;border-radius:999px;padding:2px 12px}
+.sitebar a.qz:hover{background:var(--g700);text-decoration:none}
+.pager{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:48px}
+.pager a{display:block;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px;
+  color:var(--ink);text-decoration:none}
+.pager a:hover{border-color:var(--g500)}
+.pager small{display:block;color:var(--muted);font-size:12.5px}
+.pager .next{text-align:right;grid-column:2}
+@media (max-width:680px){.pager{grid-template-columns:1fr}.pager .next{grid-column:1}}
+@media print{.sitebar,.pager{display:none}}
+</style>
+</head>
+<body>
+<div class="sitebar"><div class="in"><a href="../index.html">← 전체 교안 목록</a><span class="wk">9주차 · 나노입자와 생체재료</span><a class="qz" href="../quiz/index.html?w=09">문제 풀기 →</a></div></div>
+<header class="hero">
+  <div class="wrap">
+    <span class="kicker">생명과학의 세계 · 9주차</span>
+    <h1>나노입자는 어떻게 약물을 전달할까 · 생체재료는 어떻게 의료를 바꾸고 있을까</h1>
+    <p>약동학과 약물전달시스템 · 나노의약품과 EPR 효과 · 조직공학의 3요소와 생체재료 적용 사례</p>
+    <div class="meta">
+      <span>강미경 교수 (고려대 보건환경융합과학부)</span><span>01차시 나노입자는 어떻게 약물을 전달할까? (1)(2)</span><span>02차시 생체재료는 어떻게 의료를 바꾸고 있을까? (1)(2)</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+<nav class="toc">
+  <h2>목차</h2>
+  <ol>
+    <li><a href="#p1">나노입자는 어떻게 약물을 전달할까?</a>
+      <ol>
+        <li><a href="#t1-1">1-1 우리가 먹는 약은 어떻게 작용할까 – 약동학(ADME)</a></li>
+        <li><a href="#t1-2">1-2 약물전달시스템(DDS)과 투여 경로</a></li>
+        <li><a href="#t1-3">1-3 약물 방출 방식에 따른 혈중 농도</a></li>
+        <li><a href="#t1-4">1-4 코로나 mRNA 백신의 지질나노입자</a></li>
+        <li><a href="#t1-5">1-5 '나노'란 무엇인가</a></li>
+        <li><a href="#t1-6">1-6 나노기술의 응용과 나노의약품</a></li>
+        <li><a href="#t1-7">1-7 나노의약품의 특징 – 표적화와 반응성</a></li>
+        <li><a href="#t1-8">1-8 나노의약품의 종류</a></li>
+        <li><a href="#t1-9">1-9 실제 적용 사례 – Doxil, Abraxane, Genexol-PM, AmBisome</a></li>
+        <li><a href="#t1-10">1-10 나노의약품의 미래</a></li>
+      </ol>
+    </li>
+    <li><a href="#p2">생체재료는 어떻게 의료를 바꾸고 있을까?</a>
+      <ol>
+        <li><a href="#t2-1">2-1 손상된 조직·장기를 되살릴 수 있을까 – 장기이식의 한계</a></li>
+        <li><a href="#t2-2">2-2 조직공학과 재생의학</a></li>
+        <li><a href="#t2-3">2-3 조직공학의 3요소 – 세포와 생체 활성 신호</a></li>
+        <li><a href="#t2-4">2-4 조직공학의 3요소 – 지지체와 생체재료</a></li>
+        <li><a href="#t2-5">2-5 생체재료의 역사와 쓰이는 곳</a></li>
+        <li><a href="#t2-6">2-6 실제 적용 사례 – 피부</a></li>
+        <li><a href="#t2-7">2-7 실제 적용 사례 – 뼈·고정 장치·렌즈·심장판막</a></li>
+        <li><a href="#t2-8">2-8 생체재료의 미래</a></li>
+      </ol>
+    </li>
+    <li><a href="#p3">용어 정리와 교안 표기 확인</a></li>
+  </ol>
+</nav>
+
+<!-- ===================== PART 1 ===================== -->
+<div class="part" id="p1">
+  <div class="part-head"><span class="no">01차시</span><h2>나노입자는 어떻게 약물을 전달할까?</h2></div>
+  <p class="part-sub">학습목표: 나노입자의 기본 개념과 의의 이해 · 약물이 몸 안에서 운반·분포·작용하는 방식 이해 · 나노입자가 표적 부위에 약물을 전달하는 원리 · 임상에서 쓰이는 나노입자 사례 · 나노기술이 이끄는 의학의 미래</p>
+</div>
+
+<section class="topic" id="t1-1">
+  <h3><span class="num">1-1</span>우리가 먹는 약은 어떻게 작용할까 <span class="en">Pharmacokinetics</span></h3>
+  <p>교안 그림(NurseKey)은 먹는 캡슐 하나가 몸을 지나는 길을 따라감. 단계마다 약의 일부가 사라지고, <b>남은 일부만</b> 목표에 닿음.</p>
+  <div class="flow">
+    <span>캡슐 복용</span><i>→</i><span>위장관에서 녹음<br><small>일부는 분해되어 소실</small></span><i>→</i><span>장에서 흡수<br><small>일부는 분해·결합·배설</small></span><i>→</i><span>간 통과<br><small>일부는 담즙 분비·생체변환</small></span><i>→</i><span>전신 순환<br><small>일부는 혈장 단백질과 결합</small></span><i>→</i><span class="on">온몸에 분포 → 수용체에서 약효</span>
+  </div>
+
+  <h4>약동학 (Pharmacokinetics) – 몸이 약에게 하는 일</h4>
+  <figure>
+    <svg viewBox="0 0 720 185" role="img" aria-label="약동학 ADME 과정: 흡수, 분포, 대사, 배설">
+      <style>.a1{font:700 14px Pretendard,sans-serif;fill:#123d26}.a2{font:500 12px Pretendard,sans-serif;fill:#56635b}.a3{font:800 13px Pretendard,sans-serif;fill:#fff}</style>
+      <defs><marker id="ar1" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8z" fill="#15803d"/></marker></defs>
+      <rect x="20" y="80" width="110" height="50" rx="10" fill="#dcf3e3" stroke="#22a05a"/>
+      <text x="75" y="102" class="a1" text-anchor="middle">투여</text><text x="75" y="120" class="a2" text-anchor="middle">먹는 약 등</text>
+      <line x1="130" y1="105" x2="200" y2="105" stroke="#15803d" stroke-width="2.5" marker-end="url(#ar1)"/>
+      <text x="165" y="96" class="a1" text-anchor="middle">A</text><text x="165" y="125" class="a2" text-anchor="middle">흡수</text>
+      <rect x="205" y="70" width="130" height="70" rx="12" fill="#b4232a"/>
+      <text x="270" y="102" class="a3" text-anchor="middle">혈액</text><text x="270" y="122" class="a3" text-anchor="middle" style="font-weight:500;font-size:12px">Blood</text>
+      <line x1="270" y1="70" x2="270" y2="35" stroke="#15803d" stroke-width="2.5" marker-end="url(#ar1)"/>
+      <line x1="285" y1="35" x2="285" y2="68" stroke="#15803d" stroke-width="2.5" marker-end="url(#ar1)"/>
+      <rect x="215" y="8" width="110" height="26" rx="8" fill="#f2faf4" stroke="#bbe5c8"/>
+      <text x="270" y="26" class="a1" text-anchor="middle">D 분포 · 조직</text>
+      <line x1="335" y1="105" x2="420" y2="105" stroke="#15803d" stroke-width="2.5" marker-end="url(#ar1)"/>
+      <rect x="425" y="80" width="120" height="50" rx="10" fill="#dcf3e3" stroke="#22a05a"/>
+      <text x="485" y="102" class="a1" text-anchor="middle">M 대사</text><text x="485" y="120" class="a2" text-anchor="middle">주로 간</text>
+      <line x1="545" y1="105" x2="590" y2="105" stroke="#15803d" stroke-width="2.5" marker-end="url(#ar1)"/>
+      <rect x="595" y="80" width="110" height="50" rx="10" fill="#dcf3e3" stroke="#22a05a"/>
+      <text x="650" y="102" class="a1" text-anchor="middle">E 배설</text><text x="650" y="120" class="a2" text-anchor="middle">주로 콩팥</text>
+      <path d="M425,150 H705" stroke="#9bb35a" stroke-width="2" fill="none"/>
+      <text x="565" y="172" class="a2" text-anchor="middle">대사 + 배설 = 제거(Elimination)</text>
+    </svg>
+    <figcaption>교안 Pharmacokinetics Processes 그림(Pharmacy180)을 단순화. 혈액이 모든 단계를 잇는 통로임</figcaption>
+  </figure>
+  <div class="tbl"><table>
+    <thead><tr><th>단계</th><th>영문</th><th>일어나는 일</th></tr></thead>
+    <tbody>
+      <tr><td><b>흡수</b></td><td>Absorption</td><td>투여한 약이 혈액으로 들어감 (먹는 약은 위장관에서)</td></tr>
+      <tr><td><b>분포</b></td><td>Distribution</td><td>혈액을 타고 온몸의 조직으로 퍼짐</td></tr>
+      <tr><td><b>대사</b></td><td>Metabolism</td><td>주로 간에서 다른 물질로 바뀜(생체변환)</td></tr>
+      <tr><td><b>배설</b></td><td>Excretion</td><td>주로 콩팥을 거쳐 몸 밖으로 나감</td></tr>
+    </tbody>
+  </table></div>
+  <ul class="pt">
+    <li>대사와 배설을 합쳐 <b>제거(Elimination)</b>라고 함</li>
+    <li>약동학(pharmacokinetics) = <b>"몸이 약에게 하는 일(what the body does to the drug)"</b></li>
+  </ul>
+  <span class="eval">먹은 약이 그대로 목표에 다 닿지 않음. 흡수·분포·대사·배설을 거치며 줄어드는 양까지 계산해야 약효를 낼 수 있음 → 이 문제를 다루는 기술이 약물전달시스템(1-2)</span>
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>약동학과 약력학, 초회 통과 효과</h5>
+    <ul>
+      <li>약동학의 짝 개념은 <b>약력학(pharmacodynamics)</b> = "약이 몸에게 하는 일". 약이 수용체에 붙어 어떤 반응을 일으키는지를 다룸</li>
+      <li>먹는 약은 장에서 흡수된 뒤 전신 순환에 들어가기 전에 <b>간을 먼저 지남</b>(문맥 순환). 여기서 상당량이 대사되어 줄어드는 것을 <b>초회 통과 효과(first-pass effect)</b>라 함. 교안 그림의 "간에서 일부가 소실됨"이 이 단계임</li>
+      <li>정맥 주사는 흡수 단계 없이 곧바로 혈액에 들어가므로 이 손실이 없음 → 같은 약이라도 먹는 약과 주사의 용량이 다른 이유</li>
+    </ul>
+  </div>
+</section>
+
+<section class="topic" id="t1-2">
+  <h3><span class="num">1-2</span>약물전달시스템과 투여 경로 <span class="en">Drug Delivery System, DDS</span></h3>
+  <div class="key"><span class="label">정의</span><br>약물전달시스템(DDS) = <b>필요한 양의 약물</b>이 우리 몸의 <b>목표 부위</b>에 <b>효율적으로</b> 전달될 수 있도록 <b>약물 제형을 설계하는 기술</b></div>
+  <div class="tbl"><table>
+    <thead><tr><th>구분</th><th>특징</th><th>약물 제형</th></tr></thead>
+    <tbody>
+      <tr><td><b>경구투여형</b> (먹는 약)</td><td>가장 일반적인 투여 경로. 시장에서 차지하는 비중이 가장 높음</td><td>알약, 물약, 가루약</td></tr>
+      <tr><td><b>경피투여형</b> (바르거나 붙이는 약)</td><td>피부에 바르거나 붙임. 사용이 간편하고 <b>장시간 연속 투여</b>가 가능</td><td>패치, 연고, 크림</td></tr>
+      <tr><td><b>주사형</b> (주입형)</td><td><b>정확한 용량</b> 투여 가능. 다만 통증 때문에 <b>환자 순응도가 낮음</b></td><td>주사</td></tr>
+      <tr><td><b>폐흡입형</b></td><td>폐·기관지 등 국소 부위에 약물을 직접 노출시켜 빠른 효과. 주로 호흡기 질환 치료</td><td>흡입기</td></tr>
+      <tr><td><b>점막투여형</b> (눈, 점막 등)</td><td>혈관과 림프관이 분포한 점막에 직접 투여 → <b>빠른 약물 흡수</b></td><td>안점막용, 비점막용, 구강점막용</td></tr>
+    </tbody>
+  </table></div>
+  <p class="src">환자 순응도(compliance) = 환자가 처방대로 약을 꾸준히 쓰는 정도. 아프거나 번거로운 투여법일수록 낮아짐</p>
+  <p>교안 영상: "몸속 여행 – 흡수부터 배설까지" (DRUG METABOLISM and Excretion Animation, Vivek Sharma)</p>
+</section>
+
+<section class="topic" id="t1-3">
+  <h3><span class="num">1-3</span>약물 방출 방식에 따른 혈중 농도 <span class="en">Conventional vs Controlled release</span></h3>
+  <figure>
+    <svg viewBox="0 0 720 270" role="img" aria-label="일반 반복 투여와 조절 방출의 혈중 약물 농도 비교 그래프">
+      <style>.c1{font:700 12px Pretendard,sans-serif;fill:#123d26}.c2{font:500 11.5px Pretendard,sans-serif;fill:#56635b}</style>
+      <g transform="translate(70,20)">
+        <rect x="0" y="60" width="560" height="80" fill="#dcf3e3"/>
+        <line x1="0" y1="60" x2="560" y2="60" stroke="#22a05a" stroke-dasharray="5 4"/>
+        <line x1="0" y1="140" x2="560" y2="140" stroke="#22a05a" stroke-dasharray="5 4"/>
+        <text x="565" y="64" class="c2">최대 허용 농도</text>
+        <text x="565" y="144" class="c2">최소 유효 농도</text>
+        <text x="565" y="104" class="c1" style="fill:#166534">치료 범위</text>
+        <line x1="0" y1="220" x2="570" y2="220" stroke="#56635b"/><line x1="0" y1="220" x2="0" y2="0" stroke="#56635b"/>
+        <text x="285" y="245" class="c2" text-anchor="middle">시간</text>
+        <text x="-40" y="110" class="c2" text-anchor="middle" transform="rotate(-90 -40 110)">혈중 약물 농도</text>
+        <path d="M0,220 C25,60 40,40 55,50 C75,70 95,160 130,170 C150,60 165,40 180,50 C200,70 220,160 255,170 C275,60 290,40 305,50 C325,70 345,160 380,170 C400,60 415,40 430,50 C450,70 470,160 520,180"
+              fill="none" stroke="#1d5fbf" stroke-width="2.5" stroke-dasharray="7 5"/>
+        <path d="M0,220 C12,120 30,100 70,98 L560,98" fill="none" stroke="#b4232a" stroke-width="3"/>
+        <line x1="70" y1="6" x2="100" y2="6" stroke="#1d5fbf" stroke-width="2.5" stroke-dasharray="7 5"/>
+        <text x="106" y="10" class="c1" style="fill:#1d5fbf">일반 제형 반복 투여 – 오르내림 반복</text>
+        <line x1="330" y1="6" x2="360" y2="6" stroke="#b4232a" stroke-width="3"/>
+        <text x="366" y="10" class="c1" style="fill:#b4232a">조절 방출 – 범위 안에서 유지</text>
+      </g>
+    </svg>
+    <figcaption>교안 그래프(Springer, Controlled release)를 단순화해 다시 그림</figcaption>
+  </figure>
+  <div class="grid2">
+    <div class="mini">
+      <h4>일반 제형을 반복 투여하면</h4>
+      <ul class="pt">
+        <li>혈중 농도가 <b>올랐다 떨어지기를 반복</b></li>
+        <li>최소 유효 농도에 못 미치면 → 치료 효과 감소</li>
+        <li>최대 허용 농도를 넘으면 → <b>부작용</b> 발생 가능</li>
+      </ul>
+    </div>
+    <div class="mini">
+      <h4>조절 방출 제형을 쓰면</h4>
+      <ul class="pt">
+        <li>투여 후 <b>일정한 속도로 방출</b>됨</li>
+        <li>치료 범위에 도달한 뒤 <b>안정적으로 유지</b>됨</li>
+      </ul>
+    </div>
+  </div>
+  <span class="eval">약물 농도가 치료 범위 안에서 오래 유지될수록 약효는 충분하면서 부작용 위험은 낮아짐 → 약물전달시스템이 '방출 속도'까지 설계하는 이유</span>
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>생활 속 조절 방출 제형</h5>
+    <ul>
+      <li>약 이름 뒤의 <b>SR·ER·CR</b>(서방형, sustained/extended/controlled release) 표기가 조절 방출 제형임. 하루 여러 번 먹던 약을 한 번으로 줄일 수 있음</li>
+      <li>금연 보조 <b>니코틴 패치</b>, 피임용 피하 이식제처럼 수일~수년간 일정하게 방출하는 제형도 있음 (1-2의 경피투여형과 연결)</li>
+      <li>서방정을 쪼개거나 씹으면 한꺼번에 방출되어 위험할 수 있어, 복약 안내에서 따로 주의를 줌</li>
+    </ul>
+  </div>
+</section>
+
+<section class="topic" id="t1-4">
+  <h3><span class="num">1-4</span>코로나 mRNA 백신의 지질나노입자 <span class="en">RNA lipid nanoparticle</span></h3>
+  <p>RNA 지질나노입자 = 여러 성분이 서로 다른 역할을 수행하도록 <b>정교하게 설계된 전달체</b>. mRNA와 지질을 섞으면 약 <b>100 nm</b> 크기의 입자가 됨.</p>
+  <figure>
+    <svg viewBox="0 0 720 255" role="img" aria-label="RNA 지질나노입자의 구성 성분">
+      <style>.l1{font:700 13px Pretendard,sans-serif;fill:#123d26}.l2{font:500 11.5px Pretendard,sans-serif;fill:#56635b}</style>
+      <g font-family="Pretendard">
+        <circle cx="40" cy="40" r="9" fill="#3b82f6"/><text x="60" y="44" class="l1">인지질</text><text x="120" y="44" class="l2">구조적 안정성</text>
+        <circle cx="40" cy="80" r="9" fill="#e85d75"/><text x="60" y="84" class="l1">이온화지질</text><text x="140" y="84" class="l2">mRNA 포획 · 세포질 방출</text>
+        <ellipse cx="40" cy="120" rx="6" ry="11" fill="#f2b33d"/><text x="60" y="124" class="l1">콜레스테롤</text><text x="140" y="124" class="l2">입자를 단단하게 지지</text>
+        <circle cx="40" cy="160" r="9" fill="#8b5cf6"/><text x="60" y="164" class="l1">폴리에틸렌글라이콜(PEG)</text><text x="60" y="182" class="l2">입자 표면을 덮는 성분 (8주차 PEG-지질)</text>
+      </g>
+      <g transform="translate(470,112)">
+        <circle r="92" fill="#fde7ec" stroke="#e85d75" stroke-width="10" stroke-dasharray="3 3"/>
+        <circle r="72" fill="#f9f6d6"/>
+        <path d="M-40,-20 c10,-15 25,15 35,0 s25,15 35,0" stroke="#1d5fbf" stroke-width="3" fill="none"/>
+        <path d="M-35,25 c10,-15 25,15 35,0 s25,15 35,0" stroke="#1d5fbf" stroke-width="3" fill="none"/>
+        <ellipse cx="-45" cy="-45" rx="5" ry="9" fill="#f2b33d"/><ellipse cx="40" cy="-48" rx="5" ry="9" fill="#f2b33d"/><ellipse cx="50" cy="45" rx="5" ry="9" fill="#f2b33d"/>
+        <text x="96" y="-70" class="l2">mRNA</text>
+        <line x1="-92" y1="110" x2="92" y2="110" stroke="#b4232a" stroke-width="2"/>
+        <text x="0" y="130" class="l1" text-anchor="middle" style="fill:#b4232a">약 100 nm</text>
+      </g>
+    </svg>
+    <figcaption>교안 그림(기초과학연구원)을 단순화해 다시 그림</figcaption>
+  </figure>
+  <div class="tbl"><table>
+    <thead><tr><th>성분</th><th>역할 (교안)</th></tr></thead>
+    <tbody>
+      <tr><td><b>이온화지질</b></td><td>mRNA와 결합해 안정적으로 포획 · 세포막 및 엔도좀 막과 상호작용 · <b>mRNA가 세포질로 방출되도록 돕는 핵심 성분</b></td></tr>
+      <tr><td><b>인지질과 콜레스테롤</b></td><td>나노입자의 <b>구조적 안정성</b> 증가 · 혈액 속에서 입자가 쉽게 무너지지 않도록 지지</td></tr>
+      <tr><td><b>크기 약 100 nm</b></td><td>세포가 흡수하기에 <b>적절한 크기</b></td></tr>
+    </tbody>
+  </table></div>
+
+  <h4>코로나 mRNA 백신의 작동 원리 (4단계)</h4>
+  <div class="flow">
+    <span>STEP 1<br>지질나노입자가 mRNA를 싸서 근육에 주사</span><i>→</i><span>STEP 2<br>세포 흡수 → 엔도좀으로 이동</span><i>→</i><span>STEP 3<br>엔도좀을 빠져나와 세포질로 mRNA 방출</span><i>→</i><span class="on">STEP 4<br>스파이크 단백질 생성 → 면역 반응, mRNA는 분해·대사</span>
+  </div>
+  <ul class="pt">
+    <li>세포가 만든 스파이크 단백질 조각을 항원제시세포가 T 면역세포에 제시 → B세포 활성화 → 항체 생성 (후천성 면역). 세포 표면의 스파이크 단백질은 선천성 면역 반응도 일으킴 (교안 그림)</li>
+  </ul>
+  <div class="grid2">
+    <div class="mini">
+      <h4>전달 시스템의 한계</h4>
+      <ul class="pt">
+        <li>특정 세포만을 <b>선택적으로 겨냥하지 못함</b></li>
+        <li>주사 부위 주변의 다양한 세포에 <b>비선택적으로</b> 전달됨</li>
+      </ul>
+    </div>
+    <div class="mini">
+      <h4>부작용 발생 가능성</h4>
+      <ul class="pt">
+        <li>의도하지 않은 일부 세포에서도 mRNA가 발현될 수 있음</li>
+        <li>염증 반응, 발열, 근육통, 피로감 등 전신 반응 가능</li>
+      </ul>
+    </div>
+  </div>
+
+  <h4>두통약이 온몸에 퍼지는 대신 머리에만 효과를 내면 좋지 않을까?</h4>
+  <figure>
+    <svg viewBox="0 0 720 200" role="img" aria-label="표적 전달: 다른 조직으로 새는 약은 적고 표적에 많이 쌓임">
+      <style>.e1{font:700 13px Pretendard,sans-serif;fill:#123d26}.e2{font:500 11.5px Pretendard,sans-serif;fill:#56635b}</style>
+      <path d="M20,110 C200,90 450,130 700,105 L700,150 C450,175 200,135 20,155z" fill="#fde7ec" stroke="#e8a0ad"/>
+      <text x="40" y="190" class="e2">혈관</text>
+      <g fill="#b4232a"><circle cx="80" cy="132" r="7"/><circle cx="130" cy="128" r="7"/><circle cx="180" cy="135" r="7"/><circle cx="240" cy="130" r="7"/><circle cx="300" cy="136" r="7"/><circle cx="360" cy="138" r="7"/><circle cx="420" cy="140" r="7"/><circle cx="470" cy="138" r="7"/></g>
+      <ellipse cx="200" cy="45" rx="95" ry="32" fill="#dbeafe" stroke="#1d5fbf"/>
+      <text x="200" y="42" class="e1" text-anchor="middle">다른 조직</text><text x="200" y="60" class="e2" text-anchor="middle">새어 나가는 약은 적게</text>
+      <path d="M210,112 L210,80" stroke="#1d5fbf" stroke-dasharray="4 4"/>
+      <ellipse cx="560" cy="48" rx="110" ry="38" fill="#e5f3c9" stroke="#5b7a1e"/>
+      <g fill="#b4232a"><circle cx="520" cy="40" r="6"/><circle cx="545" cy="58" r="6"/><circle cx="575" cy="35" r="6"/><circle cx="600" cy="55" r="6"/><circle cx="625" cy="42" r="6"/><circle cx="560" cy="25" r="6"/></g>
+      <text x="560" y="98" class="e1" text-anchor="middle" style="fill:#3b4f14">표적 – 약이 많이 쌓임</text>
+    </svg>
+    <figcaption>교안 그림(Li 외, 2019)을 단순화. 전달체는 약을 많이·안정하게 싣고, 가는 길에 덜 새고, 표적에 많이 쌓이게 하는 것이 목표</figcaption>
+  </figure>
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>8주차 (4)강과 같은 입자</h5>
+    <ul>
+      <li>이 지질나노입자(LNP)는 8주차에서 자세히 다룬 것과 같은 전달체임. 8주차 표기로는 <b>이온화 지질 · 구조 지질(인지질, DSPC 등) · 콜레스테롤 · PEG-지질</b>의 네 성분</li>
+      <li>교안이 이름만 적은 폴리에틸렌글라이콜(PEG)은 입자 표면을 덮어 입자끼리 뭉치지 않게 하고 크기와 혈중 순환 시간을 조절함 (8주차 4-3)</li>
+      <li>8주차의 한계 설명과도 같음: 근육에 주사한 LNP는 주변 여러 세포와 일부 간으로 퍼짐 → 01차시 (2)의 <b>표적화</b>가 이 한계를 풀려는 방향임</li>
+    </ul>
+  </div>
+  <div class="key"><span class="label">01차시 (1) 학습정리</span>
+    <ul class="pt">
+      <li>약은 약동학 과정에 따라 위장관, 간, 전신 순환을 지나며 흡수·대사·배설됨</li>
+      <li>약물전달시스템(DDS)은 적절한 양의 약물을 특정 목표 부위에 효율적으로 전달하도록 약물 제형을 설계하는 기술임</li>
+    </ul>
+  </div>
+</section>
+
+<section class="topic" id="t1-5">
+  <h3><span class="num">1-5</span>'나노'란 무엇인가 <span class="en">What does "Nano" mean?</span></h3>
+  <ul class="pt">
+    <li>고대 그리스어로 <b>'난쟁이'</b>를 뜻하는 <b>나노스(nanos)</b>에서 유래</li>
+    <li>나노미터(nm) = <b>10⁻⁹ m</b> (10억분의 1 m). 모래알의 100만분의 1, 머리카락 굵기의 10만분의 1 수준</li>
+    <li>교안 그림의 비유: 나노 크기 분자를 <b>10⁸배</b> 키우면 사과 크기, 사과를 다시 10⁸배 키우면 지구 크기 → 나노입자와 사과의 크기 차이 ≈ 사과와 지구의 크기 차이</li>
+  </ul>
+  <figure>
+    <svg viewBox="0 0 720 150" role="img" aria-label="크기 비교 눈금: 물 분자에서 수박까지">
+      <style>.s1{font:700 12px Pretendard,sans-serif;fill:#123d26}.s2{font:500 11px Pretendard,sans-serif;fill:#56635b}</style>
+      <defs><linearGradient id="sg" x1="0" x2="1"><stop offset="0" stop-color="#b4232a"/><stop offset=".35" stop-color="#f2b33d"/><stop offset=".65" stop-color="#bbe5c8"/><stop offset="1" stop-color="#3b82f6"/></linearGradient></defs>
+      <rect x="30" y="70" width="660" height="12" rx="6" fill="url(#sg)"/>
+      <rect x="30" y="64" width="190" height="24" rx="6" fill="none" stroke="#123d26" stroke-width="2" stroke-dasharray="4 3"/>
+      <text x="125" y="104" class="s1" text-anchor="middle">나노물질 영역</text>
+      <g class="s2" text-anchor="middle">
+        <text x="30" y="60">10⁻¹⁰ m</text><text x="140" y="60">10⁻⁸ m</text><text x="250" y="60">10⁻⁶ m</text><text x="360" y="60">10⁻⁴ m</text><text x="470" y="60">10⁻² m</text><text x="580" y="60">10⁰ m</text>
+      </g>
+      <g class="s2" text-anchor="middle">
+        <text x="30" y="16" text-anchor="start">물 분자 0.1 nm · 벤젠 0.5 nm</text>
+        <text x="110" y="34" text-anchor="start">탄소나노튜브 지름 5 nm · 금 나노입자 10 nm</text>
+        <text x="250" y="130">적혈구 5 µm</text><text x="360" y="130">머리카락 100 µm</text>
+        <text x="470" y="130">마침표 1 mm · 동전 1 cm</text><text x="560" y="130">수박 10 cm</text>
+      </g>
+    </svg>
+    <figcaption>교안 크기 비교 그림(chembam)을 다시 그림. 10⁻⁹~10⁻⁷ m 구간이 나노물질(nanomaterials)</figcaption>
+  </figure>
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>왜 하필 나노 크기인가</h5>
+    <ul>
+      <li>흔히 1~100 nm 범위를 나노 크기로 부름. 바이러스(수십~수백 nm), 단백질(수 nm)과 비슷한 크기라 <b>세포와 직접 상호작용</b>하기 좋음</li>
+      <li>같은 물질도 나노 크기가 되면 부피에 비해 <b>표면적이 매우 커져</b> 녹는 정도·반응성·광학적 성질이 달라짐 (예: 금 나노입자는 크기에 따라 붉은색~보라색을 띰)</li>
+      <li>1-4의 LNP 약 100 nm, Doxil 약 80~90 nm처럼 약물 전달용 입자도 대부분 이 범위에 있음</li>
+    </ul>
+  </div>
+</section>
+
+<section class="topic" id="t1-6">
+  <h3><span class="num">1-6</span>나노기술의 응용과 나노의약품 <span class="en">Nanotechnology · Nanomedicine</span></h3>
+  <p>교안 그림(한승엽, BRIC 2022)은 가운데 '나노공학'을 세 영역이 둘러싼 원으로 정리함.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>영역</th><th>나노기술이 쓰이는 예</th></tr></thead>
+    <tbody>
+      <tr><td><b>영상 진단</b></td><td>초음파, 컴퓨터 단층 촬영(CT), 단일 광자 방출 컴퓨터 단층 촬영(SPECT), 양전자 방출 단층 촬영(PET), 자기 공명 영상(MRI)</td></tr>
+      <tr><td><b>약물 전달</b></td><td>열·온도·빛에 반응하는 제제, 화학적 활성의 표적화, 약물의 방출량과 시기 조절, 반감기 및 체내 잔류 조절, 치료 약물 흡수 조절</td></tr>
+      <tr><td><b>치료</b></td><td>항체·항원 반응, 유전자 치료, 동위원소 치료, 나노로봇, 바이오마커</td></tr>
+    </tbody>
+  </table></div>
+  <h4>나노의약품 (Nanomedicine)</h4>
+  <div class="key"><span class="label">정의</span><br>여러 나노 기술 기반의 전달 기술로 체내에 전달되는, <b>진단 기능과 치료 기능이 함께 포함된 약물</b>. 제제는 <b>질병 세포 특이적인 표적(바이오마커)</b>을 인식해 질병 세포에만 특이적으로 결합함</div>
+  <figure>
+    <svg viewBox="0 0 720 190" role="img" aria-label="나노의약품이 바이오마커를 인식해 질병 세포에만 결합하는 모식도">
+      <style>.n1{font:700 13px Pretendard,sans-serif}.n2{font:500 11.5px Pretendard,sans-serif;fill:#56635b}</style>
+      <rect x="40" y="70" width="110" height="110" rx="14" fill="#123d26"/><text x="95" y="130" class="n1" fill="#fff" text-anchor="middle">정상 세포</text>
+      <path d="M260,80 l20,-12 l12,18 l22,-6 l-2,24 l22,10 l-18,16 l14,20 l-24,2 l-4,24 l-20,-14 l-20,14 l-4,-24 l-24,-2 l14,-20 l-18,-16 l22,-10 l-2,-24 l22,6z" fill="#f4a3ad" stroke="#b4232a"/>
+      <text x="282" y="128" class="n1" fill="#7f1d1d" text-anchor="middle">질병 세포</text><text x="282" y="146" class="n2" text-anchor="middle">(또는 암세포)</text>
+      <rect x="420" y="70" width="110" height="110" rx="14" fill="#123d26"/><text x="475" y="130" class="n1" fill="#fff" text-anchor="middle">정상 세포</text>
+      <path d="M262,70 l20,-10 l20,10" stroke="#b4232a" stroke-width="3" fill="none"/>
+      <text x="252" y="58" class="n2" text-anchor="end">표적(바이오마커) →</text>
+      <g transform="translate(600,40)">
+        <rect x="-60" y="0" width="120" height="130" rx="14" fill="#fff" stroke="#22a05a" stroke-width="5"/>
+        <text x="0" y="28" class="n1" fill="#14532d" text-anchor="middle">인식 부위</text>
+        <rect x="-45" y="40" width="90" height="26" rx="13" fill="#b4232a"/><text x="0" y="58" class="n1" fill="#fff" text-anchor="middle">진단 시약</text>
+        <rect x="-45" y="74" width="90" height="26" rx="13" fill="#1d5fbf"/><text x="0" y="92" class="n1" fill="#fff" text-anchor="middle">치료제</text>
+        <text x="0" y="120" class="n2" text-anchor="middle">전달 기술</text>
+      </g>
+      <path d="M540,60 C440,15 340,20 296,58" stroke="#22a05a" stroke-width="3" fill="none" stroke-dasharray="6 4"/>
+    </svg>
+    <figcaption>교안 그림(한승엽, BRIC 2022)을 다시 그림. 인식 부위가 질병 세포의 바이오마커에만 붙음</figcaption>
+  </figure>
+  <ul class="pt">
+    <li>교안 예(Biotimes): <b>다공성 실리콘 기반 나노·약물 복합체</b>로 뇌종양·폐암·췌장암을 각각 겨냥하는 표적 약물 전달체</li>
+  </ul>
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>치료진단(theranostics)과 바이오마커</h5>
+    <ul>
+      <li>진단(diagnosis)과 치료(therapy)를 한 입자에 담는 개념을 <b>치료진단(테라노스틱스)</b>이라 함. 교안 출처 논문 제목 "치료 진단학의 개념과 연구 동향"이 이 말임</li>
+      <li><b>바이오마커</b> = 질병 상태를 알려 주는 몸 안의 표지 물질. 4주차의 HER2(유방암 일부에서 과발현)처럼 암세포 표면에 특히 많은 수용체가 대표적 표적임</li>
+    </ul>
+  </div>
+</section>
+
+<section class="topic" id="t1-7">
+  <h3><span class="num">1-7</span>나노의약품의 특징 – 표적화와 반응성 <span class="en">Key characteristics of nanomedicines</span></h3>
+  <p>교안 그림(Springer)은 나노입자를 설계할 때 조절하는 성질을 네 갈래로 나눔.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>갈래</th><th>조절하는 것</th></tr></thead>
+    <tbody>
+      <tr><td><b>구조 (Architecture)</b></td><td>크기, 모양, 표면 전하</td></tr>
+      <tr><td><b>표면·재료 성질</b></td><td>PEG 코팅(PEGylation), 세포막 코팅, 밀도와 단단함</td></tr>
+      <tr><td><b>표적화 (Targeting)</b></td><td>탄수화물(포도당·갈락토스·만노스·덱스트란), 자기 펩타이드, 항체, 세포 표면 수용체, 비타민(비타민 D, 엽산), 앱타머(펩타이드)</td></tr>
+      <tr><td><b>반응성 (Responsiveness)</b></td><td>몸 안의 자극: 산성·저산소 환경, 효소 농도, 대사 변화 / 몸 밖의 자극: 빛, 소리(초음파), 물리적·자기적 힘</td></tr>
+    </tbody>
+  </table></div>
+  <h4>여러 기능을 한 입자에 – 다기능 리포솜</h4>
+  <ul class="pt">
+    <li><b>환경에 반응하는 지방산</b>(pH, 열, 빛)을 써서 특정 환경에서만 약물을 방출</li>
+    <li><b>콜레스테롤 양을 조절</b>해 리포솜의 안정성을 조절</li>
+    <li><b>방사성 물질 또는 금과 결합된 지방산</b>으로 영상 진단</li>
+    <li>안쪽에는 진단 시약과 치료제를 함께 실음</li>
+  </ul>
+  <h4>암 줄기세포의 능동 표적화 (Active targeting)</h4>
+  <ul class="pt">
+    <li>나노입자 표면에 <b>연결 사슬(linker chain)</b>로 <b>표적 부위(targeting moiety)</b>를 달고, 안에 항암제(chemotherapeutic)를 실음</li>
+    <li>표적 부위가 <b>암 줄기세포(CSC) 표지 물질</b>에 붙어, 종양 속에서도 재발의 근원인 암 줄기세포를 골라 공격함</li>
+  </ul>
+  <h4>나노입자가 약물 전달에 주는 이점 (교안 Wathoni 외, 2024 그림)</h4>
+  <ul class="pt">
+    <li>입자 크기를 줄여 <b>물에 녹는 정도와 흡수율</b>을 높임</li>
+    <li>전달되는 동안 약물이 <b>분해되지 않도록 보호</b>함</li>
+    <li>표적(교안 예: 세균 세포벽)으로 약물을 <b>선택적으로 이끎</b> – 키토산과 세균 표면 테이코산 사이의 이온 상호작용</li>
+    <li>약물을 <b>천천히 지속적으로 방출</b>해 오래 작용하게 함 (1-3과 연결)</li>
+  </ul>
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>수동 표적화와 능동 표적화</h5>
+    <ul>
+      <li><b>수동 표적화</b>: 입자의 크기·표면 성질만으로 특정 조직에 더 쌓이게 하는 것. 대표가 1-9의 <b>EPR 효과</b></li>
+      <li><b>능동 표적화</b>: 항체·리간드처럼 표적에 특이적으로 붙는 분자를 입자 표면에 달아 적극적으로 찾아가게 하는 것. 위의 암 줄기세포 예가 이 경우</li>
+      <li>PEG 코팅은 면역계(대식세포)가 입자를 이물질로 알아보고 먹어 치우는 것을 줄여 <b>혈중에 오래 머물게</b> 함 → 그래야 표적에 닿을 기회가 생김</li>
+    </ul>
+  </div>
+</section>
+
+<section class="topic" id="t1-8">
+  <h3><span class="num">1-8</span>나노의약품의 종류 <span class="en">Types of nanomedicines</span></h3>
+  <p>교안 원형 그림(ScienceDirect)은 금속 나노입자, 지질 나노입자, 고분자 나노입자, 엑소좀·세포외소포 등 여러 무리를 특성(생체적합성, 표면 개질, 표적성, 약물 탑재량, 조절 방출 등)과 함께 보여 줌.</p>
+  <figure>
+    <svg viewBox="0 0 720 220" role="img" aria-label="리포좀과 고분자 미셀의 구조 비교">
+      <style>.m1{font:700 13px Pretendard,sans-serif;fill:#123d26}.m2{font:500 11.5px Pretendard,sans-serif;fill:#56635b}</style>
+      <g transform="translate(180,105)">
+        <circle r="78" fill="none" stroke="#3b82f6" stroke-width="12" stroke-dasharray="4 3"/>
+        <circle r="60" fill="none" stroke="#3b82f6" stroke-width="12" stroke-dasharray="4 3"/>
+        <circle r="66" fill="none" stroke="#f2b33d" stroke-width="5"/>
+        <circle r="48" fill="#dbeafe"/>
+        <g fill="#1d5fbf"><circle cx="-14" cy="-10" r="6"/><circle cx="12" cy="8" r="6"/><circle cx="-4" cy="20" r="6"/></g>
+        <g fill="#b4232a"><rect x="60" y="-6" width="12" height="12"/><rect x="-72" y="-4" width="12" height="12"/></g>
+        <text x="0" y="-92" class="m1" text-anchor="middle">리포좀 (Liposome)</text>
+        <text x="0" y="112" class="m2" text-anchor="middle"><tspan fill="#b4232a">■</tspan> 소수성 약물: 이중층 안 · <tspan fill="#1d5fbf">●</tspan> 친수성 약물: 안쪽 물 공간</text>
+      </g>
+      <g transform="translate(540,105)">
+        <circle r="34" fill="#f4a3ad"/>
+        <g fill="#b4232a"><circle cx="-10" cy="-6" r="6"/><circle cx="10" cy="6" r="6"/><circle cx="2" cy="-14" r="5"/></g>
+        <g stroke="#1d5fbf" stroke-width="3" fill="none">
+          <path d="M0,-34 q8,-18 0,-40"/><path d="M24,-24 q20,-8 30,-34"/><path d="M34,0 q18,6 40,0"/><path d="M24,24 q20,8 30,34"/><path d="M0,34 q-8,18 0,40"/><path d="M-24,24 q-20,8 -30,34"/><path d="M-34,0 q-18,-6 -40,0"/><path d="M-24,-24 q-20,-8 -30,-34"/>
+        </g>
+        <text x="0" y="-92" class="m1" text-anchor="middle">고분자 미셀 (Polymeric micelle)</text>
+        <text x="0" y="112" class="m2" text-anchor="middle">바깥 친수성 사슬 · 안쪽 소수성 핵에 소수성 약물</text>
+      </g>
+    </svg>
+    <figcaption>교안 그림(Wikipedia, ResearchGate, Springer)을 단순화해 다시 그림</figcaption>
+  </figure>
+  <div class="tbl"><table>
+    <thead><tr><th>종류</th><th>구조</th><th>특징</th></tr></thead>
+    <tbody>
+      <tr><td><b>리포좀</b><br>(Liposome)</td><td><b>인지질 이중층</b>으로 된 속 빈 공</td><td>친수성 약물은 안쪽 물 공간에, 소수성 약물은 이중층 사이에 실음 (2주차 2-1의 리포솜)</td></tr>
+      <tr><td><b>고분자 미셀</b><br>(Polymeric micelle)</td><td>주로 <b>친수성 고분자와 소수성 고분자</b>가 이어진 양친매성 고분자가 모여 만든 공 (교안: 약 10~200 nm)</td><td>임계 미셀 농도(CMC) 이상에서 저절로 모임. 소수성 핵에 소수성 약물을 실음 (빈 미셀 → 약물 탑재 미셀)</td></tr>
+      <tr><td><b>덴드리머</b><br>(Dendrimer)</td><td>중심(core)에서 <b>가지 형태로 일정한 단위 구조가 반복적으로</b> 뻗어 나오는 고분자 (예: PAMAM 덴드리머)</td><td>가지가 한 단계씩 늘 때마다 세대(G1, G2, G3…)가 올라감. 약물을 안쪽 빈 공간에 가두거나 표면에 화학적으로 붙임</td></tr>
+      <tr><td><b>바이러스 유사 나노입자</b><br>(VLP)</td><td>바이러스의 껍질(캡시드)·지질막·항원 당단백질만 있는 입자</td><td>유전체가 없어 감염력은 없음</td></tr>
+      <tr><td><b>메조다공성 실리카 나노입자</b><br>(MSN)</td><td>계면활성제 틀을 제거해 <b>작은 구멍이 규칙적으로</b> 뚫린 실리카 입자</td><td>구멍 속에 약물을 많이 실을 수 있음</td></tr>
+      <tr><td><b>탄소나노튜브</b><br>(Carbon nanotube)</td><td>그래핀 한 장을 <b>말아 만든 관</b></td><td>지름 수 nm의 원통 구조</td></tr>
+    </tbody>
+  </table></div>
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>임계 미셀 농도(CMC)</h5>
+    <ul>
+      <li>양친매성 분자는 농도가 낮을 때는 낱개로 흩어져 있다가, 어느 농도(CMC)를 넘으면 소수성 부분끼리 모여 미셀을 만듦 (교안 그림의 "&gt;CMC / &lt;CMC" 화살표)</li>
+      <li>주사 후 혈액에 희석되어 농도가 CMC 아래로 떨어지면 미셀이 풀릴 수 있어, CMC가 낮은 고분자일수록 몸 안에서 안정함</li>
+    </ul>
+  </div>
+</section>
+
+<section class="topic" id="t1-9">
+  <h3><span class="num">1-9</span>실제 적용 사례 <span class="en">Clinical and real-world applications</span></h3>
+  <h4>나노의약품 연대기 (교안 Nature Reviews Cancer 그림에서 주요 항목)</h4>
+  <div class="tl">
+    <div class="ev"><span class="yr">1964</span>리포좀 구조 발표</div>
+    <div class="ev"><span class="yr">1976</span>이온성 분자·거대분자를 위한 최초의 조절 방출 고분자 시스템</div>
+    <div class="ev"><span class="yr">1980</span>최초의 표적 리포좀</div>
+    <div class="ev"><span class="yr">1986</span><b>EPR 효과</b> 발견</div>
+    <div class="ev"><span class="yr">1994</span>혈중에 오래 머무는 PLGA-PEG 나노입자</div>
+    <div class="ev"><span class="yr">1995</span><b>리포좀 독소루비신(Doxil)</b> FDA 승인</div>
+    <div class="ev"><span class="yr">2005</span><b>나브-파클리탁셀(Abraxane)</b> FDA 승인</div>
+    <div class="ev"><span class="yr">2007</span><b>고분자 미셀 파클리탁셀(Genexol-PM)</b> 한국 출시</div>
+    <div class="ev"><span class="yr">2008</span>최초의 표적 siRNA 고분자 나노입자(CALAA-01) 임상시험 진입</div>
+    <div class="ev"><span class="yr">2010</span>산화철 나노입자(NanoTherm) 유럽 승인 · 이후 면역을 피하는 세포막 코팅 나노입자, EPR 효과 예측 바이오마커 등</div>
+  </div>
+
+  <div class="grid2">
+    <div class="mini">
+      <h4>Doxil® – 최초의 FDA 승인 나노의약품</h4>
+      <ul class="pt">
+        <li><b>PEG 코팅 리포좀에 독소루비신</b>(항암제)을 담은 암 치료제 (PEGylated liposomal doxorubicin)</li>
+        <li>크기 약 80~90 nm. 바깥 PEG 코팅 – 인지질+콜레스테롤 이중층 – 안쪽에 갇힌 독소루비신</li>
+        <li>혈관을 돌다가 종양의 새는 혈관으로 빠져나가 조직에 쌓인 뒤 약물을 방출</li>
+      </ul>
+    </div>
+    <div class="mini">
+      <h4>Abraxane® – 알부민 결합 파클리탁셀</h4>
+      <ul class="pt">
+        <li>혈액 단백질 <b>알부민</b>에 항암제 <b>파클리탁셀</b>을 붙여 만든 나노입자 (nab-paclitaxel)</li>
+        <li>복합체 크기 약 130 nm. 알부민 한 분자에 파클리탁셀 6~7분자가 붙을 수 있음</li>
+      </ul>
+    </div>
+    <div class="mini">
+      <h4>Genexol-PM – 고분자 미셀 파클리탁셀</h4>
+      <ul class="pt">
+        <li>친수성 <b>PEO 껍질</b> + 소수성 <b>PLA 핵</b>으로 된 고분자 미셀 안에 파클리탁셀을 담은 암 치료제</li>
+        <li>물에 잘 녹지 않는 파클리탁셀을 미셀 핵에 넣어 녹일 수 있게 함</li>
+      </ul>
+    </div>
+    <div class="mini">
+      <h4>AmBisome® – 진균증 치료제</h4>
+      <ul class="pt">
+        <li>항진균제 <b>암포테리신 B</b>를 리포좀에 담은 약</li>
+        <li>암포테리신 B는 곰팡이 세포막에 구멍을 내 죽임. 리포좀이 곰팡이 세포벽에 닿으면 약물이 풀려 나옴</li>
+      </ul>
+    </div>
+  </div>
+
+  <h4>EPR 효과 (Enhanced Permeability and Retention effect)</h4>
+  <figure>
+    <svg viewBox="0 0 720 220" role="img" aria-label="정상 조직과 종양 조직에서의 나노입자 투과와 축적 비교">
+      <style>.p1{font:700 13px Pretendard,sans-serif;fill:#123d26}.p2{font:500 11.5px Pretendard,sans-serif;fill:#56635b}</style>
+      <text x="175" y="20" class="p1" text-anchor="middle">정상 조직</text>
+      <text x="535" y="20" class="p1" text-anchor="middle" style="fill:#b4232a">종양 조직</text>
+      <line x1="360" y1="10" x2="360" y2="210" stroke="#d6e2da" stroke-dasharray="4 4"/>
+      <g>
+        <rect x="20" y="70" width="310" height="60" fill="#fde7ec"/>
+        <g fill="#dbe7f5" stroke="#9fb3c8"><rect x="20" y="58" width="310" height="12"/><rect x="20" y="130" width="310" height="12"/></g>
+        <g fill="#22a05a"><circle cx="80" cy="100" r="8"/><circle cx="170" cy="96" r="8"/><circle cx="260" cy="102" r="8"/></g>
+        <text x="175" y="45" class="p2" text-anchor="middle">내피세포가 촘촘함 → 입자가 못 빠져나감</text>
+        <path d="M60,175 C120,165 200,185 300,170" stroke="#f2b33d" stroke-width="6" fill="none"/>
+        <text x="175" y="205" class="p2" text-anchor="middle">림프 배출 정상 → 새어 나온 물질도 씻겨 나감</text>
+      </g>
+      <g>
+        <rect x="390" y="70" width="310" height="60" fill="#fde7ec"/>
+        <g fill="#dbe7f5" stroke="#9fb3c8"><rect x="390" y="58" width="60" height="12"/><rect x="470" y="58" width="70" height="12"/><rect x="560" y="58" width="60" height="12"/><rect x="640" y="58" width="60" height="12"/>
+          <rect x="390" y="130" width="70" height="12"/><rect x="480" y="130" width="60" height="12"/><rect x="560" y="130" width="70" height="12"/><rect x="650" y="130" width="50" height="12"/></g>
+        <g fill="#22a05a"><circle cx="420" cy="100" r="8"/><circle cx="510" cy="98" r="8"/><circle cx="600" cy="102" r="8"/></g>
+        <g fill="#22a05a"><circle cx="458" cy="40" r="8"/><circle cx="548" cy="34" r="8"/><circle cx="632" cy="42" r="8"/><circle cx="470" cy="170" r="8"/><circle cx="548" cy="178" r="8"/><circle cx="640" cy="168" r="8"/></g>
+        <text x="700" y="205" class="p2" text-anchor="end">혈관 틈으로 새고(투과↑) 림프 배출이 약해 오래 남음(축적↑)</text>
+      </g>
+    </svg>
+    <figcaption>교안 그림(Springer, Nanoparticle-mediated targeted delivery)을 단순화해 다시 그림. 초록 점 = 약물을 실은 나노입자</figcaption>
+  </figure>
+  <ul class="pt">
+    <li>암세포 주변 조직에서 나타나는 현상으로, 암 치료에 활용함</li>
+    <li><b>투과성 증가(Enhanced Permeability)</b>: 종양의 혈관은 급하게 만들어져 내피세포 사이에 틈이 큼 → 나노입자가 혈관 밖으로 잘 빠져나감 (4주차 2-6 '암의 혈관은 틈이 벌어져 있음'과 같은 내용)</li>
+    <li><b>머무름(Retention)</b>: 종양 조직은 림프 배출이 제대로 되지 않음 → 빠져나온 입자가 오래 쌓임</li>
+    <li>정상 조직은 혈관 벽이 촘촘해 나노입자가 거의 새지 않음 → 약물이 종양에 더 많이 모임</li>
+  </ul>
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>EPR 효과의 한계와 Genexol-PM</h5>
+    <ul>
+      <li>EPR 효과는 1986년 마에다 히로시 연구팀이 생쥐 종양에서 보고함. 사람 종양은 환자·암종마다 혈관 상태가 달라 EPR 효과의 크기 차이가 큼 → 연대기의 'EPR 효과 예측 바이오마커' 연구가 나온 이유</li>
+      <li>Genexol-PM은 삼양그룹이 개발한 국산 나노의약품으로, 2007년 국내 허가를 받음</li>
+      <li>Doxil은 독소루비신의 심장 독성을 줄인 대신, 손발 피부가 벗겨지는 수족 증후군 같은 다른 부작용이 생김 → 전달체가 약의 분포를 바꾸면 부작용의 종류도 바뀜</li>
+    </ul>
+  </div>
+</section>
+
+<section class="topic" id="t1-10">
+  <h3><span class="num">1-10</span>나노의약품의 미래 <span class="en">Future perspectives</span></h3>
+  <ul class="pt">
+    <li>약물전달시스템이나 의료용 마이크로·나노머신 관련 시장이 <b>급성장</b>할 것으로 예측됨</li>
+  </ul>
+  <div class="tbl"><table>
+    <thead><tr><th>나노 의약·바이오 분야별 세계시장 (교안 그래프)</th><th class="c">2000년</th><th class="c">2005년</th><th class="c">2010년</th><th class="c">2020년</th></tr></thead>
+    <tbody>
+      <tr><td>인공 장기·조직</td><td class="c">114,000</td><td class="c">217,000</td><td class="c">267,000</td><td class="c">298,000</td></tr>
+      <tr><td>약물전달시스템</td><td class="c">13,000</td><td class="c">39,000</td><td class="c">121,000</td><td class="c">233,000</td></tr>
+      <tr><td>의료용 마이크로·나노머신</td><td class="c">10,700</td><td class="c">12,000</td><td class="c">112,000</td><td class="c">145,000</td></tr>
+      <tr><td>바이오센서</td><td class="c">12,500</td><td class="c">33,000</td><td class="c">73,000</td><td class="c">84,000</td></tr>
+      <tr class="sep"><td><b>총계</b></td><td class="c">150,200</td><td class="c">301,000</td><td class="c">590,000</td><td class="c"><b>760,000</b></td></tr>
+    </tbody>
+  </table></div>
+  <p class="src">출처: KISTI(2009) 보고서. 2010·2020년 값은 작성 당시의 전망치임. 인공 장기·조직의 비중은 줄고 약물전달시스템·나노머신의 비중이 커지는 흐름이 핵심</p>
+  <ul class="pt">
+    <li>교안 그림(Kumar 외, 2020): 리포좀 → 고분자 시스템 → 덴드리머 → PEG 리포좀 → Doxil·Genexol-PM·Abraxane을 지나 <b>코어-셸 나노구조</b>를 이용한 나노 표적 약물 전달로 이어지는 '다리'</li>
+  </ul>
+  <div class="key"><span class="label">01차시 (2) 학습정리</span>
+    <ul class="pt">
+      <li>'나노'는 10⁻⁹ 규모를 뜻하며, '난쟁이'를 뜻하는 그리스어 nanos에서 유래함</li>
+      <li>나노의약품은 질병 특이적 바이오마커를 인식해 표적 약물 전달을 가능하게 하고 치료 효과를 높임</li>
+      <li>Doxil®, Abraxane®, Genexol-PM 같은 나노의약품이 이미 임상에서 쓰이고 있음</li>
+      <li>나노기술은 약물 전달, 의료용 나노로봇, 인공 장기의 발전을 이끌 것으로 기대됨</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===================== PART 2 ===================== -->
+<div class="part" id="p2">
+  <div class="part-head"><span class="no">02차시</span><h2>생체재료는 어떻게 의료를 바꾸고 있을까?</h2></div>
+  <p class="part-sub">학습목표: 생체재료의 기본 개념과 의의 이해 · 생체재료가 몸의 생물학적 시스템과 상호작용하는 방식 · 조직공학·재생의학에서 생체재료의 역할과 응용 · 생체적합성과 물리·화학적 성질이 생체재료 성능에 주는 영향</p>
+</div>
+
+<section class="topic" id="t2-1">
+  <h3><span class="num">2-1</span>손상된 조직·장기를 되살릴 수 있을까 <span class="en">Can damaged tissues and organs be regenerated?</span></h3>
+  <div class="grid2">
+    <div class="mini">
+      <h4>고전적인 외과 치료법</h4>
+      <ul class="pt">
+        <li>손상된 조직 세포를 정상 세포로 <b>대체</b></li>
+        <li>회복이 불가능한 조직은 수술로 <b>제거</b></li>
+      </ul>
+    </div>
+    <div class="mini">
+      <h4>장기 기증·이식</h4>
+      <p style="margin:0">교안 그림: 심장, 폐, 간, 췌장, 각막, 기관, 신장, 피부, 혈관 조직 이식</p>
+    </div>
+  </div>
+
+  <h4>장기이식의 어려움 – 숫자로 보기</h4>
+  <div class="tbl"><table>
+    <thead><tr><th>지표</th><th>값 (교안 그래프)</th></tr></thead>
+    <tbody>
+      <tr><td>장기이식 대기자</td><td>2014년 2만 151명 → 2018년 <b>3만 544명</b></td></tr>
+      <tr><td>장기기증 희망등록</td><td>2014년 10만 8,898명 → 2018년 <b>7만 763명</b> (감소)</td></tr>
+      <tr><td>장기별 평균 대기 기간</td><td>간장 5년 9개월 · 신장 4년 6개월 · 췌장 4년 5개월 · 심장 4년 1개월 · 폐 2년 5개월</td></tr>
+      <tr><td>대기자 수 (만 명)</td><td>2019년 4.03 → 2020년 4.32 → 2021년 4.58 → 2022년 4.98 → 2023년 1~9월 <b>5.07</b></td></tr>
+      <tr><td>기증자 수 (만 명)</td><td>2019년 0.45 → 2020년 0.45 → 2021년 0.46 → 2022년 <b>0.42</b></td></tr>
+    </tbody>
+  </table></div>
+  <p class="src">자료: 질병관리본부·한국장기조직기증원(조선일보 2019.7.15), 보건복지부 국립장기조직혈액원(연합뉴스 2023.11.26)</p>
+  <span class="eval">기다리는 사람은 해마다 늘어 5만 명을 넘었는데 기증자는 제자리 → 기증만으로는 수요를 채울 수 없음</span>
+
+  <h4>장기기증자의 수술 후 후유증 (간 기증자 10명 심층 면접)</h4>
+  <div class="grid2">
+    <div class="mini"><h4>신체 손상</h4><ul class="pt"><li>손상된 신체를 받아들이기 어려움</li><li>대중탕·수영장 이용 시 주위의 시선</li><li>흉터로 인한 위축</li></ul></div>
+    <div class="mini"><h4>정신적 고통</h4><ul class="pt"><li>우울증, 정신적 트라우마, 성격의 변화</li><li>이해력 저하, 건망증과 기억력 감퇴</li><li>담즙 누출로 인한 고통, 수면장애</li><li>의욕·자신감 저하, 집중력·판단력 감소</li></ul></div>
+  </div>
+  <p class="src">자료: 동아사이언스(2016.7.2), 정선주 진주보건대 간호학과 교수</p>
+
+  <h4>인공 장기의 필요성</h4>
+  <div class="flow"><span>기증자 (donor)</span><i>→</i><span>즉시 이식이 항상 가능한 것은 아님</span><i>→</i><span>수혜자 (recipient)</span><i>⇒</i><span class="on">인공 조직·장기가 필요함!</span></div>
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>장기기증의 세 가지 형태 (교안 그림 표기)</h5>
+    <ul>
+      <li><b>생존 시 기증</b>: 신장, 간 일부 등. 기증자가 살아 있는 상태에서 하므로 위의 후유증 문제가 생김</li>
+      <li><b>뇌사 시 기증</b>: 심장·폐처럼 생존 기증이 불가능한 장기도 기증할 수 있음. 교안 출처 기사 제목처럼 국내 뇌사 장기기증은 해마다 400명대에 머묾</li>
+      <li><b>사후(사망 후) 기증</b>: 안구, 뼈, 피부, 혈관 같은 인체 조직 기증</li>
+      <li>이식받은 사람은 거부반응을 막기 위해 평생 면역억제제를 먹어야 하는 경우가 많음 (4주차 2-7의 이식 후 흑색종 사례와 연결)</li>
+    </ul>
+  </div>
+</section>
+
+<section class="topic" id="t2-2">
+  <h3><span class="num">2-2</span>조직공학과 재생의학 <span class="en">Tissue engineering · Regenerative medicine</span></h3>
+  <div class="grid2">
+    <div class="key"><span class="label">조직공학</span><br><b>생체재료를 이용해 손상된 조직을 재건</b>하는 응용 학문. 교안 그림: 세포(Cells) + 지지체(Scaffolds) + 생물학적 인자(Biological factors) → 목·어깨·팔꿈치·손목·허리·엉덩이·무릎·발목 같은 손상 부위에 적용</div>
+    <div class="key"><span class="label">재생의학</span><br>인간의 세포와 조직, 장기를 <b>대체하거나 재생</b>시켜서 <b>원래의 기능</b>을 할 수 있도록 복원시키는 의학 분야. 교안 그림: 사람에서 세포 분리 및 배양 → 혈액·폐·상피·심장 조직·신경·간 조직·근육 조직으로 → 재생 의학 치료</div>
+  </div>
+  <h4>여러 학문이 함께 하는 분야</h4>
+  <p>의학, 공학, 생명과학 등의 <b>다학제 간 협동</b>이 필요한 학문. 교안 그림(조직공학의 고전적 순서)에 학문들이 붙어 있음.</p>
+  <div class="flow">
+    <span>① 환자에게서 세포 채취</span><i>→</i><span>② 세포 배양·증식</span><i>→</i><span>③ 지지체에 세포 심기</span><i>→</i><span>④ 배양 접시·생물반응기에서 조직으로 키우기</span><i>→</i><span class="on">⑤ 환자에게 이식</span>
+  </div>
+  <ul class="pt">
+    <li>세포생물학(Cell Biology) · 의학·면역학(Medicine, Immunology) · 생화학·생체역학(Biochemistry, Biomechanics) · 재료과학(Materials Science)</li>
+  </ul>
+  <p class="src">교안 그림에는 번호만 있고 단계 설명이 없음. 위 단계 이름은 조직공학의 일반적 순서를 붙인 것임</p>
+</section>
+
+<section class="topic" id="t2-3">
+  <h3><span class="num">2-3</span>조직공학의 3요소 – 세포와 생체 활성 신호 <span class="en">Cells · Bioactive signals</span></h3>
+  <figure>
+    <svg viewBox="0 0 720 230" role="img" aria-label="조직공학의 3요소: 지지체, 세포, 생체 활성 신호">
+      <style>.r1{font:800 14px Pretendard,sans-serif;fill:#fff}.r2{font:500 12px Pretendard,sans-serif;fill:#1c2420}</style>
+      <defs><marker id="ar2" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8z" fill="#15803d"/></marker></defs>
+      <rect x="230" y="10" width="260" height="34" rx="8" fill="#14532d"/><text x="360" y="32" class="r1" text-anchor="middle">지지체 (Scaffold · Biomaterial)</text>
+      <text x="360" y="62" class="r2" text-anchor="middle">합성 고분자 · 천연 고분자(콜라겐, 피브린 등)</text>
+      <rect x="20" y="130" width="250" height="34" rx="8" fill="#15803d"/><text x="145" y="152" class="r1" text-anchor="middle">세포 (Cells)</text>
+      <text x="145" y="184" class="r2" text-anchor="middle">줄기세포 · 분화된 세포</text>
+      <rect x="450" y="130" width="250" height="34" rx="8" fill="#15803d"/><text x="575" y="152" class="r1" text-anchor="middle">생체 활성 신호 (Bioactive signals)</text>
+      <text x="575" y="184" class="r2" text-anchor="middle">수용성 성장인자 · 세포 부착 분자</text>
+      <text x="575" y="202" class="r2" text-anchor="middle">기계적 신호</text>
+      <line x1="300" y1="80" x2="190" y2="124" stroke="#15803d" stroke-width="2.5" marker-end="url(#ar2)" marker-start="url(#ar2)"/>
+      <line x1="420" y1="80" x2="530" y2="124" stroke="#15803d" stroke-width="2.5" marker-end="url(#ar2)" marker-start="url(#ar2)"/>
+      <line x1="280" y1="147" x2="440" y2="147" stroke="#15803d" stroke-width="2.5" marker-end="url(#ar2)" marker-start="url(#ar2)"/>
+      <text x="360" y="140" class="r2" text-anchor="middle" style="font-weight:700;fill:#166534">조직</text>
+    </svg>
+    <figcaption>교안 '조직공학의 3요소' 그림을 다시 그림. 세 요소가 서로 영향을 주고받음</figcaption>
+  </figure>
+  <h4>세포 – 어디서 얻나 (Cell sources)</h4>
+  <div class="tbl"><table>
+    <thead><tr><th>구분</th><th>세포</th><th>뜻 (보충 설명)</th></tr></thead>
+    <tbody>
+      <tr><td rowspan="3"><b>누구의 세포인가</b></td><td>자가 세포 (Autologous)</td><td>환자 <b>본인</b>의 세포. 면역 거부가 없지만, 얻을 수 있는 양과 상태가 환자에 따라 제한됨</td></tr>
+      <tr><td>동종 세포 (Allogeneic)</td><td><b>다른 사람</b>의 세포. 미리 대량으로 만들어 둘 수 있지만 면역 거부 가능성</td></tr>
+      <tr><td>이종 세포 (Xenogenic)</td><td><b>다른 동물</b>의 세포. 면역 거부와 동물 유래 감염 위험이 가장 큼</td></tr>
+      <tr class="sep"><td rowspan="2"><b>어떤 상태의 세포인가</b></td><td>분화된 1차 세포 (Differentiated, primary)</td><td>조직에서 바로 떼어 낸, 이미 역할이 정해진 세포 (예: 피부의 섬유아세포·각질형성세포)</td></tr>
+      <tr><td>줄기세포 (Stem cells)</td><td>스스로 늘어나면서 여러 세포로 분화할 수 있는 세포</td></tr>
+    </tbody>
+  </table></div>
+  <h4>생체 활성 신호 – 녹아 있는 신호 세 가지</h4>
+  <div class="tbl"><table>
+    <thead><tr><th>신호</th><th>뜻 (교안)</th></tr></thead>
+    <tbody>
+      <tr><td><b>자가분비</b> (Autocrine)</td><td>세포가 만든 인자가 <b>같은 세포</b>에 작용</td></tr>
+      <tr><td><b>측분비</b> (Paracrine)</td><td>세포가 만든 인자가 <b>이웃 세포</b>에 작용</td></tr>
+      <tr><td><b>내분비</b> (Endocrine)</td><td>표적 세포와 <b>멀리 떨어진</b> 세포가 만든 인자가 혈액이나 림프액을 타고 표적 세포까지 운반됨</td></tr>
+    </tbody>
+  </table></div>
+  <span class="eval">4주차 2-2에서 암세포의 '자가분비 증식 신호'로 본 개념이 그대로 쓰임. 조직공학에서는 이 신호들(성장인자 등)을 지지체에 담아 세포의 성장·분화를 원하는 방향으로 이끎</span>
+</section>
+
+<section class="topic" id="t2-4">
+  <h3><span class="num">2-4</span>조직공학의 3요소 – 지지체와 생체재료 <span class="en">Scaffold or Biomaterial</span></h3>
+  <p>교안 전자현미경 사진: 결합조직(connective tissue) · 고분자 지지체(polymer scaffold) · 세포를 심은 고분자 지지체(cell-seeded) · 만들어진 조직(engineered tissue). 고분자 지지체는 실제 결합조직의 섬유 그물과 닮게 만듦.</p>
+  <div class="grid2">
+    <div class="mini">
+      <h4>지지체의 역할</h4>
+      <ul class="pt">
+        <li>세포가 <b>달라붙을 수 있는 표면</b>을 제공</li>
+        <li>세포가 특정한 형태로 변화하도록 유도</li>
+        <li>조직이 자랄 수 있는 <b>공간</b> 제공</li>
+        <li>인공 조직의 <b>3D 구조</b>를 결정</li>
+        <li><b>물리적 지지</b> 역할</li>
+        <li>세포나 생체 활성 물질을 전달하는 <b>운반체</b> 역할</li>
+      </ul>
+    </div>
+    <div class="mini">
+      <h4>생체재료가 갖춰야 할 조건</h4>
+      <ul class="pt">
+        <li>조직에 이식물이 받아들여지는지, 즉 <b>생체적합성</b>이 중요함</li>
+        <li><b>약리학적 적합성</b>: 무독성, 비알레르기성, 비면역원성, 비발암성 등</li>
+        <li><b>화학적으로 비활성</b>이며 <b>안정적</b>이어야 함 (시간이 지나도 분해되지 않아야 함)</li>
+        <li><b>충분한 기계적 강도</b></li>
+        <li>비교적 <b>저렴</b>하고 <b>재현 가능</b>하며, 대규모 생산을 위한 <b>가공이 쉬워야</b> 함</li>
+      </ul>
+    </div>
+  </div>
+  <div class="grid2">
+    <div class="key"><span class="label">생체재료 (Biomaterial)</span><br>신체의 일부 또는 기능을 대체하기 위해 사용되는 <b>모든 재료</b>로, 안전하고 신뢰성 있으며 경제적이고 생리학적으로 적합한 방식으로 사용됨</div>
+    <div class="key"><span class="label">생물학적 재료 (Biological material)</span><br>뼈, 피부, 동맥처럼 <b>생물학적 시스템이 만들어 낸</b> 재료</div>
+  </div>
+  <h4>생체재료의 분류</h4>
+  <div class="tbl"><table>
+    <thead><tr><th colspan="2">분류</th><th>예 (교안)</th></tr></thead>
+    <tbody>
+      <tr><td rowspan="4"><b>인공 (Artificial)</b></td><td>금속 (Metal)</td><td>316L 스테인리스강, 타이타늄 합금, 코발트계, 마그네슘계, 니켈-타이타늄(NiTi), 코발트-크롬(CoCr), 금속 유리(BMG)</td></tr>
+      <tr><td>세라믹 (Ceramic)</td><td>하이드록시아파타이트, 알루미나(Al₂O₃), 지르코니아(ZrO₂), 세라믹 유리</td></tr>
+      <tr><td>고분자 (Polymer)</td><td>폴리우레탄, PVA, PVP, PMMA, 초고분자량 폴리에틸렌(UHMWPE), 키토산</td></tr>
+      <tr><td>복합재 (Composite)</td><td>Al₂O₃/PMMA, 하이드록시아파타이트/알지네이트</td></tr>
+      <tr class="sep"><td colspan="2"><b>천연 (Natural)</b></td><td>생물 유래 생체재료 (3요소 그림의 콜라겐, 피브린 등)</td></tr>
+    </tbody>
+  </table></div>
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>"분해되지 않아야 한다"와 "녹아 없어지는 지지체"</h5>
+    <ul>
+      <li>교안의 조건 목록(화학적 비활성·분해 없음)은 인공관절·심장판막처럼 <b>몸에 계속 남는 이식물</b> 기준임</li>
+      <li>조직공학 지지체는 반대로 새 조직이 자라는 속도에 맞춰 <b>서서히 분해되어 사라지도록</b> 설계하는 경우가 많음. 2-7의 PLLA 지지체, 2-6 Dermagraft의 폴리글락틴 그물이 그 예 (2-5 연대기의 1970년 '생체흡수성 재료')</li>
+      <li>하이드록시아파타이트는 뼈의 무기질 성분과 같은 물질이라 뼈와 잘 붙음 → 뼈 대체재·인공치근 코팅에 쓰임</li>
+    </ul>
+  </div>
+  <div class="key"><span class="label">02차시 (1) 학습정리</span>
+    <ul class="pt">
+      <li>고전적인 외과 치료는 손상된 조직을 수술로 제거하거나 건강한 세포로 대체하는 데 집중해 왔음. 장기이식도 하지만 긴 대기 명단과 기증자의 신체·정신적 부담 같은 큰 한계가 있음</li>
+      <li>재생의학은 사람의 세포·조직·장기를 대체하거나 재생시켜 원래 기능을 복원하려는 분야임. 조직공학은 의학·공학·생명과학이 협력해 생체재료로 손상된 조직을 재건하는 응용 학문임</li>
+      <li>조직공학의 3요소: 조직의 기본 단위인 <b>세포</b>, 세포의 성장과 분화를 돕는 <b>생체 활성 신호</b>, 조직 형성에 구조적 틀과 물리적 지지를 주는 <b>지지체</b></li>
+    </ul>
+  </div>
+</section>
+
+<section class="topic" id="t2-5">
+  <h3><span class="num">2-5</span>생체재료의 역사와 쓰이는 곳 <span class="en">Biomaterials in use</span></h3>
+  <p>교안 그림(Ratner, 2019): 콘택트렌즈, 교정 장치·치과 임플란트, 보청기, 카테터·스텐트, 손가락 관절 임플란트, 무릎 인공관절, 고관절 인공관절, 심장판막.</p>
+  <h4>생체재료 연대기 (Todros 외, 2021)</h4>
+  <div class="tl">
+    <div class="ev"><span class="yr">기원전 2000년</span>상처 봉합용 아마실, 금실로 만든 금속 봉합사, 두개골 골절용 금판, 대나무 치아 임플란트</div>
+    <div class="ev"><span class="yr">기원전 200년</span>철로 만든 인공 치아</div>
+    <div class="ev"><span class="yr">16~19세기</span>단단한 조직(뼈·치아)을 대체하는 금속 · 의족·의수</div>
+    <div class="ev"><span class="yr">1939년</span>고분자를 생체재료로 처음 사용</div>
+    <div class="ev"><span class="yr">1950년</span><b>생체 불활성(bioinert) 재료</b>: 금속과 합금(코발트-크롬-몰리브데넘, 타이타늄 합금) → 골절 고정판, 치과 임플란트, 인공 고관절</div>
+    <div class="ev"><span class="yr">1970년</span><b>생체 활성·생체 흡수성(bioactive/bioresorbable) 재료</b>: 세라믹과 고분자 → 다공성 지지체, 스텐트 그물</div>
+    <div class="ev"><span class="yr">2010년</span><b>생체 모방(biomimetic) 재료</b>: 하이드로겔, 3D 바이오프린팅, 공학적으로 만든 조직·장기</div>
+  </div>
+  <span class="eval">'몸이 반응하지 않는 재료'(불활성) → '몸과 반응하고 녹아 없어지는 재료'(활성·흡수성) → '몸의 조직을 흉내 내는 재료'(모방)로 목표가 바뀌어 옴</span>
+</section>
+
+<section class="topic" id="t2-6">
+  <h3><span class="num">2-6</span>실제 적용 사례 – 피부 <span class="en">Artificial skin</span></h3>
+  <div class="flow">
+    <span>사람 표피 각질형성세포<br><small>→ 촘촘한 막에 배양</small></span><i>+</i><span>사람 진피 섬유아세포<br><small>→ 구멍 많은 막에 배양</small></span><i>→</i><span class="on">이중층 콜라겐 막<br><small>표피·진피 층을 흉내 냄</small></span><i>→</i><span>인공 피부</span>
+  </div>
+  <p class="src">교안 그림(서울대 김병수 교수 강의자료). 피부의 표피(epidermis)·진피(dermis)·피하조직 구조를 두 층의 막으로 재현함</p>
+  <div class="grid2">
+    <div class="mini">
+      <h4>Dermagraft</h4>
+      <ul class="pt">
+        <li>사람 섬유아세포를 <b>폴리글락틴 지지체</b>에 심음</li>
+        <li>섬유아세포가 늘어나며 성장인자와 기질 단백질을 분비</li>
+        <li>완성품: 잘 발달된 세포외기질 + 살아 있는 섬유아세포</li>
+        <li>교안 사진: 조직 단면(B), 발바닥 상처에 붙이는 모습(C)</li>
+      </ul>
+    </div>
+    <div class="mini">
+      <h4>Apligraf</h4>
+      <ul class="pt">
+        <li>살아 있는 생체 활성 세포로 만들어 사람 피부처럼 <b>보이고(LOOK), 기능하고(FUNCTION), 반응(RESPOND)</b>하도록 설계</li>
+        <li><b>표피층</b>: 살아 있는 각질형성세포와 줄기세포 → 강한 치유 신호(성장인자·사이토카인)</li>
+        <li><b>진피층</b>: 살아 있는 섬유아세포 → 증식하며 사람 콜라겐·세포외기질 단백질, 성장인자, 사이토카인을 만듦</li>
+      </ul>
+    </div>
+  </div>
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>어디에 쓰이나</h5>
+    <ul>
+      <li>둘 다 잘 낫지 않는 만성 상처 치료용으로 미국 FDA 허가를 받음. Dermagraft는 <b>당뇨병성 족부 궤양</b>(2주차 '당뇨발'), Apligraf는 정맥성 다리 궤양과 당뇨병성 족부 궤양</li>
+      <li>Dermagraft는 진피층만, Apligraf는 표피+진피 두 층을 가진 '살아 있는 세포 제품'이라는 점이 다름. 둘 다 2-3의 <b>동종 세포</b>(신생아 포피에서 얻은 세포)를 씀</li>
+      <li>이 세포들이 내는 성장인자가 환자 상처의 치유를 돕는 것이 핵심 → 2-3의 '생체 활성 신호'</li>
+    </ul>
+  </div>
+</section>
+
+<section class="topic" id="t2-7">
+  <h3><span class="num">2-7</span>실제 적용 사례 – 뼈 · 고정 장치 · 렌즈 · 심장판막</h3>
+  <h4>뼈 – 인공 뼈 (서울대 김병수 교수 강의자료)</h4>
+  <div class="flow">
+    <span>다공성 PLLA 지지체</span><i>+</i><span>탄산 아파타이트 + 1형 아텔로콜라겐</span><i>=</i><span>혼성 뼈 대체재</span><i>→</i><span>토끼 두개골에 이식</span><i>→</i><span class="on">6주 뒤 막성 인공 뼈 형성</span>
+  </div>
+  <ul class="pt">
+    <li>분해되는 고분자(PLLA) 틀에 뼈의 무기질(아파타이트)과 콜라겐을 더한 복합재 → 2-4 분류의 <b>복합재</b>에 해당</li>
+  </ul>
+  <h4>지지·고정 장치</h4>
+  <ul class="pt">
+    <li>교안 사진(ResearchGate): 골절 부위를 잡아 주는 <b>판(plate)</b>, 뼈 속에 넣는 <b>골수강 내 막대(intramedullary rod)</b>, <b>핀(pin)</b>, 인공 고관절 스템, 척추 고정 장치 등 → 주로 타이타늄 같은 금속 생체재료</li>
+  </ul>
+  <h4>렌즈 – 인공 수정체 (IOL)</h4>
+  <ul class="pt">
+    <li><b>백내장</b>으로 자연 수정체가 흐려졌을 때 이를 대체하는 데 사용됨</li>
+    <li><b>폴리(메틸 메타크릴레이트)(PMMA)</b>, 부드러운 아크릴 폴리머 또는 <b>하이드로겔</b>로 제작됨</li>
+    <li>흐려진 수정체 → 수정체 제거 → 인공 수정체(IOL)를 제자리에 삽입</li>
+  </ul>
+  <h4>심장판막</h4>
+  <ul class="pt">
+    <li>교안 사진(Unipv): 기계 판막과 조직(생체) 판막</li>
+    <li><b>바이오잉크로 심장 패치 만들기</b>: 바이오잉크 I(심장 탈세포화 세포외기질 hdECM + <b>심장 전구세포 CPCs</b>)와 바이오잉크 II(hdECM + <b>중간엽 줄기세포 MSCs</b> + <b>혈관 성장인자</b>)를 번갈아 3D 프린팅 → 패치를 붙이면 <b>신생혈관 생성</b></li>
+  </ul>
+  <span class="eval">세 요소가 한 제품에 모두 들어간 예: 세포(CPCs, MSCs) + 생체 활성 신호(혈관 성장인자) + 지지체(hdECM 바이오잉크)</span>
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>기계 판막과 조직 판막, 탈세포화</h5>
+    <ul>
+      <li><b>기계 판막</b>(타이타늄·열분해 탄소)은 수십 년을 버티지만 피가 엉기기 쉬워 평생 항응고제를 먹어야 함. <b>조직 판막</b>(돼지·소의 조직을 처리)은 항응고제 부담이 적지만 10~20년 뒤 교체가 필요할 수 있음</li>
+      <li><b>탈세포화 세포외기질(dECM)</b>: 조직에서 세포만 씻어 내고 단백질 틀만 남긴 것. 면역 거부를 일으키는 세포 성분은 없애고, 그 조직 고유의 성장 신호와 구조는 남겨 세포가 잘 자라게 함</li>
+    </ul>
+  </div>
+</section>
+
+<section class="topic" id="t2-8">
+  <h3><span class="num">2-8</span>생체재료의 미래 <span class="en">The future of biomaterials</span></h3>
+  <ul class="pt">
+    <li>생체재료 세계시장(Roots Analysis): 현재 <b>1,930억 달러</b> → 2035년 <b>4,420억 달러</b>, 연평균 성장률 <b>7.9%</b>. 제품 종류는 금속·고분자·세라믹·천연으로 나뉨</li>
+    <li><b>스마트 생체재료</b>: 물리적·화학적·생물학적 자극에 반응하는 재료 → 조직공학, 약물 전달, 의료기기(형상기억 재료), 면역공학에 쓰임 (01차시 1-7의 '반응성'과 같은 생각)</li>
+  </ul>
+  <h4>학습정리에 나온 미래의 예</h4>
+  <ul class="pt">
+    <li><b>유전자 변형 돼지를 이용한 이종이식</b></li>
+    <li><b>기기형 인공심장</b></li>
+    <li><b>착용형 인공췌장</b></li>
+  </ul>
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>세 가지 예의 현재</h5>
+    <ul>
+      <li><b>이종이식</b>: 2022년 미국 메릴랜드대에서 유전자 변형 돼지 심장을 사람에게 처음 이식했고(환자는 약 2개월 생존), 2024년 이후 돼지 신장 이식도 이어짐. 돼지 유전자를 고쳐 사람 면역계가 공격하는 표지를 없애는 것이 핵심 (2-3의 이종 세포 문제)</li>
+      <li><b>인공심장</b>: 심장 이식을 기다리는 동안 심장 기능을 대신하는 완전 인공심장, 좌심실 보조장치(LVAD) 등이 쓰임 → 2-1의 긴 대기 기간을 버티게 함</li>
+      <li><b>인공췌장</b>: 연속 혈당 측정기와 인슐린 펌프를 알고리즘으로 이어 자동으로 인슐린을 넣는 장치. 1형 당뇨병(2주차 2-9) 환자에게 쓰임</li>
+    </ul>
+  </div>
+  <div class="key"><span class="label">02차시 (2) 학습정리</span>
+    <ul class="pt">
+      <li>유전자 변형 돼지를 이용한 이종이식, 기기형 인공심장, 착용형 인공췌장 기술 등이 그 예임</li>
+      <li>조직공학은 생체재료 지지체 위에서 세포를 길러 인공 피부·뼈 같은 생체 조직을 직접 재건함으로써, 미래 재생의학의 핵심 전략으로 떠오름</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===================== PART 3 ===================== -->
+<div class="part" id="p3">
+  <div class="part-head"><span class="no">용어</span><h2>용어 정리와 교안 표기 확인</h2></div>
+  <p class="part-sub">9주차 네 강의에 나온 핵심 용어 (이번 주는 용어사전이 따로 없어 교안 기준으로 정리)</p>
+</div>
+
+<section class="topic">
+  <div class="tbl"><table>
+    <thead><tr><th>영문</th><th>국문</th><th>한 줄 정리</th></tr></thead>
+    <tbody>
+      <tr><td>pharmacokinetics</td><td>약동학</td><td>몸이 약에게 하는 일. 흡수·분포·대사·배설(ADME)</td></tr>
+      <tr><td>absorption / distribution</td><td>흡수 / 분포</td><td>약이 혈액에 들어감 / 혈액을 타고 조직으로 퍼짐</td></tr>
+      <tr><td>metabolism / excretion</td><td>대사 / 배설</td><td>주로 간에서 바뀜 / 주로 콩팥으로 나감. 둘을 합쳐 제거(elimination)</td></tr>
+      <tr><td>drug delivery system (DDS)</td><td>약물전달시스템</td><td>필요한 양의 약물이 목표 부위에 효율적으로 닿게 제형을 설계하는 기술</td></tr>
+      <tr><td>compliance</td><td>(환자) 순응도</td><td>환자가 처방대로 약을 꾸준히 쓰는 정도</td></tr>
+      <tr><td>controlled release</td><td>조절 방출</td><td>약물을 일정한 속도로 내보내 혈중 농도를 치료 범위에 유지</td></tr>
+      <tr><td>therapeutic window</td><td>치료 범위</td><td>최소 유효 농도와 부작용이 나타나는 농도 사이의 구간</td></tr>
+      <tr><td>lipid nanoparticle (LNP)</td><td>지질나노입자</td><td>이온화지질·인지질·콜레스테롤·PEG로 된 약 100 nm의 RNA 전달체</td></tr>
+      <tr><td>ionizable lipid</td><td>이온화지질</td><td>mRNA를 붙잡고 엔도좀에서 세포질로 내보내는 LNP의 핵심 성분</td></tr>
+      <tr><td>endosome</td><td>엔도좀</td><td>세포내 섭취로 들어온 물질이 담기는 막 주머니</td></tr>
+      <tr><td>nano</td><td>나노</td><td>10⁻⁹. 그리스어 nanos(난쟁이)에서 유래</td></tr>
+      <tr><td>nanomedicine</td><td>나노의약품</td><td>나노 전달 기술로 진단·치료 기능을 함께 실은 약물</td></tr>
+      <tr><td>biomarker</td><td>바이오마커</td><td>질병 세포에 특이적인 표지 물질. 나노의약품의 표적</td></tr>
+      <tr><td>targeting moiety</td><td>표적 부위</td><td>입자 표면에 달아 표적에 붙게 하는 분자 (항체, 리간드 등)</td></tr>
+      <tr><td>PEGylation</td><td>PEG 코팅</td><td>표면을 폴리에틸렌글라이콜로 덮어 혈중에 오래 머물게 함</td></tr>
+      <tr><td>liposome</td><td>리포좀</td><td>인지질 이중층으로 된 속 빈 공. 친수성·소수성 약물을 함께 실음</td></tr>
+      <tr><td>polymeric micelle</td><td>고분자 미셀</td><td>양친매성 고분자가 모여 만든 공. 소수성 핵에 약물</td></tr>
+      <tr><td>dendrimer</td><td>덴드리머</td><td>중심에서 가지가 반복적으로 뻗은 고분자 (PAMAM 등)</td></tr>
+      <tr><td>EPR effect</td><td>EPR 효과 (투과성 증가·머무름 효과)</td><td>새는 종양 혈관과 약한 림프 배출로 나노입자가 종양에 쌓이는 현상</td></tr>
+      <tr><td>Doxil / Abraxane / Genexol-PM</td><td>–</td><td>PEG 리포좀 독소루비신 / 알부민 결합 파클리탁셀 / 고분자 미셀 파클리탁셀</td></tr>
+      <tr><td>AmBisome</td><td>–</td><td>리포좀 암포테리신 B. 진균증 치료제</td></tr>
+      <tr><td>tissue engineering</td><td>조직공학</td><td>생체재료로 손상된 조직을 재건하는 응용 학문</td></tr>
+      <tr><td>regenerative medicine</td><td>재생의학</td><td>세포·조직·장기를 대체·재생해 원래 기능을 복원하는 의학 분야</td></tr>
+      <tr><td>scaffold</td><td>지지체</td><td>세포가 붙어 자랄 수 있게 3D 구조와 물리적 지지를 주는 틀</td></tr>
+      <tr><td>autologous / allogeneic / xenogenic</td><td>자가 / 동종 / 이종</td><td>환자 본인 / 다른 사람 / 다른 동물에서 얻은 세포</td></tr>
+      <tr><td>autocrine / paracrine / endocrine</td><td>자가분비 / 측분비 / 내분비</td><td>같은 세포 / 이웃 세포 / 혈액·림프를 타고 먼 세포에 작용</td></tr>
+      <tr><td>biomaterial</td><td>생체재료</td><td>신체의 일부나 기능을 대체하려고 쓰는 모든 재료</td></tr>
+      <tr><td>biological material</td><td>생물학적 재료</td><td>뼈·피부·동맥처럼 생물이 만든 재료</td></tr>
+      <tr><td>biocompatibility</td><td>생체적합성</td><td>몸에 넣었을 때 해를 주지 않고 받아들여지는 성질</td></tr>
+      <tr><td>bioinert / bioactive / bioresorbable</td><td>생체 불활성 / 생체 활성 / 생체 흡수성</td><td>몸과 반응하지 않음 / 조직과 결합·반응 / 몸 안에서 분해되어 사라짐</td></tr>
+      <tr><td>hydroxyapatite</td><td>하이드록시아파타이트</td><td>뼈의 무기질과 같은 인산칼슘 세라믹</td></tr>
+      <tr><td>intraocular lens (IOL)</td><td>인공 수정체</td><td>백내장으로 흐려진 수정체를 대신하는 렌즈 (PMMA, 아크릴, 하이드로겔)</td></tr>
+      <tr><td>bioink / 3D bioprinting</td><td>바이오잉크 / 3D 바이오프린팅</td><td>세포·생체재료를 섞은 잉크로 조직을 층층이 인쇄하는 기술</td></tr>
+      <tr><td>xenotransplantation</td><td>이종이식</td><td>다른 동물(주로 유전자 변형 돼지)의 장기를 사람에게 이식</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="err"><span class="tag">교안 표기 확인</span>
+    <ul>
+      <li>01차시 (1) 투여 경로 표: "화자 순응도" → <b>환자</b> 순응도 / "약물체형" → 약물 <b>제형</b></li>
+      <li>01차시 (2) 응용 그림: "채내 잔류" → <b>체내</b> 잔류 / "제재" → <b>제제</b>(약을 만든 것)</li>
+      <li>01차시 (2) Doxil: "doxorubincin" → <b>doxorubicin</b></li>
+      <li>01차시 (2) 시장 그래프의 2010·2020년 값은 2009년 보고서의 <b>전망치</b>임</li>
+      <li>02차시 (1) 3요소 그림: "Collage" → <b>Collagen</b>(콜라겐) / 조직공학 그림 "Rist" → <b>Wrist</b>(손목)</li>
+      <li>02차시 (1) 기증자 후유증: "성격의 변호" → 성격의 <b>변화</b></li>
+      <li>02차시 (1) 생체재료 조건: "조직 표면에 플레이트가 수용되는지"는 문맥상 "<b>이식물이 조직에 받아들여지는지</b>"(생체적합성)의 뜻으로 읽으면 됨</li>
+      <li>02차시 (1) 생체재료 분류: "Hyrdoxyapatite" → <b>Hydroxyapatite</b></li>
+      <li>02차시 (2) 학습정리의 이종이식·인공심장·인공췌장은 슬라이드 본문에는 없고 학습정리에만 나옴 (강의 영상에서 다룬 내용으로 보임)</li>
+    </ul>
+  </div>
+</section>
+
+<nav class="pager"><a class="prev" href="week08_mrna_therapeutics.html"><small>← 이전 주차</small>8주차 · mRNA 치료제</a></nav>
+
+<footer>
+  <p>자료 기준: 「생명과학의 세계」(고려대학교) 9주차 강미경 교수 강의 교안 – 01차시 나노입자는 어떻게 약물을 전달할까? (1)(2), 02차시 생체재료는 어떻게 의료를 바꾸고 있을까? (1)(2).<br>
+  교안 그림 출처(NurseKey, Pharmacy180, Springer, 기초과학연구원, BRIC, ResearchGate, ScienceDirect, 서울대 김병수 교수 강의자료 등)는 각 차시 교안의 "출처 및 참고문헌"을 따름. 이 문서의 그림은 교안 그림을 단순화해 새로 그린 것임.<br>
+  '보충' 상자의 내용은 교안에 없는 참고 내용으로, 시험 범위 여부는 강의 기준을 따를 것.</p>
+</footer>
+
+</div>
+</body>
+</html>
