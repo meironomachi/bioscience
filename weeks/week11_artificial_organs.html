@@ -1,0 +1,1028 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>11주차 인공장기</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --g900:#123d26; --g800:#14532d; --g700:#166534; --g600:#15803d; --g500:#22a05a;
+  --g200:#bbe5c8; --g100:#dcf3e3; --g50:#f2faf4;
+  --ink:#1c2420; --muted:#56635b; --line:#d6e2da; --bg:#fbfdfb; --card:#ffffff;
+  --sup-bg:#f6f9ec; --sup-line:#9bb35a; --sup-tag:#5b7a1e;
+  --warn:#9a3412; --na:#1d5fbf; --k:#b4232a;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Pretendard","Gothic A1",-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  font-size:16px;line-height:1.72;word-break:keep-all;}
+.wrap{max-width:920px;margin:0 auto;padding:0 20px 80px}
+header.hero{background:linear-gradient(135deg,var(--g800),var(--g600));color:#fff;padding:56px 20px 44px}
+header.hero .wrap{padding-bottom:0}
+.hero .kicker{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);
+  padding:3px 12px;border-radius:999px;font-size:13px;letter-spacing:.04em}
+.hero h1{font-size:34px;line-height:1.3;margin:14px 0 8px;font-weight:800}
+.hero p{margin:0;opacity:.9}
+.hero .meta{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px;font-size:13px}
+.hero .meta span{background:rgba(0,0,0,.18);padding:4px 10px;border-radius:6px}
+
+nav.toc{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--g600);
+  border-radius:10px;padding:18px 22px;margin:28px 0}
+nav.toc h2{margin:0 0 8px;font-size:17px;color:var(--g800)}
+nav.toc ol{margin:0;padding-left:20px}
+nav.toc li{margin:2px 0}
+nav.toc a{color:var(--ink);text-decoration:none}
+nav.toc a:hover{color:var(--g600);text-decoration:underline}
+nav.toc ol ol{list-style:none;padding-left:14px;font-size:14.5px;color:var(--muted)}
+nav.toc ol ol a{color:var(--muted)}
+
+.part{margin-top:56px}
+.part-head{display:flex;align-items:center;gap:12px;border-bottom:3px solid var(--g600);padding-bottom:8px}
+.part-head .no{background:var(--g700);color:#fff;font-weight:800;border-radius:8px;padding:4px 12px;font-size:14px;white-space:nowrap}
+.part-head h2{margin:0;font-size:25px;color:var(--g900)}
+.part-sub{color:var(--muted);font-size:14px;margin:6px 0 0}
+
+section.topic{margin-top:38px}
+section.topic h3{font-size:20px;margin:0 0 10px;color:var(--g800);display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+section.topic h3 .num{color:var(--g500);font-weight:800;font-size:16px}
+section.topic h3 .en{font-size:13px;color:var(--muted);font-weight:500}
+h4{font-size:16.5px;margin:20px 0 6px;color:var(--g700)}
+ul.pt{margin:6px 0 10px;padding-left:20px}
+ul.pt li{margin:3px 0}
+ul.pt li::marker{color:var(--g600)}
+.eval{display:block;margin:10px 0;padding:8px 12px;background:var(--g50);border-left:3px solid var(--g500);
+  font-size:14.5px;color:#2d3d33}
+.eval::before{content:"정리 ▸ ";font-weight:700;color:var(--g700)}
+b.g, .hl{color:var(--g700);font-weight:700}
+.na{color:var(--na);font-weight:700}.k{color:var(--k);font-weight:700}
+.src{font-size:12.5px;color:var(--muted);margin-top:4px}
+
+.key{background:var(--card);border:1px solid var(--g200);border-radius:10px;padding:14px 18px;margin:14px 0;
+  box-shadow:0 1px 0 var(--g100)}
+.key .label{display:inline-block;font-size:12px;font-weight:800;color:#fff;background:var(--g600);
+  padding:2px 9px;border-radius:5px;margin-bottom:6px}
+
+.sup{background:var(--sup-bg);border:1.5px dashed var(--sup-line);border-radius:10px;padding:14px 18px 12px;margin:18px 0;position:relative}
+.sup .tag{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:800;color:#fff;
+  background:var(--sup-tag);padding:2px 10px;border-radius:5px}
+.sup .tag::before{content:"+";font-size:14px}
+.sup h5{margin:8px 0 4px;font-size:15.5px;color:#3b4f14}
+.sup p,.sup li{font-size:14.5px}
+.sup ul{padding-left:18px;margin:6px 0}
+.sup .why{font-size:13px;color:#5e6b45;margin-top:6px}
+
+.tbl{width:100%;overflow-x:auto;margin:12px 0}
+table{border-collapse:collapse;width:100%;font-size:14.5px;background:var(--card)}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+thead th{background:var(--g700);color:#fff;font-weight:700;white-space:nowrap}
+tbody tr:nth-child(even) td{background:var(--g50)}
+td.c,th.c{text-align:center}
+tr.sep td{border-top:3px solid var(--g600)}
+
+figure{margin:16px 0;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px}
+figure svg{width:100%;height:auto;display:block}
+figcaption{font-size:13px;color:var(--muted);margin-top:8px;text-align:center}
+
+.flow{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:12px 0}
+.flow span{background:var(--g50);border:1px solid var(--g200);border-radius:999px;padding:4px 12px;font-size:14px}
+.flow span.on{background:var(--g600);color:#fff;border-color:var(--g600);font-weight:700}
+.flow i{color:var(--g500);font-style:normal;font-weight:700}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:680px){.grid2{grid-template-columns:1fr}.hero h1{font-size:27px}}
+.mini{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px}
+.mini h4{margin-top:0}
+
+.quiz{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:12px 0}
+.quiz .q{font-weight:700;margin:0 0 6px}
+.quiz ol{margin:4px 0 8px;padding-left:22px}
+.quiz ol li{margin:2px 0}
+.quiz details{font-size:14.5px;background:var(--g50);border-radius:6px;padding:6px 10px}
+.quiz summary{cursor:pointer;color:var(--g700);font-weight:700}
+
+footer{margin-top:60px;border-top:1px solid var(--line);padding-top:16px;font-size:13px;color:var(--muted)}
+@media print{
+  header.hero{background:var(--g800)!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .sup,.key,figure,table,.quiz{break-inside:avoid}
+  nav.toc{display:none}
+}
+</style>
+<style>
+.sitebar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line);font-size:14px}
+.sitebar .in{max-width:920px;margin:0 auto;padding:8px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.sitebar a{color:var(--g700);text-decoration:none;font-weight:700;white-space:nowrap}
+.sitebar a:hover{text-decoration:underline}
+.sitebar .wk{color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sitebar a.qz{flex:none;background:var(--g600);color:#fff;border-radius:999px;padding:2px 12px}
+.sitebar a.qz:hover{background:var(--g700);text-decoration:none}
+.pager{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:48px}
+.pager a{display:block;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px;
+  color:var(--ink);text-decoration:none}
+.pager a:hover{border-color:var(--g500)}
+.pager small{display:block;color:var(--muted);font-size:12.5px}
+.pager .next{text-align:right;grid-column:2}
+@media (max-width:680px){.pager{grid-template-columns:1fr}.pager .next{grid-column:1}}
+@media print{.sitebar,.pager{display:none}}
+</style>
+</head>
+<body>
+<div class="sitebar"><div class="in"><a href="../index.html">← 전체 교안 목록</a><span class="wk">11주차 · 인공장기</span><a class="qz" href="../quiz/index.html?w=11">문제 풀기 →</a></div></div>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="kicker">생명과학의 세계 · 11주차</span>
+    <h1>인공장기는 왜 필요하고, 누가, 어떻게 만들까?</h1>
+    <p>장기이식의 역사부터 의공학자의 인공장기, 실리콘 막 인공신장, 세포 프린팅까지 통합 정리</p>
+    <div class="meta">
+      <span>구자현 교수 (고려대 바이오의공학부)</span><span>(1) 인공장기는 왜 필요할까?</span><span>(2) 인공장기는 누가 만들까?</span><span>(3) 어떻게 만들까 – 거르기</span><span>(4) 어떻게 만들까 – 세포 프린팅</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+<nav class="toc">
+  <h2>목차</h2>
+  <ol>
+    <li><a href="#p1">인공장기는 왜 필요할까? – 장기이식의 역사</a>
+      <ol>
+        <li><a href="#t1-1">1-1 장기, 인공장기, 바이오 인공장기</a></li>
+        <li><a href="#t1-2">1-2 기증 장기는 턱없이 부족하다</a></li>
+        <li><a href="#t1-3">1-3 이식의 시작 – 전설에서 피부·각막까지</a></li>
+        <li><a href="#t1-4">1-4 20세기까지의 두 장벽과 극복</a></li>
+        <li><a href="#t1-5">1-5 장기별 첫 이식과 우리나라</a></li>
+        <li><a href="#t1-6">1-6 장기기증의 종류 – 뇌사와 식물인간</a></li>
+      </ol>
+    </li>
+    <li><a href="#p2">인공장기는 누가 만들까? – 의공학자</a>
+      <ol>
+        <li><a href="#t2-1">2-1 의공학이란 – 네 갈래 분야</a></li>
+        <li><a href="#t2-2">2-2 인공심장의 발전</a></li>
+        <li><a href="#t2-3">2-3 인공췌장과 생각으로 움직이는 의수</a></li>
+        <li><a href="#t2-4">2-4 몸 안의 전자소자 – 생분해 소자와 뇌 이식 칩</a></li>
+      </ol>
+    </li>
+    <li><a href="#p3">어떻게 만들까 ① 거르기 – 인공신장</a>
+      <ol>
+        <li><a href="#t3-1">3-1 신장이 하는 일</a></li>
+        <li><a href="#t3-2">3-2 신장의 구조와 네프론</a></li>
+        <li><a href="#t3-3">3-3 신장이 망가지면 – 만성 신장병 5단계</a></li>
+        <li><a href="#t3-4">3-4 투석의 원리와 역사</a></li>
+        <li><a href="#t3-5">3-5 중공사막의 한계와 실리콘 나노기공막</a></li>
+        <li><a href="#t3-6">3-6 반도체 공정으로 막 만들기 – 포토리소그래피</a></li>
+        <li><a href="#t3-7">3-7 이식형 인공신장과 신장이식</a></li>
+      </ol>
+    </li>
+    <li><a href="#p4">어떻게 만들까 ② 세포 프린팅 – 오가노이드</a>
+      <ol>
+        <li><a href="#t4-1">4-1 잉크젯 프린팅과 잉크의 조건</a></li>
+        <li><a href="#t4-2">4-2 세포 프린팅 과정</a></li>
+        <li><a href="#t4-3">4-3 3차원 구조 – 하이드로젤, 지지체, cell-laden</a></li>
+        <li><a href="#t4-4">4-4 한계와 고려 ① 물질 전달 – 확산과 대류</a></li>
+        <li><a href="#t4-5">4-5 고려 ② 산소, ③ 세포 성장 속도</a></li>
+        <li><a href="#t4-6">4-6 몸속 환경 흉내 내기 – 기계·전기·전자기 자극</a></li>
+      </ol>
+    </li>
+    <li><a href="#p5">용어 정리와 교안 표기 정정</a></li>
+    <li><a href="#p6">4지선다 예상문제 10</a></li>
+  </ol>
+</nav>
+
+<!-- ===================== PART 1 ===================== -->
+<div class="part" id="p1">
+  <div class="part-head"><span class="no">강의 (1)</span><h2>인공장기는 왜 필요할까? – 장기이식의 역사</h2></div>
+  <p class="part-sub">학습목표: 인공장기의 정의 · 인공장기가 필요한 이유 / 학습내용: 인공장기와 바이오 인공장기의 차이 · 부족한 장기기증 · 장기이식의 역사</p>
+</div>
+
+<section class="topic" id="t1-1">
+  <h3><span class="num">1-1</span>장기, 인공장기, 바이오 인공장기 <span class="en">Organ · Artificial organ · Bio-artificial organ</span></h3>
+  <div class="tbl"><table>
+    <thead><tr><th>용어</th><th>뜻</th><th>예</th></tr></thead>
+    <tbody>
+      <tr><td><b>장기</b> (organ)</td><td>여러 종류의 <b>조직</b>이 모여 일정한 형태를 갖추고 특정한 작용을 하는 몸의 구조. 조직이 여러 종류이므로 세포도 여러 종류</td><td>심장, 폐, 간, 눈, 위</td></tr>
+      <tr><td><b>인공장기</b> (artificial organ)</td><td>장기의 기능을 <b>기계적으로</b> 대신하는 장치</td><td>인공심장 – 기계가 심장 대신 피를 뿜음</td></tr>
+      <tr><td><b>바이오 인공장기</b> (bio-artificial organ)</td><td><b>세포와 조직까지 포함하여</b> 인체의 일부분을 인공적으로 대체하는 것</td><td>세포를 프린팅해 만든 조직 (강의 (4))</td></tr>
+    </tbody>
+  </table></div>
+  <p class="eval">인공장기는 기능만 흉내 내는 기계, 바이오 인공장기는 살아 있는 세포·조직까지 담아 몸의 일부를 대체하는 것</p>
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>2주차 생명체 구성 단계와 연결</h5>
+    <ul>
+      <li>세포 → <b>조직</b> → <b>기관(장기)</b> → 기관계 → 개체. 장기는 조직 바로 위 단계임</li>
+      <li>그래서 바이오 인공장기를 만들려면 한 종류의 세포가 아니라 여러 세포가 조직을 이루도록 배치해야 함 → 강의 (4)의 세포 프린팅이 이 문제를 다룸</li>
+    </ul>
+  </div>
+</section>
+
+<section class="topic" id="t1-2">
+  <h3><span class="num">1-2</span>기증 장기는 턱없이 부족하다 <span class="en">Why we need artificial organs</span></h3>
+  <div class="grid2">
+    <div class="mini">
+      <h4>이식 대기자 vs 실제 이식</h4>
+      <ul class="pt">
+        <li>한국(2016): 대기 <b>30,286명</b> → 이식 <b>4,684명</b> (<b class="k">16% 미만</b>)</li>
+        <li>미국(2017): 대기 <b>123,398명</b> → 이식 약 16,000명</li>
+        <li>국내 대기자는 2000년 약 5천 명에서 2016년 약 3만 명으로 꾸준히 늘었고, 그중 <b>신장</b> 대기자가 가장 많음(2016년 17,959명), 다음이 간(4,969명)</li>
+      </ul>
+    </div>
+    <div class="mini">
+      <h4>기다리는 시간과 죽음</h4>
+      <ul class="pt">
+        <li>평균 대기 기간: 2012년 1,146일 → 2016년 <b>1,196일</b> (<b>3년 이상</b>)</li>
+        <li>대기 중 사망자: 2012년 1,050명 → 2016년 <b>1,319명</b></li>
+        <li>하루에 약 <b>3명</b>이 이식을 기다리다 숨짐</li>
+      </ul>
+    </div>
+  </div>
+  <p class="src">자료: 중앙일보 2018.05.09 「40년 전 드라마 속 '6백만불의 사나이'가 현실로」, 보건복지부 질병관리본부</p>
+  <p class="eval">기증 장기만으로는 대기자의 1/6도 이식받지 못하고 대기 기간은 3년이 넘음 → 장기를 "만드는" 인공장기가 필요함</p>
+</section>
+
+<section class="topic" id="t1-3">
+  <h3><span class="num">1-3</span>이식의 시작 – 전설에서 피부·각막까지 <span class="en">The first transplantation</span></h3>
+  <ul class="pt">
+    <li><b>4세기, 성 코스마스와 성 다미안</b>(쌍둥이 의사): 유스티니아누스(교안: 주교)의 손상된 다리를 죽은 무어인(북아프리카인)의 다리로 바꿔 붙였다는 전설 → 프라 안젤리코의 유화로 남음. "최초의 이식" 이야기로 소개됨</li>
+    <li><b>1597년 피부 이식</b>: 이탈리아 의사 <b>가스파레 탈리아코치</b>가 환자 자신의 <b>팔</b> 피부를 떼어 <b>이마</b>에 붙임 → 자기 몸의 조직을 옮기는 <b>자가 이식</b> 기법
+      <br><span style="font-size:14.5px;color:var(--muted)">팔을 머리 위에 고정해, 팔 피부가 이마에 붙어 있는 동안에도 피가 공급되게 함</span></li>
+    <li><b>각막 이식</b>: 1904년 독일(교안 표기)에서 <b>에두아르트 콘라트 치름</b>이 부분 각막 이식</li>
+  </ul>
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>왜 피부·각막이 먼저였나</h5>
+    <ul>
+      <li>자가 이식(자기 피부)은 면역 거부가 없음 → 1-4의 두 번째 장벽을 피해 감</li>
+      <li>각막에는 <b>혈관이 없어</b> 면역세포가 잘 닿지 않음 → 남의 각막도 비교적 거부가 적음. 그래서 면역억제제가 나오기 전에도 성공할 수 있었음</li>
+      <li>치름의 첫 전층 각막 이식은 흔히 <b>1905년</b>(오스트리아-헝가리 올뮈츠, 현 체코 올로모우츠)으로 기록됨</li>
+    </ul>
+  </div>
+</section>
+
+<section class="topic" id="t1-4">
+  <h3><span class="num">1-4</span>20세기까지의 두 장벽과 극복 <span class="en">Limitation of transplantation</span></h3>
+  <div class="key"><span class="label">핵심</span>
+    <p style="margin-top:0">20세기까지 장기이식을 막은 두 가지: <b>(1) 부족한 수술 기술</b> · <b>(2) 면역 거부 반응</b></p>
+  </div>
+  <div class="grid2">
+    <div class="mini">
+      <h4>(1) 수술 기술 → 마취제와 혈관 봉합</h4>
+      <ul class="pt">
+        <li>긴 수술을 버틸 마취: 1940 <b>인트라코스틴</b>(근육이완제), 1951 <b>할로테인</b>(강력한 마취제)</li>
+        <li>1910년 무렵 <b>혈관 수술</b> 발전</li>
+        <li><b>알렉시 카렐</b>: 장기이식에 꼭 필요한 혈관 봉합 기술(<b>삼각봉합법</b>, triangulation) → <b>1912년 노벨 생리의학상</b></li>
+      </ul>
+    </div>
+    <div class="mini">
+      <h4>(2) 면역 거부 → 면역억제제</h4>
+      <ul class="pt">
+        <li>1959 <b>로버트 슈워츠 · 윌리엄 데임섹</b>: 면역억제제 <b>6-머캅토퓨린</b>(6-MP) 발견</li>
+        <li>1960년대 초 <b>로이 칸</b>: 신장이식에 <b>아자티오프린</b> 사용 (아자티오프린을 쓴 개 신장이식, 개 이름 'Lollipop')</li>
+        <li><b>장 보렐</b>: <b>사이클로스포린</b> 개발 → 장기이식 환자의 거부 반응 예방에 처음 쓰임 (교안: 1983년 개발, 1997년 FDA 승인 / 산도스, 현 노바티스)</li>
+      </ul>
+    </div>
+  </div>
+  <p class="eval">마취·혈관 봉합(카렐)으로 수술 장벽을, 면역억제제(사이클로스포린, 보렐)로 거부 장벽을 넘으며 장기이식이 가능해짐</p>
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>면역 거부와 면역억제제 – 5주차와 연결</h5>
+    <ul>
+      <li>남의 장기 세포 표면의 MHC(사람에서는 HLA)를 받는 사람의 <b>T세포</b>가 "남"으로 알아보고 공격하는 것이 거부 반응의 핵심</li>
+      <li>6-MP·아자티오프린은 DNA 재료(퓨린) 합성을 막아 <b>림프구가 늘어나지 못하게</b> 함</li>
+      <li>사이클로스포린은 T세포 안의 칼시뉴린을 막아 <b>IL-2</b>가 만들어지지 않게 함 → T세포 활성화만 골라서 억제해 효과가 훨씬 좋았음</li>
+      <li>일반 기록으로는 보렐이 1972년 무렵 사이클로스포린의 면역억제 효과를 발견했고, FDA 첫 승인은 1983년임. 교안의 연도와 다르니 시험은 강의 기준을 따를 것</li>
+    </ul>
+  </div>
+</section>
+
+<section class="topic" id="t1-5">
+  <h3><span class="num">1-5</span>장기별 첫 이식과 우리나라 <span class="en">Specific organ transplantation</span></h3>
+  <figure>
+    <svg viewBox="0 0 720 190" role="img" aria-label="장기별 첫 이식 연표">
+      <style>.t{font:700 14px Pretendard,sans-serif}.s{font:500 12px Pretendard,sans-serif}.y{font:800 13px Pretendard,sans-serif}</style>
+      <line x1="30" y1="95" x2="700" y2="95" stroke="#15803d" stroke-width="4"/>
+      <path d="M700 87 l14 8 l-14 8z" fill="#15803d"/>
+      <g text-anchor="middle">
+        <circle cx="70" cy="95" r="8" fill="#15803d"/><text x="70" y="75" class="y" fill="#166534">1933</text><text x="70" y="125" class="t" fill="#123d26">신장</text><text x="70" y="143" class="s" fill="#56635b">보로노이</text>
+        <circle cx="185" cy="95" r="8" fill="#15803d"/><text x="185" y="75" class="y" fill="#166534">1963</text><text x="185" y="125" class="t" fill="#123d26">간 · 폐</text><text x="185" y="143" class="s" fill="#56635b">스타즐 / 하디</text>
+        <circle cx="300" cy="95" r="8" fill="#15803d"/><text x="300" y="75" class="y" fill="#166534">1966</text><text x="300" y="125" class="t" fill="#123d26">신장+췌장</text><text x="300" y="143" class="s" fill="#56635b">릴리하이·켈리</text>
+        <circle cx="415" cy="95" r="8" fill="#15803d"/><text x="415" y="75" class="y" fill="#166534">1967</text><text x="415" y="125" class="t" fill="#123d26">심장</text><text x="415" y="143" class="s" fill="#56635b">바너드</text>
+        <circle cx="530" cy="95" r="8" fill="#15803d"/><text x="530" y="75" class="y" fill="#166534">1983</text><text x="530" y="125" class="t" fill="#123d26">폐 첫 성공</text><text x="530" y="143" class="s" fill="#56635b">쿠퍼</text>
+        <circle cx="645" cy="95" r="8" fill="#b4232a"/><text x="645" y="75" class="y" fill="#b4232a">1992</text><text x="645" y="125" class="t" fill="#b4232a">국내 첫 심장</text><text x="645" y="143" class="s" fill="#56635b">서울중앙병원</text>
+      </g>
+      <text x="360" y="180" text-anchor="middle" class="s" fill="#56635b">교안 학습정리 순서: Kidney → Kidney+pancreas → Liver → Lung → Heart → Uterine(자궁)</text>
+    </svg>
+    <figcaption>장기별 첫 이식 연표 (교안 Specific Organ Transplantation 내용을 다시 그림)</figcaption>
+  </figure>
+  <div class="tbl"><table>
+    <thead><tr><th>장기</th><th>연도 · 사람 (교안)</th><th>덧붙인 내용</th></tr></thead>
+    <tbody>
+      <tr><td><b>신장</b></td><td>1933, 유리 보로노이</td><td>첫 사람 신장이식 시도</td></tr>
+      <tr><td><b>신장 + 췌장</b></td><td>1966, 리처드 릴리하이 · 윌리엄 켈리</td><td>당뇨병 환자에게 동시 이식</td></tr>
+      <tr><td><b>간</b></td><td>1963, 토머스 스타즐 · 로이 칸</td><td>초기에는 <b>75%가 사망</b> → <b>사이클로스포린</b> 이후 <b>90% 생존</b></td></tr>
+      <tr><td><b>폐</b></td><td>1963, 제임스 하디 · 와츠 웹</td><td>첫 <b>성공</b>은 1983년 조엘 쿠퍼</td></tr>
+      <tr><td><b>심장</b></td><td>1967, 크리스천 바너드</td><td>남아공에서 첫 사람 간 심장이식</td></tr>
+      <tr><td><b>자궁</b></td><td>–</td><td>가장 최근에 시도되는 이식</td></tr>
+      <tr class="sep"><td><b>국내 첫 심장이식</b></td><td>1992, 서울중앙병원</td><td>현 서울아산병원</td></tr>
+    </tbody>
+  </table></div>
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>"첫 시도"와 "첫 성공"은 다르다</h5>
+    <ul>
+      <li>보로노이의 1933년 신장이식은 환자가 며칠 만에 숨진 <b>시도</b>였음. 오래 산 첫 성공 사례는 1954년 미국 조지프 머리의 <b>일란성 쌍둥이</b> 사이 신장이식 → 유전적으로 같아 면역 거부가 없었기 때문</li>
+      <li>사이클로스포린 표의 간이식 생존율 변화(75% 사망 → 90% 생존)는 1-4의 "면역 장벽"이 얼마나 컸는지를 보여 줌</li>
+    </ul>
+  </div>
+</section>
+
+<section class="topic" id="t1-6">
+  <h3><span class="num">1-6</span>장기기증의 종류 – 뇌사와 식물인간 <span class="en">Classification of organ donation</span></h3>
+  <div class="tbl"><table>
+    <thead><tr><th>종류</th><th>조건</th></tr></thead>
+    <tbody>
+      <tr><td><b>뇌사 기증</b><br>(brain death donation)</td><td>뇌 질환이나 교통사고 등으로 <b>뇌간을 포함한 전체 뇌 기능</b>이 완전히 멈춰 회복이 불가능한 뇌사자의 장기를 <b>가족 또는 유족이 서면으로</b> 신청하여 기증</td></tr>
+      <tr><td><b>사후 기증</b><br>(postmortem donation)</td><td><b>심장이 완전히 멈춘 뒤</b> 안구와 인체 조직을 기증</td></tr>
+      <tr><td><b>생체 기증</b><br>(bio-donation)</td><td>살아 있는 <b>19세 이상</b> 기증자가 부부·직계존비속·형제자매·4촌 이내 친족 또는 타인을 이식 대상자로 정해 기증</td></tr>
+    </tbody>
+  </table></div>
+  <h4>뇌사 vs 식물인간</h4>
+  <div class="tbl"><table>
+    <thead><tr><th>구분</th><th>뇌사 상태</th><th>식물인간</th></tr></thead>
+    <tbody>
+      <tr><td>손상 부위</td><td><b>뇌간을 포함한 뇌 전체</b></td><td><b>대뇌의 일부</b></td></tr>
+      <tr><td>정신 상태</td><td>심한 혼수 상태 (comatose)</td><td>무의식 상태 (unconscious)</td></tr>
+      <tr><td>기능 장애</td><td>심장 박동 외 모든 기능 정지</td><td>기억·사고 등 대뇌 기능 장애</td></tr>
+      <tr><td>운동 능력</td><td>움직임 전혀 없음</td><td>목적 없는 약간의 움직임 가능</td></tr>
+      <tr><td><b>호흡</b></td><td><b class="k">자발적 호흡 불가</b> (인공호흡기 필요)</td><td><b class="g">자발적 호흡 가능</b></td></tr>
+      <tr><td>경과</td><td>필연적으로 심정지하여 사망</td><td>수개월~수년 후 회복 가능성이 있음</td></tr>
+      <tr><td>장기 기증</td><td><b>뇌사 기증 대상</b> (위 표)</td><td>장기 기증 대상이 될 수 없음</td></tr>
+    </tbody>
+  </table></div>
+  <p class="eval">뇌사는 뇌간까지 모든 뇌 기능이 멈춰 스스로 숨 쉬지 못하고 회복이 불가능한 상태, 식물인간은 대뇌 일부만 손상되어 스스로 숨 쉬고 회복 가능성도 있는 상태</p>
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>교안 표의 "기타" 칸 읽기</h5>
+    <ul>
+      <li>교안 표에는 뇌사·식물인간 모두 "장기 기증 대상이 될 수 없음"으로 적혀 있지만, 바로 앞 장의 <b>뇌사 기증</b>처럼 뇌사자는 장기 기증 대상이 될 수 있음 (국내 장기이식법도 뇌사자 기증을 허용)</li>
+      <li>뇌간은 호흡·심장 박동 같은 생명 유지 중추 → 뇌간이 멈춘 뇌사자는 인공호흡기로만 심장이 잠시 뛰고, 장기도 그동안만 기증할 수 있음</li>
+    </ul>
+  </div>
+  <div class="key"><span class="label">강의 (1) 학습정리</span>
+    <ul class="pt" style="margin-bottom:0">
+      <li>장기이식은 신장 → 신장+췌장 → 간 → 폐 → 심장 → 자궁 순으로 발전함</li>
+      <li>20세기까지의 두 장벽: 부족한 수술 기술(→ 카렐의 삼각봉합법), 면역 거부(→ 보렐의 사이클로스포린)</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===================== PART 2 ===================== -->
+<div class="part" id="p2">
+  <div class="part-head"><span class="no">강의 (2)</span><h2>인공장기는 누가 만들까? – 의공학자</h2></div>
+  <p class="part-sub">학습목표: 의공학자가 하는 일 알아보기 / 학습내용: 의공학자(Biomedical Engineer)의 정의</p>
+</div>
+
+<section class="topic" id="t2-1">
+  <h3><span class="num">2-1</span>의공학이란 – 네 갈래 분야 <span class="en">Biomedical Engineering</span></h3>
+  <div class="key"><span class="label">정의</span>
+    <p style="margin-top:0"><b>의공학</b>(Biomedical Engineering): 생명공학 기술을 인체를 돌보는 데 적용하는 <b>여러 학문이 합쳐진(multidisciplinary)</b> 공학 분야. 생체재료·인공장기·의료기기 같은 의료용 재료·장치·장비를 만들거나, 생명공학을 의학에 접목해 <b>사람의 건강을 높이는 것</b>을 목표로 연구함</p>
+    <p>융합 학문이라 배울 과목이 많고, <b>기초의학 지식</b>도 필요함</p>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>분야</th><th>교안 사진의 예</th></tr></thead>
+    <tbody>
+      <tr><td><b>생체소재</b></td><td>표면이 다공성인 인공 고관절 – 뼈가 구멍 사이로 자라 들어와 고정됨</td></tr>
+      <tr><td><b>진단기기</b></td><td>피부에 붙이는 웨어러블 센서, 땀을 분석하는 무선 센서 시스템</td></tr>
+      <tr><td><b>의료로봇</b></td><td>수술 로봇(MiroSurge), 로봇 의족</td></tr>
+      <tr><td><b>의료영상</b></td><td>CT·MRI 영상과 장비</td></tr>
+    </tbody>
+  </table></div>
+  <ul class="pt">
+    <li>교안은 1960년대 케네디의 달 탐사 선언과 1969년 아폴로 11호를 "인류의 우주 분야 업적"으로 든 뒤, 같은 1969년에 나온 인공심장을 "인류의 인공장기 업적"으로 나란히 소개함</li>
+  </ul>
+</section>
+
+<section class="topic" id="t2-2">
+  <h3><span class="num">2-2</span>인공심장의 발전 <span class="en">Artificial heart</span></h3>
+  <div class="grid2">
+    <div class="mini">
+      <h4>1969년 – 세계 첫 인공심장</h4>
+      <ul class="pt">
+        <li>도밍고 리오타 · 덴튼 쿨리가 개발한 <b>"리오타(Liotta)" 인공심장</b></li>
+        <li>세계 최초의 전자 장치 인공심장. 2015년 워싱턴 DC 스미소니언 박물관에 공개됨</li>
+        <li>인공심장 = 심장 기능을 대신하는 <b>기계적으로 작동하는 장치</b> (교안 첫 그림: 좌우 심실 자리를 펌프가 대신함)</li>
+      </ul>
+    </div>
+    <div class="mini">
+      <h4>2006년 – 작아지고 자유로워짐</h4>
+      <ul class="pt">
+        <li><b>AbioCor</b>: 무게 <b>약 900 g</b>, 작은 <b>배터리</b>로 작동 → 움직임의 자유 (<b>2006년 FDA 승인</b>)</li>
+        <li><b>스탠 라킨</b>: 인공심장을 달고 <b>555일</b>을 생활한 뒤 심장이식을 받음 (배낭에 구동 장치를 메고 농구도 함)</li>
+      </ul>
+    </div>
+  </div>
+  <p class="eval">인공심장은 1969년 첫 기계식 펌프에서 배터리로 움직이는 작은 장치로 발전해, 이식받을 때까지 환자가 일상생활을 하게 해 줌</p>
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>"다리(bridge)" 역할</h5>
+    <ul>
+      <li>지금의 인공심장은 대부분 기증 심장을 기다리는 동안 생명을 잇는 <b>이식까지의 다리(bridge to transplant)</b>로 쓰임. 1-2의 긴 대기 기간 문제와 직접 연결됨</li>
+      <li>스탠 라킨이 쓴 장치는 AbioCor가 아니라 SynCardia사의 완전 인공심장(구동기를 배낭에 넣는 방식)으로 알려져 있음. 교안은 두 사진을 나란히 놓아 "작고 자유로워진 인공심장"을 보여 줌</li>
+    </ul>
+  </div>
+</section>
+
+<section class="topic" id="t2-3">
+  <h3><span class="num">2-3</span>인공췌장과 생각으로 움직이는 의수 <span class="en">Artificial pancreas · Prosthetics</span></h3>
+  <div class="grid2">
+    <div class="mini">
+      <h4>인공췌장 (artificial pancreas)</h4>
+      <ul class="pt">
+        <li><b>인슐린 분비를 조절해 혈당을 관리</b>하는 장치 – 예: 메드트로닉사의 웨어러블 인슐린 펌프</li>
+        <li><b>현재의 한계</b>
+          <ul class="pt">
+            <li><b>12시간</b>마다 사람이 직접 조절</li>
+            <li>혈당 센서는 <b>매주</b> 교체</li>
+            <li>인슐린은 <b>3일</b>마다 다시 채움</li>
+          </ul></li>
+      </ul>
+    </div>
+    <div class="mini">
+      <h4>생각으로 움직이는 의수</h4>
+      <ul class="pt">
+        <li>뇌(생각)로 직접, 자유롭게 움직이는 의수족</li>
+        <li><b>2007년</b> 로봇 기술 + <b>생체공학 팔다리(bionic limb)</b> 기술로 인공 의수 개발</li>
+        <li>의수의족에 쓸 <b>초박막 VR 실감 센서</b>: 실제 감각을 재현하는 얇은 장갑, 촉각을 활용한 차세대 몰입 기술 <b>텔레햅틱</b></li>
+      </ul>
+    </div>
+  </div>
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>인공췌장이 어려운 이유 – 6주차 항상성과 연결</h5>
+    <ul>
+      <li>진짜 췌장은 혈당을 쉬지 않고 재서 인슐린(혈당 ↓)과 글루카곤(혈당 ↑)을 자동으로 내보내는 <b>음성 피드백</b> 장치</li>
+      <li>교안의 한계("12시간마다 직접 조절")는 센서와 펌프가 아직 이 고리를 완전히 자동으로 닫지 못한다는 뜻 → 센서 값으로 펌프를 알아서 움직이는 <b>폐쇄 고리(closed-loop)</b> 시스템이 개발 목표</li>
+    </ul>
+  </div>
+</section>
+
+<section class="topic" id="t2-4">
+  <h3><span class="num">2-4</span>몸 안의 전자소자 – 생분해 소자와 뇌 이식 칩 <span class="en">Implantable electronics</span></h3>
+  <ul class="pt">
+    <li><b>생분해/생흡수 전자소자</b>: 체액에 <b>녹고</b> 주변 조직에 <b>흡수되어</b>, 일을 마치면 <b>흔적 없이 물리적으로 사라지는</b> 전자 시스템 → 꺼내는 수술이 필요 없음</li>
+    <li><b>뇌 이식 칩</b>: 뉴럴링크(Neuralink)의 완전 이식형 뇌–컴퓨터 인터페이스. 겉으로 보이지 않게 심어 컴퓨터·휴대기기를 조종하도록 설계</li>
+    <li><b>뇌 전극</b>: 하버드(2006) – 바늘이 촘촘히 박힌 미세전극 배열을 사지마비 환자 대뇌에 심어 생각으로 컴퓨터를 조작 / 브래너·노만(2000) – 전극이 꽂힌 신경 단면 사진</li>
+    <li><b>전자소자 기술</b>: 우리나라는 반도체 같은 전자소자 기술이 매우 강함 → 인공장기 개발의 강점</li>
+  </ul>
+  <div class="key"><span class="label">강의 (2) 학습정리 – 의공학자가 만드는 세 종류의 인공장기</span>
+    <div class="flow" style="margin-bottom:0"><span class="on">기계식 심장 펌프</span><i>·</i><span class="on">전자소자 인공장기</span><i>·</i><span class="on">세포 기반 인공장기</span></div>
+  </div>
+</section>
+
+<!-- ===================== PART 3 ===================== -->
+<div class="part" id="p3">
+  <div class="part-head"><span class="no">강의 (3)</span><h2>어떻게 만들까 ① 거르기 – 인공신장</h2></div>
+  <p class="part-sub">학습목표: 신장의 기능과 구조 이해 · 신장 기능을 흉내 내는 방법 / 학습내용: 신장의 주요 기능 · 신장이 고장 났을 때의 치료 · 고장 난 신장을 대체하는 기술</p>
+</div>
+
+<section class="topic" id="t3-1">
+  <h3><span class="num">3-1</span>신장이 하는 일 <span class="en">Main function of the kidney</span></h3>
+  <div class="tbl"><table>
+    <thead><tr><th>기능</th><th>내용</th></tr></thead>
+    <tbody>
+      <tr><td><b>배설 기능</b> (excretory)</td><td>체액에서 유기 노폐물 제거 – <b>요소, 크레아티닌, 요산</b></td></tr>
+      <tr><td><b>항상성 기능</b> (homeostasis)</td><td><b>물–염분 균형</b>, <b>산–염기 균형</b></td></tr>
+      <tr><td><b>내분비·합성 기능</b> (endocrine/synthetic)</td><td>호르몬 등을 만들어 내보냄</td></tr>
+      <tr><td><b>대사 기능</b> (metabolic)</td><td>아미노산, 포도당 대사</td></tr>
+    </tbody>
+  </table></div>
+  <ul class="pt">
+    <li>크레아틴은 주로 <b>근육</b>(과 뇌)에 있는 아미노산 유래 물질 → 근육에서 생긴 분해산물 <b>크레아티닌</b>을 신장이 걸러 냄</li>
+  </ul>
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>신장이 만드는 호르몬</h5>
+    <ul>
+      <li><b>에리트로포이에틴(EPO)</b>: 골수의 적혈구 생성 촉진 → 신부전 환자에게 빈혈이 흔한 이유</li>
+      <li><b>레닌</b>: 혈압 조절 / <b>활성형 비타민 D</b>: 칼슘 흡수 → 뼈 건강</li>
+      <li>그래서 거르기만 하는 투석기는 신장 기능의 "배설·물–염분 균형" 일부만 대신함 → 세포를 담은 바이오 인공신장이 연구되는 이유</li>
+    </ul>
+  </div>
+</section>
+
+<section class="topic" id="t3-2">
+  <h3><span class="num">3-2</span>신장의 구조와 네프론 <span class="en">Kidney structure · Nephron</span></h3>
+  <ul class="pt">
+    <li>위치: <b>복막후강</b>(retroperitoneal, 배 안쪽 복막 뒤), <b>11·12번 갈비뼈</b>가 일부 보호. <b>오른쪽 신장이 간 때문에 약간 낮음</b></li>
+    <li>싸개: 안쪽부터 <b>신장피막</b>(renal capsule) → <b>지방캡슐</b>(adipose capsule) → <b>신근막</b>(renal fascia)</li>
+    <li>단면: 바깥 <b>겉질</b>(피질, cortex) · 안쪽 <b>속질</b>(수질, medulla) · 오줌이 모이는 <b>신우</b>(renal pelvis) → <b>요관</b>(ureter)</li>
+    <li><b>네프론</b>(nephron) = 신장의 <b>기능 단위</b></li>
+  </ul>
+  <div class="flow"><span class="on">들세동맥</span><i>→</i><span>토리(사구체)</span><i>→</i><span>보우만주머니</span><i>→</i><span>토리쪽곱슬세관</span><i>→</i><span>헨레고리(내림·오름다리)</span><i>→</i><span>먼쪽곱슬세관</span><i>→</i><span class="on">집합관 → 오줌</span></div>
+  <figure>
+    <svg viewBox="0 0 720 250" role="img" aria-label="헨레고리와 수질의 삼투 농도 기울기">
+      <style>.t{font:700 14px Pretendard,sans-serif}.s{font:500 12px Pretendard,sans-serif}</style>
+      <defs><linearGradient id="gr11" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fdf2f2"/><stop offset="1" stop-color="#f3b5b5"/></linearGradient></defs>
+      <rect x="40" y="20" width="460" height="56" fill="#fdf7f7" stroke="#e8c9c9"/>
+      <rect x="40" y="76" width="460" height="160" fill="url(#gr11)" stroke="#e8c9c9"/>
+      <text x="50" y="40" class="s" fill="#56635b">겉질 300 mOsm</text>
+      <text x="240" y="228" class="s" fill="#7a1d1d">깊은 속질 ~1200 mOsm</text>
+      <path d="M150 50 L150 200 Q150 222 172 222 L198 222 Q220 222 220 200 L220 50" fill="none" stroke="#d8a400" stroke-width="16" stroke-linecap="round"/>
+      <rect x="380" y="30" width="26" height="206" rx="6" fill="#e9c46a"/>
+      <text x="185" y="140" text-anchor="middle" class="t" fill="#123d26">헨레고리</text>
+      <g fill="#1d5fbf" class="s"><text x="70" y="120">H₂O ←</text><text x="70" y="160">H₂O ←</text></g>
+      <g fill="#b4232a" class="s"><text x="232" y="120">→ Na⁺ Cl⁻</text><text x="232" y="160">→ Na⁺ Cl⁻</text></g>
+      <text x="393" y="24" text-anchor="middle" class="s" fill="#56635b">집합관</text>
+      <text x="418" y="140" class="s" fill="#1d5fbf">H₂O 빠져나감</text>
+      <text x="418" y="156" class="s" fill="#56635b">→ 진한 오줌</text>
+      <g class="s" fill="#123d26">
+        <text x="520" y="60" class="t">내림다리</text><text x="520" y="78">물만 빠져나감 (loses water)</text>
+        <text x="520" y="112" class="t">오름다리</text><text x="520" y="130">염분만 내보냄 (loses salt)</text>
+        <text x="520" y="164" class="t">곧은혈관(vasa recta)</text><text x="520" y="182">고리와 나란히 흐르며</text><text x="520" y="198">역류 교환으로 기울기 유지</text>
+      </g>
+    </svg>
+    <figcaption>헨레고리 + 곧은혈관 → 역류 교환 → 수질의 염분 농도 기울기 (교안 Bioninja 그림을 단순화해 다시 그림)</figcaption>
+  </figure>
+  <p class="eval">헨레고리는 내림다리에서 물을, 오름다리에서 염분을 내보내 수질을 깊이 갈수록 짜게(300 → 1200 mOsm) 만들고, 이 기울기 덕분에 집합관에서 물을 다시 흡수해 진한 오줌을 만듦</p>
+</section>
+
+<section class="topic" id="t3-3">
+  <h3><span class="num">3-3</span>신장이 망가지면 – 만성 신장병 5단계 <span class="en">Kidney damage</span></h3>
+  <div class="tbl"><table>
+    <thead><tr><th>단계</th><th class="c">정상 대비 신장 기능</th><th>무슨 일이</th></tr></thead>
+    <tbody>
+      <tr><td>1단계</td><td class="c">90% 이상</td><td rowspan="3">특별한 증상은 없지만 기능이 서서히 떨어질 수 있음</td></tr>
+      <tr><td>2단계</td><td class="c">60~89%</td></tr>
+      <tr><td>3단계</td><td class="c">30~59%</td></tr>
+      <tr><td>4단계</td><td class="c">15~29%</td><td>기능이 매우 낮아 곧 신부전 치료가 필요할 수 있음</td></tr>
+      <tr><td><b class="k">5단계</b></td><td class="c"><b>15% 미만</b></td><td><b>신부전</b>: 노폐물과 남는 물을 더 이상 처리하지 못함. 완치는 없지만 치료 방법(투석·이식)은 있음</td></tr>
+    </tbody>
+  </table></div>
+  <p class="eval">초기(1~3단계)에는 증상이 없어 모르고 지나가기 쉽고, 15% 아래(5단계)가 되면 투석이나 신장이식이 필요함</p>
+</section>
+
+<section class="topic" id="t3-4">
+  <h3><span class="num">3-4</span>투석의 원리와 역사 <span class="en">Dialysis</span></h3>
+  <h4>투석의 역사</h4>
+  <ul class="pt">
+    <li>초기 투석 장치: <b>반투과성 콜로디온 막</b>으로 된 관(지름 8, 길이 40 cm)을 여러 개 이어 붙인 구조 (교안 사진: 존 제이컵 에이벨과 그 장치, 콜프의 회전 드럼 인공신장)</li>
+    <li><b>웨어러블 인공신장</b>(2007): 펌프·투석기·배터리·투석액 재생 장치를 허리띠처럼 몸에 차는 형태</li>
+  </ul>
+  <h4>상용 투석기 (혈액투석)</h4>
+  <figure>
+    <svg viewBox="0 0 720 220" role="img" aria-label="혈액투석기의 흐름">
+      <style>.t{font:700 14px Pretendard,sans-serif}.s{font:500 12px Pretendard,sans-serif}</style>
+      <rect x="20" y="70" width="110" height="70" rx="10" fill="#fbe9ea" stroke="#e8b4b7"/>
+      <text x="75" y="100" text-anchor="middle" class="t" fill="#b4232a">환자</text><text x="75" y="120" text-anchor="middle" class="s" fill="#56635b">팔의 혈관</text>
+      <path d="M130 88 L200 88" stroke="#b4232a" stroke-width="4"/><path d="M200 80 l12 8 l-12 8z" fill="#b4232a"/>
+      <text x="165" y="78" text-anchor="middle" class="s" fill="#b4232a">동맥 → 피</text>
+      <rect x="215" y="68" width="70" height="40" rx="8" fill="#fff" stroke="#b4232a"/><text x="250" y="93" text-anchor="middle" class="t" fill="#b4232a">펌프</text>
+      <path d="M285 88 L330 88" stroke="#b4232a" stroke-width="4"/><path d="M330 80 l12 8 l-12 8z" fill="#b4232a"/>
+      <rect x="345" y="50" width="200" height="110" rx="12" fill="#eef6f1" stroke="#15803d"/>
+      <text x="445" y="72" text-anchor="middle" class="t" fill="#123d26">투석기 (반투과막 관 다발)</text>
+      <g stroke="#e07a7a" stroke-width="3"><line x1="360" y1="92" x2="530" y2="92"/><line x1="360" y1="108" x2="530" y2="108"/><line x1="360" y1="124" x2="530" y2="124"/></g>
+      <text x="445" y="148" text-anchor="middle" class="s" fill="#56635b">노폐물 → 막 지나 투석액으로</text>
+      <path d="M345 135 L150 135" stroke="#7a1d1d" stroke-width="4"/><path d="M150 127 l-12 8 l12 8z" fill="#7a1d1d"/>
+      <text x="240" y="155" text-anchor="middle" class="s" fill="#7a1d1d">깨끗해진 피 → 정맥</text>
+      <rect x="575" y="20" width="125" height="44" rx="8" fill="#e8f1fb" stroke="#1d5fbf"/><text x="637" y="47" text-anchor="middle" class="s" fill="#1d5fbf">새 투석액 (사용 전)</text>
+      <rect x="575" y="135" width="125" height="48" rx="8" fill="#f1f1f1" stroke="#888"/><text x="637" y="156" text-anchor="middle" class="s" fill="#444">쓴 투석액 (사용 후)</text><text x="637" y="173" text-anchor="middle" class="s" fill="#444">요소·염분 포함</text>
+      <path d="M637 64 L637 100 L545 100" fill="none" stroke="#1d5fbf" stroke-width="3"/><path d="M545 115 L637 115 L637 135" fill="none" stroke="#888" stroke-width="3"/>
+      <text x="360" y="208" text-anchor="middle" class="s" fill="#123d26">피와 투석액이 반투과막을 사이에 두고 흐르며, 작은 노폐물만 농도가 낮은 투석액 쪽으로 확산됨</text>
+    </svg>
+    <figcaption>혈액투석의 흐름 (교안 Commercial Dialyzer 그림을 단순화해 다시 그림)</figcaption>
+  </figure>
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>투석의 원리는 확산 – 2주차 막 수송과 연결</h5>
+    <ul>
+      <li>반투과막은 <b>크기</b>로 거르는 체. 요소·크레아티닌·염분 같은 작은 분자는 통과, 적혈구·알부민 같은 큰 것은 통과 못함</li>
+      <li>노폐물은 <b>농도가 높은 피 → 낮은 투석액</b>으로 저절로 확산(2주차 단순확산과 같은 원리). 투석액에 꼭 필요한 이온은 피와 비슷한 농도로 넣어 두어 빠져나가지 않게 함</li>
+      <li>교안 사진 속 인물·장치는 출처 파일명으로 보면 존 제이컵 에이벨(1913년 콜로디온 관 투석 실험, 관 지름은 8 mm)과 빌럼 콜프의 회전 드럼 인공신장(1943)임</li>
+    </ul>
+  </div>
+</section>
+
+<section class="topic" id="t3-5">
+  <h3><span class="num">3-5</span>중공사막의 한계와 실리콘 나노기공막 <span class="en">Filtration – membrane</span></h3>
+  <div class="grid2">
+    <div class="mini">
+      <h4>지금의 투석 필터 – 중공사막</h4>
+      <ul class="pt">
+        <li>속이 빈 가는 섬유(hollow fiber) <b>수천 가닥</b>을 다발로 묶어 멸균 → 섬유 속으로 피, 바깥으로 투석액</li>
+        <li><b>한계</b>: 두꺼운 다공성 <b>고분자</b> 막이라 ① 저항이 크고 ② <b>구멍 크기가 고르지 않으며</b> ③ 체액에 닿으면 시간이 지나 <b>분해됨</b></li>
+      </ul>
+    </div>
+    <div class="mini">
+      <h4>새 필터 – 실리콘 나노기공막</h4>
+      <ul class="pt">
+        <li>반도체처럼 <b>실리콘</b>에 <b>직사각형 나노 슬릿</b> 구멍(폭 수 nm)을 일정하게 뚫음</li>
+        <li>슬릿 설계 덕분에 투석액이 흐를 통로를 더 크게 만들 수 있음</li>
+        <li>구멍 크기가 고르니 거르는 기준이 정확함</li>
+      </ul>
+    </div>
+  </div>
+  <figure>
+    <svg viewBox="0 0 720 170" role="img" aria-label="실리콘 막을 통과하는 물질의 크기">
+      <style>.t{font:700 14px Pretendard,sans-serif}.s{font:500 12px Pretendard,sans-serif}</style>
+      <g text-anchor="middle" class="s" fill="#123d26">
+        <rect x="60" y="80" width="600" height="18" fill="#c0002f" opacity=".85"/>
+        <line x1="60" y1="80" x2="60" y2="104" stroke="#123d26"/><text x="60" y="122">0.1</text>
+        <line x1="180" y1="80" x2="180" y2="104" stroke="#123d26"/><text x="180" y="122">1</text>
+        <line x1="300" y1="80" x2="300" y2="104" stroke="#123d26"/><text x="300" y="122">10</text>
+        <line x1="420" y1="80" x2="420" y2="104" stroke="#123d26"/><text x="420" y="122">100</text>
+        <line x1="540" y1="80" x2="540" y2="104" stroke="#123d26"/><text x="540" y="122">1,000</text>
+        <line x1="660" y1="80" x2="660" y2="104" stroke="#123d26"/><text x="660" y="122">10,000 nm</text>
+        <circle cx="130" cy="60" r="3" fill="#123d26"/><text x="130" y="44">포도당</text>
+        <circle cx="300" cy="58" r="9" fill="#c0002f"/><text x="300" y="36">항체(단백질)</text>
+        <circle cx="590" cy="52" r="16" fill="#c0002f"/><text x="590" y="26">세균</text>
+      </g>
+      <line x1="230" y1="20" x2="230" y2="135" stroke="#b4232a" stroke-width="3" stroke-dasharray="6 4"/>
+      <text x="230" y="150" text-anchor="middle" class="t" fill="#b4232a">막 구멍 크기</text>
+      <text x="120" y="160" text-anchor="middle" class="s" fill="#166534">← 작아서 통과</text>
+      <text x="420" y="160" text-anchor="middle" class="s" fill="#7a1d1d">너무 커서 통과 못함 →</text>
+    </svg>
+    <figcaption>나노미터 단위 크기 비교: 구멍 크기로 노폐물만 내보내고 단백질·세균은 막음 (교안 Silicon Membrane 그림을 단순화해 다시 그림)</figcaption>
+  </figure>
+  <div class="key"><span class="label">실리콘 인공신장 막의 성능</span>
+    <ul class="pt" style="margin-bottom:0">
+      <li><b>높은 선택 투과성</b>(permselectivity): 중간 크기 분자 <b>80% 이상 제거</b>, 알부민 통과 <b>0.1% 미만</b></li>
+      <li><b>높은 수리 투과성</b>(hydraulic permeability): 최대 <b>600 mL/hr/mmHg/m²</b> → 펌프 없이 혈압만으로도 물이 잘 빠짐</li>
+    </ul>
+  </div>
+</section>
+
+<section class="topic" id="t3-6">
+  <h3><span class="num">3-6</span>반도체 공정으로 막 만들기 – 포토리소그래피 <span class="en">Photolithography</span></h3>
+  <ul class="pt">
+    <li>먼지가 거의 없는 <b>클린룸</b>에서 작업. 빛에 반응하는 재료를 쓰므로 자외선이 없는 <b>노란 조명(옐로룸)</b>을 씀</li>
+  </ul>
+  <figure>
+    <svg viewBox="0 0 720 200" role="img" aria-label="포토리소그래피 8단계">
+      <style>.t{font:700 13px Pretendard,sans-serif}.s{font:500 11.5px Pretendard,sans-serif}</style>
+      <g class="s" fill="#123d26" text-anchor="middle">
+        <g transform="translate(10,10)"><rect x="0" y="40" width="160" height="22" fill="#b5b5b5"/><text x="80" y="82" class="t">① 웨이퍼 세척</text></g>
+        <g transform="translate(185,10)"><rect x="0" y="40" width="160" height="22" fill="#b5b5b5"/><rect x="0" y="32" width="160" height="8" fill="#ff8a8a"/><text x="80" y="82" class="t">② 감광제 회전 도포</text></g>
+        <g transform="translate(360,10)"><rect x="0" y="40" width="160" height="22" fill="#b5b5b5"/><rect x="0" y="32" width="160" height="8" fill="#ff3b1f"/><text x="80" y="82" class="t">③ 소프트 베이크</text></g>
+        <g transform="translate(535,10)"><rect x="0" y="40" width="160" height="22" fill="#b5b5b5"/><rect x="0" y="32" width="160" height="8" fill="#ff3b1f"/><rect x="0" y="14" width="160" height="8" fill="#fff" stroke="#333"/><rect x="12" y="14" width="34" height="8" fill="#111"/><rect x="114" y="14" width="34" height="8" fill="#111"/><text x="80" y="82" class="t">④ 마스크 정렬</text></g>
+        <g transform="translate(10,105)"><rect x="0" y="40" width="160" height="22" fill="#b5b5b5"/><rect x="0" y="32" width="160" height="8" fill="#ff8a8a"/><rect x="12" y="32" width="34" height="8" fill="#ff3b1f"/><rect x="114" y="32" width="34" height="8" fill="#ff3b1f"/><g stroke="#333"><line x1="60" y1="8" x2="60" y2="28"/><line x1="80" y1="8" x2="80" y2="28"/><line x1="100" y1="8" x2="100" y2="28"/></g><text x="80" y="82" class="t">⑤ 자외선 노광</text></g>
+        <g transform="translate(185,105)"><rect x="0" y="40" width="160" height="22" fill="#b5b5b5"/><rect x="12" y="32" width="34" height="8" fill="#ff3b1f"/><rect x="114" y="32" width="34" height="8" fill="#ff3b1f"/><text x="80" y="82" class="t">⑥ 현상</text></g>
+        <g transform="translate(360,105)"><rect x="0" y="40" width="160" height="22" fill="#b5b5b5"/><rect x="12" y="32" width="34" height="8" fill="#ff3b1f"/><rect x="114" y="32" width="34" height="8" fill="#ff3b1f"/><text x="80" y="82" class="t">⑦ 초순수(DI)로 헹굼</text></g>
+        <g transform="translate(535,105)"><rect x="0" y="40" width="160" height="22" fill="#b5b5b5"/><rect x="12" y="32" width="34" height="8" fill="#7a1d1d"/><rect x="114" y="32" width="34" height="8" fill="#7a1d1d"/><text x="80" y="82" class="t">⑧ 하드 베이크</text></g>
+      </g>
+    </svg>
+    <figcaption>포토리소그래피 순서: 자외선을 받은 부분의 감광제가 약해져 현상 때 씻겨 나가고, 마스크 무늬대로 남음 (교안 그림을 다시 그림)</figcaption>
+  </figure>
+  <ul class="pt">
+    <li>교안 "Detailed Procedure": 실리콘 위에 <b>질화규소</b>(silicon nitride)·<b>폴리실리콘</b>·<b>이산화규소</b>(silicon dioxide) 층을 쌓고 깎기를 되풀이해 얇은 막에 나노 슬릿을 만들고, 뒷면을 파내 막만 남김</li>
+  </ul>
+  <p class="eval">반도체 칩을 만드는 포토리소그래피로 실리콘에 크기가 똑같은 나노 구멍을 뚫어, 고분자 중공사막보다 정확하고 튼튼한 필터를 만듦</p>
+</section>
+
+<section class="topic" id="t3-7">
+  <h3><span class="num">3-7</span>이식형 인공신장과 신장이식 <span class="en">Implantable artificial kidney (2018)</span></h3>
+  <div class="grid2">
+    <div class="mini">
+      <h4>이식형 인공신장 (UCSF, 2018)</h4>
+      <ul class="pt">
+        <li>미국 캘리포니아대 샌프란시스코(UCSF): <b>커피 컵만 한</b> 장치</li>
+        <li><b>실리콘 나노기공막</b> → <b>높은 유량</b>(high flux) + <b>높은 선택성</b>(high selectivity)</li>
+        <li>아랫배에 심어 혈관에 연결 → 걸러진 액이 방광으로 감</li>
+      </ul>
+    </div>
+    <div class="mini">
+      <h4>신장이식은 어떻게 하나</h4>
+      <ul class="pt">
+        <li>기증 신장을 <b>아랫배</b>(한쪽 다리 바로 위)에 놓고 그 부위 혈관에 연결</li>
+        <li>새 신장의 <b>요관</b>은 <b>방광</b>에 연결</li>
+        <li>문제를 일으키지 않으면 <b>원래 신장은 그대로 둠</b></li>
+      </ul>
+    </div>
+  </div>
+  <div class="key"><span class="label">강의 (3) 학습정리</span>
+    <ul class="pt" style="margin-bottom:0">
+      <li>신장의 주요 기능(배설·항상성·내분비·대사)을 공부함</li>
+      <li>신장이 고장 나면 투석이나 이식으로 치료함</li>
+      <li>실리콘 기반 기술(나노기공막)로 물질을 거르는 방법을 살펴봄</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===================== PART 4 ===================== -->
+<div class="part" id="p4">
+  <div class="part-head"><span class="no">강의 (4)</span><h2>어떻게 만들까 ② 세포 프린팅 – 오가노이드</h2></div>
+  <p class="part-sub">학습목표·학습내용: 세포 프린팅의 과정과 구조</p>
+</div>
+
+<section class="topic" id="t4-1">
+  <h3><span class="num">4-1</span>잉크젯 프린팅과 잉크의 조건 <span class="en">Ink-jet printing</span></h3>
+  <ul class="pt">
+    <li>잉크 저장소 → 노즐. 노즐 옆의 <b>압전(piezoelectric) 또는 열(thermal) 소자</b>에 구동 신호를 주면 잉크 방울이 떨어져 기판 위에 무늬·막을 그림 (기판이 움직이며 줄지어 찍힘)</li>
+    <li>상업적 예: 종이·천에 그림 인쇄, <b>전자회로 인쇄</b>(은 잉크) → 같은 원리로 <b>세포</b>를 잉크처럼 찍는 것이 세포 프린팅</li>
+  </ul>
+  <h4>잉크가 잘 튀어나오려면 – 점도와 표면장력</h4>
+  <div class="grid2">
+    <div class="mini">
+      <h4>오네조르게 수 (Oh)</h4>
+      <p style="margin:4px 0;font-size:18px;text-align:center"><b>Oh = η / √(γ ρ l)</b></p>
+      <p style="margin:0;font-size:14px">점성력 ÷ (관성·표면장력). η 점도, γ 표면장력, ρ 밀도, l 노즐 너비. 밀도는 액체마다 비슷하므로 <b>점도와 표면장력</b>이 Oh를 주로 결정</p>
+    </div>
+    <div class="mini">
+      <h4>레이놀즈 수 (Re)</h4>
+      <p style="margin:4px 0;font-size:18px;text-align:center"><b>Re = ρ v l / η</b></p>
+      <p style="margin:0;font-size:14px">관성력 ÷ 점성력. v 방울 속도. Oh와 Re는 단위가 없는 수로, 액체가 잘 분사되는지(<b>jettability</b>)를 알려 줌</p>
+    </div>
+  </div>
+  <figure>
+    <svg viewBox="0 0 720 240" role="img" aria-label="Oh와 Re로 본 인쇄 가능 영역">
+      <style>.t{font:700 13px Pretendard,sans-serif}.s{font:500 12px Pretendard,sans-serif}</style>
+      <rect x="80" y="20" width="420" height="190" fill="#fff" stroke="#123d26"/>
+      <rect x="80" y="20" width="420" height="48" fill="#cfe3f5"/>
+      <text x="290" y="49" text-anchor="middle" class="t" fill="#1d5fbf">너무 끈적함 (Oh &gt; 1)</text>
+      <polygon points="80,68 80,210 250,210 80,68" fill="#d9eed3"/>
+      <text x="120" y="190" class="s" fill="#2d6a1f">에너지 부족</text><text x="120" y="204" class="s" fill="#2d6a1f">방울 못 만듦</text>
+      <rect x="250" y="140" width="250" height="70" fill="#f0d6e2"/>
+      <text x="330" y="190" text-anchor="middle" class="t" fill="#7a1d4d">위성 방울 생김</text><text x="330" y="205" text-anchor="middle" class="s" fill="#7a1d4d">(Oh &lt; 0.1)</text>
+      <line x1="80" y1="68" x2="500" y2="68" stroke="#1d5fbf" stroke-width="2"/>
+      <line x1="80" y1="140" x2="500" y2="140" stroke="#b4232a" stroke-width="2"/>
+      <line x1="140" y1="20" x2="460" y2="210" stroke="#333" stroke-width="2" stroke-dasharray="7 5"/>
+      <text x="355" y="100" class="s" fill="#333">튐(splashing) 시작 →</text>
+      <text x="200" y="110" class="t" fill="#123d26">인쇄 가능</text>
+      <text x="200" y="126" class="s" fill="#123d26">0.1 &lt; Oh &lt; 1</text>
+      <text x="290" y="232" text-anchor="middle" class="s" fill="#123d26">레이놀즈 수 Re →</text>
+      <text x="40" y="115" text-anchor="middle" class="s" fill="#123d26" transform="rotate(-90 40 115)">오네조르게 수 Oh →</text>
+      <g class="s" fill="#56635b"><text x="520" y="40">· 너무 끈적하면: 방울이</text><text x="530" y="56">노즐에 매달려 안 떨어짐</text><text x="520" y="90">· 너무 묽으면(Oh 작음):</text><text x="530" y="106">본 방울 뒤에 작은 위성</text><text x="530" y="122">방울이 따라 나와 번짐</text><text x="520" y="156">· 너무 빠르면: 기판에서 튐</text></g>
+    </svg>
+    <figcaption>Oh–Re 지도에서 잉크가 인쇄 가능한 영역 (교안 Viscosity of ink 그래프를 단순화해 다시 그림)</figcaption>
+  </figure>
+  <ul class="pt">
+    <li><b>표면장력</b>: 방울이 마를 때 가장자리로 흐르는 흐름과, 표면장력 차이로 생기는 <b>마랑고니 흐름</b>(Marangoni flow)이 안쪽으로 되돌려 섞음 → 가장자리에서 핵이 생기고 분자들이 스스로 배열됨. 용매 조성(도데케인·클로로벤젠)으로 조절</li>
+  </ul>
+</section>
+
+<section class="topic" id="t4-2">
+  <h3><span class="num">4-2</span>세포 프린팅 과정 <span class="en">Cell printing process</span></h3>
+  <div class="flow"><span class="on">(1) 세포 준비</span><i>→</i><span>(2) 살아 있는 세포를 넣은 젤 같은 재료</span><i>→</i><span>(3) 자동 분사 장치로 한 층씩 쌓기</span><i>→</i><span>(4) 세포가 든 3차원 지지체에서 성장·분화</span><i>→</i><span class="on">(5) 뼈 같은 목표 조직 재생</span></div>
+  <ul class="pt">
+    <li>교안 그림 순서: 세포 배양·증식 → 페이스트 준비·세포 캡슐화 → 세포 프린팅 → 세포가 든 3D 프린팅 이식물 → 재생된 조직(뼈)</li>
+    <li><b>장기 프린팅</b>(Organ printing, 2003): 프린터(CellPrint)로 <b>혈관 내피세포 덩어리(빨강)</b>와 <b>평활근세포 덩어리(파랑)</b>를 번갈아 고리 모양으로 쌓아, 서로 붙으며 <b>관 모양 혈관 구조</b>가 되게 함</li>
+  </ul>
+  <p class="eval">세포를 젤에 섞어 "잉크"로 만들고, 컴퓨터가 정한 위치에 한 층씩 찍어 3차원 조직을 쌓는 것이 세포 프린팅</p>
+</section>
+
+<section class="topic" id="t4-3">
+  <h3><span class="num">4-3</span>3차원 구조 – 하이드로젤, 지지체, cell-laden <span class="en">3D structure · Scaffold</span></h3>
+  <ul class="pt">
+    <li><b>하이드로젤</b>은 세포바깥기질(ECM)을 닮은 재료: 몸속처럼 느끼게 해야 함. 세포는 <b>사상위족</b>(filopodia)을 뻗어 젤 속 닻 같은 단백질이나 고분자 사슬에 붙음. 생리활성 물질·<b>성장인자</b>·거대분자를 넣어 세포 활동이나 특정 계통으로의 <b>분화</b>를 자극</li>
+    <li>예: <b>골격줄기세포</b>(SSC)를 <b>GelMA</b> 하이드로젤에 넣어 3D 격자로 프린팅 → 세포가 3차원으로 고르게 퍼지고 붙음</li>
+  </ul>
+  <div class="tbl"><table>
+    <thead><tr><th>방식</th><th>내용</th></tr></thead>
+    <tbody>
+      <tr><td><b>지지체 방식</b> (scaffold support)</td><td>다양한 모양의 <b>3D 다공성 지지체</b>를 만들어 세포를 키움 → 안전하고 크게 키울 수 있으며 재현성 있는 조직 성장. 조건: ① <b>성장</b> ② <b>분화</b> ③ <b>성숙</b></td></tr>
+      <tr><td><b>지지체 없는 방식</b> (scaffold-free)</td><td>"상향식(bottom-up)": 세포 덩어리·미세 가공·세포 시트·세포 프린팅으로 작은 <b>모듈 조직</b>을 만든 뒤 무작위 조립·쌓기·정렬 조립으로 키움 (예: 배아 심장 쿠션 조직을 콜라겐 1형 젤에 고리 모양으로 배치)</td></tr>
+      <tr><td><b>세포 함유</b> (cell-laden)</td><td>보통 하이드로젤이나 지지체 안에 <b>세포를 미리 넣은</b> 재료. 모양을 만들거나 이식하기 전에 세포를 섞어 복잡한 3차원 조직을 만듦</td></tr>
+    </tbody>
+  </table></div>
+  <div class="grid2">
+    <div class="mini">
+      <h4>세포 밀도</h4>
+      <ul class="pt">
+        <li>낮음: 세포가 듬성듬성, 세포끼리 상호작용 적음</li>
+        <li>중간: 세포가 잘 증식</li>
+        <li>높음: 상호작용은 많지만 <b>세포자살</b>(apoptosis)이 생김</li>
+      </ul>
+    </div>
+    <div class="mini">
+      <h4>노즐 크기</h4>
+      <ul class="pt">
+        <li>큰 노즐(&gt;800 μm): 벽 접촉 적지만 세포 상호작용도 적음</li>
+        <li>중간(250~800 μm): <b>세포 분포가 가장 알맞음</b></li>
+        <li>작은 노즐(&lt;250 μm): 벽 접촉이 많아 좁은 출구에서 <b>세포가 죽음</b></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="topic" id="t4-4">
+  <h3><span class="num">4-4</span>한계와 고려 ① 물질 전달 – 확산과 대류 <span class="en">Current limitations · Mass transport</span></h3>
+  <div class="key"><span class="label">현재의 한계 – 세포가 잘 살지 못함 (poor cell survival)</span>
+    <ul class="pt" style="margin-bottom:0">
+      <li>흐름이 없는 <b>정적 배양</b> 환경</li>
+      <li>산소·영양분·노폐물·대사산물이 <b>확산</b>으로만 움직여 전달이 나쁨</li>
+      <li>세포가 살 수 있는 거리는 <b>100~200 μm</b>뿐 → 두꺼운 조직은 가운데가 죽음</li>
+    </ul>
+  </div>
+  <h4>고려 #1-1 · 확산 + 대류 식</h4>
+  <p style="text-align:center;font-size:19px;margin:6px 0"><b>J<sub>a</sub> = − D<sub>a</sub> · dc<sub>a</sub>/dx + u · c<sub>a</sub></b></p>
+  <ul class="pt">
+    <li>J<sub>a</sub>: 물질 a의 플럭스(mol/m²/s) · D<sub>a</sub>: 확산 계수(m²/s) · c<sub>a</sub>: 농도(mol/m³) · x: 거리(m) · u: 배양액 흐름 속도(m/s)</li>
+    <li>첫 항은 <b>확산</b>(농도 차로 퍼짐), 둘째 항은 <b>대류</b>(흐름에 실려 감). 둘 중 무엇이 주도하는지는 <b>D와 u의 관계</b>로 정해짐</li>
+  </ul>
+  <div class="grid2">
+    <div class="mini">
+      <h4>픽의 제1법칙 – 정상 상태</h4>
+      <p style="margin:4px 0;text-align:center"><b>J = − D · dφ/dx</b></p>
+      <p style="margin:0;font-size:14px">일정한 속도로 일어나는 확산. dc/dx = 일정, <b>dc/dt = 0</b>. 플럭스는 농도 기울기에 비례하고 농도가 낮은 쪽으로 흐름(− 부호)</p>
+    </div>
+    <div class="mini">
+      <h4>픽의 제2법칙 – 비정상 상태</h4>
+      <p style="margin:4px 0;text-align:center"><b>dφ/dt = D · d²φ/dx²</b></p>
+      <p style="margin:0;font-size:14px">확산 속도가 시간에 따라 변함. dc/dx가 시간에 따라 변하고 <b>dc/dt ≠ 0</b></p>
+    </div>
+  </div>
+  <h4>고려 #1-2 · 페클레 수 (Péclet number)</h4>
+  <p style="text-align:center;font-size:19px;margin:6px 0"><b>Pe = L · u / D</b> = 대류(advection)로 옮기는 속도 ÷ 확산으로 옮기는 속도</p>
+  <figure>
+    <svg viewBox="0 0 720 120" role="img" aria-label="페클레 수에 따른 물질 이동">
+      <style>.t{font:700 14px Pretendard,sans-serif}.s{font:500 12px Pretendard,sans-serif}</style>
+      <g><rect x="10" y="20" width="220" height="44" fill="#bdeff4"/><circle cx="40" cy="42" r="9" fill="#e03131"/><circle cx="40" cy="42" r="20" fill="none" stroke="#e03131" stroke-dasharray="2 4"/>
+        <text x="120" y="92" text-anchor="middle" class="t" fill="#123d26">Pe = 0</text><text x="120" y="110" text-anchor="middle" class="s" fill="#56635b">흐름 없음 – 제자리에서 퍼지기만 함</text></g>
+      <g><rect x="250" y="20" width="220" height="44" fill="#bdeff4"/><circle cx="275" cy="42" r="7" fill="#e03131"/><circle cx="325" cy="42" r="10" fill="#e03131" opacity=".7"/><circle cx="380" cy="42" r="14" fill="#e03131" opacity=".45"/><circle cx="440" cy="42" r="19" fill="#e03131" opacity=".25"/>
+        <text x="360" y="92" text-anchor="middle" class="t" fill="#123d26">Pe = 1</text><text x="360" y="110" text-anchor="middle" class="s" fill="#56635b">흘러가면서 함께 퍼짐</text></g>
+      <g><rect x="490" y="20" width="220" height="44" fill="#bdeff4"/><circle cx="515" cy="42" r="7" fill="#e03131"/><circle cx="570" cy="42" r="7" fill="#e03131"/><circle cx="625" cy="42" r="7" fill="#e03131"/><circle cx="680" cy="42" r="7" fill="#e03131"/>
+        <text x="600" y="92" text-anchor="middle" class="t" fill="#123d26">Pe = ∞</text><text x="600" y="110" text-anchor="middle" class="s" fill="#56635b">퍼지지 않고 흐름에 실려 가기만 함</text></g>
+    </svg>
+    <figcaption>페클레 수가 클수록 대류가, 작을수록 확산이 물질 이동을 주도함 (교안 그림을 다시 그림)</figcaption>
+  </figure>
+  <p class="eval">확산만으로는 100~200 μm밖에 영양을 못 대므로, 배양액을 흘려(u↑, Pe↑) 대류로 산소·영양분을 깊이까지 보내야 두꺼운 조직을 키울 수 있음</p>
+</section>
+
+<section class="topic" id="t4-5">
+  <h3><span class="num">4-5</span>고려 ② 산소, ③ 세포 성장 속도 <span class="en">Gas exchange · Cell growth rate</span></h3>
+  <div class="grid2">
+    <div class="mini">
+      <h4>#2 기체 교환 (산소)</h4>
+      <ul class="pt">
+        <li>산소가 부족하게 전달되면 <b>산소 결핍</b></li>
+        <li>산소 농도: 공기 <b>21%</b>, 혈액 <b>10~13%</b>, 뼈 <b>5~10%</b></li>
+        <li><b>전산유체역학</b>(CFD): 미세 통로를 낸 지지체의 모양에 따라 흐름과 산소 전달이 어떻게 달라질지 컴퓨터로 예측 → 시간과 비용을 아끼며 많은 실험을 해 볼 수 있음</li>
+      </ul>
+    </div>
+    <div class="mini">
+      <h4>#3 세포 성장 속도</h4>
+      <p style="margin:4px 0;text-align:center"><b>r<sub>X</sub> = μ X</b> &nbsp;·&nbsp; <b>μ = μ<sub>max</sub> · C<sub>S</sub> / (K<sub>S</sub> + C<sub>S</sub>)</b></p>
+      <ul class="pt">
+        <li>X: 세포 농도 · μ: 비성장 속도 · μ<sub>max</sub>: 최대 비성장 속도 · C<sub>S</sub>: 성장을 제한하는 기질 농도</li>
+        <li>K<sub>S</sub>: <b>반속도 상수</b> = μ가 μ<sub>max</sub>의 <b>절반</b>이 될 때의 기질 농도</li>
+        <li><b>온도</b>: 어느 값까지는 성장 속도를 높임 / <b>pH</b>: 세포 대사에 영향</li>
+      </ul>
+    </div>
+  </div>
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>모노 식 읽는 법</h5>
+    <ul>
+      <li>기질(먹이)이 적을 때(C<sub>S</sub> ≪ K<sub>S</sub>)는 성장 속도가 기질 농도에 거의 비례해 늘어남</li>
+      <li>기질이 충분히 많으면(C<sub>S</sub> ≫ K<sub>S</sub>) μ가 μ<sub>max</sub>에 다가가 더는 빨라지지 않음 → 이때는 산소·온도·pH 같은 다른 조건이 성장을 제한함</li>
+      <li>효소 반응의 미카엘리스–멘텐 식과 모양이 같음 (K<sub>S</sub> ↔ K<sub>m</sub>)</li>
+    </ul>
+  </div>
+</section>
+
+<section class="topic" id="t4-6">
+  <h3><span class="num">4-6</span>몸속 환경 흉내 내기 – 기계·전기·전자기 자극 <span class="en">Physiological biomimicry cues</span></h3>
+  <p>기능하는 조직을 시험관 안(in vitro)에서 만들려면 그 조직이 <b>몸속에서 받는 물리적 환경</b>을 흉내 내야 함. 예: (1) 혈관이 받는 <b>전단응력·정수압</b>, (2) 연골이 받는 <b>압축·비틀림</b></p>
+  <div class="tbl"><table>
+    <thead><tr><th>자극</th><th>대상 조직·세포</th><th>교안 예</th></tr></thead>
+    <tbody>
+      <tr><td><b>기계적 응력</b></td><td>근골격, 연골, 심혈관 조직</td><td>다공성 원통 <b>PCL-TCP</b> 지지체(폴리카프로락톤–인산삼칼슘)를 챔버에 넣고 서보 구동기로 주기적 압축 하중(변형 0.22%)을 하루 4시간씩 14일간 가함</td></tr>
+      <tr><td><b>전기 자극</b></td><td>신경, 심장, 골격근</td><td>–</td></tr>
+      <tr><td><b>전자기 자극</b></td><td>조골세포</td><td><b>PEMF</b>(펄스 전자기장): 조골세포와 중간엽줄기세포(MSC)의 증식·분화를 Ca²⁺, Wnt/β-카테닌, mTOR, 성장인자 신호로 촉진. 솔레노이드 코일 사이에 배양판을 두고 키우면 뼈 기질의 주성분 <b>1형 콜라겐</b> 분비가 늘어남</td></tr>
+    </tbody>
+  </table></div>
+  <p class="eval">세포는 화학 신호뿐 아니라 힘·전기·자기 같은 물리 자극도 느끼므로, 조직에 맞는 자극을 주는 배양 장치(바이오리액터)가 필요함</p>
+  <div class="key"><span class="label">강의 (4) 학습정리</span>
+    <p style="margin-top:0">임상의·공학자·과학자가 함께 세포가 구조를 이루게 하는 <b>바이오리액터</b> 시스템을 개발 중이며, 목표는 다음 세 가지임</p>
+    <ul class="pt" style="margin-bottom:0">
+      <li>임상에 쓸 기능성 조직 이식물을 만드는 튼튼한 플랫폼</li>
+      <li>조직 발달과 재생에서 나타나는 다양한 생물학적 반응 연구</li>
+      <li>고품질 세포를 대량으로, 표준화되고 재현성 있게 생산하도록 세포 제조 공정 최적화</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===================== PART 5 ===================== -->
+<div class="part" id="p5">
+  <div class="part-head"><span class="no">용어</span><h2>용어 정리와 교안 표기 정정</h2></div>
+  <p class="part-sub">11주차 네 강의에 나온 핵심 용어</p>
+</div>
+
+<section class="topic">
+  <div class="tbl"><table>
+    <thead><tr><th>영문</th><th>국문</th><th>한 줄 정리</th></tr></thead>
+    <tbody>
+      <tr><td>artificial organ</td><td>인공장기</td><td>장기 기능을 기계적으로 대신하는 장치</td></tr>
+      <tr><td>bio-artificial organ</td><td>바이오 인공장기</td><td>세포·조직까지 포함해 몸의 일부를 인공적으로 대체</td></tr>
+      <tr><td>immune rejection</td><td>면역 거부 반응</td><td>이식된 장기를 "남"으로 알아보고 공격</td></tr>
+      <tr><td>immunosuppressant</td><td>면역억제제</td><td>6-MP, 아자티오프린, 사이클로스포린</td></tr>
+      <tr><td>triangulation</td><td>삼각봉합법</td><td>카렐의 혈관 봉합 기술 (1912 노벨상)</td></tr>
+      <tr><td>brain death / vegetative state</td><td>뇌사 / 식물인간</td><td>뇌간 포함 전체 뇌 정지·자발 호흡 불가 / 대뇌 일부 손상·자발 호흡 가능</td></tr>
+      <tr><td>biomedical engineering</td><td>의공학</td><td>생명공학을 인체 건강에 적용하는 융합 공학</td></tr>
+      <tr><td>biodegradable / bioresorbable electronics</td><td>생분해 / 생흡수 전자소자</td><td>체액에 녹고 조직에 흡수되어 흔적 없이 사라지는 소자</td></tr>
+      <tr><td>nephron</td><td>네프론</td><td>신장의 기능 단위 (사구체 → 세관 → 집합관)</td></tr>
+      <tr><td>countercurrent exchange</td><td>역류 교환</td><td>헨레고리·곧은혈관이 수질의 염분 기울기를 만들고 유지</td></tr>
+      <tr><td>dialysis · dialysate</td><td>투석 · 투석액</td><td>반투과막을 사이에 두고 피의 노폐물을 투석액으로 확산시킴</td></tr>
+      <tr><td>hollow-fiber membrane</td><td>중공사막</td><td>속이 빈 고분자 섬유 수천 가닥으로 된 투석 필터</td></tr>
+      <tr><td>silicon nanopore membrane</td><td>실리콘 나노기공막</td><td>포토리소그래피로 만든 균일한 직사각형 슬릿 막</td></tr>
+      <tr><td>permselectivity · hydraulic permeability</td><td>선택 투과성 · 수리 투과성</td><td>원하는 것만 통과시키는 정도 · 물이 막을 지나는 정도</td></tr>
+      <tr><td>photolithography · photoresist</td><td>포토리소그래피 · 감광제</td><td>빛과 마스크로 무늬를 새기는 반도체 공정 · 빛에 반응하는 막</td></tr>
+      <tr><td>Ohnesorge (Oh) · Reynolds (Re) number</td><td>오네조르게 수 · 레이놀즈 수</td><td>잉크의 분사 가능성을 나타내는 무차원 수</td></tr>
+      <tr><td>Marangoni flow</td><td>마랑고니 흐름</td><td>표면장력 차이로 생기는 흐름</td></tr>
+      <tr><td>hydrogel · GelMA</td><td>하이드로젤 · 젤라틴 메타크릴레이트</td><td>ECM을 닮은 물 많은 고분자 젤</td></tr>
+      <tr><td>scaffold / scaffold-free</td><td>지지체 / 지지체 없는 방식</td><td>다공성 틀에서 키움 / 세포 모듈을 아래서부터 조립</td></tr>
+      <tr><td>cell-laden</td><td>세포 함유</td><td>세포를 미리 넣은 하이드로젤·지지체</td></tr>
+      <tr><td>Fick's law</td><td>픽의 확산 법칙</td><td>제1법칙(정상 상태, dc/dt=0) · 제2법칙(비정상 상태)</td></tr>
+      <tr><td>Péclet number</td><td>페클레 수</td><td>Pe = L·u/D, 대류 ÷ 확산</td></tr>
+      <tr><td>Monod equation · half-velocity constant</td><td>모노 식 · 반속도 상수</td><td>μ = μmax·C/(Ks+C), Ks는 μ가 절반일 때의 기질 농도</td></tr>
+      <tr><td>CFD</td><td>전산유체역학</td><td>흐름과 산소 전달을 컴퓨터로 예측</td></tr>
+      <tr><td>PEMF</td><td>펄스 전자기장</td><td>조골세포·MSC의 증식과 분화를 촉진하는 전자기 자극</td></tr>
+      <tr><td>bioreactor</td><td>바이오리액터</td><td>세포·조직을 키우며 흐름과 자극을 주는 배양 장치</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>교안 표기에서 헷갈릴 수 있는 부분</h5>
+    <div class="tbl"><table>
+      <thead><tr><th>위치</th><th>교안 표기</th><th>바르게 읽기</th></tr></thead>
+      <tbody>
+        <tr><td>(1) 이식 역사</td><td>Gaspare Tagliacozi / Eduard Konrad Zrim</td><td>Tagliacozzi(탈리아코치) / Zirm(치름)</td></tr>
+        <tr><td>(1) 수술 기술</td><td>Alexis Carrell / Intracostin</td><td>Alexis Carrel / Intocostrin(쿠라레 제제 근육이완제)</td></tr>
+        <tr><td>(1) 면역억제제</td><td>6-meccaptopurine / Azathioprene, Azatioprin</td><td>6-mercaptopurine / Azathioprine</td></tr>
+        <tr><td>(1) 장기별 이식</td><td>Thomas Stazl / Willian Kelly / Joel D. Copper</td><td>Thomas Starzl / William Kelly / Joel D. Cooper</td></tr>
+        <tr><td>(1) 생체 기증</td><td>living conor</td><td>living donor</td></tr>
+        <tr><td>(1) 뇌사·식물인간 표</td><td>뇌사 "장기 기증 대상이 될 수 없음"</td><td>뇌사자는 뇌사 기증 대상이 될 수 있음 (1-6 보충)</td></tr>
+        <tr><td>(2) 인공심장</td><td>"Riotta", Domingo Riotta and Denton Kooli</td><td>Liotta(리오타) 인공심장, Domingo Liotta · Denton Cooley</td></tr>
+        <tr><td>(3) History of Dialysis</td><td>부제 "생분해/생흡수 전자소자"</td><td>강의 (2) 슬라이드 제목이 잘못 남은 것. 내용은 투석의 역사</td></tr>
+        <tr><td>(3) 투석 관</td><td>a diameter of 8 and 40cm long</td><td>지름 8 mm, 길이 40 cm</td></tr>
+        <tr><td>(4) Oh·Re 식</td><td>n (분자에 n)</td><td>η(점도). Oh = η/√(γρl), Re = ρvl/η</td></tr>
+        <tr><td>(4) 확산 식 설명</td><td>"a is the bulk convective velocity" / realation / Dimesionless</td><td>u가 대류 속도 / relation / Dimensionless</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+
+<!-- ===================== PART 6 ===================== -->
+<div class="part" id="p6">
+  <div class="part-head"><span class="no">문제</span><h2>4지선다 예상문제 10</h2></div>
+  <p class="part-sub">정답은 각 문제 아래를 눌러 확인</p>
+</div>
+
+<section class="topic">
+  <div class="quiz"><p class="q">1. 인공장기와 바이오 인공장기의 차이로 옳은 것은?</p>
+    <ol><li>인공장기는 세포를 포함하고 바이오 인공장기는 기계만 씀</li><li>바이오 인공장기는 세포와 조직까지 포함해 인체의 일부를 대체함</li><li>둘은 같은 말임</li><li>바이오 인공장기는 기증 장기를 뜻함</li></ol>
+    <details><summary>정답 · 해설</summary>② 인공장기(예: 인공심장)는 기능을 기계적으로 대신하고, 바이오 인공장기는 세포·조직까지 포함해 대체함.</details></div>
+
+  <div class="quiz"><p class="q">2. 20세기까지 장기이식을 가로막은 두 가지 장벽으로 짝지어진 것은?</p>
+    <ol><li>부족한 수술 기술 · 면역 거부 반응</li><li>부족한 기증자 · 높은 비용</li><li>감염 · 출혈</li><li>법률 · 종교</li></ol>
+    <details><summary>정답 · 해설</summary>① 수술 기술은 마취제와 카렐의 혈관 봉합으로, 면역 거부는 면역억제제(사이클로스포린)로 극복함.</details></div>
+
+  <div class="quiz"><p class="q">3. 장기이식에 꼭 필요한 혈관 봉합 기술로 1912년 노벨 생리의학상을 받은 사람은?</p>
+    <ol><li>장 보렐</li><li>알렉시 카렐</li><li>크리스천 바너드</li><li>로이 칸</li></ol>
+    <details><summary>정답 · 해설</summary>② 카렐의 삼각봉합법. 보렐은 사이클로스포린, 바너드는 첫 심장이식(1967), 칸은 아자티오프린 사용.</details></div>
+
+  <div class="quiz"><p class="q">4. 뇌사와 식물인간을 가르는 설명으로 옳은 것은?</p>
+    <ol><li>뇌사는 대뇌 일부만 손상된 상태임</li><li>식물인간은 자발적 호흡이 불가능함</li><li>뇌사는 뇌간을 포함한 뇌 전체 기능이 멈춰 자발적 호흡이 불가능함</li><li>뇌사는 수년 후 회복 가능성이 있음</li></ol>
+    <details><summary>정답 · 해설</summary>③ 식물인간은 대뇌 일부 손상, 자발적 호흡 가능, 회복 가능성 있음. 뇌사는 필연적으로 심정지에 이름.</details></div>
+
+  <div class="quiz"><p class="q">5. 교안이 든 인공췌장(웨어러블 인슐린 펌프)의 현재 한계가 아닌 것은?</p>
+    <ol><li>12시간마다 사람이 직접 조절</li><li>혈당 센서를 매주 교체</li><li>인슐린을 3일마다 다시 채움</li><li>매일 수술로 장치를 바꿔 끼워야 함</li></ol>
+    <details><summary>정답 · 해설</summary>④ 나머지 셋이 교안의 한계. 목표는 센서와 펌프가 스스로 고리를 닫는 자동 조절.</details></div>
+
+  <div class="quiz"><p class="q">6. 헨레고리에서 일어나는 일로 옳은 것은?</p>
+    <ol><li>내림다리는 염분을, 오름다리는 물을 내보냄</li><li>내림다리는 물을, 오름다리는 염분을 내보내 수질의 염분 기울기를 만듦</li><li>헨레고리는 피를 거르는 곳임</li><li>수질은 깊을수록 묽어짐</li></ol>
+    <details><summary>정답 · 해설</summary>② 수질은 깊을수록 짜짐(300 → 1200 mOsm). 피를 처음 거르는 곳은 사구체(토리).</details></div>
+
+  <div class="quiz"><p class="q">7. 만성 신장병에서 신장 기능이 정상의 15% 미만으로 떨어져 노폐물과 물을 처리하지 못하는 단계는?</p>
+    <ol><li>2단계</li><li>3단계</li><li>4단계</li><li>5단계(신부전)</li></ol>
+    <details><summary>정답 · 해설</summary>④ 4단계는 15~29%, 1~3단계는 증상이 거의 없음.</details></div>
+
+  <div class="quiz"><p class="q">8. 고분자 중공사막의 한계를 넘기 위해 실리콘 나노기공막이 가진 장점으로 가장 알맞은 것은?</p>
+    <ol><li>구멍 크기가 제각각이라 다양한 분자를 거름</li><li>포토리소그래피로 크기가 고른 슬릿을 만들어 선택성과 투과성이 높음</li><li>체액에 닿으면 녹아 사라짐</li><li>알부민을 잘 통과시킴</li></ol>
+    <details><summary>정답 · 해설</summary>② 중간 크기 분자 80% 이상 제거, 알부민 통과 0.1% 미만, 수리 투과성 최대 600 mL/hr/mmHg/m².</details></div>
+
+  <div class="quiz"><p class="q">9. 잉크의 분사 가능성(jettability)을 나타내는 오네조르게 수(Oh)에 주로 영향을 주는 두 성질은?</p>
+    <ol><li>색과 온도</li><li>점도와 표면장력</li><li>밀도와 질량</li><li>pH와 농도</li></ol>
+    <details><summary>정답 · 해설</summary>② Oh = η/√(γρl). 밀도는 액체마다 비슷하고, l은 노즐 너비. 대략 0.1 &lt; Oh &lt; 1이 인쇄 가능 영역.</details></div>
+
+  <div class="quiz"><p class="q">10. 세포 프린팅 조직에서 세포가 잘 살지 못하는 까닭과 해결 방향을 바르게 짝지은 것은?</p>
+    <ol><li>산소가 너무 많음 → 산소를 줄임</li><li>확산만으로는 100~200 μm까지만 전달됨 → 배양액을 흘려 대류(페클레 수 ↑)로 전달</li><li>세포가 너무 빨리 자람 → 온도를 낮춤</li><li>지지체가 너무 단단함 → 지지체를 없앰</li></ol>
+    <details><summary>정답 · 해설</summary>② 정적 배양에서는 확산뿐이라 두꺼운 조직 가운데가 죽음. 흐름을 주는 바이오리액터와 CFD 설계가 해법.</details></div>
+</section>
+
+<nav class="pager"><a class="prev" href="week09_nanoparticles_biomaterials.html"><small>← 이전 주차</small>9주차 · 나노입자와 생체재료</a></nav>
+
+<footer>
+  <p>자료 기준: 「생명과학의 세계」(고려대학교) 11주차 구자현 교수 강의 교안 – 인공장기는 왜 필요할까? · 인공장기는 누가 만들까? · 인공장기는 어떻게 만들까? (Filtering · Cell printing).<br>
+  교안 그림 출처(Wikimedia, ResearchGate, ScienceDirect, Bioninja, KISTEP 등)는 각 강의 교안의 "출처 및 참고문헌"을 따름. 이 문서의 그림은 교안 그림을 단순화해 새로 그린 것임.<br>
+  '보충' 상자와 예상문제는 교안에 없는 참고 내용으로, 시험 범위 여부는 강의 기준을 따를 것.</p>
+</footer>
+
+</div>
+</body>
+</html>

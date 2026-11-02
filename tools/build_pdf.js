@@ -1,8 +1,8 @@
 // 주차별 교안 요약(weeks/*.html)을 A4 PDF로 만듦.
 // 여백(한글 편집 용지 기준): 왼쪽·오른쪽 30mm, 위쪽 20mm + 머리말 15mm, 아래쪽 15mm + 꼬리말 15mm, 제본 0mm
 // → 본문 영역: 위 35mm, 아래 30mm, 좌우 30mm. 머리말은 위 20~35mm, 꼬리말은 아래 15~30mm 구간에 놓임.
-// 전체 묶음: pdfunite pdf/week0*.pdf pdf/all_weeks_02-09.pdf
-// 실행: node tools/build_pdf.js  (Playwright 필요, 글꼴 Pretendard가 시스템에 설치되어 있어야 함.
+// 전체 묶음: pdfunite pdf/week0*.pdf pdf/week1*.pdf pdf/all_weeks_02-11.pdf
+// 실행: node tools/build_pdf.js  (한 주차만: ONLY=11 node tools/build_pdf.js) (Playwright 필요, 글꼴 Pretendard가 시스템에 설치되어 있어야 함.
 // OTF(CFF)를 설치하면 PDF에 Type 3 글꼴로 들어가므로 TTF로 설치할 것)
 const path = require("path");
 const fs = require("fs");
@@ -19,6 +19,7 @@ const WEEKS = [
   ["07", "week07_genome_acquired_change", "유전체 정보의 후천적 변화"],
   ["08", "week08_mrna_therapeutics", "mRNA 치료제와 전달 시스템"],
   ["09", "week09_nanoparticles_biomaterials", "나노입자와 생체재료"],
+  ["11", "week11_artificial_organs", "인공장기"],
 ];
 
 // 인쇄용으로 덧붙이는 스타일
@@ -60,7 +61,7 @@ const footer = `
   // 외부 글꼴 CSS는 쓰지 않고 시스템에 설치된 Pretendard를 씀
   await page.route(/fonts\.googleapis|fonts\.gstatic|cdn\.jsdelivr/, (r) => r.abort());
   const files = [];
-  for (const [wk, name, title] of WEEKS) {
+  for (const [wk, name, title] of WEEKS.filter(([w]) => !process.env.ONLY || process.env.ONLY.split(",").includes(w))) {
     await page.goto("file://" + path.join(ROOT, "weeks", name + ".html"), { waitUntil: "load" });
     await page.addStyleTag({ content: PRINT_CSS });
     await page.evaluate(() => document.querySelectorAll("details").forEach((d) => (d.open = true)));
