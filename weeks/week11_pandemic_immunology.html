@@ -1,0 +1,876 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>11주차 팬데믹 면역학과 첨단 바이오 기술</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --g900:#123d26; --g800:#14532d; --g700:#166534; --g600:#15803d; --g500:#22a05a;
+  --g200:#bbe5c8; --g100:#dcf3e3; --g50:#f2faf4;
+  --ink:#1c2420; --muted:#56635b; --line:#d6e2da; --bg:#fbfdfb; --card:#ffffff;
+  --sup-bg:#f6f9ec; --sup-line:#9bb35a; --sup-tag:#5b7a1e;
+  --warn:#9a3412; --na:#1d5fbf; --k:#b4232a;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Pretendard","Gothic A1",-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  font-size:16px;line-height:1.72;word-break:keep-all;}
+.wrap{max-width:920px;margin:0 auto;padding:0 20px 80px}
+header.hero{background:linear-gradient(135deg,var(--g800),var(--g600));color:#fff;padding:56px 20px 44px}
+header.hero .wrap{padding-bottom:0}
+.hero .kicker{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);
+  padding:3px 12px;border-radius:999px;font-size:13px;letter-spacing:.04em}
+.hero h1{font-size:34px;line-height:1.3;margin:14px 0 8px;font-weight:800}
+.hero p{margin:0;opacity:.9}
+.hero .meta{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px;font-size:13px}
+.hero .meta span{background:rgba(0,0,0,.18);padding:4px 10px;border-radius:6px}
+
+nav.toc{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--g600);
+  border-radius:10px;padding:18px 22px;margin:28px 0}
+nav.toc h2{margin:0 0 8px;font-size:17px;color:var(--g800)}
+nav.toc ol{margin:0;padding-left:20px}
+nav.toc li{margin:2px 0}
+nav.toc a{color:var(--ink);text-decoration:none}
+nav.toc a:hover{color:var(--g600);text-decoration:underline}
+nav.toc ol ol{list-style:none;padding-left:14px;font-size:14.5px;color:var(--muted)}
+nav.toc ol ol a{color:var(--muted)}
+
+.part{margin-top:56px}
+.part-head{display:flex;align-items:center;gap:12px;border-bottom:3px solid var(--g600);padding-bottom:8px}
+.part-head .no{background:var(--g700);color:#fff;font-weight:800;border-radius:8px;padding:4px 12px;font-size:14px;white-space:nowrap}
+.part-head h2{margin:0;font-size:25px;color:var(--g900)}
+.part-sub{color:var(--muted);font-size:14px;margin:6px 0 0}
+
+section.topic{margin-top:38px}
+section.topic h3{font-size:20px;margin:0 0 10px;color:var(--g800);display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+section.topic h3 .num{color:var(--g500);font-weight:800;font-size:16px}
+section.topic h3 .en{font-size:13px;color:var(--muted);font-weight:500}
+h4{font-size:16.5px;margin:20px 0 6px;color:var(--g700)}
+ul.pt{margin:6px 0 10px;padding-left:20px}
+ul.pt li{margin:3px 0}
+ul.pt li::marker{color:var(--g600)}
+.eval{display:block;margin:10px 0;padding:8px 12px;background:var(--g50);border-left:3px solid var(--g500);
+  font-size:14.5px;color:#2d3d33}
+.eval::before{content:"정리 ▸ ";font-weight:700;color:var(--g700)}
+b.g, .hl{color:var(--g700);font-weight:700}
+.na{color:var(--na);font-weight:700}.k{color:var(--k);font-weight:700}
+.src{font-size:12.5px;color:var(--muted);margin-top:4px}
+
+.key{background:var(--card);border:1px solid var(--g200);border-radius:10px;padding:14px 18px;margin:14px 0;
+  box-shadow:0 1px 0 var(--g100)}
+.key .label{display:inline-block;font-size:12px;font-weight:800;color:#fff;background:var(--g600);
+  padding:2px 9px;border-radius:5px;margin-bottom:6px}
+
+.sup{background:var(--sup-bg);border:1.5px dashed var(--sup-line);border-radius:10px;padding:14px 18px 12px;margin:18px 0;position:relative}
+.sup .tag{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:800;color:#fff;
+  background:var(--sup-tag);padding:2px 10px;border-radius:5px}
+.sup .tag::before{content:"+";font-size:14px}
+.sup h5{margin:8px 0 4px;font-size:15.5px;color:#3b4f14}
+.sup p,.sup li{font-size:14.5px}
+.sup ul{padding-left:18px;margin:6px 0}
+.sup .why{font-size:13px;color:#5e6b45;margin-top:6px}
+
+.tbl{width:100%;overflow-x:auto;margin:12px 0}
+table{border-collapse:collapse;width:100%;font-size:14.5px;background:var(--card)}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+thead th{background:var(--g700);color:#fff;font-weight:700;white-space:nowrap}
+tbody tr:nth-child(even) td{background:var(--g50)}
+td.c,th.c{text-align:center}
+tr.sep td{border-top:3px solid var(--g600)}
+
+figure{margin:16px 0;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px}
+figure svg{width:100%;height:auto;display:block}
+figcaption{font-size:13px;color:var(--muted);margin-top:8px;text-align:center}
+
+.flow{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:12px 0}
+.flow span{background:var(--g50);border:1px solid var(--g200);border-radius:999px;padding:4px 12px;font-size:14px}
+.flow span.on{background:var(--g600);color:#fff;border-color:var(--g600);font-weight:700}
+.flow i{color:var(--g500);font-style:normal;font-weight:700}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:680px){.grid2{grid-template-columns:1fr}.hero h1{font-size:27px}}
+.mini{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px}
+.mini h4{margin-top:0}
+
+.quiz{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:12px 0}
+.quiz .q{font-weight:700;margin:0 0 6px}
+.quiz ol{margin:4px 0 8px;padding-left:22px}
+.quiz ol li{margin:2px 0}
+.quiz details{font-size:14.5px;background:var(--g50);border-radius:6px;padding:6px 10px}
+.quiz summary{cursor:pointer;color:var(--g700);font-weight:700}
+
+footer{margin-top:60px;border-top:1px solid var(--line);padding-top:16px;font-size:13px;color:var(--muted)}
+@media print{
+  header.hero{background:var(--g800)!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .sup,.key,figure,table,.quiz{break-inside:avoid}
+  nav.toc{display:none}
+}
+.tl{position:relative;margin:14px 0 6px;padding-left:22px;border-left:3px solid var(--g200)}
+.tl .ev{position:relative;margin:0 0 12px}
+.tl .ev::before{content:"";position:absolute;left:-30px;top:6px;width:13px;height:13px;border-radius:50%;background:var(--g600);border:3px solid var(--g100)}
+.tl .yr{font-weight:800;color:var(--g700);margin-right:6px}
+.err{background:#fff6f2;border:1.5px solid #f0b9a5;border-radius:10px;padding:12px 18px;margin:16px 0}
+.err .tag{display:inline-block;font-size:12.5px;font-weight:800;color:#fff;background:var(--warn);padding:2px 10px;border-radius:5px}
+.err ul{padding-left:18px;margin:8px 0 2px}.err li{font-size:14.5px}
+.warn{color:var(--warn);font-weight:700}
+</style>
+<style>
+.sitebar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line);font-size:14px}
+.sitebar .in{max-width:920px;margin:0 auto;padding:8px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.sitebar a{color:var(--g700);text-decoration:none;font-weight:700;white-space:nowrap}
+.sitebar a:hover{text-decoration:underline}
+.sitebar .wk{color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sitebar a.qz{flex:none;background:var(--g600);color:#fff;border-radius:999px;padding:2px 12px}
+.sitebar a.qz:hover{background:var(--g700);text-decoration:none}
+.pager{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:48px}
+.pager a{display:block;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px;
+  color:var(--ink);text-decoration:none}
+.pager a:hover{border-color:var(--g500)}
+.pager small{display:block;color:var(--muted);font-size:12.5px}
+.pager .next{text-align:right;grid-column:2}
+@media (max-width:680px){.pager{grid-template-columns:1fr}.pager .next{grid-column:1}}
+@media print{.sitebar,.pager{display:none}}
+</style>
+</head>
+<body>
+<div class="sitebar"><div class="in"><a href="../index.html">← 전체 교안 목록</a><span class="wk">11주차 · 팬데믹 면역학과 첨단 바이오 기술</span><a class="qz" href="../quiz/index.html?w=11">문제 풀기 →</a></div></div>
+<header class="hero">
+  <div class="wrap">
+    <span class="kicker">생명과학의 세계 · 11주차</span>
+    <h1>팬데믹 면역학이 가져온 첨단 바이오 기술</h1>
+    <p>면역계와 SARS-CoV-2 · 감염 기전과 방어 · 치료 전략과 mRNA 백신 · B세포 악성종양과 BCR-ABL1</p>
+    <div class="meta">
+      <span>01차시 (1)(2) 팬데믹 면역학이 가져온 첨단 바이오 기술</span><span>02차시 (3)(4)</span><span>SARS-CoV-2 · 중화항체 · 백혈병</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+<nav class="toc">
+  <h2>목차</h2>
+  <ol>
+    <li><a href="#p1">(1) 면역계와 SARS-CoV-2, 진단과 증상</a>
+      <ol>
+        <li><a href="#t1-1">1-1 면역계란 무엇인가</a></li>
+        <li><a href="#t1-2">1-2 면역계를 이루는 기관</a></li>
+        <li><a href="#t1-3">1-3 SARS-CoV-2 코로나바이러스</a></li>
+        <li><a href="#t1-4">1-4 진단 ① real-time RT-PCR</a></li>
+        <li><a href="#t1-5">1-5 진단 ② 신속 항원 검사</a></li>
+        <li><a href="#t1-6">1-6 SARS-CoV-2의 증상</a></li>
+        <li><a href="#t1-7">1-7 병리: 과도한 면역반응과 사이토카인</a></li>
+      </ol>
+    </li>
+    <li><a href="#p2">(2) 감염 기전과 방어, 중증의 원인</a>
+      <ol>
+        <li><a href="#t2-1">2-1 SARS-CoV-2의 감염 기전</a></li>
+        <li><a href="#t2-2">2-2 감염을 겨냥한 치료 표적</a></li>
+        <li><a href="#t2-3">2-3 방어 ① 인터페론</a></li>
+        <li><a href="#t2-4">2-4 방어 ② 정상 면역반응과 중화항체</a></li>
+        <li><a href="#t2-5">2-5 중증 COVID-19의 원인</a></li>
+      </ol>
+    </li>
+    <li><a href="#p3">(3) 치료 전략과 mRNA 백신</a>
+      <ol>
+        <li><a href="#t3-1">3-1 파이롭토시스와 사이토카인 폭풍</a></li>
+        <li><a href="#t3-2">3-2 박쥐는 적인가 친구인가</a></li>
+        <li><a href="#t3-3">3-3 SARS-CoV-2 치료 접근법</a></li>
+        <li><a href="#t3-4">3-4 mRNA 백신, 2023 노벨상</a></li>
+      </ol>
+    </li>
+    <li><a href="#p4">(4) B세포 악성종양과 BCR-ABL1</a>
+      <ol>
+        <li><a href="#t4-1">4-1 B세포 악성종양이란</a></li>
+        <li><a href="#t4-2">4-2 임상 결과 – 소아와 성인 ALL</a></li>
+        <li><a href="#t4-3">4-3 BCR-ABL1 변이와 필라델피아 염색체</a></li>
+        <li><a href="#t4-4">4-4 BCR-ABL1의 작동 기전</a></li>
+        <li><a href="#t4-5">4-5 IFITM3와 백혈병</a></li>
+      </ol>
+    </li>
+    <li><a href="#p5">용어 정리와 교안 표기 확인</a></li>
+  </ol>
+</nav>
+
+<!-- ===================== PART 1 ===================== -->
+<div class="part" id="p1">
+  <div class="part-head"><span class="no">01차시 (1)</span><h2>면역계와 SARS-CoV-2, 진단과 증상</h2></div>
+  <p class="part-sub">학습목표: 면역계의 구성 이해 · COVID-19 진단 도구 이해 · SARS-CoV-2의 증상 이해 · SARS-CoV-2 감염의 병태생리 이해</p>
+</div>
+
+<section class="topic" id="t1-1">
+  <h3><span class="num">1-1</span>면역계란 무엇인가 <span class="en">What is the immune system?</span></h3>
+  <p>면역계(immune system)는 <b>세균·바이러스·기생충·곰팡이</b> 같은 외부 침입자로부터 몸을 지키기 위해 여러 요소가 함께 일하는 <b>큰 네트워크</b>임.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>구성</th><th>내용</th></tr></thead>
+    <tbody>
+      <tr><td><b>기관 (Organs)</b></td><td>골수, 흉선, 비장, 림프절 등 (1-2에서 자세히)</td></tr>
+      <tr><td rowspan="3"><b>백혈구 (White blood cells)</b></td><td><b>과립구</b>: 호중구, 호산구, 호염기구 (granulocytes)</td></tr>
+      <tr><td><b>림프구</b>: B세포, T세포, 자연살해세포(NK세포) (lymphocytes)</td></tr>
+      <tr><td><b>단핵구</b> (monocytes)</td></tr>
+      <tr><td><b>단백질 (Proteins)</b></td><td>항체, 사이토카인 등</td></tr>
+    </tbody>
+  </table></div>
+  <ul class="pt">
+    <li>교안 그림(TYPES OF WHITE BLOOD CELLS)은 백혈구를 <b>과립구</b>(호중구·호산구·호염기구)와 <b>무과립구</b>(림프구·단핵구)로 나눔 — 5주차 면역세포 계보와 같은 내용</li>
+  </ul>
+  <span class="eval">적응면역(후천적 면역)은 선천면역(선천적 면역)과의 상호작용을 통해 면역 활성을 최적화하며, 이것이 백신(vaccination)의 바탕이 됨</span>
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>5주차와 이어 보기</h5>
+    <ul>
+      <li>이 주차는 5주차(면역과 알레르기)에서 배운 선천면역·적응면역, 백혈구 계보 위에서 코로나19를 사례로 면역학을 다시 정리함</li>
+      <li>과립구·림프구·단핵구의 역할: 호중구(식세포작용), B세포(항체), T세포(세포성 면역), NK세포(감염 세포·종양 세포 제거) — 5주차 1-6 참고</li>
+    </ul>
+  </div>
+</section>
+
+<section class="topic" id="t1-2">
+  <h3><span class="num">1-2</span>면역계를 이루는 기관 <span class="en">Organs comprising the immune system</span></h3>
+  <div class="tbl"><table>
+    <thead><tr><th>기관</th><th>하는 일</th></tr></thead>
+    <tbody>
+      <tr><td><b>골수</b> (bone marrow)</td><td>조혈모세포가 여러 면역세포로 분화해 혈류로 내보냄</td></tr>
+      <tr><td><b>흉선</b> (thymus)</td><td>T세포가 성숙하는 곳 (T-cell development)</td></tr>
+      <tr><td><b>혈류</b> (bloodstream)</td><td>면역세포가 온몸을 순환하거나 특정 조직에서 대기</td></tr>
+      <tr><td><b>비장</b> (spleen)</td><td>면역세포가 활성·증식·분화하고, 해로운 세균·바이러스를 공격·파괴</td></tr>
+      <tr><td><b>림프절</b> (lymph node)</td><td>작은 분비샘. 감염 시 면역세포가 활성·증식·분화. <b>부으면</b> 몸이 감염과 싸우고 있다는 신호</td></tr>
+      <tr><td><b>편도·인후편도</b> (tonsils, adenoid)</td><td>입·코로 들어온 침입자를 입구에서 붙잡음</td></tr>
+      <tr><td><b>피부</b> (skin)</td><td>침입자가 들어오기 전 막는 1차 방어선</td></tr>
+      <tr><td><b>점막</b> (mucous membranes)</td><td>점액을 분비해 표면을 적시고, 기도의 섬모가 점액에 붙은 병원체를 밀어냄</td></tr>
+      <tr><td><b>위</b> (stomach)</td><td>위산이 들어온 세균을 죽임</td></tr>
+      <tr><td><b>장</b> (bowel)</td><td>페이어판(림프절)과 유익균이 해로운 세균을 막음</td></tr>
+    </tbody>
+  </table></div>
+  <span class="eval">면역계는 한 기관이 아니라 피부·점막 같은 장벽부터 골수·흉선·림프절·비장까지 온몸에 퍼진 협력 체계임</span>
+</section>
+
+<section class="topic" id="t1-3">
+  <h3><span class="num">1-3</span>SARS-CoV-2 코로나바이러스 <span class="en">SARS-CoV-2 Coronaviruses</span></h3>
+  <figure>
+    <svg viewBox="0 0 640 300" role="img" aria-label="SARS-CoV-2 바이러스 입자의 구조">
+      <style>.v1{font:700 13px Pretendard,sans-serif;fill:#123d26}.v2{font:500 11.5px Pretendard,sans-serif;fill:#56635b}</style>
+      <circle cx="320" cy="150" r="78" fill="#cdd8ef" stroke="#8ea2cf" stroke-width="2"/>
+      <g stroke="#5b73a8" stroke-width="2"><path d="M320 150 L320 128 M320 150 L300 136 M320 150 L340 136"/></g>
+      <g fill="#e05a5a"><!-- spikes -->
+        <g transform="translate(320,72)"><circle r="9"/><rect x="-3" y="0" width="6" height="16"/></g>
+        <g transform="translate(398,112) rotate(55)"><circle cy="-6" r="9"/><rect x="-3" y="0" width="6" height="16"/></g>
+        <g transform="translate(420,180) rotate(100)"><circle cy="-6" r="9"/><rect x="-3" y="0" width="6" height="16"/></g>
+        <g transform="translate(370,222) rotate(145)"><circle cy="-6" r="9"/><rect x="-3" y="0" width="6" height="16"/></g>
+        <g transform="translate(270,222) rotate(205)"><circle cy="-6" r="9"/><rect x="-3" y="0" width="6" height="16"/></g>
+        <g transform="translate(220,180) rotate(255)"><circle cy="-6" r="9"/><rect x="-3" y="0" width="6" height="16"/></g>
+        <g transform="translate(242,112) rotate(305)"><circle cy="-6" r="9"/><rect x="-3" y="0" width="6" height="16"/></g>
+      </g>
+      <g fill="#f2b33d"><rect x="312" y="88" width="4" height="12" rx="2"/><rect x="356" y="128" width="4" height="12" rx="2" transform="rotate(50 358 134)"/><rect x="280" y="200" width="4" height="12" rx="2" transform="rotate(-40 282 206)"/></g>
+      <text x="320" y="48" class="v1" text-anchor="middle">스파이크 단백질 (S)</text>
+      <text x="320" y="33" class="v2" text-anchor="middle">Spike glycoprotein · 백신의 표적</text>
+      <line x1="300" y1="100" x2="190" y2="92" stroke="#b4232a"/><text x="186" y="90" class="v1" text-anchor="end">막단백질 (M)</text>
+      <line x1="358" y1="140" x2="470" y2="128" stroke="#b4232a"/><text x="474" y="126" class="v1">외피 소막단백질 (E)</text>
+      <line x1="320" y1="140" x2="470" y2="180" stroke="#b4232a"/><text x="474" y="183" class="v1">핵단백질 (N)</text>
+      <line x1="320" y1="150" x2="190" y2="200" stroke="#b4232a"/><text x="186" y="203" class="v1" text-anchor="end">유전체 RNA</text>
+    </svg>
+    <figcaption>교안 그림(ResearchGate)을 단순화해 다시 그림. 네 가지 구조 단백질(S·M·E·N)과 유전체 RNA</figcaption>
+  </figure>
+  <ul class="pt">
+    <li>이름의 어원: 스파이크가 <b>왕관</b>처럼 보여서 라틴어 <b>corona</b>(왕관)에서 옴 (맥주 Corona와 같은 어원)</li>
+    <li><b>스파이크 단백질(S)</b>은 세포에 달라붙는 열쇠이자 <b>백신의 표적</b>임 (2-1, 3-4와 연결)</li>
+  </ul>
+  <h4>코로나바이러스의 종류</h4>
+  <div class="tbl"><table>
+    <thead><tr><th>구분</th><th>내용</th></tr></thead>
+    <tbody>
+      <tr><td><b>흔한 감기 코로나바이러스</b></td><td>사람 코로나바이러스 229E, NL63, OC43, HKU1 — 주로 <b>상기도(위쪽 호흡기)</b>만 감염시켜 비교적 가벼운 '일반감기'. 감기를 일으키는 바이러스는 200종 이상(리노바이러스, RSV 등)</td></tr>
+      <tr><td><b>위험한 코로나바이러스 3종</b></td><td>SARS-CoV(2002~03, 중국), MERS-CoV(2012, 사우디아라비아), SARS-CoV-2(2019~20, 중국) — <b>하기도(아래쪽 호흡기)</b>를 감염시켜 폐렴, 급성호흡곤란증후군(ARDS), 복합장기부전, 사망까지 일으킬 수 있음</td></tr>
+    </tbody>
+  </table></div>
+  <ul class="pt">
+    <li>세 바이러스 모두 <b>박쥐</b>를 기원으로 하며, 중간 숙주를 거쳐 사람에게 옴: SARS-CoV(사향고양이), MERS-CoV(낙타), SARS-CoV-2(천산갑으로 추정)</li>
+  </ul>
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>상기도와 하기도</h5>
+    <ul>
+      <li><b>상기도</b>: 비강·인두·후두 (코~목). <b>하기도</b>: 기도·기관지·폐. 감염이 하기도(폐)까지 내려가면 폐렴으로 이어져 위험해짐</li>
+      <li>SARS-CoV-2는 상기도에서도 잘 증식해 전파력이 크면서, 하기도까지 내려가 중증을 일으킬 수 있다는 점이 흔한 감기 코로나바이러스와 다름</li>
+    </ul>
+  </div>
+</section>
+
+<section class="topic" id="t1-4">
+  <h3><span class="num">1-4</span>진단 ① real-time RT-PCR <span class="en">Diagnosis through real-time RT-PCR</span></h3>
+  <p>바이러스의 <b>유전물질(RNA)</b>을 검출하는 방법. RNA를 DNA로 바꾼 뒤, PCR로 그 DNA를 수없이 복제하면서 형광으로 실시간 측정함.</p>
+  <div class="flow">
+    <span>검체에서 RNA 추출</span><i>→</i><span>역전사(RT)<br>RNA → cDNA</span><i>→</i><span>PCR 증폭<br>1~3시간, 2ⁿ배 복제</span><i>→</i><span class="on">형광으로 양성/음성 판정</span>
+  </div>
+  <figure>
+    <svg viewBox="0 0 680 200" role="img" aria-label="PCR 한 주기: 변성, 결합, 신장">
+      <style>.p1{font:700 12.5px Pretendard,sans-serif;fill:#123d26}.p2{font:500 11px Pretendard,sans-serif;fill:#56635b}</style>
+      <defs><marker id="pa" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8z" fill="#15803d"/></marker></defs>
+      <g transform="translate(20,40)">
+        <rect x="0" y="0" width="190" height="110" rx="10" fill="#f2faf4" stroke="#bbe5c8"/>
+        <text x="95" y="24" class="p1" text-anchor="middle">① 변성 (Denaturation)</text>
+        <text x="95" y="44" class="p2" text-anchor="middle">~95℃, 10초</text>
+        <text x="95" y="72" class="p2" text-anchor="middle">이중가닥 DNA가</text>
+        <text x="95" y="90" class="p2" text-anchor="middle">두 가닥으로 풀림</text>
+      </g>
+      <line x1="215" y1="95" x2="245" y2="95" stroke="#15803d" stroke-width="2.5" marker-end="url(#pa)"/>
+      <g transform="translate(248,40)">
+        <rect x="0" y="0" width="190" height="110" rx="10" fill="#f2faf4" stroke="#bbe5c8"/>
+        <text x="95" y="24" class="p1" text-anchor="middle">② 결합 (Annealing)</text>
+        <text x="95" y="44" class="p2" text-anchor="middle">~55℃, 30초</text>
+        <text x="95" y="72" class="p2" text-anchor="middle">프라이머가 표적</text>
+        <text x="95" y="90" class="p2" text-anchor="middle">서열의 양 끝에 붙음</text>
+      </g>
+      <line x1="443" y1="95" x2="473" y2="95" stroke="#15803d" stroke-width="2.5" marker-end="url(#pa)"/>
+      <g transform="translate(476,40)">
+        <rect x="0" y="0" width="190" height="110" rx="10" fill="#dcf3e3" stroke="#22a05a"/>
+        <text x="95" y="24" class="p1" text-anchor="middle">③ 신장 (Extension)</text>
+        <text x="95" y="44" class="p2" text-anchor="middle">~72℃, 1kb당 1분</text>
+        <text x="95" y="72" class="p2" text-anchor="middle">중합효소가 새 가닥을</text>
+        <text x="95" y="90" class="p2" text-anchor="middle">합성 → DNA 2배</text>
+      </g>
+      <path d="M571,150 C571,178 95,178 95,154" fill="none" stroke="#9bb35a" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#pa)"/>
+      <text x="333" y="195" class="p2" text-anchor="middle">1주기마다 DNA가 2배 → n주기면 약 2ⁿ배</text>
+    </svg>
+    <figcaption>교안 그림(Eurofins Genomics)을 단순화해 다시 그림. 세 단계를 반복하는 것이 PCR</figcaption>
+  </figure>
+  <div class="tbl"><table>
+    <thead><tr><th>재료</th><th>역할</th></tr></thead>
+    <tbody>
+      <tr><td><b>dNTP</b> (A·C·T·G)</td><td>DNA를 만드는 재료 뉴클레오타이드</td></tr>
+      <tr><td><b>중합효소</b> (polymerase)</td><td>DNA나 RNA를 합성하는 효소</td></tr>
+      <tr><td><b>프라이머</b> (primer)</td><td>표적 서열의 시작·끝에 상보적으로 붙는 짧은 단일가닥 DNA → 어디를 복제할지 정함</td></tr>
+    </tbody>
+  </table></div>
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>PCR의 역사와 RT의 뜻</h5>
+    <ul>
+      <li>교안 연표: 1983년 캐리 멀리스가 PCR 발명 → 1985년 논문 → 1991년 역전사(reverse transcription) → 1993년 멀리스 노벨 화학상</li>
+      <li><b>RT = 역전사(Reverse Transcription)</b>. 코로나바이러스는 RNA 바이러스라 PCR로 바로 복제할 수 없어, 먼저 RNA를 cDNA(상보 DNA)로 바꾼 뒤 증폭함 (7주차 NGS·RNA 내용과 연결)</li>
+      <li>'real-time'은 증폭되는 양을 형광으로 <b>실시간</b> 측정한다는 뜻. 형광이 기준선(threshold)을 넘으면 양성</li>
+    </ul>
+  </div>
+</section>
+
+<section class="topic" id="t1-5">
+  <h3><span class="num">1-5</span>진단 ② 신속 항원 검사 <span class="en">Rapid diagnostic kit</span></h3>
+  <p>면역학(항원-항체 결합)을 이용한 간이 검사. 콧속 검체를 떨어뜨리면 약 15분 안에 결과가 나옴.</p>
+  <figure>
+    <svg viewBox="0 0 680 220" role="img" aria-label="신속 항원 검사 키트의 구조와 판정">
+      <style>.r1{font:700 12px Pretendard,sans-serif;fill:#123d26}.r2{font:500 11px Pretendard,sans-serif;fill:#56635b}.rt{font:700 12px Pretendard,sans-serif;fill:#1d5fbf}.rc{font:700 12px Pretendard,sans-serif;fill:#b4232a}</style>
+      <rect x="20" y="30" width="300" height="46" rx="6" fill="#f7f7f7" stroke="#ccc"/>
+      <rect x="40" y="30" width="40" height="46" fill="#eef3ea"/>
+      <text x="60" y="22" class="r2" text-anchor="middle">검체</text>
+      <rect x="150" y="30" width="5" height="46" fill="#1d5fbf"/><text x="152" y="92" class="rt" text-anchor="middle">T</text>
+      <rect x="250" y="30" width="5" height="46" fill="#b4232a"/><text x="252" y="92" class="rc" text-anchor="middle">C</text>
+      <text x="152" y="108" class="r2" text-anchor="middle">검사선</text><text x="252" y="108" class="r2" text-anchor="middle">대조선</text>
+      <text x="340" y="40" class="r2">흐름 방향 →</text>
+      <text x="170" y="150" class="r1" text-anchor="middle">판정 (T = 검사선 · C = 대조선)</text>
+      <g transform="translate(360,30)">
+        <rect x="0" y="0" width="180" height="30" rx="4" fill="#fff" stroke="#ccc"/><rect x="60" y="2" width="4" height="26" fill="#1d5fbf"/><rect x="130" y="2" width="4" height="26" fill="#b4232a"/>
+        <text x="190" y="20" class="r1">양성 (T, C 둘 다)</text>
+        <rect x="0" y="48" width="180" height="30" rx="4" fill="#fff" stroke="#ccc"/><rect x="60" y="50" width="4" height="26" fill="#9fb8e0"/><rect x="130" y="50" width="4" height="26" fill="#b4232a"/>
+        <text x="190" y="68" class="r1">약양성 (T 흐림)</text>
+        <rect x="0" y="96" width="180" height="30" rx="4" fill="#fff" stroke="#ccc"/><rect x="130" y="98" width="4" height="26" fill="#b4232a"/>
+        <text x="190" y="116" class="r1">음성 (C만)</text>
+      </g>
+    </svg>
+    <figcaption>교안 그림(Nature, 2021)을 단순화해 다시 그림. 대조선(C)이 안 나오면 검사 실패</figcaption>
+  </figure>
+  <ul class="pt">
+    <li>원리: 검체의 바이러스가 <b>항-SARS-CoV-2 항체</b>와 결합한 채 흘러가, 검사선(T)에 고정된 항체에 붙으면 선이 나타남</li>
+    <li><b>대조선(C)</b>은 검사가 제대로 작동했는지 확인하는 선. C가 나와야 결과를 믿을 수 있음</li>
+  </ul>
+  <span class="eval">RT-PCR은 유전물질(RNA)을, 신속 검사는 항원(단백질)을 검출함. 신속 검사는 빠르고 간편하지만 민감도가 낮아, 확진은 RT-PCR로 함</span>
+</section>
+
+<section class="topic" id="t1-6">
+  <h3><span class="num">1-6</span>SARS-CoV-2의 증상 <span class="en">Symptoms of SARS-CoV-2</span></h3>
+  <div class="grid2">
+    <div class="mini">
+      <h4>잠복기 (incubation)</h4>
+      <ul class="pt">
+        <li>노출 후 증상까지 중앙값 <b>4~5일</b></li>
+        <li>증상이 나타나는 환자의 97.5%가 <b>11.5일 이내</b>에 발현, 늦어도 ~14일</li>
+        <li>증상 후 <b>5~6일</b>에 바이러스 양(viral load)이 최고에 이름 — SARS-CoV(증상 후 ~10일)보다 훨씬 이름</li>
+      </ul>
+    </div>
+    <div class="mini">
+      <h4>경증 (mild)</h4>
+      <ul class="pt">
+        <li>발열, 마른기침, 콧물</li>
+        <li>드물게 호흡곤란, 근육·관절통, 두통·어지럼, 설사, 메스꺼움</li>
+      </ul>
+    </div>
+  </div>
+  <span class="eval">바이러스 양이 증상 초기에 최고가 되는 점이 SARS-CoV-2가 빠르게 퍼진 이유 중 하나 — 증상이 가볍거나 없을 때 이미 전파력이 높음</span>
+  <h4>중증 (severe) COVID-19</h4>
+  <div class="tbl"><table>
+    <thead><tr><th>상태</th><th>내용</th></tr></thead>
+    <tbody>
+      <tr><td><b>폐부종</b> (pulmonary edema)</td><td>염증 → 혈관 확장 → 혈관 투과성 증가 → 부종 → 폐가 '젖은 스펀지'처럼 됨</td></tr>
+      <tr><td><b>급성호흡곤란증후군 (ARDS)</b></td><td>증상 후 평균 <b>8~9일</b>에 발생. 과도한 염증으로 폐 손상 → 호흡곤란, 혈중 산소 저하, 호흡부전 → 중증 사망의 주요 원인</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section class="topic" id="t1-7">
+  <h3><span class="num">1-7</span>병리: 과도한 면역반응과 사이토카인 <span class="en">Pathophysiology</span></h3>
+  <ul class="pt">
+    <li>환자의 중증도는 <b>바이러스 감염</b> 자체와 <b>숙주의 면역반응</b> 둘 다에서 옴</li>
+    <li>공격적인 염증반응이 폐와 다른 조직을 손상시킴 → <b>과도한 면역반응이 감염 자체보다 더 파괴적</b></li>
+    <li>그래서 면역학을 알아야 함: ① 바이러스 감염을 막고 ② 이차적 중증 증상을 치료하기 위해</li>
+  </ul>
+  <div class="key"><span class="label">사이토카인 (cytokine)</span><br>면역계를 지휘하는 <b>작은 크기의 단백질</b> 화학 전령(chemical messenger). 약 <b>200종</b>이 있음. 과도하게 쏟아지면 '사이토카인 폭풍'이 되어 몸을 해침 (3-1과 연결)</div>
+  <div class="key"><span class="label">01차시 (1) 학습정리</span>
+    <ul class="pt">
+      <li>중증 COVID-19는 감염 자체보다 <b>과도한 면역반응</b> 때문에 생김</li>
+      <li>COVID-19 신속 진단 키트는 <b>면역학</b>에 바탕을 두고 개발됨</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===================== PART 2 ===================== -->
+<div class="part" id="p2">
+  <div class="part-head"><span class="no">01차시 (2)</span><h2>감염 기전과 방어, 중증의 원인</h2></div>
+  <p class="part-sub">학습목표: SARS-CoV-2의 감염 기전 이해 · SARS-CoV-2에 맞서는 방어 기전 이해 · 중증 COVID-19의 병리 이해</p>
+</div>
+
+<section class="topic" id="t2-1">
+  <h3><span class="num">2-1</span>SARS-CoV-2의 감염 기전 <span class="en">Infection of SARS-CoV-2</span></h3>
+  <figure>
+    <svg viewBox="0 0 680 210" role="img" aria-label="SARS-CoV-2가 세포에 들어가는 과정">
+      <style>.i1{font:700 12px Pretendard,sans-serif;fill:#123d26}.i2{font:500 11px Pretendard,sans-serif;fill:#56635b}</style>
+      <defs><marker id="ia" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8z" fill="#b4232a"/></marker></defs>
+      <g transform="translate(16,30)">
+        <rect x="0" y="0" width="150" height="150" rx="10" fill="#f2faf4" stroke="#bbe5c8"/>
+        <text x="75" y="22" class="i1" text-anchor="middle">① 결합</text>
+        <text x="75" y="48" class="i2" text-anchor="middle">스파이크의 RBD가</text>
+        <text x="75" y="66" class="i2" text-anchor="middle">세포의 ACE2 수용체에</text>
+        <text x="75" y="84" class="i2" text-anchor="middle">결합</text>
+        <text x="75" y="112" class="i2" text-anchor="middle">TMPRSS2(단백질</text>
+        <text x="75" y="130" class="i2" text-anchor="middle">분해효소)가 침입을 도움</text>
+      </g>
+      <line x1="170" y1="105" x2="196" y2="105" stroke="#b4232a" stroke-width="2.5" marker-end="url(#ia)"/>
+      <g transform="translate(199,30)">
+        <rect x="0" y="0" width="150" height="150" rx="10" fill="#f2faf4" stroke="#bbe5c8"/>
+        <text x="75" y="22" class="i1" text-anchor="middle">② 세포내 섭취</text>
+        <text x="75" y="52" class="i2" text-anchor="middle">엔도시토시스로</text>
+        <text x="75" y="70" class="i2" text-anchor="middle">바이러스가 세포 안</text>
+        <text x="75" y="88" class="i2" text-anchor="middle">엔도솜으로 들어감</text>
+      </g>
+      <line x1="353" y1="105" x2="379" y2="105" stroke="#b4232a" stroke-width="2.5" marker-end="url(#ia)"/>
+      <g transform="translate(382,30)">
+        <rect x="0" y="0" width="150" height="150" rx="10" fill="#f2faf4" stroke="#bbe5c8"/>
+        <text x="75" y="22" class="i1" text-anchor="middle">③ 막 융합</text>
+        <text x="75" y="52" class="i2" text-anchor="middle">엔도솜 안에서</text>
+        <text x="75" y="70" class="i2" text-anchor="middle">TMPRSS2가 S1을 자르고</text>
+        <text x="75" y="88" class="i2" text-anchor="middle">융합 펩타이드(FP) 노출</text>
+        <text x="75" y="112" class="i2" text-anchor="middle">→ HR1·HR2가 맞물려</text>
+        <text x="75" y="130" class="i2" text-anchor="middle">막을 융합</text>
+      </g>
+      <line x1="536" y1="105" x2="562" y2="105" stroke="#b4232a" stroke-width="2.5" marker-end="url(#ia)"/>
+      <g transform="translate(565,30)">
+        <rect x="0" y="0" width="100" height="150" rx="10" fill="#fde7ec" stroke="#e8a0ad"/>
+        <text x="50" y="22" class="i1" text-anchor="middle">④ 방출</text>
+        <text x="50" y="58" class="i2" text-anchor="middle">바이러스</text>
+        <text x="50" y="76" class="i2" text-anchor="middle">RNA 유전체를</text>
+        <text x="50" y="94" class="i2" text-anchor="middle">세포질로</text>
+        <text x="50" y="112" class="i2" text-anchor="middle">방출 → 복제</text>
+      </g>
+    </svg>
+    <figcaption>교안 그림(Cell, 2022)을 단순화해 다시 그림. RBD = 수용체 결합 도메인, ACE2 = 숙주 수용체</figcaption>
+  </figure>
+  <ul class="pt">
+    <li><b>RBD(수용체 결합 도메인)</b>가 숙주의 <b>ACE2</b> 수용체에 결합 → <b>TMPRSS2</b>(세린 단백질 분해효소)가 침입을 도움 → 바이러스의 세포내 섭취(endocytosis)를 유발</li>
+    <li>엔도솜 안에서 막 융합이 일어나 바이러스 RNA 유전체가 세포질로 방출됨</li>
+  </ul>
+</section>
+
+<section class="topic" id="t2-2">
+  <h3><span class="num">2-2</span>감염을 겨냥한 치료 표적 <span class="en">Therapeutic approaches</span></h3>
+  <div class="tbl"><table>
+    <thead><tr><th>전략</th><th>약·방법</th></tr></thead>
+    <tbody>
+      <tr><td><b>ACE2 수용체 차단</b></td><td>mRNA 백신(항체로 스파이크-ACE2 결합을 막음)</td></tr>
+      <tr><td><b>TMPRSS2 차단</b></td><td>나파모스타트(Nafamostat), 카모스타트(Camostat)</td></tr>
+    </tbody>
+  </table></div>
+  <span class="eval">감염의 두 열쇠(ACE2 결합, TMPRSS2 절단) 중 하나만 막아도 바이러스가 세포에 들어가기 어려워짐 → 치료제·백신의 설계 원리 (3-3에서 더 자세히)</span>
+</section>
+
+<section class="topic" id="t2-3">
+  <h3><span class="num">2-3</span>방어 ① 인터페론 <span class="en">Interferon blocks viral infection</span></h3>
+  <ul class="pt">
+    <li>바이러스가 들어오면 세포는 <b>패턴 인식 수용체(TLR 등)</b>로 바이러스를 감지하고 <b>인터페론</b>을 비롯한 사이토카인을 냄 (5주차 PAMP·PRR과 연결)</li>
+    <li>인터페론은 주변 세포에 '항바이러스 상태'를 만들어 바이러스 증식을 막음</li>
+    <li>인터페론이 켜는 유전자(ISGs)의 예: <b>IFITM3</b> (4-5에서 다시 나옴)</li>
+  </ul>
+  <div class="key"><span class="label">인터페론 (interferon)</span><br>가장 먼저 발견된 사이토카인. <b>Alick Isaacs와 Jean Lindenmann이 1957년</b> '바이러스 간섭(viral interference)' 현상을 연구하다 발견함 — 한 바이러스 감염이 다른 바이러스 감염을 '간섭(interfere)'해 막는 현상에서 이름이 옴</div>
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>IFITM3가 바이러스를 막는 방식</h5>
+    <ul>
+      <li><b>IFITM3</b>(인터페론 유도 막관통 단백질 3)는 엔도솜 막에 자리 잡아, 바이러스 막과 세포 막이 융합하는 것을 방해함 → 바이러스 RNA가 세포질로 나오지 못하게 함</li>
+      <li>그런데 02차시 (4)에서 보듯, 같은 IFITM3가 B세포 백혈병에서는 오히려 암을 돕는 양날의 칼로 작용함</li>
+    </ul>
+  </div>
+</section>
+
+<section class="topic" id="t2-4">
+  <h3><span class="num">2-4</span>방어 ② 정상 면역반응과 중화항체 <span class="en">Normal immune response</span></h3>
+  <figure>
+    <svg viewBox="0 0 680 210" role="img" aria-label="감염 후 시간에 따른 선천면역에서 적응면역으로의 전환">
+      <style>.d1{font:700 12px Pretendard,sans-serif;fill:#123d26}.d2{font:500 11px Pretendard,sans-serif;fill:#56635b}</style>
+      <line x1="40" y1="170" x2="650" y2="170" stroke="#56635b"/><line x1="40" y1="170" x2="40" y2="20" stroke="#56635b"/>
+      <text x="345" y="196" class="d2" text-anchor="middle">감염 후 시간 (시간 → 일)</text>
+      <text x="20" y="95" class="d2" text-anchor="middle" transform="rotate(-90 20 95)">면역 활성</text>
+      <path d="M40,170 C70,60 90,60 110,120 C130,165 130,165 150,165" fill="none" stroke="#8b5cf6" stroke-width="2.5"/>
+      <text x="92" y="52" class="d2" style="fill:#8b5cf6">1. IFN-β (인터페론)</text>
+      <path d="M150,165 C175,80 190,80 210,130 C225,165 225,165 245,165" fill="none" stroke="#e05a5a" stroke-width="2.5"/>
+      <text x="200" y="72" class="d2" style="fill:#e05a5a">2~4. 염증 사이토카인·NK세포</text>
+      <path d="M245,165 C290,110 330,60 400,55 C480,50 560,60 640,70" fill="none" stroke="#1d5fbf" stroke-width="2.5"/>
+      <text x="520" y="44" class="d1" style="fill:#1d5fbf">5. 적응면역 (항체·T세포)</text>
+      <line x1="250" y1="24" x2="250" y2="170" stroke="#9bb35a" stroke-dasharray="4 4"/>
+      <text x="150" y="20" class="d2" text-anchor="middle">선천면역</text>
+      <text x="460" y="20" class="d2" text-anchor="middle">적응면역</text>
+    </svg>
+    <figcaption>교안 그림(Frontiers)을 단순화해 다시 그림. 선천면역(인터페론·NK세포 등)이 먼저, 적응면역(항체·T세포)이 나중에</figcaption>
+  </figure>
+  <ul class="pt">
+    <li>정상 면역반응은 <b>선천면역 → 적응면역</b>으로 매끄럽게 이어져야 함 (5주차 1-3 선천·적응면역)</li>
+    <li>선천면역: 대식세포가 항원을 삼켜 MHC로 제시(항원 제시) → 적응면역: 보조 T세포가 세포독성 T세포(감염 세포 파괴)와 B세포(항체)를 활성화 → <b>기억 B·T세포</b> 형성</li>
+  </ul>
+  <div class="key"><span class="label">중화항체 (neutralizing antibody)</span><br>바이러스(virus)의 어원인 라틴어 'virus'는 <b>독(毒)</b>을 뜻함. 그래서 바이러스를 무력화하는 항체를 '독을 <b>중화(neutralization)</b>시킨다'는 뜻으로 <b>중화항체</b>라 부름</div>
+</section>
+
+<section class="topic" id="t2-5">
+  <h3><span class="num">2-5</span>중증 COVID-19의 원인 – 인터페론 지연과 과도한 염증 <span class="en">Delay of interferon &amp; excessive inflammation</span></h3>
+  <div class="grid2">
+    <div class="key"><span class="label">정상 (early IFN)</span><br>인터페론이 <b>제때</b> 나오면 → 바이러스 양 감소, 염증 조절 → 경증</div>
+    <div class="key" style="border-color:#f0b9a5"><span class="label" style="background:var(--warn)">중증 (delayed IFN)</span><br>인터페론이 <b>늦게</b> 나오면 → 바이러스 제거 실패 + 염증성 단핵구·대식세포(IMM)가 과도하게 반응 → 폐 면역병리, 치명적 폐렴</div>
+  </div>
+  <ul class="pt">
+    <li>교안 인용 논문(Cell Host &amp; Microbe): "제1형 인터페론 조절 이상과 염증성 단핵구-대식세포 반응이 SARS 감염 생쥐에서 치명적 폐렴을 일으킨다"</li>
+    <li>바이러스가 <b>파이롭토시스(pyroptosis)</b>로 세포를 터뜨리며 증식·방출 → ATP·핵산·ASC 중합체 같은 <b>손상 연관 분자 패턴(DAMP)</b>을 쏟아내 염증을 더 키움 (3-1에서 자세히)</li>
+  </ul>
+  <div class="key"><span class="label">01차시 (2) 학습정리</span>
+    <ul class="pt">
+      <li>SARS-CoV-2에 맞서는 정상 면역반응은 <b>선천면역과 적응면역의 조화</b>가 필요함</li>
+      <li>중증 COVID-19의 원인은 <b>'인터페론의 지연'과 '과도한 염증'</b>에 있음</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===================== PART 3 ===================== -->
+<div class="part" id="p3">
+  <div class="part-head"><span class="no">02차시 (3)</span><h2>치료 전략과 mRNA 백신</h2></div>
+  <p class="part-sub">학습목표: SARS-CoV-2 치료 전략 이해 · SARS-CoV-2에 맞서는 mRNA 백신의 기전 이해</p>
+</div>
+
+<section class="topic" id="t3-1">
+  <h3><span class="num">3-1</span>파이롭토시스와 사이토카인 폭풍 <span class="en">Pyroptosis</span></h3>
+  <div class="tbl"><table>
+    <thead><tr><th></th><th>세포자멸사 (Apoptosis)</th><th>파이롭토시스 (Pyroptosis)</th></tr></thead>
+    <tbody>
+      <tr><td><b>염증</b></td><td>일으키지 않음</td><td><b>일으킴</b></td></tr>
+      <tr><td><b>관여 효소</b></td><td>카스페이스-3, 7</td><td>카스페이스-1</td></tr>
+      <tr><td><b>세포 막</b></td><td>조용히 조각(세포자멸체)으로 정리됨</td><td>부풀다 <b>터짐</b>(막 파열) → 내용물 방출</td></tr>
+    </tbody>
+  </table></div>
+  <ul class="pt">
+    <li>COVID-19에서 SARS-CoV-2는 세포에 들어가 증식한 뒤 <b>파이롭토시스로 세포를 터뜨리며</b> 자손 바이러스를 방출함</li>
+    <li>이때 나온 사이토카인이 단핵구·대식세포·T세포를 감염 부위로 불러들이고, 이들이 또 염증성 사이토카인을 내는 <b>되먹임 고리(feedback loop)</b>를 만듦 → 사이토카인 폭풍</li>
+  </ul>
+  <h4>중증 COVID-19로 가는 과정</h4>
+  <div class="flow">
+    <span>인터페론 반응 지연<br><small>바이러스 제거 실패 + 파이롭토시스</small></span><i>→</i><span>염증성 사이토카인<br><small>면역세포 동원, T·B세포 반응</small></span><i>→</i><span class="on">과도한 면역반응<br><small>폐부종·ARDS·사이토카인 폭풍·패혈증 → 다기관 손상</small></span>
+  </div>
+  <span class="eval">01차시 1-5의 폐부종·ARDS가 여기서 '왜' 생기는지로 이어짐: 바이러스가 직접 죽이는 것보다 과도한 염증(투과성 증가 → 폐부종)이 더 큰 문제</span>
+</section>
+
+<section class="topic" id="t3-2">
+  <h3><span class="num">3-2</span>박쥐는 적인가 친구인가 <span class="en">Is a bat a friend or foe?</span></h3>
+  <p>박쥐는 SARS·MERS·SARS-CoV-2의 자연 숙주(1-3)지만, 정작 자신은 이 바이러스들에 잘 견딤. 그 비결을 배우면 치료 전략의 힌트가 됨 (Nature, 2021).</p>
+  <div class="grid2">
+    <div class="mini">
+      <h4>바이러스 복제·번식 억제</h4>
+      <ul class="pt">
+        <li>IFN(인터페론), ISGs, 열충격단백질(HSPs), ABCB1</li>
+        <li>자가포식(autophagy)</li>
+        <li>높은 체온 <b>38~42℃</b></li>
+      </ul>
+    </div>
+    <div class="mini">
+      <h4>과도한 염증반응도 동시에 억제</h4>
+      <ul class="pt">
+        <li>NLRP3, PYHIN, IL-1β, STING 신호를 낮춤</li>
+      </ul>
+    </div>
+  </div>
+  <span class="eval">박쥐는 '바이러스는 잘 막으면서 염증은 과하지 않게' 균형을 맞춤 — 2-5의 '인터페론 지연 + 과도한 염증'으로 중증이 되는 사람과 정반대. 이 균형이 치료의 목표</span>
+</section>
+
+<section class="topic" id="t3-3">
+  <h3><span class="num">3-3</span>SARS-CoV-2 치료 접근법 <span class="en">Therapeutic approaches</span></h3>
+  <div class="tbl"><table>
+    <thead><tr><th>약</th><th>작용 지점</th></tr></thead>
+    <tbody>
+      <tr><td><b>아비돌 (Arbidol)</b></td><td>바이러스가 세포에 결합·진입하는 것을 막음</td></tr>
+      <tr><td><b>카모스타트 (Camostat)</b></td><td>TMPRSS2를 억제해 진입을 막음 (2-2)</td></tr>
+      <tr><td><b>클로로퀸·하이드록시클로로퀸</b></td><td>엔도솜/리소좀의 pH를 바꿔 막 융합을 방해</td></tr>
+      <tr><td><b>로피나비르 (Lopinavir)</b></td><td>바이러스 단백질 분해효소(main protease)를 억제해 성숙을 막음</td></tr>
+      <tr><td><b>몰누피라비르 (Molnupiravir)</b></td><td>RNA 복제 과정에 끼어들어 오류를 일으킴</td></tr>
+      <tr><td><b>토실리주맙 (Tocilizumab)</b></td><td>IL-6 수용체를 막아 과도한 염증(사이토카인 폭풍)을 가라앉힘</td></tr>
+    </tbody>
+  </table></div>
+  <ul class="pt">
+    <li>치료제는 크게 두 갈래: <b>바이러스를 직접 겨냥</b>(진입·복제·성숙 차단)하거나, <b>과도한 면역반응을 가라앉힘</b>(토실리주맙)</li>
+  </ul>
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>몰누피라비르의 역설 – 바이러스 진화를 부추긴다</h5>
+    <ul>
+      <li>몰누피라비르는 RNA 복제에 <b>수많은 변이</b>를 일으켜 바이러스를 무력화하는 약인데, 그 변이 중 일부가 살아남아 퍼질 수 있다는 우려가 제기됨 (Nature, 2023 "Anti-COVID drug accelerates viral evolution")</li>
+      <li>그래서 <b>새로운 표적 억제제</b>의 지속적인 개발이 필요함 — 하나의 약으로 끝나지 않는 이유</li>
+    </ul>
+  </div>
+</section>
+
+<section class="topic" id="t3-4">
+  <h3><span class="num">3-4</span>mRNA 백신, 2023 노벨상 <span class="en">SARS-CoV-2 mRNA vaccine</span></h3>
+  <ul class="pt">
+    <li><b>2023년 노벨 생리의학상</b>: 커털린 커리코(Katalin Karikó)와 드루 와이스먼(Drew Weissman) — "효과적인 mRNA 코로나 백신 개발을 가능하게 한 뉴클레오사이드 염기 변형 발견" (8주차 3-3과 같은 내용)</li>
+    <li>원리: <b>스파이크 단백질의 설계도(mRNA)</b>를 지질나노입자(LNP)에 싸서 근육에 주사 → 세포가 스파이크 단백질을 만듦 → 면역계가 이를 보고 항체·기억세포를 미리 만듦 (8주차·9주차 LNP와 연결)</li>
+    <li>근육(삼각근)과 림프절에서 B세포·T세포(CD8⁺, CD4⁺)가 스파이크 조각을 인식해 면역을 형성함</li>
+  </ul>
+  <div class="grid2">
+    <div class="mini">
+      <h4>왜 코로나19는 백신을 만들기 쉬웠나</h4>
+      <ul class="pt">
+        <li>'비교적 쉬운 상대' — 때마침 <b>mRNA 기술</b>이 무르익은 시점과 맞물림</li>
+        <li>스파이크라는 뚜렷한 표적이 있었음</li>
+      </ul>
+    </div>
+    <div class="mini">
+      <h4>왜 어떤 바이러스는 백신이 어렵나</h4>
+      <ul class="pt">
+        <li>RNA 바이러스는 DNA 바이러스보다 변이가 잦음</li>
+        <li>HIV(에이즈), HCV(C형 간염)는 변이가 매우 빨라 아직 백신이 없음</li>
+        <li>독감 백신은 남반구의 유행 변이를 북반구에 적용하는 식으로 해마다 갱신</li>
+      </ul>
+    </div>
+  </div>
+  <div class="key"><span class="label">02차시 (3) 학습정리</span>
+    <ul class="pt">
+      <li>mRNA 백신 기술은 암을 포함한 여러 질병의 예방·치료에 폭넓은 영향을 주는 획기적 기술로, 우리의 미래를 근본적으로 바꿀 것임</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===================== PART 4 ===================== -->
+<div class="part" id="p4">
+  <div class="part-head"><span class="no">02차시 (4)</span><h2>B세포 악성종양과 BCR-ABL1</h2></div>
+  <p class="part-sub">학습목표: B세포 악성종양(백혈병)의 병리 이해 · BCR-ABL1 변이에 의한 발생 기전 이해</p>
+</div>
+
+<section class="topic" id="t4-1">
+  <h3><span class="num">4-1</span>B세포 악성종양이란 <span class="en">What is B-cell malignancy?</span></h3>
+  <div class="flow">
+    <span>비정상 초기 전구체 B세포<br><small>non-functional early progenitor</small></span><i>✕ 분화 실패</i><span>몸이 필요로 하는<br>성숙한 B세포</span>
+  </div>
+  <ul class="pt">
+    <li>B세포 백혈병 세포는 <b>증식(proliferation)은 하지만 분화(differentiation)는 못 함</b></li>
+    <li>이 비정상 세포가 면역반응·항체 생성을 못 하면서 몸에 쌓여, <b>건강한 성숙 세포가 들어설 자리를 빼앗음</b></li>
+  </ul>
+  <span class="eval">4주차 암의 특징(증식 신호 켜짐 + 분화 차단)이 백혈병에서 구체적으로 나타남: '증식은 과하게, 분화는 막힌' 상태</span>
+</section>
+
+<section class="topic" id="t4-2">
+  <h3><span class="num">4-2</span>임상 결과 – 소아와 성인 ALL <span class="en">Clinical outcome</span></h3>
+  <ul class="pt">
+    <li>미국 국립암연구소(NCI) 추정: 한 해 급성 림프모구 백혈병(ALL) 신규 환자 약 <b>6,150명</b>, 그중 약 <b>1,520명</b>이 사망</li>
+  </ul>
+  <div class="tbl"><table>
+    <thead><tr><th>구분</th><th>치료 성적</th></tr></thead>
+    <tbody>
+      <tr><td><b>소아 ALL</b> (pediatric)</td><td><b>90% 이상에서 완치</b> 가능. 완전관해(CR) 95~99%, 5년 무사건 생존율(EFS) 80~85%</td></tr>
+      <tr><td><b>성인 ALL</b> (adult)</td><td>예후가 나쁨, 치료 선택지가 적음, 완치율 <b>40% 미만</b> (백혈병 종류에 따라 다름)</td></tr>
+    </tbody>
+  </table></div>
+  <ul class="pt">
+    <li>최초의 항암화학요법은 <b>1948년</b>(소아 백혈병의 일시적 관해) — 4주차 1-7의 시드니 파버와 같은 역사</li>
+    <li>소아 ALL은 '여러 약을 함께 쓰고(다제 병용), 환자·백혈병의 특성에 따라 치료 강도를 나누는(분류)' 방식으로 생존율을 <b>1960년대 10% 미만 → 오늘날 90%</b>까지 끌어올림. 성인 ALL은 아직 ~40%라 연구가 더 필요함</li>
+  </ul>
+</section>
+
+<section class="topic" id="t4-3">
+  <h3><span class="num">4-3</span>BCR-ABL1 변이와 필라델피아 염색체 <span class="en">Development by BCR-ABL1 mutation</span></h3>
+  <figure>
+    <svg viewBox="0 0 620 200" role="img" aria-label="9번과 22번 염색체의 전좌로 필라델피아 염색체가 생기는 과정">
+      <style>.c1{font:700 12px Pretendard,sans-serif;fill:#123d26}.c2{font:500 11px Pretendard,sans-serif;fill:#56635b}</style>
+      <defs><marker id="ca" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9z" fill="#166534"/></marker></defs>
+      <!-- chr9 -->
+      <g transform="translate(60,30)">
+        <rect x="-11" y="0" width="22" height="80" rx="11" fill="#f4c7a1" stroke="#c98a55"/>
+        <rect x="-11" y="80" width="22" height="55" rx="11" fill="#f4c7a1" stroke="#c98a55"/>
+        <rect x="-11" y="118" width="22" height="16" fill="#e05a5a"/>
+        <text x="0" y="152" class="c2" text-anchor="middle">9번</text><text x="0" y="166" class="c2" text-anchor="middle">(ABL)</text>
+      </g>
+      <text x="110" y="100" class="c1" text-anchor="middle">+</text>
+      <!-- chr22 -->
+      <g transform="translate(160,30)">
+        <rect x="-11" y="0" width="22" height="55" rx="11" fill="#9db8df" stroke="#5b73a8"/>
+        <rect x="-11" y="48" width="22" height="12" fill="#1d5fbf"/>
+        <rect x="-11" y="55" width="22" height="80" rx="11" fill="#9db8df" stroke="#5b73a8"/>
+        <text x="0" y="152" class="c2" text-anchor="middle">22번</text><text x="0" y="166" class="c2" text-anchor="middle">(BCR)</text>
+      </g>
+      <line x1="200" y1="95" x2="265" y2="95" stroke="#166534" stroke-width="2.5" marker-end="url(#ca)"/>
+      <text x="232" y="86" class="c2" text-anchor="middle">전좌</text>
+      <text x="232" y="112" class="c2" text-anchor="middle">t(9;22)</text>
+      <!-- Ph chromosome -->
+      <g transform="translate(330,45)">
+        <rect x="-13" y="0" width="26" height="40" rx="13" fill="#9db8df" stroke="#5b73a8"/>
+        <rect x="-13" y="34" width="26" height="14" fill="#1d5fbf"/>
+        <rect x="-13" y="42" width="26" height="12" fill="#e05a5a"/>
+        <rect x="-13" y="50" width="26" height="30" rx="13" fill="#f4c7a1" stroke="#c98a55"/>
+        <text x="0" y="98" class="c1" text-anchor="middle" style="fill:#b4232a">필라델피아 염색체</text>
+        <text x="0" y="114" class="c2" text-anchor="middle">BCR-ABL1 융합 유전자</text>
+      </g>
+      <text x="520" y="60" class="c1">작고 비정상적인</text>
+      <text x="520" y="78" class="c1">22번 염색체</text>
+      <text x="520" y="100" class="c2">1960년 필라델피아</text>
+      <text x="520" y="116" class="c2">에서 발견</text>
+    </svg>
+    <figcaption>교안 그림(Oncohema Key)을 단순화해 다시 그림. 9번·22번 염색체가 조각을 바꾸는 전좌로 BCR-ABL1이 생김</figcaption>
+  </figure>
+  <ul class="pt">
+    <li><b>필라델피아(Ph) 염색체</b>: 1960년 발견된 유난히 작은 염색체. <b>t(9;22)(q34;q11)</b> 전좌로 9번의 ABL과 22번의 BCR이 합쳐져 <b>BCR-ABL1 융합 단백질</b>을 만듦</li>
+    <li>가장 강력한 암유전자(oncogene) 중 하나 — 급성 림프모구 백혈병 환자의 20% 이상에서 발견 (18~35세 12~30%, 36~50세 40~45%, 60세 이상 50% 이상)</li>
+    <li>9번·22번 전좌가 멘델 법칙을 따른다는 것과 BCR-ABL1을 처음 밝힌 사람은 재닛 롤리(Janet Rowley) — 4주차 1-6의 필라델피아 염색체와 같은 내용</li>
+  </ul>
+  <div class="tbl"><table>
+    <thead><tr><th>부분</th><th>원래 기능</th></tr></thead>
+    <tbody>
+      <tr><td><b>BCR</b> (Breakpoint Cluster Region)</td><td>Rho GTPase</td></tr>
+      <tr><td><b>ABL</b> (Abelson)</td><td>티로신 인산화효소. 평소에는 <b>스스로 억제(auto-inhibited)</b>된 상태, 리간드-수용체 결합으로만 켜짐</td></tr>
+      <tr><td><b>BCR-ABL1</b> (융합)</td><td><b>스스로 켜짐(autonomous activation)</b>, 항상 켜진(constitutive) 인산화효소 활성</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section class="topic" id="t4-4">
+  <h3><span class="num">4-4</span>BCR-ABL1의 작동 기전 <span class="en">Mechanism of action</span></h3>
+  <div class="grid2">
+    <div class="mini">
+      <h4>정상 ABL – 닫힌 구조</h4>
+      <ul class="pt">
+        <li>N말단 '캡'과 SH3·SH2 영역이 효소 활성부위를 덮음 → <b>닫힌 구조(auto-inhibited)</b> → 꺼짐</li>
+      </ul>
+    </div>
+    <div class="mini">
+      <h4>BCR-ABL1 – 열린 구조</h4>
+      <ul class="pt">
+        <li>BCR이 붙으면서 구조가 <b>열림(opened)</b> → 활성부위가 드러남 → <b>항상 켜짐</b></li>
+      </ul>
+    </div>
+  </div>
+  <div class="flow">
+    <span>항상 켜진 티로신 인산화효소</span><i>→</i><span>여러 기질을 인산화</span><i>→</i><span class="on">증식 ↑ · 세포자멸사 억제 · 분화 차단 · 또 다른 돌연변이 유발</span>
+  </div>
+  <ul class="pt">
+    <li>결과로 급성 림프모구 백혈병(ALL), 만성 골수성 백혈병(CML)을 일으킴</li>
+  </ul>
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>이매티닙(글리벡)과 이어지는 이야기</h5>
+    <ul>
+      <li>4주차 1-7에서 본 <b>이매티닙(글리벡)</b>이 바로 이 BCR-ABL1의 ATP 결합 자리를 막는 표적치료제임 — '항상 켜진 스위치'를 끄는 약</li>
+      <li>BCR-ABL1은 '변이 하나(전좌)가 암을 만든' 비교적 단순한 예라, 합리적 약물 설계의 대표 성공 사례가 됨 (4주차 표적치료)</li>
+    </ul>
+  </div>
+</section>
+
+<section class="topic" id="t4-5">
+  <h3><span class="num">4-5</span>IFITM3와 백혈병 <span class="en">IFITM3 predicts poor outcome</span></h3>
+  <ul class="pt">
+    <li>2-3에서 본 항바이러스 단백질 <b>IFITM3</b>가, B세포 악성종양에서는 <b>나쁜 예후</b>를 예측하는 표지가 됨 (Lee J., Nature 2020)</li>
+    <li>IFITM3가 많으면(IFITM3<sup>high</sup>) 생존율이 낮음 — 성인·소아 ALL, 외투세포 림프종 등에서 확인</li>
+    <li>기전: IFITM3가 B세포 수용체(BCR) 신호를 증폭 → PI3K·AKT 신호를 키워 백혈병 세포의 증식을 도움. BCR-ABL1도 같은 신호를 비정상적으로 켬</li>
+  </ul>
+  <span class="eval">같은 IFITM3가 바이러스 감염에서는 '방패'(2-3), B세포 백혈병에서는 '가속 페달'로 작용하는 양날의 칼 → IFITM3 억제제가 백혈병 치료 후보가 됨</span>
+  <div class="key"><span class="label">02차시 (4) 학습정리</span>
+    <ul class="pt">
+      <li>B세포 악성종양은 <b>BCR-ABL1 같은 변이</b>로 세포가 증식만 하고 분화하지 못해 생김</li>
+      <li>교안 인용 — 재닛 롤리: "의사는 환자를 한 명씩 치료하고, 생물학자는 인류를 한 번에 치료한다"</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===================== PART 5 ===================== -->
+<div class="part" id="p5">
+  <div class="part-head"><span class="no">용어</span><h2>용어 정리와 교안 표기 확인</h2></div>
+  <p class="part-sub">11주차 네 강의에 나온 핵심 용어 (이번 주는 용어사전이 따로 없어 교안 기준으로 정리)</p>
+</div>
+
+<section class="topic">
+  <div class="tbl"><table>
+    <thead><tr><th>영문</th><th>국문</th><th>한 줄 정리</th></tr></thead>
+    <tbody>
+      <tr><td>immune system</td><td>면역계</td><td>기관·백혈구·단백질로 이루어진 방어 네트워크</td></tr>
+      <tr><td>granulocyte / lymphocyte / monocyte</td><td>과립구 / 림프구 / 단핵구</td><td>호중구·호산구·호염기구 / B·T·NK세포 / 조직에서 대식세포가 됨</td></tr>
+      <tr><td>SARS-CoV-2</td><td>사스코로나바이러스-2</td><td>COVID-19를 일으키는 코로나바이러스. S·M·E·N 단백질과 RNA</td></tr>
+      <tr><td>spike glycoprotein (S)</td><td>스파이크 단백질</td><td>세포 ACE2에 결합하는 열쇠이자 백신의 표적</td></tr>
+      <tr><td>ACE2 / TMPRSS2</td><td>ACE2 수용체 / TMPRSS2</td><td>스파이크가 붙는 숙주 수용체 / 침입을 돕는 단백질 분해효소</td></tr>
+      <tr><td>RBD</td><td>수용체 결합 도메인</td><td>스파이크에서 ACE2에 직접 붙는 부분</td></tr>
+      <tr><td>real-time RT-PCR</td><td>실시간 역전사 중합효소 연쇄반응</td><td>바이러스 RNA를 cDNA로 바꿔 증폭하며 형광으로 검출</td></tr>
+      <tr><td>primer</td><td>프라이머</td><td>복제할 표적의 시작·끝에 붙는 짧은 단일가닥 DNA</td></tr>
+      <tr><td>rapid antigen test</td><td>신속 항원 검사</td><td>항원-항체 결합으로 바이러스 단백질을 검출(T·C선)</td></tr>
+      <tr><td>incubation period</td><td>잠복기</td><td>노출 후 증상까지 기간. 중앙값 4~5일</td></tr>
+      <tr><td>viral load</td><td>바이러스 양</td><td>체내 바이러스의 양. SARS-CoV-2는 증상 초기에 최고</td></tr>
+      <tr><td>pulmonary edema / ARDS</td><td>폐부종 / 급성호흡곤란증후군</td><td>폐에 액체가 참 / 과도한 염증으로 인한 폐 손상·호흡부전</td></tr>
+      <tr><td>cytokine</td><td>사이토카인</td><td>면역을 지휘하는 작은 단백질 전령 (약 200종)</td></tr>
+      <tr><td>interferon (IFN)</td><td>인터페론</td><td>처음 발견된 사이토카인. 항바이러스 상태를 만듦 (1957)</td></tr>
+      <tr><td>IFITM3</td><td>인터페론 유도 막관통 단백질 3</td><td>바이러스 막 융합을 막는 항바이러스 단백질. B세포 백혈병에선 나쁜 예후 표지</td></tr>
+      <tr><td>neutralizing antibody</td><td>중화항체</td><td>바이러스(독)를 무력화(중화)하는 항체</td></tr>
+      <tr><td>pyroptosis</td><td>파이롭토시스</td><td>세포가 터지며 염증을 일으키는 죽음 (카스페이스-1)</td></tr>
+      <tr><td>apoptosis</td><td>세포자멸사</td><td>염증 없이 조용히 정리되는 세포 죽음 (카스페이스-3·7)</td></tr>
+      <tr><td>cytokine storm</td><td>사이토카인 폭풍</td><td>사이토카인이 과도하게 쏟아져 다기관을 손상시키는 상태</td></tr>
+      <tr><td>mRNA vaccine</td><td>mRNA 백신</td><td>스파이크 설계도(mRNA)를 LNP에 실어 전달 (2023 노벨상)</td></tr>
+      <tr><td>B-cell malignancy</td><td>B세포 악성종양</td><td>B세포가 증식만 하고 분화하지 못하는 백혈병</td></tr>
+      <tr><td>ALL / CML</td><td>급성 림프모구 백혈병 / 만성 골수성 백혈병</td><td>BCR-ABL1 변이로 생길 수 있는 백혈병</td></tr>
+      <tr><td>Philadelphia chromosome</td><td>필라델피아 염색체</td><td>t(9;22) 전좌로 생긴 작은 22번 염색체</td></tr>
+      <tr><td>BCR-ABL1</td><td>BCR-ABL1 융합 유전자</td><td>항상 켜진 티로신 인산화효소 → 강력한 암유전자</td></tr>
+      <tr><td>tyrosine kinase</td><td>티로신 인산화효소</td><td>단백질의 티로신에 인산을 붙여 신호를 켜는 효소</td></tr>
+      <tr><td>imatinib</td><td>이매티닙 (글리벡)</td><td>BCR-ABL1을 겨냥한 표적치료제 (4주차)</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="err"><span class="tag">교안 표기 확인</span>
+    <ul>
+      <li>교안은 전체가 영어 슬라이드임. 위 용어의 국문은 교안에 병기된 한글 표기를 따름</li>
+      <li>01차시 1-3 '위험한 코로나바이러스 3종'은 SARS-CoV·MERS-CoV·SARS-CoV-2를 가리킴. 교안의 'SARS virus/MERS virus' 표기는 각각 SARS-CoV, MERS-CoV로 읽으면 됨</li>
+      <li>02차시 (4) 4-5의 IFITM3 연구는 이 강의를 맡은 연구진(Lee J., Nature 2020)의 결과로, 교안이 직접 수행한 실험 사진(생쥐 발광 영상 등)이 함께 실려 있음</li>
+      <li>'인터페론 지연 + 과도한 염증'은 01차시 (2), 02차시 (3)에 반복해서 나오는 이 주차의 핵심 메시지임</li>
+    </ul>
+  </div>
+</section>
+
+<nav class="pager"><a class="prev" href="week10_artificial_organs.html"><small>← 이전 주차</small>10주차 · 인공장기</a></nav>
+
+<footer>
+  <p>자료 기준: 「생명과학의 세계」(고려대학교) 11주차 01차시·02차시 팬데믹 면역학이 가져온 첨단 바이오 기술 (1)(2)(3)(4) 교안.<br>
+  교안 그림 출처(ResearchGate, Nature, Cell, MDPI, Frontiers, Eurofins Genomics, Oncohema Key, ScienceDirect 등)는 각 차시 교안의 "출처 및 참고문헌"을 따름. 이 문서의 그림은 교안 그림을 단순화해 새로 그린 것임.<br>
+  '보충' 상자의 내용은 교안에 없는 참고 내용으로, 시험 범위 여부는 강의 기준을 따를 것.</p>
+</footer>
+
+</div>
+</body>
+</html>
