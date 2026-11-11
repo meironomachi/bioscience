@@ -14,6 +14,7 @@
   --g200:#bbe5c8; --g100:#dcf3e3; --g50:#f2faf4;
   --ink:#1c2420; --muted:#56635b; --line:#d6e2da; --bg:#fbfdfb; --card:#ffffff;
   --bad:#b4232a; --bad-bg:#fdf0f0; --bad-line:#f0c4c4;
+  --ex:#8a4b16; --ex-bg:#fdf5ec; --ex-line:#e8c79a;
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);
@@ -30,6 +31,7 @@ button{font:inherit;color:inherit}
 .sitebar .wk{color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
 header.hero{background:linear-gradient(135deg,var(--g800),var(--g600));color:#fff;padding:48px 20px 38px}
+header.hero.exam{background:linear-gradient(135deg,#7c3d12,#b4701f)}
 header.hero .wrap{padding-bottom:0}
 .hero .kicker{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);
   padding:3px 12px;border-radius:999px;font-size:13px;letter-spacing:.04em}
@@ -42,6 +44,14 @@ header.hero .wrap{padding-bottom:0}
 .part-head .no{background:var(--g700);color:#fff;font-weight:800;border-radius:8px;padding:4px 12px;font-size:14px;white-space:nowrap}
 .part-head h2{margin:0;font-size:23px;color:var(--g900)}
 .part-sub{color:var(--muted);font-size:14px;margin:6px 0 0}
+
+/* 모의시험 배너 */
+.exambar{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  background:var(--ex-bg);border:1px solid var(--ex-line);border-radius:12px;padding:16px 20px;margin-top:24px}
+.exambar b{display:block;color:var(--ex);font-size:17px}
+.exambar p{margin:2px 0 0;font-size:14px;color:var(--muted)}
+.exambar a{flex:none;background:var(--ex);color:#fff;text-decoration:none;font-weight:700;border-radius:8px;padding:10px 18px}
+.exambar a:hover{background:#6f3d10}
 
 /* 주차 선택 */
 .weeks{list-style:none;margin:20px 0 0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:12px}
@@ -67,9 +77,11 @@ a.week:hover{border-color:var(--g500);box-shadow:0 4px 14px rgba(21,128,61,.12)}
 .seg span{display:inline-block;border:1px solid var(--g200);background:var(--g50);border-radius:999px;padding:4px 14px;font-size:14px}
 .seg input:checked + span{background:var(--g600);border-color:var(--g600);color:#fff;font-weight:700}
 .seg input:focus-visible + span{outline:3px solid var(--g500);outline-offset:2px}
+.seg.wk input:checked + span{background:var(--ex);border-color:var(--ex)}
 .btn{display:inline-block;border:0;border-radius:8px;padding:10px 20px;font-weight:700;cursor:pointer;
   background:var(--g600);color:#fff;text-decoration:none}
 .btn:hover{background:var(--g700)}
+.btn.ex{background:var(--ex)}.btn.ex:hover{background:#6f3d10}
 .btn.ghost{background:var(--card);color:var(--g700);border:1px solid var(--g200)}
 .btn.ghost:hover{background:var(--g50)}
 .btn:disabled{opacity:.45;cursor:default}
@@ -80,9 +92,11 @@ a.week:hover{border-color:var(--g500);box-shadow:0 4px 14px rgba(21,128,61,.12)}
 .progress{display:flex;align-items:center;gap:12px;margin-top:24px;font-size:14px;color:var(--muted)}
 .bar{flex:1;height:8px;background:var(--g100);border-radius:999px;overflow:hidden}
 .bar i{display:block;height:100%;background:var(--g600);width:0;transition:width .2s}
+.bar i.ex{background:var(--ex)}
 .qcard{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin-top:14px}
 .qmeta{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
 .qmeta span{font-size:12px;font-weight:700;border-radius:5px;padding:1px 8px;background:var(--g50);color:var(--g700);border:1px solid var(--g200)}
+.qmeta span.wkt{background:var(--ex-bg);color:var(--ex);border-color:var(--ex-line)}
 .qtext{font-size:17.5px;font-weight:700;margin:0 0 16px;line-height:1.6}
 .choices{display:grid;gap:8px}
 .choices.ox{grid-template-columns:1fr 1fr}
@@ -94,6 +108,8 @@ a.week:hover{border-color:var(--g500);box-shadow:0 4px 14px rgba(21,128,61,.12)}
   font-size:13px;font-weight:800;display:grid;place-items:center;margin-top:1px}
 .choices.ox .choice{justify-content:center;font-size:26px;font-weight:800;padding:14px}
 .choice:disabled{cursor:default}
+.choice.pick{border-color:var(--ex);background:var(--ex-bg)}
+.choice.pick .n{background:var(--ex);color:#fff}
 .choice.right{border-color:var(--g600);background:var(--g50)}
 .choice.right .n{background:var(--g600);color:#fff}
 .choice.wrong{border-color:var(--bad);background:var(--bad-bg)}
@@ -115,6 +131,7 @@ a.week:hover{border-color:var(--g500);box-shadow:0 4px 14px rgba(21,128,61,.12)}
 .score .row{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:16px}
 .review{list-style:none;padding:0;margin:14px 0 0;display:grid;gap:10px}
 .review li{background:var(--card);border:1px solid var(--bad-line);border-left:4px solid var(--bad);border-radius:10px;padding:12px 16px;font-size:14.5px}
+.review li.ok{border-color:var(--g200);border-left-color:var(--g500)}
 .review .q{font-weight:700;margin-bottom:4px}
 .review .a{color:var(--g700);font-weight:700}
 .review .mine{color:var(--bad)}
@@ -132,7 +149,7 @@ footer{margin-top:60px;border-top:1px solid var(--line);padding-top:16px;font-si
   <span class="wk" id="barLabel">문제 풀기</span>
 </div></div>
 
-<header class="hero">
+<header class="hero" id="hero">
   <div class="wrap">
     <span class="kicker" id="heroKicker">생명과학의 세계 · 문제 풀기</span>
     <h1 id="heroTitle">주차별 복습 문제</h1>
@@ -142,35 +159,55 @@ footer{margin-top:60px;border-top:1px solid var(--line);padding-top:16px;font-si
 
 <div class="wrap">
 
-<!-- 주차 선택 -->
+<!-- 주차 선택 (연습) -->
 <section class="part" id="pickView" hidden>
-  <div class="part-head"><span class="no">선택</span><h2>주차를 고르세요</h2></div>
-  <p class="part-sub">주차마다 30문제 이상. 범위와 문제 수는 다음 화면에서 정할 수 있음</p>
+  <div class="exambar">
+    <div><b>모의시험</b><p>여러 단원을 골라, 연습 문제와 겹치지 않는 별도 문제로 시험을 봅니다. 중간 정답 없이 끝에 한 번에 채점합니다.</p></div>
+    <a href="?exam=1">모의시험 보기 →</a>
+  </div>
+  <div class="part-head"><span class="no">연습</span><h2>주차를 고르세요</h2></div>
+  <p class="part-sub">주차마다 10문제씩 5세트(50문제). 세트는 다음 화면에서 고릅니다.</p>
   <ul class="weeks" id="weekList"></ul>
 </section>
 
-<!-- 설정 -->
+<!-- 모의시험 단원 선택 -->
+<section class="part" id="examView" hidden>
+  <div class="part-head"><span class="no" style="background:var(--ex)">모의시험</span><h2>단원을 고르세요</h2></div>
+  <p class="part-sub">고른 단원들의 모의시험 문제에서 무작위로 출제합니다. 연습 문제(5세트)와 겹치지 않습니다.</p>
+  <div class="panel">
+    <div class="field">
+      <span class="label">단원 (여러 개 선택 가능)</span>
+      <div class="seg wk" id="examWeeks"></div>
+    </div>
+    <div class="field">
+      <span class="label">문제 수</span>
+      <div class="seg" id="examCount"></div>
+    </div>
+    <button class="btn ex" id="examStartBtn">모의시험 시작</button>
+    <a class="btn ghost" href="index.html">연습 문제로</a>
+    <p class="note" id="examNote"></p>
+  </div>
+</section>
+
+<!-- 연습 설정 -->
 <section class="part" id="setupView" hidden>
   <div class="part-head"><span class="no" id="setupNo"></span><h2 id="setupTitle"></h2></div>
   <p class="part-sub" id="setupSub"></p>
   <div class="panel">
     <div class="field">
-      <span class="label">범위</span>
-      <div class="seg" id="scopeSeg"></div>
-    </div>
-    <div class="field">
-      <span class="label">문제 수</span>
-      <div class="seg" id="countSeg"></div>
+      <span class="label">세트 (10문제씩)</span>
+      <div class="seg" id="setSeg"></div>
     </div>
     <div class="field">
       <span class="label">순서</span>
       <div class="seg">
-        <label><input type="radio" name="order" value="shuffle" checked><span>무작위</span></label>
-        <label><input type="radio" name="order" value="seq"><span>교안 순서</span></label>
+        <label><input type="radio" name="order" value="seq" checked><span>세트 순서</span></label>
+        <label><input type="radio" name="order" value="shuffle"><span>무작위</span></label>
       </div>
     </div>
     <button class="btn" id="startBtn">시작하기</button>
     <a class="btn ghost" id="readLink" href="#">교안 요약 보기</a>
+    <button class="btn ghost" id="retryWrongSetup" hidden>지난번 틀린 문제만</button>
     <p class="note" id="lastNote" hidden></p>
   </div>
 </section>
@@ -198,14 +235,10 @@ footer{margin-top:60px;border-top:1px solid var(--line);padding-top:16px;font-si
   <div class="score">
     <div class="big" id="scoreBig"></div>
     <p id="scoreMsg"></p>
-    <div class="row">
-      <button class="btn" id="retryWrongBtn">틀린 문제만 다시 풀기</button>
-      <button class="btn ghost" id="retryBtn">처음부터 다시</button>
-      <a class="btn ghost" id="otherBtn" href="index.html">다른 주차 고르기</a>
-    </div>
+    <div class="row" id="scoreRow"></div>
   </div>
   <section class="part">
-    <div class="part-head"><span class="no">오답</span><h2>틀린 문제 다시 보기</h2></div>
+    <div class="part-head"><span class="no" id="reviewNo">오답</span><h2 id="reviewTitle">틀린 문제 다시 보기</h2></div>
     <ul class="review" id="reviewList"></ul>
     <p class="empty" id="reviewEmpty" hidden>틀린 문제가 없습니다.</p>
   </section>
@@ -231,19 +264,24 @@ footer{margin-top:60px;border-top:1px solid var(--line);padding-top:16px;font-si
     {id:"10", file:"week10_artificial_organs.html", title:"인공장기는 왜 필요하고, 누가, 어떻게 만들까?", short:"인공장기", parts:["(1) 인공장기는 왜 필요할까?","(2) 인공장기는 누가 만들까?","(3) 어떻게 만들까 – 거르기","(4) 어떻게 만들까 – 세포 프린팅"]},
     {id:"11", file:"week11_pandemic_immunology.html", title:"팬데믹 면역학이 가져온 첨단 바이오 기술", short:"팬데믹 면역학과 첨단 바이오 기술", parts:["(1) 면역계와 SARS-CoV-2, 진단","(2) 감염 기전과 방어","(3) 치료 전략과 mRNA 백신","(4) B세포 악성종양과 BCR-ABL1"]}
   ];
+  var WMAP = {}; WEEKS.forEach(function(w){ WMAP[w.id] = w; });
+  var SETSIZE = 10;
 
   function $(id){ return document.getElementById(id); }
-  function show(id){ ["pickView","setupView","quizView","resultView"].forEach(function(v){ $(v).hidden = (v !== id); }); window.scrollTo(0,0); }
+  function show(id){ ["pickView","examView","setupView","quizView","resultView"].forEach(function(v){ $(v).hidden = (v !== id); }); window.scrollTo(0,0); }
   function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
   function shuffle(a){ a = a.slice(); for (var i = a.length - 1; i > 0; i--){ var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
   function store(key, val){ try { if (val === undefined) return JSON.parse(localStorage.getItem(key)); localStorage.setItem(key, JSON.stringify(val)); } catch (e) { return null; } }
+  function pdata(id){ return (window.QUIZ_DATA || {})[id] || []; }
+  function pexam(id){ return (window.QUIZ_EXAM || {})[id] || []; }
 
   var params = new URLSearchParams(location.search);
-  var week = WEEKS.filter(function(w){ return w.id === params.get("w"); })[0];
+  var week = WMAP[params.get("w")];
+  var isExam = params.get("exam") === "1";
 
-  // 주차 데이터는 data/weekNN.js에서 불러옴
   function load(ids, done){
     var left = ids.length;
+    if (!left) { done(); return; }
     ids.forEach(function(id){
       var s = document.createElement("script");
       s.src = "data/week" + id + ".js";
@@ -252,80 +290,135 @@ footer{margin-top:60px;border-top:1px solid var(--line);padding-top:16px;font-si
     });
   }
 
-  if (!week) { load(WEEKS.map(function(w){ return w.id; }), renderPick); return; }
-  load([week.id], function(){
-    if (window.QUIZ_DATA && window.QUIZ_DATA[week.id]) renderSetup();
-    else $("heroSub").textContent = "문제 파일을 불러오지 못했습니다.";
-  });
+  if (isExam) {
+    load(WEEKS.map(function(w){ return w.id; }), renderExam);
+  } else if (week) {
+    load([week.id], function(){
+      if (pdata(week.id).length) renderSetup();
+      else $("heroSub").textContent = "문제 파일을 불러오지 못했습니다.";
+    });
+  } else {
+    load(WEEKS.map(function(w){ return w.id; }), renderPick);
+  }
 
+  /* ---------- 연습: 주차 선택 ---------- */
   function renderPick(){
     $("weekList").innerHTML = WEEKS.map(function(w){
       var last = store("quiz-last-" + w.id);
       var lastTxt = last ? " · 최근 " + last.right + "/" + last.total : "";
-      var qs = (window.QUIZ_DATA || {})[w.id];
+      var n = pdata(w.id).length;
+      var sets = n >= SETSIZE ? Math.floor(n / SETSIZE) + "세트" : "준비 중";
       return '<li><a class="week" href="?w=' + w.id + '"><div class="wk"><b>' + w.id + '</b><small>주차</small></div>' +
-        '<div><h3>' + esc(w.title) + '</h3><p>' + (qs ? qs.length + "문제" : "준비 중") + lastTxt + '</p></div></a></li>';
+        '<div><h3>' + esc(w.title) + '</h3><p>' + sets + lastTxt + '</p></div></a></li>';
     }).join("");
     show("pickView");
   }
 
-  var all, pool, idx, right, wrongs, answered, lastConfig;
+  var all, pool, idx, right, wrongs, answered, examMode;
 
+  /* ---------- 연습: 세트 설정 ---------- */
   function renderSetup(){
-    all = window.QUIZ_DATA[week.id];
-    document.title = week.id.replace(/^0/, "") + "주차 문제 풀기";
+    all = pdata(week.id);
+    var nSets = Math.floor(all.length / SETSIZE);
+    document.title = Number(week.id) + "주차 문제 풀기";
     $("barLabel").textContent = Number(week.id) + "주차 · " + week.short;
-    $("heroKicker").textContent = "생명과학의 세계 · " + Number(week.id) + "주차 문제";
+    $("heroKicker").textContent = "생명과학의 세계 · " + Number(week.id) + "주차 연습";
     $("heroTitle").textContent = week.title;
-    $("heroSub").textContent = "객관식·O/X " + all.length + "문제. 고르면 바로 정답과 해설이 나옴";
+    $("heroSub").textContent = "10문제씩 " + nSets + "세트. 세트를 골라 푸세요. 고르면 바로 정답과 해설이 나옵니다.";
     $("setupNo").textContent = Number(week.id) + "주차";
-    $("setupTitle").textContent = "풀이 설정";
-    $("setupSub").textContent = "범위와 문제 수를 고른 뒤 시작하세요.";
+    $("setupTitle").textContent = "연습 설정";
+    $("setupSub").textContent = "세트 하나는 10문제입니다. '전체'는 5세트를 모두 풉니다.";
     $("readLink").href = "../weeks/" + week.file;
 
-    var scope = '<label><input type="radio" name="scope" value="0" checked><span>전체 (' + all.length + ')</span></label>';
-    week.parts.forEach(function(p, k){
-      var n = all.filter(function(q){ return q.s === k + 1; }).length;
-      scope += '<label><input type="radio" name="scope" value="' + (k + 1) + '"><span>' + esc(p) + ' (' + n + ')</span></label>';
-    });
-    $("scopeSeg").innerHTML = scope;
-    $("countSeg").innerHTML = [10, 20, 30, 0].map(function(n, k){
-      return '<label><input type="radio" name="count" value="' + n + '"' + (k === 1 ? " checked" : "") + '><span>' + (n ? n + "문제" : "전부") + '</span></label>';
-    }).join("");
+    var seg = "";
+    for (var i = 0; i < nSets; i++) seg += '<label><input type="radio" name="set" value="' + i + '"' + (i === 0 ? " checked" : "") + '><span>세트 ' + (i + 1) + '</span></label>';
+    seg += '<label><input type="radio" name="set" value="all"><span>전체 (' + (nSets * SETSIZE) + ')</span></label>';
+    $("setSeg").innerHTML = seg;
 
     var last = store("quiz-last-" + week.id);
-    if (last) { $("lastNote").hidden = false; $("lastNote").textContent = "최근 기록: " + last.total + "문제 중 " + last.right + "문제 정답 (" + last.date + ")"; }
+    if (last) { $("lastNote").hidden = false; $("lastNote").textContent = "최근 기록: " + last.label + " · " + last.total + "문제 중 " + last.right + "문제 정답 (" + last.date + ")"; }
+    var wrongStore = store("quiz-wrong-" + week.id);
+    $("retryWrongSetup").hidden = !(wrongStore && wrongStore.length);
     show("setupView");
   }
 
   function val(name){ var el = document.querySelector('input[name="' + name + '"]:checked'); return el ? el.value : null; }
 
   $("startBtn").onclick = function(){
-    var scope = Number(val("scope")), count = Number(val("count")), order = val("order");
-    var list = all.filter(function(q){ return !scope || q.s === scope; });
+    var setv = val("set"), order = val("order"), list, label;
+    if (setv === "all") { list = all.slice(0, Math.floor(all.length / SETSIZE) * SETSIZE); label = "전체 " + list.length + "문제"; }
+    else { var s = Number(setv); list = all.slice(s * SETSIZE, s * SETSIZE + SETSIZE); label = "세트 " + (s + 1); }
+    list = list.map(function(q){ return tag(q, week.id); });
     if (order === "shuffle") list = shuffle(list);
-    if (count && list.length > count) list = list.slice(0, count);
-    lastConfig = {scope:scope, count:count, order:order};
-    start(list);
+    start(list, false, label);
+  };
+  $("retryWrongSetup").onclick = function(){
+    var w = store("quiz-wrong-" + week.id) || [];
+    var list = all.filter(function(q){ return w.indexOf(q.q) >= 0; }).map(function(q){ return tag(q, week.id); });
+    if (list.length) start(shuffle(list), false, "지난번 틀린 문제");
   };
 
-  function start(list){
-    pool = list.map(function(q){
-      if ("ox" in q) return {src:q, ox:true, opts:[{t:"O", ok:q.ox === true}, {t:"X", ok:q.ox === false}]};
-      return {src:q, ox:false, opts:shuffle(q.c.map(function(t, k){ return {t:t, ok:k === 0}; }))};
+  /* ---------- 모의시험 ---------- */
+  function renderExam(){
+    $("hero").className = "hero exam";
+    document.title = "모의시험 · 생명과학의 세계";
+    $("barLabel").textContent = "모의시험";
+    $("heroKicker").textContent = "생명과학의 세계 · 모의시험";
+    $("heroTitle").textContent = "단원 모의시험";
+    $("heroSub").textContent = "여러 단원을 골라 시험을 봅니다. 중간에 정답을 보여 주지 않고, 끝에 한 번에 채점합니다.";
+    var avail = WEEKS.filter(function(w){ return pexam(w.id).length; });
+    $("examWeeks").innerHTML = avail.map(function(w){
+      return '<label><input type="checkbox" name="exw" value="' + w.id + '"><span>' + Number(w.id) + '주차 · ' + esc(w.short) + ' (' + pexam(w.id).length + ')</span></label>';
+    }).join("") || '<p class="note">모의시험 문제가 아직 준비되지 않았습니다.</p>';
+    $("examCount").innerHTML = [10, 20, 30, 0].map(function(n, k){
+      return '<label><input type="radio" name="exc" value="' + n + '"' + (k === 0 ? " checked" : "") + '><span>' + (n ? n + "문제" : "전부") + '</span></label>';
+    }).join("");
+    updateExamNote();
+    Array.prototype.forEach.call(document.getElementsByName("exw"), function(c){ c.onchange = updateExamNote; });
+    show("examView");
+  }
+  function examSelected(){ return Array.prototype.filter.call(document.getElementsByName("exw"), function(c){ return c.checked; }).map(function(c){ return c.value; }); }
+  function examPoolAll(){ var p = []; examSelected().forEach(function(id){ pexam(id).forEach(function(q){ p.push(tag(q, id)); }); }); return p; }
+  function updateExamNote(){
+    var sel = examSelected(), n = examPoolAll().length;
+    $("examNote").textContent = sel.length ? (sel.length + "개 단원 · 총 " + n + "문제 중에서 출제") : "단원을 하나 이상 고르세요.";
+    $("examStartBtn").disabled = !sel.length;
+  }
+  $("examStartBtn").onclick = function(){
+    var list = shuffle(examPoolAll());
+    var cnt = Number(val("exc"));
+    if (cnt && list.length > cnt) list = list.slice(0, cnt);
+    if (list.length) start(list, true, "모의시험 " + list.length + "문제");
+  };
+
+  /* ---------- 공통 풀이 ---------- */
+  function tag(q, wk){ return {src:q, wk:wk}; }
+
+  function start(list, exam, label){
+    examMode = exam; curLabel = label;
+    pool = list.map(function(it){
+      var q = it.src, base = {src:q, wk:it.wk};
+      if ("ox" in q) { base.ox = true; base.opts = [{t:"O", ok:q.ox === true}, {t:"X", ok:q.ox === false}]; }
+      else { base.ox = false; base.opts = shuffle(q.c.map(function(t, k){ return {t:t, ok:k === 0}; })); }
+      return base;
     });
-    idx = 0; right = 0; wrongs = [];
+    idx = 0; right = 0; wrongs = []; answered = false;
+    $("progBar").className = examMode ? "ex" : "";
     show("quizView");
     renderQ();
   }
+  var curLabel = "";
 
   function renderQ(){
     var item = pool[idx], q = item.src;
     answered = false;
     $("progText").textContent = (idx + 1) + " / " + pool.length;
     $("progBar").style.width = (idx / pool.length * 100) + "%";
-    $("progScore").textContent = "정답 " + right;
-    $("qMeta").innerHTML = '<span>' + esc(week.parts[q.s - 1]) + '</span><span>' + (item.ox ? "O/X" : "객관식") + '</span>';
+    $("progScore").textContent = examMode ? "모의시험" : "정답 " + right;
+    var meta = '';
+    if (examMode) meta += '<span class="wkt">' + Number(item.wk) + '주차</span>';
+    meta += '<span>' + esc(WMAP[item.wk].parts[(q.s || 1) - 1] || "") + '</span><span>' + (item.ox ? "O/X" : "객관식") + '</span>';
+    $("qMeta").innerHTML = meta;
     $("qText").textContent = q.q;
     var box = $("choices");
     box.className = "choices" + (item.ox ? " ox" : "");
@@ -335,7 +428,7 @@ footer{margin-top:60px;border-top:1px solid var(--line);padding-top:16px;font-si
     Array.prototype.forEach.call(box.children, function(b){ b.onclick = function(){ answer(Number(b.dataset.k)); }; });
     $("feedback").hidden = true;
     $("nextBtn").disabled = true;
-    $("nextBtn").textContent = idx === pool.length - 1 ? "결과 보기" : "다음 문제";
+    $("nextBtn").textContent = idx === pool.length - 1 ? (examMode ? "제출하고 채점" : "결과 보기") : "다음 문제";
     box.children[0].focus({preventScroll:true});
   }
 
@@ -343,25 +436,38 @@ footer{margin-top:60px;border-top:1px solid var(--line);padding-top:16px;font-si
     if (answered) return;
     answered = true;
     var item = pool[idx], ok = item.opts[k].ok;
-    Array.prototype.forEach.call($("choices").children, function(b, j){
-      b.disabled = true;
-      if (item.opts[j].ok) b.classList.add("right");
-      else if (j === k) b.classList.add("wrong");
-    });
+    var ansT = item.opts.filter(function(o){ return o.ok; })[0].t;
     if (ok) right++;
-    else wrongs.push({src:item.src, mine:item.opts[k].t, ans:item.opts.filter(function(o){ return o.ok; })[0].t});
-    var fb = $("feedback");
-    fb.className = "feedback " + (ok ? "ok" : "no");
-    fb.innerHTML = "<b>" + (ok ? "정답" : "오답") + "</b>" + esc(item.src.e);
-    fb.hidden = false;
-    $("progScore").textContent = "정답 " + right;
+    else wrongs.push({src:item.src, wk:item.wk, mine:item.opts[k].t, ans:ansT});
+    item.result = {picked:item.opts[k].t, ok:ok, ans:ansT};
+    if (examMode) {
+      Array.prototype.forEach.call($("choices").children, function(b, j){
+        b.disabled = true;
+        if (j === k) b.classList.add("pick");
+      });
+    } else {
+      Array.prototype.forEach.call($("choices").children, function(b, j){
+        b.disabled = true;
+        if (item.opts[j].ok) b.classList.add("right");
+        else if (j === k) b.classList.add("wrong");
+      });
+      var fb = $("feedback");
+      fb.className = "feedback " + (ok ? "ok" : "no");
+      fb.innerHTML = "<b>" + (ok ? "정답" : "오답") + "</b>" + esc(item.src.e);
+      fb.hidden = false;
+      $("progScore").textContent = "정답 " + right;
+    }
     $("progBar").style.width = ((idx + 1) / pool.length * 100) + "%";
     $("nextBtn").disabled = false;
     $("nextBtn").focus({preventScroll:true});
   }
 
   $("nextBtn").onclick = function(){ if (!answered) return; idx++; if (idx < pool.length) renderQ(); else finish(); };
-  $("quitBtn").onclick = function(){ pool = pool.slice(0, idx + (answered ? 1 : 0)); if (pool.length) finish(); else show("setupView"); };
+  $("quitBtn").onclick = function(){
+    if (!confirm("그만 풀고 지금까지 푼 문제로 채점할까요?")) return;
+    pool = pool.slice(0, idx + (answered ? 1 : 0));
+    if (pool.length) finish(); else history.back();
+  };
 
   document.addEventListener("keydown", function(e){
     if ($("quizView").hidden || e.ctrlKey || e.metaKey || e.altKey) return;
@@ -375,19 +481,36 @@ footer{margin-top:60px;border-top:1px solid var(--line);padding-top:16px;font-si
   function finish(){
     var total = pool.length, pct = Math.round(right / total * 100);
     $("scoreBig").innerHTML = right + ' <small>/ ' + total + '</small>';
-    $("scoreMsg").textContent = "정답률 " + pct + "% · " + (pct >= 90 ? "아주 잘했어요!" : pct >= 70 ? "좋아요. 틀린 문제만 한 번 더 보세요." : "교안을 다시 읽고 틀린 문제를 풀어 보세요.");
-    var d = new Date();
-    store("quiz-last-" + week.id, {right:right, total:total, date:(d.getMonth() + 1) + "월 " + d.getDate() + "일"});
-    $("reviewList").innerHTML = wrongs.map(function(w){
-      return '<li><div class="q">' + esc(w.src.q) + '</div><div><span class="a">정답: ' + esc(w.ans) + '</span> · <span class="mine">내 답: ' + esc(w.mine) + '</span></div><div class="e">' + esc(w.src.e) + '</div></li>';
+    $("scoreMsg").textContent = "정답률 " + pct + "% · " + curLabel + " · " + (pct >= 90 ? "아주 잘했어요!" : pct >= 70 ? "좋아요. 틀린 문제를 한 번 더 보세요." : "교안을 다시 읽고 틀린 문제를 풀어 보세요.");
+    var d = new Date(), dstr = (d.getMonth() + 1) + "월 " + d.getDate() + "일";
+    if (!examMode && week) {
+      store("quiz-last-" + week.id, {right:right, total:total, label:curLabel, date:dstr});
+      store("quiz-wrong-" + week.id, wrongs.map(function(w){ return w.src.q; }));
+    }
+    // 버튼
+    var row = "";
+    row += '<button class="btn' + (examMode ? " ex" : "") + '" id="retryWrongBtn"' + (wrongs.length ? "" : " hidden") + '>틀린 문제만 다시 풀기</button>';
+    if (examMode) { row += '<a class="btn ghost" href="?exam=1">모의시험 다시</a>'; row += '<a class="btn ghost" href="index.html">연습 문제로</a>'; }
+    else { row += '<button class="btn ghost" id="retryBtn">세트 다시 고르기</button>'; row += '<a class="btn ghost" href="index.html">다른 주차 고르기</a>'; }
+    $("scoreRow").innerHTML = row;
+    if ($("retryWrongBtn")) $("retryWrongBtn").onclick = function(){ start(shuffle(wrongs.map(function(w){ return tag(w.src, w.wk); })), examMode, curLabel + " · 오답"); };
+    if ($("retryBtn")) $("retryBtn").onclick = function(){ renderSetup(); };
+
+    // 리뷰: 모의시험은 전체 문제, 연습은 틀린 문제만
+    var reviewItems = examMode ? pool.map(function(it){ return {src:it.src, wk:it.wk, ok:it.result && it.result.ok, mine:it.result ? it.result.picked : "(미응답)", ans:it.result ? it.result.ans : (it.opts.filter(function(o){return o.ok;})[0] || {}).t}; }) : wrongs.map(function(w){ return {src:w.src, wk:w.wk, ok:false, mine:w.mine, ans:w.ans}; });
+    $("reviewNo").textContent = examMode ? "해설" : "오답";
+    $("reviewNo").style.background = examMode ? "var(--ex)" : "";
+    $("reviewTitle").textContent = examMode ? "문제별 정답과 해설" : "틀린 문제 다시 보기";
+    $("reviewList").innerHTML = reviewItems.map(function(w){
+      var wkt = examMode ? '<span class="a" style="color:var(--ex)">' + Number(w.wk) + '주차</span> · ' : '';
+      var mark = examMode ? (w.ok ? '<span class="a">맞음</span> · ' : '<span class="mine">틀림</span> · ') : '';
+      return '<li' + (examMode && w.ok ? ' class="ok"' : '') + '><div class="q">' + esc(w.src.q) + '</div><div>' + wkt + mark +
+        '<span class="a">정답: ' + esc(w.ans) + '</span>' + (w.ok ? '' : ' · <span class="mine">내 답: ' + esc(w.mine) + '</span>') +
+        '</div><div class="e">' + esc(w.src.e) + '</div></li>';
     }).join("");
-    $("reviewEmpty").hidden = wrongs.length > 0;
-    $("retryWrongBtn").hidden = wrongs.length === 0;
+    $("reviewEmpty").hidden = reviewItems.length > 0;
     show("resultView");
   }
-
-  $("retryWrongBtn").onclick = function(){ start(shuffle(wrongs.map(function(w){ return w.src; }))); };
-  $("retryBtn").onclick = function(){ renderSetup(); };
 })();
 </script>
 </body>
