@@ -1,0 +1,733 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>14주차 식량위기와 식물 생명공학, 식물 이차대사산물과 인간</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --g900:#123d26; --g800:#14532d; --g700:#166534; --g600:#15803d; --g500:#22a05a;
+  --g200:#bbe5c8; --g100:#dcf3e3; --g50:#f2faf4;
+  --ink:#1c2420; --muted:#56635b; --line:#d6e2da; --bg:#fbfdfb; --card:#ffffff;
+  --sup-bg:#f6f9ec; --sup-line:#9bb35a; --sup-tag:#5b7a1e;
+  --warn:#9a3412; --na:#1d5fbf; --k:#b4232a;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Pretendard","Gothic A1",-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  font-size:16px;line-height:1.72;word-break:keep-all;}
+.wrap{max-width:920px;margin:0 auto;padding:0 20px 80px}
+header.hero{background:linear-gradient(135deg,var(--g800),var(--g600));color:#fff;padding:56px 20px 44px}
+header.hero .wrap{padding-bottom:0}
+.hero .kicker{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);
+  padding:3px 12px;border-radius:999px;font-size:13px;letter-spacing:.04em}
+.hero h1{font-size:34px;line-height:1.3;margin:14px 0 8px;font-weight:800}
+.hero p{margin:0;opacity:.9}
+.hero .meta{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px;font-size:13px}
+.hero .meta span{background:rgba(0,0,0,.18);padding:4px 10px;border-radius:6px}
+
+nav.toc{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--g600);
+  border-radius:10px;padding:18px 22px;margin:28px 0}
+nav.toc h2{margin:0 0 8px;font-size:17px;color:var(--g800)}
+nav.toc ol{margin:0;padding-left:20px}
+nav.toc li{margin:2px 0}
+nav.toc a{color:var(--ink);text-decoration:none}
+nav.toc a:hover{color:var(--g600);text-decoration:underline}
+nav.toc ol ol{list-style:none;padding-left:14px;font-size:14.5px;color:var(--muted)}
+nav.toc ol ol a{color:var(--muted)}
+
+.part{margin-top:56px}
+.part-head{display:flex;align-items:center;gap:12px;border-bottom:3px solid var(--g600);padding-bottom:8px}
+.part-head .no{background:var(--g700);color:#fff;font-weight:800;border-radius:8px;padding:4px 12px;font-size:14px;white-space:nowrap}
+.part-head h2{margin:0;font-size:25px;color:var(--g900)}
+.part-sub{color:var(--muted);font-size:14px;margin:6px 0 0}
+
+section.topic{margin-top:38px}
+section.topic h3{font-size:20px;margin:0 0 10px;color:var(--g800);display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+section.topic h3 .num{color:var(--g500);font-weight:800;font-size:16px}
+section.topic h3 .en{font-size:13px;color:var(--muted);font-weight:500}
+h4{font-size:16.5px;margin:20px 0 6px;color:var(--g700)}
+ul.pt{margin:6px 0 10px;padding-left:20px}
+ul.pt li{margin:3px 0}
+ul.pt li::marker{color:var(--g600)}
+.eval{display:block;margin:10px 0;padding:8px 12px;background:var(--g50);border-left:3px solid var(--g500);
+  font-size:14.5px;color:#2d3d33}
+.eval::before{content:"정리 ▸ ";font-weight:700;color:var(--g700)}
+b.g, .hl{color:var(--g700);font-weight:700}
+.na{color:var(--na);font-weight:700}.k{color:var(--k);font-weight:700}
+.src{font-size:12.5px;color:var(--muted);margin-top:4px}
+
+.key{background:var(--card);border:1px solid var(--g200);border-radius:10px;padding:14px 18px;margin:14px 0;
+  box-shadow:0 1px 0 var(--g100)}
+.key .label{display:inline-block;font-size:12px;font-weight:800;color:#fff;background:var(--g600);
+  padding:2px 9px;border-radius:5px;margin-bottom:6px}
+
+.sup{background:var(--sup-bg);border:1.5px dashed var(--sup-line);border-radius:10px;padding:14px 18px 12px;margin:18px 0;position:relative}
+.sup .tag{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:800;color:#fff;
+  background:var(--sup-tag);padding:2px 10px;border-radius:5px}
+.sup .tag::before{content:"+";font-size:14px}
+.sup h5{margin:8px 0 4px;font-size:15.5px;color:#3b4f14}
+.sup p,.sup li{font-size:14.5px}
+.sup ul{padding-left:18px;margin:6px 0}
+.sup .why{font-size:13px;color:#5e6b45;margin-top:6px}
+
+.tbl{width:100%;overflow-x:auto;margin:12px 0}
+table{border-collapse:collapse;width:100%;font-size:14.5px;background:var(--card)}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+thead th{background:var(--g700);color:#fff;font-weight:700;white-space:nowrap}
+tbody tr:nth-child(even) td{background:var(--g50)}
+td.c,th.c{text-align:center}
+tr.sep td{border-top:3px solid var(--g600)}
+
+figure{margin:16px 0;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px}
+figure svg{width:100%;height:auto;display:block}
+figcaption{font-size:13px;color:var(--muted);margin-top:8px;text-align:center}
+
+.flow{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:12px 0}
+.flow span{background:var(--g50);border:1px solid var(--g200);border-radius:999px;padding:4px 12px;font-size:14px}
+.flow span.on{background:var(--g600);color:#fff;border-color:var(--g600);font-weight:700}
+.flow i{color:var(--g500);font-style:normal;font-weight:700}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:680px){.grid2{grid-template-columns:1fr}.hero h1{font-size:27px}}
+.mini{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px}
+.mini h4{margin-top:0}
+
+.quiz{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:12px 0}
+.quiz .q{font-weight:700;margin:0 0 6px}
+.quiz ol{margin:4px 0 8px;padding-left:22px}
+.quiz ol li{margin:2px 0}
+.quiz details{font-size:14.5px;background:var(--g50);border-radius:6px;padding:6px 10px}
+.quiz summary{cursor:pointer;color:var(--g700);font-weight:700}
+
+footer{margin-top:60px;border-top:1px solid var(--line);padding-top:16px;font-size:13px;color:var(--muted)}
+@media print{
+  header.hero{background:var(--g800)!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .sup,.key,figure,table,.quiz{break-inside:avoid}
+  nav.toc{display:none}
+}
+.tl{position:relative;margin:14px 0 6px;padding-left:22px;border-left:3px solid var(--g200)}
+.tl .ev{position:relative;margin:0 0 12px}
+.tl .ev::before{content:"";position:absolute;left:-30px;top:6px;width:13px;height:13px;border-radius:50%;background:var(--g600);border:3px solid var(--g100)}
+.tl .yr{font-weight:800;color:var(--g700);margin-right:6px}
+.err{background:#fff6f2;border:1.5px solid #f0b9a5;border-radius:10px;padding:12px 18px;margin:16px 0}
+.err .tag{display:inline-block;font-size:12.5px;font-weight:800;color:#fff;background:var(--warn);padding:2px 10px;border-radius:5px}
+.err ul{padding-left:18px;margin:8px 0 2px}.err li{font-size:14.5px}
+.warn{color:var(--warn);font-weight:700}
+</style>
+<style>
+.sitebar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line);font-size:14px}
+.sitebar .in{max-width:920px;margin:0 auto;padding:8px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.sitebar a{color:var(--g700);text-decoration:none;font-weight:700;white-space:nowrap}
+.sitebar a:hover{text-decoration:underline}
+.sitebar .wk{color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sitebar a.qz{flex:none;background:var(--g600);color:#fff;border-radius:999px;padding:2px 12px}
+.sitebar a.qz:hover{background:var(--g700);text-decoration:none}
+.pager{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:48px}
+.pager a{display:block;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px;
+  color:var(--ink);text-decoration:none}
+.pager a:hover{border-color:var(--g500)}
+.pager small{display:block;color:var(--muted);font-size:12.5px}
+.pager .next{text-align:right;grid-column:2}
+@media (max-width:680px){.pager{grid-template-columns:1fr}.pager .next{grid-column:1}}
+@media print{.sitebar,.pager{display:none}}
+</style>
+</head>
+<body>
+<div class="sitebar"><div class="in"><a href="../index.html">← 전체 교안 목록</a><span class="wk">14주차 · 식량위기와 식물 생명공학</span><a class="qz" href="../quiz/index.html?w=14">문제 풀기 →</a></div></div>
+<header class="hero">
+  <div class="wrap">
+    <span class="kicker">생명과학의 세계 · 14주차</span>
+    <h1>2050년 식량위기와 식물 생명공학, 식물 이차대사산물과 인간</h1>
+    <p>식량위기와 식물 생명공학의 기초 · 21세기 식물 생명공학 · 식물의 방어와 이차대사산물 · 글루코시놀레이트와 인간</p>
+    <div class="meta">
+      <span>01차시 (1)(2) 식물 생명공학 입문</span><span>02차시 (1)(2) 식물도 밟으면 꿈틀한다?</span><span>식물생명공학 · 이차대사산물 · 글루코시놀레이트</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+<nav class="toc">
+  <h2>목차</h2>
+  <ol>
+    <li><a href="#p1">(1) 2050년 식량위기와 식물 생명공학의 기초</a>
+      <ol>
+        <li><a href="#t1-1">1-1 생명공학이란 · 생명공학의 8가지 분야</a></li>
+        <li><a href="#t1-2">1-2 식물 생명공학과 작물화</a></li>
+        <li><a href="#t1-3">1-3 2050년 식량위기 – global boiling</a></li>
+        <li><a href="#t1-4">1-4 21세기 식물 생명공학의 여섯 축</a></li>
+        <li><a href="#t1-5">1-5 식물 생명공학 주요 연표</a></li>
+        <li><a href="#t1-6">1-6 식물의 다섯 가지 핵심 특징</a></li>
+      </ol>
+    </li>
+    <li><a href="#p2">(2) 21세기 식물 생명공학 – GMO·유전체 편집</a>
+      <ol>
+        <li><a href="#t2-1">2-1 Farm to Fork, 네 가지 혁신</a></li>
+        <li><a href="#t2-2">2-2 GMO – 유전자변형생물</a></li>
+        <li><a href="#t2-3">2-3 유전체 편집과 2020 노벨 화학상</a></li>
+        <li><a href="#t2-4">2-4 스트레스 내성과 수확 손실</a></li>
+        <li><a href="#t2-5">2-5 식품·건강·스마트팜, 그리고 그 너머</a></li>
+      </ol>
+    </li>
+    <li><a href="#p3">(3) 식물의 방어 시스템과 이차대사산물</a>
+      <ol>
+        <li><a href="#t3-1">3-1 식물의 방어 – 물리적·화학적 방어</a></li>
+        <li><a href="#t3-2">3-2 상시방어 vs 유도방어</a></li>
+        <li><a href="#t3-3">3-3 1차 대사산물 vs 2차 대사산물</a></li>
+        <li><a href="#t3-4">3-4 글루코시놀레이트와 미로시나제</a></li>
+        <li><a href="#t3-5">3-5 글루코시놀레이트의 항암 효과</a></li>
+      </ol>
+    </li>
+    <li><a href="#p4">(4) 글루코시놀레이트와 인간, 타감작용</a>
+      <ol>
+        <li><a href="#t4-1">4-1 메틸자스모네이트로 항암 성분 늘리기</a></li>
+        <li><a href="#t4-2">4-2 갑상선종 유발과 카놀라유</a></li>
+        <li><a href="#t4-3">4-3 글루코시놀레이트 생합성 경로</a></li>
+        <li><a href="#t4-4">4-4 타감작용(allelopathy)</a></li>
+        <li><a href="#t4-5">4-5 겨자 AITC의 타감·비선택적 작용</a></li>
+      </ol>
+    </li>
+    <li><a href="#p5">용어 정리</a></li>
+  </ol>
+</nav>
+
+<!-- ===================== PART 1 ===================== -->
+<div class="part" id="p1">
+  <div class="part-head"><span class="no">01차시 (1)</span><h2>2050년 식량위기와 식물 생명공학의 기초</h2></div>
+  <p class="part-sub">학습목표: 식물 생명공학의 기본 원리 이해 · 식물 생명공학의 패러다임 변화 인식 (Introduction of Plant Biotechnology)</p>
+</div>
+
+<section class="topic" id="t1-1">
+  <h3><span class="num">1-1</span>생명공학이란 · 생명공학의 8가지 분야 <span class="en">Biotechnology &amp; its categories</span></h3>
+  <ul class="pt">
+    <li><b>생명공학(Biotechnology)</b>은 생물학을 이용해 <b>인간의 건강과 사회</b>를 개선하는 새로운 제품·방법·생물을 개발하는 것</li>
+    <li>생명공학은 문명의 시작과 함께 존재함 — <b>식물·동물의 길들이기(작물화·가축화)</b>와 <b>발효</b>의 발견. 최소 <b>6,000년 전 농업혁명</b>부터 시작</li>
+  </ul>
+  <figure>
+    <svg viewBox="0 0 680 218" role="img" aria-label="생명공학의 8가지 색깔 분류">
+      <style>.c1{font:700 12.5px Pretendard,sans-serif}.c2{font:500 10.5px Pretendard,sans-serif;fill:#56635b}</style>
+      <g text-anchor="middle">
+        <circle cx="62" cy="60" r="30" fill="#fdeaea" stroke="#d1485a" stroke-width="2"/><text x="62" y="64" class="c1" fill="#b4232a">Red</text><text x="62" y="104" class="c2">의료·제약</text>
+        <circle cx="156" cy="60" r="30" fill="#eef0f2" stroke="#8a97a4" stroke-width="2"/><text x="156" y="64" class="c1" fill="#5c6670">White</text><text x="156" y="104" class="c2">산업</text>
+        <circle cx="250" cy="60" r="33" fill="#dff5e4" stroke="#15803d" stroke-width="3"/><text x="250" y="64" class="c1" fill="#15803d">Green</text><text x="250" y="108" class="c1" fill="#15803d">농업 ★</text>
+        <circle cx="344" cy="60" r="30" fill="#fcf4dc" stroke="#caa43a" stroke-width="2"/><text x="344" y="64" class="c1" fill="#9c7d18">Gold</text><text x="344" y="104" class="c2">생물정보·데이터</text>
+        <circle cx="438" cy="60" r="30" fill="#e5f1fb" stroke="#4f8fc8" stroke-width="2"/><text x="438" y="64" class="c1" fill="#1d5fbf">Blue</text><text x="438" y="104" class="c2">해양·수생</text>
+        <circle cx="532" cy="60" r="30" fill="#fdf6df" stroke="#d8b53a" stroke-width="2"/><text x="532" y="64" class="c1" fill="#9c7d18">Yellow</text><text x="532" y="104" class="c2">식품</text>
+        <circle cx="626" cy="60" r="30" fill="#f1e9f7" stroke="#8f5fb5" stroke-width="2"/><text x="626" y="64" class="c1" fill="#7a3fa0">Violet</text><text x="626" y="104" class="c2">윤리·거버넌스</text>
+        <circle cx="344" cy="158" r="27" fill="#ededed" stroke="#555" stroke-width="2"/><text x="344" y="162" class="c1" fill="#333">Dark</text><text x="344" y="202" class="c2">전쟁(생물무기)</text>
+      </g>
+    </svg>
+    <figcaption>교안 그림을 다시 그림. 농업을 다루는 <b>Green</b> 생명공학이 이 주차의 주제</figcaption>
+  </figure>
+  <span class="eval">생명공학은 인간 건강과 사회를 개선하는 기술로, 농업(Green)·의료(Red)·산업(White) 등 8가지 분야로 나뉨. 식물 생명공학은 Green에 해당</span>
+</section>
+
+<section class="topic" id="t1-2">
+  <h3><span class="num">1-2</span>식물 생명공학과 작물화 <span class="en">Plant biotechnology &amp; domestication</span></h3>
+  <ul class="pt">
+    <li><b>식물 생명공학(Plant Biotechnology)</b>: 과학적 기법으로 <b>더 많은(better) 식물을 개발</b>하는 정밀한 과정</li>
+    <li>많은 연구자는 식물 생명공학을 수천 년 전 <b>야생식물의 작물화(domestication)</b>로 시작된 유전적 개량 기법의 다음 단계로 봄</li>
+    <li><b>식물 길들이기(taming of plants)</b>: 우리가 먹는 식용 종을 작물화하는 것</li>
+  </ul>
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>한 야생 겨자에서 나온 여러 채소</h5>
+    <ul>
+      <li>교안의 '선택 육종(selective breeding)' 그림: 야생 겨자(<i>Brassica oleracea</i>) 하나에서 사람이 원하는 부위를 골라 키워 <b>브로콜리(꽃봉오리)·양배추(끝눈)·케일(잎)·콜리플라워(꽃봉오리)</b> 등 서로 다른 채소가 만들어짐</li>
+      <li>이것이 '작물화=느린 유전 개량'의 대표 사례. 생명공학은 이 과정을 정밀하고 빠르게 하는 것</li>
+    </ul>
+  </div>
+</section>
+
+<section class="topic" id="t1-3">
+  <h3><span class="num">1-3</span>2050년 식량위기 – global boiling <span class="en">Food Crisis 2050</span></h3>
+  <ul class="pt">
+    <li>UN 사무총장(2023): "지구 온난화(global warming)의 시대가 끝나고 <b>지구 열대화(global boiling)</b>의 시대가 왔다" — 2023년 7월은 기록상 가장 더운 달</li>
+  </ul>
+  <figure>
+    <svg viewBox="0 0 680 150" role="img" aria-label="2050년 식량위기 수치">
+      <style>.f1{font:800 22px Pretendard,sans-serif}.f2{font:600 13px Pretendard,sans-serif;fill:#1c2420}.f3{font:500 11.5px Pretendard,sans-serif;fill:#56635b}</style>
+      <g text-anchor="middle">
+        <rect x="24" y="24" width="196" height="100" rx="12" fill="#f2faf4" stroke="#bbe5c8"/>
+        <text x="122" y="60" class="f1" fill="#15803d">+2.5억↑</text><text x="122" y="84" class="f2">세계 인구</text><text x="122" y="104" class="f3">72억 → 97억 명 (2050)</text>
+        <rect x="242" y="24" width="196" height="100" rx="12" fill="#fff7ec" stroke="#f0cd97"/>
+        <text x="340" y="60" class="f1" fill="#c2791a">+60%↑</text><text x="340" y="84" class="f2">식량 수요</text><text x="340" y="104" class="f3">2050년까지 60% 증가</text>
+        <rect x="460" y="24" width="196" height="100" rx="12" fill="#eef4fb" stroke="#bcd3ef"/>
+        <text x="558" y="60" class="f1" fill="#1d5fbf">−40%↓</text><text x="558" y="84" class="f2">물 공급</text><text x="558" y="104" class="f3">현재의 40% 수준으로 감소</text>
+      </g>
+    </svg>
+    <figcaption>교안(World Resources Institute, Purestrategies) 수치. 인구·수요는 늘고 물·토지는 부족해짐</figcaption>
+  </figure>
+  <ul class="pt">
+    <li>2050년에는 지금보다 <b>56% 더 많은 식량</b>이 필요하고, 현재 농업이 이미 전 세계 식생 면적의 <b>약 50%</b>를 쓰고 있어, 추가로 <b>5.93억 ha</b>의 땅이 더 필요해짐</li>
+    <li>기후변화(global boiling)는 작물에 <b>생물적 스트레스(biotic stress)</b>와 <b>환경적 스트레스(environmental stress)</b>를 동시에 가함 → "예상보다 더 많은 식량을 잃고 있다"</li>
+  </ul>
+  <span class="eval">인구 증가 · 식량 수요 증가 · 물·토지 부족 · 기후변화가 겹친 2050년 식량위기가 식물 생명공학이 필요한 근본 이유</span>
+</section>
+
+<section class="topic" id="t1-4">
+  <h3><span class="num">1-4</span>21세기 식물 생명공학의 여섯 축 <span class="en">Plant biotechnology in the 21st century</span></h3>
+  <div class="tbl"><table>
+    <thead><tr><th>관점</th><th>내용</th></tr></thead>
+    <tbody>
+      <tr><td><b>농업적 시각</b> (Agriculture view)</td><td>식량 안보와 변화하는 환경</td></tr>
+      <tr><td><b>통합</b> (Integration)</td><td>현대 생명공학 + 전통 육종·생리학의 결합</td></tr>
+      <tr><td><b>생장 조절</b> (Growth control)</td><td>영양생장·생식·번식 단계에서 식물 생장 개선</td></tr>
+      <tr><td><b>보호</b> (Protection)</td><td>환경·생물 스트레스에 대한 내성</td></tr>
+      <tr><td><b>환경</b> (Environment)</td><td>토양 정화(soil remediation)</td></tr>
+      <tr><td><b>확장</b> (Expansion)</td><td>식품·생화학물질·바이오연료·의약품으로 범위 확장</td></tr>
+    </tbody>
+  </table></div>
+  <span class="eval">식물 생명공학의 목표는 단순한 생산성 향상을 넘어, 환경 보전·인간 건강까지 포괄하는 '더 많고(more) 더 좋은(better) 식량'으로 확장됨</span>
+</section>
+
+<section class="topic" id="t1-5">
+  <h3><span class="num">1-5</span>식물 생명공학 주요 연표 <span class="en">Timeline of key events</span></h3>
+  <div class="tl">
+    <div class="ev"><span class="yr">ca. 13000~8000 BC</span>식물 작물화(plant domestication) 시작</div>
+    <div class="ev"><span class="yr">1865</span>멘델(Mendel)의 유전 법칙 발표</div>
+    <div class="ev"><span class="yr">1920</span>돌연변이 육종(mutation breeding)</div>
+    <div class="ev"><span class="yr">1978</span>분자표지 이용 선발(Marker Assisted Selection)</div>
+    <div class="ev"><span class="yr">1983</span>식물 형질전환(plant transformation) 달성</div>
+    <div class="ev"><span class="yr">1994</span>첫 상업용 유전자변형 식물(무르지 않는 토마토) 출시</div>
+    <div class="ev"><span class="yr">1998</span>애기장대(<i>Arabidopsis</i>) 유전체 해독 완료</div>
+    <div class="ev"><span class="yr">2002</span>골든라이스(Golden Rice) 개발</div>
+    <div class="ev"><span class="yr">2012~</span>유전체 선발(Genomic Selection) · CRISPR/Cas9</div>
+  </div>
+  <span class="eval">식물 생명공학은 멘델의 유전학에서 출발해, 형질전환·분자육종을 거쳐 오늘날 유전체 선발·유전자가위(CRISPR)로 발전함</span>
+</section>
+
+<section class="topic" id="t1-6">
+  <h3><span class="num">1-6</span>식물의 다섯 가지 핵심 특징 <span class="en">Key features of plant for biotechnology</span></h3>
+  <p>식물이 생명공학의 좋은 재료가 되는 이유는 동물에 없는 다섯 가지 특징 때문임.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>특징</th><th>내용</th></tr></thead>
+    <tbody>
+      <tr><td><b>조직 배양 · 재생</b><br>(tissue culture, regeneration)</td><td><b>전형성능(totipotency)</b> — 단 하나의 세포로부터 완전한 식물체를 다시 만들 수 있음</td></tr>
+      <tr><td><b>형질전환</b><br>(transformation)</td><td>식물 염색체에 유전자를 넣어 새 형질을 부여. ① <b>아그로박테리움</b>법(식물 병원균 <i>Agrobacterium</i>의 Ti 플라스미드 이용) ② <b>입자총(particle gun·bombardment)</b>법(DNA를 입힌 입자를 쏨)</td></tr>
+      <tr><td><b>선천면역</b><br>(innate immunity)</td><td>동물처럼 면역 전담 세포는 없지만 <b>2층 선천면역</b> 보유 — 세포 표면 면역(1층, PTI) + 세포 내 면역(2층, ETI·NLR)</td></tr>
+      <tr><td><b>환경 적응</b><br>(adaptation)</td><td>고염분 환경에서도 생존(맹그로브의 염샘), 오염 토양을 정화 — <b>생물·식물 정화(bio/phytoremediation)</b> (예: 해바라기가 비소·우라늄 흡수)</td></tr>
+      <tr><td><b>이차대사산물</b><br>(secondary metabolites)</td><td>다양한 이차대사산물을 합성 — 초식동물·미생물 방어, 생장 조절, 맛, 향, 약리 용도(예: 의료용 대마 / 카나비노이드)</td></tr>
+    </tbody>
+  </table></div>
+  <figure>
+    <svg viewBox="0 0 680 220" role="img" aria-label="식물 형질전환의 두 방법">
+      <style>.a1{font:700 12.5px Pretendard,sans-serif;fill:#123d26}.a2{font:500 11px Pretendard,sans-serif;fill:#56635b}</style>
+      <defs><marker id="aa" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8z" fill="#15803d"/></marker></defs>
+      <g transform="translate(20,18)">
+        <rect x="0" y="0" width="300" height="184" rx="10" fill="#f2faf4" stroke="#bbe5c8"/>
+        <text x="150" y="26" class="a1" text-anchor="middle">① 아그로박테리움법</text>
+        <text x="150" y="48" class="a2" text-anchor="middle">식물 병원균 <tspan font-style="italic">Agrobacterium</tspan></text>
+        <text x="150" y="70" class="a2" text-anchor="middle">Ti 플라스미드에 원하는 유전자 탑재</text>
+        <text x="150" y="98" class="a2" text-anchor="middle">세균이 식물 세포를 '감염'시키며</text>
+        <text x="150" y="116" class="a2" text-anchor="middle">DNA를 식물 염색체로 자연스럽게 전달</text>
+        <rect x="60" y="134" width="180" height="34" rx="6" fill="#dcf3e3" stroke="#22a05a"/>
+        <text x="150" y="155" class="a1" text-anchor="middle">느리게 자라는 세균을 '운반책'으로</text>
+      </g>
+      <g transform="translate(360,18)">
+        <rect x="0" y="0" width="300" height="184" rx="10" fill="#f2faf4" stroke="#bbe5c8"/>
+        <text x="150" y="26" class="a1" text-anchor="middle">② 입자총(bombardment)법</text>
+        <text x="150" y="48" class="a2" text-anchor="middle">금·텅스텐 미세 입자에 DNA를 입힘</text>
+        <text x="150" y="70" class="a2" text-anchor="middle">입자총으로 식물 조직에 물리적으로 발사</text>
+        <text x="150" y="98" class="a2" text-anchor="middle">입자가 세포를 뚫고 들어가</text>
+        <text x="150" y="116" class="a2" text-anchor="middle">DNA가 염색체에 삽입됨</text>
+        <rect x="60" y="134" width="180" height="34" rx="6" fill="#dcf3e3" stroke="#22a05a"/>
+        <text x="150" y="155" class="a1" text-anchor="middle">세균을 쓰지 않는 직접 전달</text>
+      </g>
+    </svg>
+    <figcaption>교안 그림(ResearchGate)을 단순화해 다시 그림. 두 방법 모두 <b>새 유전자를 식물 염색체에 넣어 새 형질</b>을 만듦</figcaption>
+  </figure>
+  <div class="key"><span class="label">01차시 (1) 학습정리</span>
+    <ul class="pt">
+      <li>생명공학은 <b>농업의 역사와 함께</b> 시작됨</li>
+      <li>식물 생명공학의 목표는 농업 생산성 향상 → 환경·영양 과제 해결(<b>more and better foods</b>)로 확장됨</li>
+      <li>현대 식물 생명공학은 여러 학문·기술을 아우르는 종합 분야임</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===================== PART 2 ===================== -->
+<div class="part" id="p2">
+  <div class="part-head"><span class="no">01차시 (2)</span><h2>21세기 식물 생명공학 – GMO와 유전체 편집</h2></div>
+  <p class="part-sub">학습목표: 식물 생명공학의 현재 발전상 이해 · GMO·유전체 편집 등 패러다임 변화 인식</p>
+</div>
+
+<section class="topic" id="t2-1">
+  <h3><span class="num">2-1</span>Farm to Fork, 네 가지 혁신 <span class="en">From Farm to Fork</span></h3>
+  <p>기후변화(global boiling)로 인한 <b>생물·환경 스트레스</b>에 맞서, 식물 생명공학은 농장(farm)에서 식탁(fork)까지 네 가지 방향으로 작물을 개선함.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>방향</th><th>내용</th></tr></thead>
+    <tbody>
+      <tr><td><b>더 나은 생장</b> (Better growth)</td><td>제한된 면적에서 수확량 증가</td></tr>
+      <tr><td><b>스트레스 내성</b> (Stress tolerance)</td><td>해충과 환경 스트레스에 견딤</td></tr>
+      <tr><td><b>더 나은 품질</b> (Better quality)</td><td>영양소 함량 증가</td></tr>
+      <tr><td><b>그 너머</b> (&amp; beyond)</td><td>인간에게 주는 이득(건강·의약)</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section class="topic" id="t2-2">
+  <h3><span class="num">2-2</span>GMO – 유전자변형생물 <span class="en">Genetically Modified Organisms</span></h3>
+  <ul class="pt">
+    <li><b>GMO(유전자변형생물)</b>: 한 생물의 유전자를 다른 생물에 넣어 원하는 형질을 갖게 한 것. 1만 년 전 작물화 → 1990년대 첫 GMO → <b>1994년 상업화</b></li>
+  </ul>
+  <h4>미국에서 재배되는 작물 중 GMO 비율</h4>
+  <div class="tbl"><table>
+    <thead><tr><th class="c">작물</th><th class="c">GMO 비율</th><th class="c">작물</th><th class="c">GMO 비율</th></tr></thead>
+    <tbody>
+      <tr><td>목화(Cotton)</td><td class="c"><b>96%</b></td><td>카놀라(Canola)</td><td class="c">90%</td></tr>
+      <tr><td>사탕무(Sugar Beet)</td><td class="c"><b>95%</b></td><td>파파야(Papaya)</td><td class="c">50%</td></tr>
+      <tr><td>콩(Soybean)</td><td class="c"><b>94%</b></td><td>알팔파(Alfalfa)</td><td class="c">30%</td></tr>
+      <tr><td>옥수수(Corn)</td><td class="c"><b>93%</b></td><td>호박(Summer Squash)</td><td class="c">12%</td></tr>
+    </tbody>
+  </table></div>
+  <span class="eval">목화·사탕무·콩·옥수수는 미국 재배 면적의 90% 이상이 GMO일 만큼, 유전자변형 작물은 이미 농업의 주류가 됨</span>
+</section>
+
+<section class="topic" id="t2-3">
+  <h3><span class="num">2-3</span>유전체 편집과 2020 노벨 화학상 <span class="en">Genome Editing</span></h3>
+  <ul class="pt">
+    <li><b>유전체 편집(genome editing)</b>은 작물의 DNA 서열을 정밀하게 바꿔 특성을 개선 — 영양가 향상, 질병 저항성 강화, 작물화에 응용</li>
+    <li><b>2020년 노벨 화학상</b>: <b>에마뉘엘 샤르팡티에</b>(Emmanuelle Charpentier)와 <b>제니퍼 다우드나</b>(Jennifer Doudna) — CRISPR 유전자가위 개발</li>
+  </ul>
+  <div class="grid2">
+    <div class="mini"><h4>유전체 편집 토마토 예시 ①</h4><ul class="pt"><li>생산량(production)이 크게 늘어난 토마토</li></ul></div>
+    <div class="mini"><h4>유전체 편집 토마토 예시 ②</h4><ul class="pt"><li><b>GABA</b>(감마-아미노뷰티르산)를 더 많이 만들어 <b>혈압을 낮추는</b> 토마토</li></ul></div>
+  </div>
+  <span class="eval">CRISPR는 작물의 DNA를 정밀하게 편집해, 수확량·영양·질병저항 같은 형질을 빠르게 개량하는 21세기 식물 생명공학의 핵심 도구</span>
+</section>
+
+<section class="topic" id="t2-4">
+  <h3><span class="num">2-4</span>스트레스 내성과 수확 손실 <span class="en">Stress tolerance</span></h3>
+  <p>주요 작물은 기록상 최대 수확량 중 상당 부분을 <b>생물적 손실(biotic losses)</b>과 <b>비생물적(환경) 손실(abiotic losses)</b>로 잃음. 특히 <b>환경 스트레스로 인한 손실</b>이 훨씬 큼.</p>
+  <div class="tbl"><table>
+    <thead><tr><th class="c">작물</th><th class="c">평균 수확</th><th class="c">생물적 손실</th><th class="c">환경적 손실</th></tr></thead>
+    <tbody>
+      <tr><td>옥수수(Corn)</td><td class="c">24%</td><td class="c">10%</td><td class="c"><b>66%</b></td></tr>
+      <tr><td>밀(Wheat)</td><td class="c">13%</td><td class="c">5%</td><td class="c"><b>82%</b></td></tr>
+      <tr><td>콩(Soybean)</td><td class="c">22%</td><td class="c">9%</td><td class="c"><b>69%</b></td></tr>
+      <tr><td>수수(Sorghum)</td><td class="c">14%</td><td class="c">5%</td><td class="c"><b>81%</b></td></tr>
+    </tbody>
+  </table></div>
+  <span class="eval">작물이 잠재 수확량의 대부분을 '환경 스트레스'로 잃기 때문에, 스트레스 내성을 높이는 것이 식량 증산의 핵심 과제</span>
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>식물이 스트레스를 이겨내는 방법</h5>
+    <ul>
+      <li><b>생물 스트레스</b>(초식동물·곤충·바이러스·곰팡이·세균): PTI·ETI 선천면역, 유전체 편집, RNAi로 병해충 저항성 부여</li>
+      <li><b>환경 스트레스</b>(가뭄·염분·냉해·고온·중금속·UV): 회피·탈출·회복·내성 전략. 식물을 환경 정화에도 이용</li>
+    </ul>
+  </div>
+</section>
+
+<section class="topic" id="t2-5">
+  <h3><span class="num">2-5</span>식품·건강·스마트팜, 그리고 그 너머 <span class="en">Food, quality &amp; beyond</span></h3>
+  <ul class="pt">
+    <li><b>식품 지속가능성</b>: 자연적이고 영양이 풍부한 <b>슈퍼푸드</b>(아보카도·블루베리·토마토·견과·현미·브로콜리·통곡물·시금치 등) — 미네랄·비타민·항산화물질·건강한 지방산이 풍부해 면역과 에너지를 높임</li>
+    <li><b>더 나은 품질</b>: <b>스마트팜/디지털 농업</b>(smart/digital farming) — 영상·센서·AI로 작물을 정밀하게 관리하는 통제형 재배</li>
+    <li><b>그 너머(&amp; beyond)</b>: 식물 이차대사산물의 약리 작용 — 항균(antimicrobial)·항염(anti-inflammatory)·신경보호(neuroprotective)·항산화(antioxidant)·심혈관 보호·항암(anti-cancer)</li>
+  </ul>
+  <h4>식물 생명공학의 과거·현재·미래</h4>
+  <ul class="pt">
+    <li>새 식물 생명공학 도구가 고급 작물 육종에 기여</li>
+    <li>유전체 데이터를 실제 작물 형질로 옮기는 과정의 <b>병목(bottleneck)</b> 해결이 과제</li>
+    <li>지속가능 생산을 위한 <b>비생물·생물 스트레스 내성</b>의 중요성</li>
+    <li>식물 바이오소재·바이오연료라는 <b>새로운 범위</b>로 확장</li>
+  </ul>
+  <div class="key"><span class="label">01차시 (2) 학습정리</span>
+    <ul class="pt">
+      <li>식물 생명공학은 <b>GMO·유전체 편집</b>을 통해 수확량·품질·스트레스 내성을 높임</li>
+      <li>그 범위는 식품을 넘어 <b>환경 보전과 인간 건강·웰니스</b>로 확장되는 종합 분야임</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===================== PART 3 ===================== -->
+<div class="part" id="p3">
+  <div class="part-head"><span class="no">02차시 (1)</span><h2>식물의 방어 시스템과 이차대사산물</h2></div>
+  <p class="part-sub">학습목표: 식물이 이차대사산물로 우리 삶과 건강에 기여하는 방식 이해 · 글루코시놀레이트 방어 기전 이해 · 식물 간 경쟁과 '식물의 언어' 개념 이해 (Plant Secondary Metabolites and Humans)</p>
+</div>
+
+<section class="topic" id="t3-1">
+  <h3><span class="num">3-1</span>식물의 방어 – 물리적·화학적 방어 <span class="en">Plant Defense System</span></h3>
+  <p>"벌레도 밟으면 꿈틀한다. 식물은 어떨까?" 동물은 외부 스트레스에 <b>동적으로</b> 반응함. 식물은 이동·회피할 수 없지만, 나름의 방어 체계를 갖춤.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>방어</th><th>종류와 예</th></tr></thead>
+    <tbody>
+      <tr><td><b>물리적 방어</b><br>(physical)</td><td><b>구조적 방어</b>: 가시(thorn), 두꺼운 껍질, 왁스층 ·· <b>기계적 방어</b>: 손상 시 즉각 반응(예: 미모사가 잎을 접음)</td></tr>
+      <tr><td><b>화학적 방어</b><br>(chemical)</td><td>독소 생산(커피의 <b>카페인</b>, 담배의 <b>니코틴</b>) · 향·맛 변화(민트의 <b>멘톨·테르펜</b>) · 항균·항진균 화합물로 병원체에 대응</td></tr>
+    </tbody>
+  </table></div>
+  <span class="eval">식물은 움직이지 못하지만, 가시·왁스 같은 물리적 방어와 카페인·니코틴 같은 화학적 방어로 자신을 지킴</span>
+</section>
+
+<section class="topic" id="t3-2">
+  <h3><span class="num">3-2</span>상시방어 vs 유도방어 <span class="en">Constitutive vs Induced Defense</span></h3>
+  <div class="grid2">
+    <div class="key"><span class="label">상시방어 (Constitutive)</span><br>항상 준비된 방어 — 늘 방어 태세를 유지<br><small class="muted">단점: <b>에너지 소모</b>가 큼, <b>유연성 부족</b>(새 위협에 적응 어려움)</small></div>
+    <div class="key"><span class="label">유도방어 (Induced)</span><br>공격을 받은 뒤 방어 기전을 활성화 — <b>에너지 효율적</b><br><small class="muted">단점: <b>반응 시간</b>(초기 취약), <b>위협 탐지</b> 필요(오작동 가능)</small></div>
+  </div>
+  <span class="eval">상시방어는 늘 켜져 있어 든든하지만 비용이 크고, 유도방어는 필요할 때만 켜져 효율적이지만 초기 반응이 늦음 — 둘의 장단점이 반대</span>
+</section>
+
+<section class="topic" id="t3-3">
+  <h3><span class="num">3-3</span>1차 대사산물 vs 2차 대사산물 <span class="en">Primary vs Secondary Metabolites</span></h3>
+  <div class="tbl"><table>
+    <thead><tr><th></th><th>1차 대사산물 (Primary)</th><th>2차 대사산물 (Secondary)</th></tr></thead>
+    <tbody>
+      <tr><td><b>역할</b></td><td>기본 생존 기능에 직결(생장·발달·생식·생명 유지)</td><td>생존에 필수는 아니나, 환경 적응·방어·유인·경쟁에 기여</td></tr>
+      <tr><td><b>분포</b></td><td>모든 세포에 보편적으로 존재</td><td>특정 환경 조건·생식 단계에서 생산</td></tr>
+      <tr><td><b>예</b></td><td>탄수화물, 단백질, 지질, 핵산(DNA·RNA)</td><td>알칼로이드, 테르펜, 페놀, <b>글루코시놀레이트</b>, 진세노사이드, 카나비노이드</td></tr>
+    </tbody>
+  </table></div>
+  <div class="tbl"><table>
+    <thead><tr><th>2차 대사산물</th><th>대표 작용</th></tr></thead>
+    <tbody>
+      <tr><td><b>알칼로이드</b> (Alkaloids)</td><td>니코틴·카페인·모르핀 — 해충 방어와 유인</td></tr>
+      <tr><td><b>테르펜</b> (Terpenes)</td><td>리모넨·멘톨 — 해충·병원체 방어</td></tr>
+      <tr><td><b>페놀</b> (Phenolics)</td><td>플라보노이드·탄닌 — 항산화, UV 보호</td></tr>
+      <tr><td><b>글루코시놀레이트</b> (Glucosinolates)</td><td>해충 방어와 항암 활성</td></tr>
+      <tr><td><b>진세노사이드</b> (Ginsenosides)</td><td>인삼 성분 — 항산화·항암·인지기능·면역</td></tr>
+      <tr><td><b>카나비노이드</b> (Cannabinoids)</td><td>대마 성분 — 간질·치매·항암 치료 부작용 완화</td></tr>
+    </tbody>
+  </table></div>
+  <span class="eval">1차 대사산물은 모든 세포의 생존에 꼭 필요한 물질, 2차 대사산물은 방어·적응·경쟁을 위한 '특수 목적' 물질</span>
+</section>
+
+<section class="topic" id="t3-4">
+  <h3><span class="num">3-4</span>글루코시놀레이트와 미로시나제 <span class="en">Glucosinolates &amp; Myrosinase</span></h3>
+  <ul class="pt">
+    <li><b>글루코시놀레이트(glucosinolate)</b>는 양배추·무·브로콜리·겨자·와사비 같은 <b>십자화과(cruciferous) 채소</b>에 주로 들어 있는 방어 물질. 120종 이상이 확인됨</li>
+    <li>평소에는 <b>글루코시놀레이트</b>와 분해효소 <b>미로시나제(myrosinase)</b>가 세포 안에서 <b>따로 저장</b>됨</li>
+    <li>해충이 조직을 <b>손상시키면</b> 둘이 만나 반응해 <b>독성 가수분해 산물(hydrolysis products)</b>을 만들어 해충을 쫓음</li>
+  </ul>
+  <figure>
+    <svg viewBox="0 0 680 170" role="img" aria-label="글루코시놀레이트-미로시나제 반응">
+      <style>.m1{font:700 12.5px Pretendard,sans-serif;fill:#123d26}.m2{font:500 11px Pretendard,sans-serif;fill:#56635b}</style>
+      <defs><marker id="ma" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8z" fill="#b4232a"/></marker></defs>
+      <g transform="translate(20,34)">
+        <rect x="0" y="0" width="150" height="46" rx="8" fill="#eef4fb" stroke="#bcd3ef"/><text x="75" y="22" class="m1" text-anchor="middle">글루코시놀레이트</text><text x="75" y="38" class="m2" text-anchor="middle">(평소 따로 저장)</text>
+        <rect x="0" y="56" width="150" height="46" rx="8" fill="#fcf0dc" stroke="#e8c98a"/><text x="75" y="78" class="m1" text-anchor="middle">미로시나제 효소</text><text x="75" y="94" class="m2" text-anchor="middle">(다른 칸에 저장)</text>
+      </g>
+      <text x="200" y="60" class="m2" text-anchor="middle">해충이</text><text x="200" y="76" class="m2" text-anchor="middle">조직 손상</text>
+      <line x1="175" y1="85" x2="250" y2="85" stroke="#b4232a" stroke-width="2.5" marker-end="url(#ma)"/>
+      <g transform="translate(255,52)">
+        <rect x="0" y="0" width="150" height="60" rx="8" fill="#dcf3e3" stroke="#22a05a"/><text x="75" y="26" class="m1" text-anchor="middle">둘이 만나 반응</text><text x="75" y="46" class="m2" text-anchor="middle">가수분해(hydrolysis)</text>
+      </g>
+      <line x1="410" y1="82" x2="438" y2="82" stroke="#b4232a" stroke-width="2.5" marker-end="url(#ma)"/>
+      <g transform="translate(443,40)">
+        <rect x="0" y="0" width="210" height="84" rx="8" fill="#fde7ec" stroke="#e8a0ad"/><text x="105" y="26" class="m1" text-anchor="middle">독성 가수분해 산물</text><text x="105" y="48" class="m2" text-anchor="middle">아이소싸이오사이아네이트(ITC)</text><text x="105" y="66" class="m2" text-anchor="middle">예: 설포라판 · AITC — 해충 퇴치</text>
+      </g>
+    </svg>
+    <figcaption>교안(ASPB Teaching tool)을 단순화해 다시 그림. 평소 분리 저장 → 손상 시 반응하는 '2액형 폭탄' 방식</figcaption>
+  </figure>
+  <div class="sup">
+    <span class="tag">보충</span>
+    <h5>곤충 저항성 실험과 음식 속 글루코시놀레이트</h5>
+    <ul>
+      <li><b>곤충 저항성</b>: 글루코시놀레이트 합성에 관여하는 <b>MYB 유전자</b>가 망가진 애기장대는 배추좀나방 유충 피해가 커지고 유충 무게도 늘어남 → 글루코시놀레이트가 실제로 해충을 막는다는 증거</li>
+      <li><b>항균 효과</b>: 무 위에 올린 초밥 — 무의 <b>라파사틴·설포라펜</b>, 와사비의 <b>알릴 아이소싸이오사이아네이트(AITC)</b>가 풍미와 항균 효과를 동시에 줌</li>
+    </ul>
+  </div>
+</section>
+
+<section class="topic" id="t3-5">
+  <h3><span class="num">3-5</span>글루코시놀레이트의 항암 효과 <span class="en">Anti-cancer effect</span></h3>
+  <ul class="pt">
+    <li>1992년 <b>폴 탈랄레이(Paul Talalay, 존스홉킨스 의대)</b>가 브로콜리에서 <b>설포라판(sulforaphane)</b>을 분리. 브로콜리 <b>새싹</b>은 화학 발암물질을 막는 효소를 유도하는 물질이 특히 풍부함</li>
+  </ul>
+  <div class="tbl"><table>
+    <thead><tr><th>글루코시놀레이트</th><th>→ 가수분해 산물</th><th>항암 활성</th></tr></thead>
+    <tbody>
+      <tr><td>Glucoraphanin (브로콜리)</td><td><b>설포라판</b> (Sulforaphane)</td><td>유방·방광·전립선암</td></tr>
+      <tr><td>Gluconasturtiin (물냉이)</td><td>PEITC (펜에틸 ITC)</td><td>전립선·대장암</td></tr>
+      <tr><td>Glucobrassicin</td><td>I3C (인돌-3-카비놀)</td><td>전립선·유방암</td></tr>
+      <tr><td>Neoglucobrassicin</td><td>N-메톡시인돌-3-카비놀</td><td>대장암</td></tr>
+    </tbody>
+  </table></div>
+  <figure>
+    <svg viewBox="0 0 680 170" role="img" aria-label="발암 과정과 암 예방 기전">
+      <style>.k1{font:700 12px Pretendard,sans-serif;fill:#123d26}.k2{font:500 11px Pretendard,sans-serif;fill:#56635b}.kr{font:700 11.5px Pretendard,sans-serif;fill:#b4232a}</style>
+      <defs><marker id="ka" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8z" fill="#56635b"/></marker></defs>
+      <g text-anchor="middle">
+        <circle cx="70" cy="70" r="30" fill="#dcf3e3" stroke="#22a05a"/><text x="70" y="74" class="k1">정상세포</text>
+        <line x1="104" y1="70" x2="150" y2="70" stroke="#56635b" stroke-width="2" marker-end="url(#ka)"/><text x="127" y="58" class="k2">개시</text>
+        <circle cx="190" cy="70" r="30" fill="#fcf4dc" stroke="#caa43a"/><text x="190" y="74" class="k1">개시세포</text>
+        <line x1="224" y1="70" x2="270" y2="70" stroke="#56635b" stroke-width="2" marker-end="url(#ka)"/><text x="247" y="58" class="k2">촉진</text>
+        <circle cx="315" cy="70" r="32" fill="#fde0cf" stroke="#d98a4e"/><text x="315" y="74" class="k1">종양 형성</text>
+        <line x1="351" y1="70" x2="397" y2="70" stroke="#56635b" stroke-width="2" marker-end="url(#ka)"/><text x="374" y="58" class="k2">진행</text>
+        <circle cx="440" cy="70" r="32" fill="#fde7ec" stroke="#e8a0ad"/><text x="440" y="74" class="kr">암(Cancer)</text>
+      </g>
+      <g text-anchor="middle">
+        <rect x="150" y="118" width="330" height="40" rx="8" fill="#f2faf4" stroke="#bbe5c8"/>
+        <text x="315" y="135" class="k1">설포라판·PEITC·I3C → Phase 2 효소(QR·GST) 유도</text>
+        <text x="315" y="152" class="k2">발암물질을 해독·배출해 '개시' 단계를 차단 → 암 예방</text>
+      </g>
+    </svg>
+    <figcaption>교안 그림을 단순화해 다시 그림. 십자화과 가수분해 산물이 <b>2상(Phase 2) 해독 효소</b>를 켜 발암을 막음</figcaption>
+  </figure>
+  <div class="key"><span class="label">02차시 (1) 학습정리</span>
+    <ul class="pt">
+      <li>식물은 글루코시놀레이트 같은 <b>이차대사산물</b>로 방어 체계를 갖춤 — 천연 제초제(타감작용)·풍미 향상·항암·항균 작용</li>
+      <li>이 이차대사산물을 잘 이해하면 <b>농업 생산·식품 품질·인간 건강</b>을 함께 높일 수 있음</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===================== PART 4 ===================== -->
+<div class="part" id="p4">
+  <div class="part-head"><span class="no">02차시 (2)</span><h2>글루코시놀레이트와 인간, 그리고 타감작용</h2></div>
+  <p class="part-sub">학습목표: 글루코시놀레이트의 건강 기능성 이해 · 글루코시놀레이트를 이용한 식물 간 경쟁(타감작용) 이해</p>
+</div>
+
+<section class="topic" id="t4-1">
+  <h3><span class="num">4-1</span>메틸자스모네이트로 항암 성분 늘리기 <span class="en">Methyl jasmonate spray</span></h3>
+  <ul class="pt">
+    <li><b>메틸자스모네이트(Methyl jasmonate, MeJA)</b> 분무로 글루코시놀레이트를 증진 — 곤충·초식동물의 손상을 <b>모방</b>(생물 스트레스)해 indole 글루코시놀레이트 농도를 바꾸는 좋은 유도제(elicitor)</li>
+    <li>소량으로 글루코시놀레이트 증가, 상업적 판매(재스민 꽃 오일에서 분리), 안전(LD50 5g/kg으로 소금 3g/kg보다 안전), 휘발성</li>
+  </ul>
+  <div class="tbl"><table>
+    <thead><tr><th>브로콜리에서 MeJA 처리 효과</th><th class="c">변화</th></tr></thead>
+    <tbody>
+      <tr><td>Gluconasturtiin (aromatic GS)</td><td class="c"><b>85% ↑</b></td></tr>
+      <tr><td>Neoglucobrassicin (indole GS)</td><td class="c"><b>407% ↑</b></td></tr>
+      <tr><td>Quinone reductase 항암 활성</td><td class="c">유의하게 ↑</td></tr>
+    </tbody>
+  </table></div>
+  <span class="eval">메틸자스모네이트는 '해충이 공격했다'는 신호를 흉내 내어, 브로콜리의 항암 글루코시놀레이트를 안전하게 늘리는 방법</span>
+</section>
+
+<section class="topic" id="t4-2">
+  <h3><span class="num">4-2</span>갑상선종 유발과 카놀라유 <span class="en">Goitrogenic effect &amp; canola oil</span></h3>
+  <ul class="pt">
+    <li>글루코시놀레이트가 늘 좋기만 한 것은 아님 — 일부(<b>프로고이트린, progoitrin</b>)는 <b>갑상선종 유발(goitrogenic)</b> 작용을 해 갑상선을 비대하게 만들 수 있음(goiter)</li>
+  </ul>
+  <div class="key"><span class="label">카놀라유 = CANola</span><br><b>CAN</b>ada <b>O</b>il <b>L</b>ow <b>A</b>cid. 기름 속 <b>에루스산(erucic acid)이 5% 미만</b>이고, 깻묵(meal)의 <b>지방족 글루코시놀레이트가 3 mg/g 미만</b>인 품종을 1978년에 이렇게 이름 붙임<br><small>에루스산: 설치류의 심장·골격근·부신에 지방 축적, 성장 저해 / 글루코시놀레이트: 동물의 성장·체중 증가 감소</small></div>
+  <span class="eval">카놀라유는 해로운 에루스산과 글루코시놀레이트를 낮춘 유채 품종에서 얻은 기름 — 같은 글루코시놀레이트도 종류와 양에 따라 득이 되거나 해가 됨</span>
+</section>
+
+<section class="topic" id="t4-3">
+  <h3><span class="num">4-3</span>글루코시놀레이트 생합성 경로 <span class="en">Glucosinolate biosynthesis</span></h3>
+  <div class="flow">
+    <span>아미노산</span><i>→</i><span>곁사슬 신장</span><i>→</i><span>핵심 구조 합성</span><i>→</i><span>곁사슬 변형</span><i>→</i><span class="on">글루코시놀레이트 분해</span>
+  </div>
+  <ul class="pt">
+    <li>조절 유전자: <b>MYB28 · MYB29 · MYB76</b></li>
+    <li><b>좋은(항암) 글루코시놀레이트</b>와 <b>나쁜(갑상선종) 글루코시놀레이트</b>가 <b>하나의 생합성 경로</b>에 공존 → 암 예방을 위한 유망한 표적이 됨</li>
+    <li>관련 효소: SOT, FMO GS-OX, AOP2, GS-OH — 예: Glucoerucin→Glucoraphanin(→<b>설포라판</b>)→Gluconapin→Progoitrin(→Goitrin)</li>
+  </ul>
+  <span class="eval">좋은 성분(설포라판)과 나쁜 성분(고이트린)이 한 경로에서 갈리므로, 경로를 조절하면 유익한 글루코시놀레이트만 늘릴 수 있음</span>
+</section>
+
+<section class="topic" id="t4-4">
+  <h3><span class="num">4-4</span>타감작용(allelopathy) <span class="en">Allelopathy</span></h3>
+  <div class="key"><span class="label">타감작용 (Allelopathy)</span><br>한 생물(식물·미생물)이 <b>생화학물질(allelochemical)</b>로 다른 생물을 직·간접적으로 자극하거나 억제하는 현상. 많은 <b>침입종</b>의 성공이 타감물질과 관련 있고, 이를 응용해 <b>천연 제초제</b>를 개발할 수 있음</div>
+  <div class="tbl"><table>
+    <thead><tr><th>식물</th><th>타감물질과 작용</th></tr></thead>
+    <tbody>
+      <tr><td><b>흑호두나무</b> (Black walnut)</td><td><b>주글론(juglone)</b> — 호흡 억제제. 나무 밑에 잡초가 없는 건 그늘이 아니라 타감작용 때문</td></tr>
+      <tr><td><b>가죽나무</b> (Tree-of-Heaven)</td><td><b>아일란톤(ailanthone)</b> — 뿌리껍질에서 추출되는 타감 독소</td></tr>
+      <tr><td><b>수수</b> (Sorghum)</td><td><b>소르골레온(sorgoleone)</b> — 뿌리에서 나와 미토콘드리아 기능·광합성을 억제</td></tr>
+      <tr><td><b>마늘냉이</b> (Garlic mustard)</td><td>방출된 타감물질이 주변 균류와 토착 나무뿌리의 상호작용을 교란</td></tr>
+    </tbody>
+  </table></div>
+  <span class="eval">타감작용은 식물이 화학물질로 다른 식물의 생장을 억제하는 '식물 간 화학전' — 침입종의 무기이자 천연 제초제의 원리</span>
+</section>
+
+<section class="topic" id="t4-5">
+  <h3><span class="num">4-5</span>겨자 AITC의 타감·비선택적 작용 <span class="en">Allyl isothiocyanate</span></h3>
+  <ul class="pt">
+    <li>글루코시놀레이트도 타감작용을 함 — 겨자꽃 밭에서는 겨자를 <b>으깨 흙에 섞어</b> 잡초를 방제함</li>
+    <li>겨자의 <b>시니그린(sinigrin)</b>이 미로시나제로 분해되어 <b>알릴 아이소싸이오사이아네이트(AITC)</b> 생성</li>
+    <li><b>흙에 묻으면(closed system)</b> 효과가 강화됨 — 휘발성인 AITC가 날아가지 못하고 토양에 머물러 <b>세포주기 정지·세포자멸(apoptosis)</b>을 일으켜 발아·뿌리 생장을 억제</li>
+  </ul>
+  <figure>
+    <svg viewBox="0 0 680 150" role="img" aria-label="개방계와 밀폐계에서 AITC의 작용 차이">
+      <style>.s1{font:700 12px Pretendard,sans-serif;fill:#123d26}.s2{font:500 11px Pretendard,sans-serif;fill:#56635b}</style>
+      <defs><marker id="sa" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8z" fill="#15803d"/></marker></defs>
+      <g transform="translate(20,20)">
+        <rect x="0" y="0" width="150" height="46" rx="8" fill="#eef4fb" stroke="#bcd3ef"/><text x="75" y="20" class="s1" text-anchor="middle">시니그린(Sinigrin)</text><text x="75" y="38" class="s2" text-anchor="middle">+ 미로시나제</text>
+      </g>
+      <line x1="170" y1="43" x2="210" y2="43" stroke="#15803d" stroke-width="2.5" marker-end="url(#sa)"/>
+      <g transform="translate(213,20)">
+        <rect x="0" y="0" width="130" height="46" rx="8" fill="#dcf3e3" stroke="#22a05a"/><text x="65" y="28" class="s1" text-anchor="middle">AITC 생성</text>
+      </g>
+      <g transform="translate(380,0)">
+        <rect x="0" y="4" width="280" height="54" rx="8" fill="#f6f6f6" stroke="#cbcbcb"/><text x="140" y="26" class="s1" text-anchor="middle">개방계(Open) · 휘발</text><text x="140" y="46" class="s2" text-anchor="middle">날아가 버려 효과 작음 ✕</text>
+        <rect x="0" y="70" width="280" height="62" rx="8" fill="#fde7ec" stroke="#e8a0ad"/><text x="140" y="92" class="s1" text-anchor="middle">밀폐계(Closed, 토양·멀칭)</text><text x="140" y="110" class="s2" text-anchor="middle">머물러 발아·뿌리생장 억제</text><text x="140" y="126" class="s2" text-anchor="middle">세포주기 정지 · 세포자멸</text>
+      </g>
+    </svg>
+    <figcaption>교안(Simpson et al., 2019)을 단순화해 다시 그림. 토양에 묻어 휘발을 막으면 타감 효과가 커짐</figcaption>
+  </figure>
+  <ul class="pt">
+    <li><b>비선택적(non-selective) 작용</b>: AITC 같은 아이소싸이오사이아네이트(N=C=S)는 자유라디칼처럼 반응성이 커 단백질·아미노산·막지질과 반응 → 토마토·겨자·어저귀 등 여러 식물의 뿌리 생장을 모두 억제. 식물(타감)뿐 아니라 동물 세포(항암), 미생물(항균)에도 작용</li>
+  </ul>
+  <div class="key"><span class="label">02차시 (2) 학습정리</span>
+    <ul class="pt">
+      <li>글루코시놀레이트는 <b>천연 제초제(타감작용)·풍미·항암·항균</b> 등 다양한 기능을 함</li>
+      <li>식물 이차대사산물을 잘 이해하면 <b>농업 생산·식품 품질·인간 건강</b>을 함께 높일 수 있음</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===================== PART 5: 용어 ===================== -->
+<div class="part" id="p5">
+  <div class="part-head"><span class="no">용어</span><h2>용어 정리</h2></div>
+  <p class="part-sub">14주차 두 강의(식물 생명공학 · 식물 이차대사산물과 인간)에 나온 핵심 용어</p>
+</div>
+
+<section class="topic">
+  <div class="tbl"><table>
+    <thead><tr><th>영문</th><th>국문</th><th>한 줄 정리</th></tr></thead>
+    <tbody>
+      <tr><td>plant biotechnology</td><td>식물 생명공학</td><td>과학 기법으로 더 좋은 식물을 개발하는 분야(Green biotech)</td></tr>
+      <tr><td>domestication</td><td>작물화</td><td>야생식물을 사람이 쓰기 좋게 길들이는 느린 유전 개량</td></tr>
+      <tr><td>global boiling</td><td>지구 열대화</td><td>온난화를 넘어선 극심한 더위 — 식량위기의 배경</td></tr>
+      <tr><td>totipotency</td><td>전형성능</td><td>한 세포에서 완전한 식물체를 재생하는 능력(조직 배양의 바탕)</td></tr>
+      <tr><td>transformation</td><td>형질전환</td><td>식물 염색체에 유전자를 넣어 새 형질을 부여</td></tr>
+      <tr><td>Agrobacterium / particle gun</td><td>아그로박테리움법 / 입자총법</td><td>세균(Ti 플라스미드)으로 / DNA 입힌 입자를 쏘아 유전자 전달</td></tr>
+      <tr><td>GMO</td><td>유전자변형생물</td><td>다른 생물의 유전자를 넣어 형질을 바꾼 생물(1994 상업화)</td></tr>
+      <tr><td>genome editing / CRISPR</td><td>유전체 편집 / 크리스퍼</td><td>DNA를 정밀 편집(2020 노벨 화학상: 샤르팡티에·다우드나)</td></tr>
+      <tr><td>biotic / abiotic stress</td><td>생물 / 비생물(환경) 스트레스</td><td>해충·병원체 / 가뭄·염분·고온 등 — 작물 수확 손실의 원인</td></tr>
+      <tr><td>phytoremediation</td><td>식물 정화</td><td>식물로 오염 토양·물을 정화(예: 해바라기가 비소 흡수)</td></tr>
+      <tr><td>secondary metabolite</td><td>이차대사산물</td><td>생존 필수는 아니나 방어·적응·경쟁에 쓰이는 물질</td></tr>
+      <tr><td>constitutive / induced defense</td><td>상시방어 / 유도방어</td><td>항상 켜진 방어 / 공격 후 켜지는 방어</td></tr>
+      <tr><td>glucosinolate</td><td>글루코시놀레이트</td><td>십자화과 채소의 방어 물질(120종 이상)</td></tr>
+      <tr><td>myrosinase</td><td>미로시나제</td><td>글루코시놀레이트를 분해해 독성 산물을 만드는 효소</td></tr>
+      <tr><td>sulforaphane</td><td>설포라판</td><td>브로콜리의 글루코라파닌에서 나오는 항암 성분(1992 분리)</td></tr>
+      <tr><td>isothiocyanate (AITC)</td><td>아이소싸이오사이아네이트</td><td>N=C=S 고반응성 가수분해 산물 — 항암·항균·타감</td></tr>
+      <tr><td>Phase 2 enzyme (QR, GST)</td><td>2상 해독 효소</td><td>발암물질을 해독·배출해 암 개시를 막음</td></tr>
+      <tr><td>methyl jasmonate (MeJA)</td><td>메틸자스모네이트</td><td>손상 신호를 흉내 내 글루코시놀레이트를 늘리는 유도제</td></tr>
+      <tr><td>goitrogenic / progoitrin</td><td>갑상선종 유발 / 프로고이트린</td><td>갑상선을 비대하게 만드는 작용 / 그 원인 글루코시놀레이트</td></tr>
+      <tr><td>canola (CANola)</td><td>카놀라</td><td>에루스산·글루코시놀레이트를 낮춘 유채 품종(Canada Oil Low Acid)</td></tr>
+      <tr><td>allelopathy / allelochemical</td><td>타감작용 / 타감물질</td><td>화학물질로 다른 식물을 억제하는 현상 / 그 물질(juglone 등)</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="err"><span class="tag">교안 표기 확인</span>
+    <ul>
+      <li>교안 본문 슬라이드는 대부분 영어임. 위 용어의 국문은 통용 표기를 따랐고, 수치·명칭은 교안을 기준으로 함</li>
+      <li>'식물의 언어(plant language)'·'식물 간 경쟁'은 학습목표에 제시된 주제로, 본문에서는 <b>타감작용(allelopathy)</b>으로 구체화됨</li>
+      <li>'보충' 상자의 내용은 교안에 없는 참고 내용으로, 시험 범위 여부는 강의 기준을 따를 것</li>
+    </ul>
+  </div>
+</section>
+
+<nav class="pager"><a class="prev" href="week12_stem_cells.html"><small>← 이전 주차</small>12주차 · 줄기세포와 재생의학</a><a class="next" href="../index.html"><small>전체 목록 →</small>전체 교안 목록으로</a></nav>
+
+<footer>
+  <p>자료 기준: 「생명과학의 세계」(고려대학교) 14주차 01차시(1)(2) 2050년 세계인구 100억 명과 식량위기, 해결책은?(식물 생명공학 입문) · 02차시(1)(2) 식물도 밟으면 꿈틀한다?(식물 이차대사산물과 인간) 교안.<br>
+  교안 그림 출처(Nature, Science, Trends in Biotechnology, Frontiers in Plant Science, ResearchGate, ASPB, Wikipedia, Getty Images Bank 등)는 각 차시 교안의 "출처 및 참고문헌"을 따름. 이 문서의 그림은 교안 그림을 단순화해 새로 그린 것임.<br>
+  '보충' 상자의 내용은 교안에 없는 참고 내용으로, 시험 범위 여부는 강의 기준을 따를 것.</p>
+</footer>
+
+</div>
+</body>
+</html>
