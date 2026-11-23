@@ -9,7 +9,9 @@ const fs = require("fs");
 const { chromium } = require("playwright");
 
 const ROOT = path.resolve(__dirname, "..");
-const OUT = path.join(ROOT, "pdf");
+// INK=1(또는 light) 이면 잉크 절약형(흑백 친화) 인쇄용 PDF를 pdf/print/ 에 생성
+const INK = !!process.env.INK;
+const OUT = INK ? path.join(ROOT, "pdf", "print") : path.join(ROOT, "pdf");
 const WEEKS = [
   ["02", "week02_cell_communication", "세포는 어떻게 소통할까"],
   ["03", "week03_genetic_variation", "유전 변이와 유전질환"],
@@ -46,6 +48,32 @@ const PRINT_CSS = `
   .quiz details { display: block; }
 `;
 
+// 잉크 절약형(흑백 친화): 넓은 색 배경을 빼고 색은 가는 선·글자에만 남김
+const INK_CSS = `
+  header.hero{ background:#fff !important; color:#14532d !important; border:1.4px solid #166534; }
+  .hero .kicker{ background:#fff !important; border:1px solid #166534; color:#166534 !important; }
+  .hero p{ color:#333 !important; opacity:1 !important; }
+  .hero .meta span{ background:#f1f1f1 !important; color:#333 !important; }
+  thead th{ background:#ededed !important; color:#111 !important; border:1px solid #9a9a9a !important; }
+  tbody tr:nth-child(even) td{ background:#fafafa !important; }
+  th,td{ border-color:#bdbdbd !important; }
+  tr.sep td{ border-top:2.5px solid #333 !important; }
+  .part-head{ border-bottom-color:#2b2b2b !important; }
+  .part-head .no{ background:#2b2b2b !important; color:#fff !important; }
+  section.topic h3{ color:#111 !important; } section.topic h3 .num{ color:#166534 !important; }
+  h4{ color:#14532d !important; }
+  .key{ background:#fff !important; border:1px solid #9a9a9a !important; box-shadow:none !important; }
+  .key .label{ background:#2b2b2b !important; color:#fff !important; }
+  .sup{ background:#fff !important; border:1.2px dashed #9a9a9a !important; } .sup .tag{ background:#555 !important; } .sup h5{ color:#222 !important; }
+  .eval{ background:#f4f4f4 !important; border-left-color:#2b2b2b !important; color:#111 !important; } .eval::before{ color:#111 !important; }
+  .flow span{ background:#fff !important; border:1px solid #9a9a9a !important; color:#111 !important; }
+  .flow span.on{ background:#2b2b2b !important; color:#fff !important; border-color:#2b2b2b !important; } .flow i{ color:#555 !important; }
+  .mini{ border:1px solid #9a9a9a !important; } figure{ border:1px solid #9a9a9a !important; }
+  .err{ background:#fafafa !important; border-color:#9a9a9a !important; } .err .tag{ background:#444 !important; }
+  b.g,.hl{ color:#14532d !important; } .na{ color:#333 !important; } .k{ color:#333 !important; }
+  .tl{ border-left-color:#bbb !important; } .tl .ev::before{ background:#555 !important; border-color:#ddd !important; } .tl .yr{ color:#14532d !important; }
+`;
+
 const FONT = `font-family:Pretendard,sans-serif;font-size:7.5pt;color:#56635b;`;
 const header = (wk, title) => `
   <div style="${FONT}width:100%;margin:0 30mm;padding-top:22mm;display:flex;justify-content:space-between;
@@ -67,6 +95,7 @@ const footer = `
   for (const [wk, name, title] of WEEKS.filter(([w]) => !process.env.ONLY || process.env.ONLY.split(",").includes(w))) {
     await page.goto("file://" + path.join(ROOT, "weeks", name + ".html"), { waitUntil: "load" });
     await page.addStyleTag({ content: PRINT_CSS });
+    if (INK) await page.addStyleTag({ content: INK_CSS });
     await page.evaluate(() => document.querySelectorAll("details").forEach((d) => (d.open = true)));
     // 차시(강의)마다 새 쪽에서 시작. 교안 HTML에서 .part가 중첩된 경우가 있어 문서 순서로 처리함
     await page.evaluate(() => document.querySelectorAll(".part").forEach((el, i) => { if (i) el.style.breakBefore = "page"; }));
