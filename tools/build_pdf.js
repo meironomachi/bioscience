@@ -103,7 +103,8 @@ const footer = `
     const file = path.join(OUT, `week${wk}_${name.slice(7)}.pdf`);
     await page.pdf({
       path: file,
-      format: "A4",
+      width: "210mm",
+      height: "297mm",
       printBackground: true,
       scale: 0.8,
       margin: { top: "35mm", bottom: "30mm", left: "30mm", right: "30mm" },
